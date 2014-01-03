@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F1B4894-F8A9-41F9-861E-3F3F14D87D8F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GetTheMilk</RootNamespace>
+    <AssemblyName>GetTheMilk</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\Lib\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\Lib\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Sciendo.Common">
+      <HintPath>..\Lib\Sciendo.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accounts\TransactionDetails.cs" />
+    <Compile Include="Accounts\TransactionType.cs" />
+    <Compile Include="Accounts\Walet.cs" />
+    <Compile Include="Actions\ActionResult.cs" />
+    <Compile Include="Actions\ActionResultType.cs" />
+    <Compile Include="Actions\Attack.cs" />
+    <Compile Include="Actions\BaseActions\CommunicateAction.cs" />
+    <Compile Include="Actions\BaseActions\FightAction.cs" />
+    <Compile Include="Actions\BaseActions\GameAction.cs" />
+    <Compile Include="Actions\BaseActions\MovementAction.cs" />
+    <Compile Include="Actions\BaseActions\ObjectTransferAction.cs" />
+    <Compile Include="Actions\BaseActions\ObjectUseOnObjectAction.cs" />
+    <Compile Include="Actions\BaseActions\OneObjectAction.cs" />
+    <Compile Include="Actions\BaseActions\TwoCharactersAction.cs" />
+    <Compile Include="Actions\BaseActions\UseOnCharacter.cs" />
+    <Compile Include="Actions\Buy.cs" />
+    <Compile Include="Actions\ExposeInventory.cs" />
+    <Compile Include="Actions\ExposeInventoryExtraData.cs" />
+    <Compile Include="Actions\GenericActions\AnyTransferFrom.cs" />
+    <Compile Include="Actions\GenericActions\AnyTransferTo.cs" />
+    <Compile Include="Actions\GenericActions\DestroyBothObjects.cs" />
+    <Compile Include="Actions\GenericActions\DestroyTheActiveObject.cs" />
+    <Compile Include="Actions\GenericActions\DestroyThePassiveObject.cs" />
+    <Compile Include="Actions\GiveTo.cs" />
+    <Compile Include="Actions\Hit.cs" />
+    <Compile Include="Actions\Interactions\ActionReaction.cs" />
+    <Compile Include="Actions\Interactions\InteractionSetup.cs" />
+    <Compile Include="Actions\Keep.cs" />
+    <Compile Include="Actions\Kick.cs" />
+    <Compile Include="Actions\Kill.cs" />
+    <Compile Include="Actions\Meet.cs" />
+    <Compile Include="Actions\MovementActionExtraData.cs" />
+    <Compile Include="Actions\Open.cs" />
+    <Compile Include="Actions\Pick.cs" />
+    <Compile Include="Actions\Quit.cs" />
+    <Compile Include="Actions\Run.cs" />
+    <Compile Include="Actions\Sell.cs" />
+    <Compile Include="Actions\TakeFrom.cs" />
+    <Compile Include="Actions\TakeMoneyFrom.cs" />
+    <Compile Include="Actions\Walk.cs" />
+    <Compile Include="BaseCommon\IInventoryOwner.cs" />
+    <Compile Include="Characters\BaseCharacters\Character.cs" />
+    <Compile Include="Characters\BaseCharacters\ICharacter.cs" />
+    <Compile Include="Characters\BaseCharacters\IPlayer.cs" />
+    <Compile Include="Characters\Personality.cs" />
+    <Compile Include="Characters\PersonalityType.cs" />
+    <Compile Include="Characters\Player.cs" />
+    <Compile Include="Factories\InteractivityProvidersInstaller.cs" />
+    <Compile Include="Factories\LevelsFactory.cs" />
+    <Compile Include="Factories\LevelsInstaller.cs" />
+    <Compile Include="Factories\ObjectsFactory.cs" />
+    <Compile Include="Levels\ILevel.cs" />
+    <Compile Include="Levels\Level.cs" />
+    <Compile Include="Navigation\Cell.cs" />
+    <Compile Include="Navigation\Direction.cs" />
+    <Compile Include="Navigation\Map.cs" />
+    <Compile Include="Objects\AnyKey.cs" />
+    <Compile Include="Objects\BaseObjects\IPositionableObject.cs" />
+    <Compile Include="Objects\BaseObjects\ITransactionalObject.cs" />
+    <Compile Include="Objects\BaseObjects\Tool.cs" />
+    <Compile Include="Objects\BaseObjects\Weapon.cs" />
+    <Compile Include="Objects\Inventory.cs" />
+    <Compile Include="Objects\InventoryType.cs" />
+    <Compile Include="Objects\WeaponType.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\GameSettings.cs" />
+    <Compile Include="UI\GraphicBasedInteractivityProvider.cs" />
+    <Compile Include="UI\Interactivity.cs" />
+    <Compile Include="UI\NoInteractivityProvider.cs" />
+    <Compile Include="UI\TextBasedInteractivityProvider.cs" />
+    <Compile Include="Utils\CalculationStrategies.cs" />
+    <Compile Include="Utils\CoreExtensions.cs" />
+    <Compile Include="Utils\GenericInteractionRulesKeys.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
+    <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
