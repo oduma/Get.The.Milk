@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{5A5CF566-DCE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetTheMilk.Test.Level", "GetTheMilk.Test.Level\GetTheMilk.Test.Level.csproj", "{FF09336F-85D2-4798-8FE9-F5DD02C06AC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetTheMilkTests", "GetTheMilkTests\GetTheMilkTests.csproj", "{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{FF09336F-85D2-4798-8FE9-F5DD02C06AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF09336F-85D2-4798-8FE9-F5DD02C06AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF09336F-85D2-4798-8FE9-F5DD02C06AC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
