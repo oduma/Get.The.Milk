@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GetTheMilkTests</RootNamespace>
+    <AssemblyName>GetTheMilkTests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\Lib\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\Lib\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Sciendo.Common">
+      <HintPath>..\Lib\Sciendo.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionsTests\BlueKey.cs" />
+    <Compile Include="ActionsTests\CommunicationActionsTests.cs" />
+    <Compile Include="ActionsTests\DataGeneratorForActions.cs" />
+    <Compile Include="ActionsTests\KeylessChild.cs" />
+    <Compile Include="ActionsTests\KeyMaster.cs" />
+    <Compile Include="ActionsTests\LevelInstaller.cs" />
+    <Compile Include="ActionsTests\MovementsTests.cs" />
+    <Compile Include="ActionsTests\OneCharacterOneObjectActionTests.cs" />
+    <Compile Include="ActionsTests\OneCharacterTwoObjectsActionTests.cs" />
+    <Compile Include="ActionsTests\RedDoor.cs" />
+    <Compile Include="ActionsTests\RedKey.cs" />
+    <Compile Include="ActionsTests\ScrewDriver.cs" />
+    <Compile Include="ActionsTests\ShopKeeper.cs" />
+    <Compile Include="ActionsTests\TwoCharactersActionsTests.cs" />
+    <Compile Include="ActionsTests\TwoCharactersOneObjectTests.cs" />
+    <Compile Include="ActionsTests\Wall.cs" />
+    <Compile Include="ActionsTests\Window.cs" />
+    <Compile Include="IntegrationTests\AutoPlayTestLevel1.cs" />
+    <Compile Include="IntegrationTests\StubTheInteractivity.cs" />
+    <Compile Include="LevelsLoaderTests\DataGeneratorForLevels.cs" />
+    <Compile Include="LevelsLoaderTests\LevelsLoaderInfrastructureTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GetTheMilk.Test.Level\GetTheMilk.Test.Level.csproj">
+      <Project>{ff09336f-85d2-4798-8fe9-f5dd02c06ac0}</Project>
+      <Name>GetTheMilk.Test.Level</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GetTheMilk\GetTheMilk.csproj">
+      <Project>{0f1b4894-f8a9-41f9-861e-3f3f14d87d8f}</Project>
+      <Name>GetTheMilk</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
