@@ -21,30 +21,48 @@ namespace GetTheMilkTests.ActionsTests
 {
     public class DataGeneratorForActions
     {
-        
+
         public static IEnumerable TestCases1C1O
         {
             get
             {
                 //Kick a wall (nothing happens)
                 yield return
-                    new TestCaseData(CreateACharacter("Me"), (new ObjectsFactory(new LevelInstaller())).CreateObject <OneObjectAction>("Kick"), (new ObjectsFactory(new LevelInstaller())).CreateObject<IPositionableObject>("Wall")).Returns(null);
+                    new TestCaseData(CreateACharacter("Me"),
+                                     (new ObjectsFactory(new LevelInstaller())).CreateObject<OneObjectAction>("Kick"),
+                                     (new ObjectsFactory(new LevelInstaller())).CreateObject<IPositionableObject>("Wall"))
+                        .Returns(null);
                 //Kick a window (nothing happens)
                 yield return
-                    new TestCaseData(CreateACharacter("Me"), (new ObjectsFactory(new LevelInstaller())).CreateObject <OneObjectAction>("Kick"), (new ObjectsFactory(new LevelInstaller())).CreateObject<IPositionableObject>("Window")).Returns(null);
+                    new TestCaseData(CreateACharacter("Me"),
+                                     (new ObjectsFactory(new LevelInstaller())).CreateObject<OneObjectAction>("Kick"),
+                                     (new ObjectsFactory(new LevelInstaller())).CreateObject<IPositionableObject>(
+                                         "Window")).Returns(null);
                 //Pick a key, key in hand
                 var meCharacter = CreateACharacter("Me");
                 yield return
-                    new TestCaseData(meCharacter, (new ObjectsFactory(new LevelInstaller())).CreateObject <OneObjectAction>("Pick"), (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey")).Returns(meCharacter.RightHandObject);
+                    new TestCaseData(meCharacter,
+                                     (new ObjectsFactory(new LevelInstaller())).CreateObject<OneObjectAction>("Pick"),
+                                     (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>(
+                                         "BlueKey")).Returns(meCharacter.RightHandObject);
                 //Put the key in the tool inventory
                 var character = CreateACharacter("Me");
                 yield return
-                    new TestCaseData(character, (new ObjectsFactory(new LevelInstaller())).CreateObject <OneObjectAction>("Keep"), CreateToolInHand(character, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"))).Returns(
-                        character.ToolInventory);
+                    new TestCaseData(character,
+                                     (new ObjectsFactory(new LevelInstaller())).CreateObject<OneObjectAction>("Keep"),
+                                     CreateToolInHand(character,
+                                                      (new ObjectsFactory(new LevelInstaller())).CreateObject
+                                                          <ITransactionalObject>("BlueKey"))).Returns(
+                                                              character.ToolInventory);
                 //try to put a key in a full tool inventory
                 character = CreateACharacter("Me", true);
                 yield return
-                    new TestCaseData(character, (new ObjectsFactory(new LevelInstaller())).CreateObject <OneObjectAction>("Keep"), CreateToolInHand(character, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"))).Returns(character.RightHandObject);
+                    new TestCaseData(character,
+                                     (new ObjectsFactory(new LevelInstaller())).CreateObject<OneObjectAction>("Keep"),
+                                     CreateToolInHand(character,
+                                                      (new ObjectsFactory(new LevelInstaller())).CreateObject
+                                                          <ITransactionalObject>("BlueKey"))).Returns(
+                                                              character.RightHandObject);
             }
         }
 
@@ -56,9 +74,11 @@ namespace GetTheMilkTests.ActionsTests
                 var active = CreateACharacter("Me");
                 var passive = CreateACharacter("Key Master");
                 var action = (new ObjectsFactory(new LevelInstaller())).CreateObject<ObjectTransferAction>("GiveTo");
-                action.UseableObject = CreateToolInHand(active,new ObjectsFactory(new LevelInstaller()).CreateObject<ITransactionalObject>("BlueKey"));
+                action.UseableObject = CreateToolInHand(active,
+                                                        new ObjectsFactory(new LevelInstaller()).CreateObject
+                                                            <ITransactionalObject>("BlueKey"));
                 yield return
-                    new TestCaseData(active, passive,action).Returns(
+                    new TestCaseData(active, passive, action).Returns(
                         active.RightHandObject);
 
                 //Give a key to a character that wants it (key changes owners)
@@ -66,10 +86,11 @@ namespace GetTheMilkTests.ActionsTests
                 passive = CreateACharacter("Keyless Child");
                 action = (new ObjectsFactory(new LevelInstaller())).CreateObject<ObjectTransferAction>("GiveTo");
                 action.UseableObject = CreateToolInHand(active,
-                                                        (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>(
-                                                            "BlueKey"));
+                                                        (new ObjectsFactory(new LevelInstaller())).CreateObject
+                                                            <ITransactionalObject>(
+                                                                "BlueKey"));
                 yield return
-                    new TestCaseData(active, passive,action ).Returns(
+                    new TestCaseData(active, passive, action).Returns(
                         passive.RightHandObject);
 
             }
@@ -84,7 +105,7 @@ namespace GetTheMilkTests.ActionsTests
                 var passive = CreateACharacter("Shop Keeper");
 
                 yield return new TestCaseData(active, passive, 100, TransactionType.Debit).Returns(
-                        active.Walet.CurrentCapacity);
+                    active.Walet.CurrentCapacity);
 
                 yield return new TestCaseData(active, passive, 10, TransactionType.Debit).Returns(
                     40);
@@ -102,35 +123,40 @@ namespace GetTheMilkTests.ActionsTests
 
                 var buyAction = (new ObjectsFactory(new LevelInstaller())).CreateObject<ObjectTransferAction>("Buy");
                 buyAction.UseableObject = CreateToolInHand(passive,
-                                                        (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>(
-                                                            "BlueKey"));
+                                                           (new ObjectsFactory(new LevelInstaller())).CreateObject
+                                                               <ITransactionalObject>(
+                                                                   "BlueKey"));
                 yield return
-                    new TestCaseData(active, passive,buyAction ).Returns(
+                    new TestCaseData(active, passive, buyAction).Returns(
                         50);
 
                 //Try to sell a key to a character not enough money (nothing happens)
                 active = CreateACharacter("Me");
                 passive = CreateACharacter("Keyless Child");
-                
+
                 var sellAction = (new ObjectsFactory(new LevelInstaller())).CreateObject<ObjectTransferAction>("Sell");
                 sellAction.UseableObject = CreateToolInHand(active,
-                                        (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>(
-                                            "BlueKey"));
+                                                            (new ObjectsFactory(new LevelInstaller())).CreateObject
+                                                                <ITransactionalObject>(
+                                                                    "BlueKey"));
 
                 yield return
                     new TestCaseData(active, passive, sellAction).Returns(
                         50);
 
                 //Try to buy a key no room in your inventory
-                active = CreateACharacter("Me",true);
+                active = CreateACharacter("Me", true);
                 passive = CreateACharacter("Shop Keeper");
 
-                CreateToolInHand(active, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
-                CreateToolInHand(active, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
+                CreateToolInHand(active,
+                                 (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
+                CreateToolInHand(active,
+                                 (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
                 buyAction = (new ObjectsFactory(new LevelInstaller())).CreateObject<ObjectTransferAction>("Buy");
                 buyAction.UseableObject = CreateToolInHand(passive,
-                                        (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>(
-                                            "SkrewDriver"));
+                                                           (new ObjectsFactory(new LevelInstaller())).CreateObject
+                                                               <ITransactionalObject>(
+                                                                   "SkrewDriver"));
                 yield return
                     new TestCaseData(active, passive, buyAction).Returns(
                         50);
@@ -138,11 +164,13 @@ namespace GetTheMilkTests.ActionsTests
                 active = CreateACharacter("Me");
                 passive = CreateACharacter("Shop Keeper");
 
-                CreateToolInHand(active, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
+                CreateToolInHand(active,
+                                 (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
                 buyAction = (new ObjectsFactory(new LevelInstaller())).CreateObject<ObjectTransferAction>("Buy");
                 buyAction.UseableObject = CreateToolInHand(passive,
-                                        (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>(
-                                            "SkrewDriver"));
+                                                           (new ObjectsFactory(new LevelInstaller())).CreateObject
+                                                               <ITransactionalObject>(
+                                                                   "SkrewDriver"));
                 yield return
                     new TestCaseData(active, passive, buyAction).Returns(
                         45);
@@ -150,11 +178,11 @@ namespace GetTheMilkTests.ActionsTests
                 //Succesfully sell a skrew driver
                 active = CreateACharacter("Me");
                 passive = CreateACharacter("Keyless Child");
-                CreateToolInHand(active, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
                 sellAction = (new ObjectsFactory(new LevelInstaller())).CreateObject<ObjectTransferAction>("Sell");
                 sellAction.UseableObject = CreateToolInHand(active,
-                                        (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>(
-                                            "SkrewDriver"));
+                                                            (new ObjectsFactory(new LevelInstaller())).CreateObject
+                                                                <ITransactionalObject>(
+                                                                    "SkrewDriver"));
 
                 yield return
                     new TestCaseData(active, passive, sellAction).Returns(
@@ -171,17 +199,27 @@ namespace GetTheMilkTests.ActionsTests
                 //Try to open a door with wrong key
                 var active = CreateACharacter("Me");
                 var passive = (new ObjectsFactory(new LevelInstaller())).CreateObject<IPositionableObject>("RedDoor");
+                passive.StorageContainer = new Inventory {Owner = new StubbedContainerOwner()};
+                CreateToolInHand(active,
+                                 (new ObjectsFactory(new LevelInstaller())).CreateObject
+                                     <ITransactionalObject>("BlueKey"));
                 yield return
                     new TestCaseData(active,
-                                     CreateToolInHand(active, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey")),
-                                     passive, (new ObjectsFactory(new LevelInstaller())).CreateObject<ObjectUseOnObjectAction>("Open")).Returns(passive);
+                                     passive,
+                                     (new ObjectsFactory(new LevelInstaller())).CreateObject<ObjectUseOnObjectAction>(
+                                         "Open")).Returns(passive);
                 //try to open a door with the right key
                 active = CreateACharacter("Me");
                 passive = (new ObjectsFactory(new LevelInstaller())).CreateObject<IPositionableObject>("RedDoor");
+                passive.StorageContainer = new Inventory { Owner = new StubbedContainerOwner() };
+                CreateToolInHand(active,
+                                 (new ObjectsFactory(new LevelInstaller())).CreateObject
+                                     <ITransactionalObject>("Red Key"));
                 yield return
                     new TestCaseData(active,
-                                     CreateToolInHand(active, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("RedKey")),
-                                     passive, (new ObjectsFactory(new LevelInstaller())).CreateObject<ObjectUseOnObjectAction>("Open")).Returns(null);
+                                     passive,
+                                     (new ObjectsFactory(new LevelInstaller())).CreateObject<ObjectUseOnObjectAction>(
+                                         "Open")).Returns(null);
 
 
             }
@@ -194,22 +232,24 @@ namespace GetTheMilkTests.ActionsTests
                 //walk off the margin of the map
                 var map = CreateAMap();
                 var active = CreateACharacter("Me");
-                CreateToolInHand(active, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
+                CreateToolInHand(active,
+                                 (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
                 var walkNorth = (new ObjectsFactory(new LevelInstaller())).CreateObject<MovementAction>("Walk");
                 walkNorth.Direction = Direction.North;
                 yield return
                     new TestCaseData(active,
-                                     walkNorth, map,null,null).
+                                     walkNorth, map, null, null).
                         Returns(ActionResultType.OutOfTheMap);
 
                 //run off the margin of the map
                 active = CreateACharacter("Me");
-                CreateToolInHand(active, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
+                CreateToolInHand(active,
+                                 (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
                 var runNorth = (new ObjectsFactory(new LevelInstaller())).CreateObject<MovementAction>("Run");
                 runNorth.Direction = Direction.North;
                 yield return
                     new TestCaseData(active,
-                                     runNorth, map,null,null).
+                                     runNorth, map, null, null).
                         Returns(ActionResultType.OutOfTheMap);
 
 
@@ -217,40 +257,45 @@ namespace GetTheMilkTests.ActionsTests
                 //move blocking object
 
                 active = CreateACharacter("Me");
-                var blockingObject = (new ObjectsFactory(new LevelInstaller()).CreateObject<IPositionableObject>("RedDoor"));
+                var blockingObject =
+                    (new ObjectsFactory(new LevelInstaller()).CreateObject<IPositionableObject>("RedDoor"));
+                blockingObject.StorageContainer = new Inventory { Owner = new StubbedContainerOwner() };
                 blockingObject.MapNumber = 1;
                 blockingObject.CellNumber = 3;
-                CreateToolInHand(active, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
+                CreateToolInHand(active,
+                                 (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
                 var runEast = (new ObjectsFactory(new LevelInstaller())).CreateObject<MovementAction>("Run");
                 runEast.Direction = Direction.East;
                 yield return
                     new TestCaseData(active,
-                                     runEast, map, new List<IPositionableObject> {blockingObject},null).
+                                     runEast, map, new List<IPositionableObject> {blockingObject}, null).
                         Returns(ActionResultType.BlockedByObject);
 
                 //move blocking character
 
                 active = CreateACharacter("Me");
-                CreateToolInHand(active, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
+                CreateToolInHand(active,
+                                 (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
                 var blockingCharacter = CreateACharacter("Keyless Child");
-                
+
                 var runSouth = (new ObjectsFactory(new LevelInstaller())).CreateObject<MovementAction>("Run");
                 runSouth.Direction = Direction.South;
                 yield return
                     new TestCaseData(active,
-                                     runSouth, map, null, new List<Character>{blockingCharacter}).
+                                     runSouth, map, null, new List<Character> {blockingCharacter}).
                         Returns(ActionResultType.BlockedByCharacter);
 
                 //walk Ok
 
                 active = CreateACharacter("Me");
-                CreateToolInHand(active, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
+                CreateToolInHand(active,
+                                 (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("BlueKey"));
 
                 var walkSouth = (new ObjectsFactory(new LevelInstaller())).CreateObject<MovementAction>("Walk");
                 walkSouth.Direction = Direction.South;
                 yield return
                     new TestCaseData(active,
-                                     walkSouth, map, null, new List<Character> { blockingCharacter }).
+                                     walkSouth, map, null, new List<Character> {blockingCharacter}).
                         Returns(ActionResultType.Ok);
 
             }
@@ -279,7 +324,8 @@ namespace GetTheMilkTests.ActionsTests
                 //cannot talk
                 var me = CreateACharacter("Me");
                 var keylessChild = CreateACharacter("Keyless Child");
-                yield return new TestCaseData(new CommunicateAction { Message = "Interactive" }, me, keylessChild).Returns(null);
+                yield return
+                    new TestCaseData(new CommunicateAction {Message = "Interactive"}, me, keylessChild).Returns(null);
             }
         }
 
@@ -290,10 +336,14 @@ namespace GetTheMilkTests.ActionsTests
                 //ask and receive
                 var me = CreateACharacter("Me");
                 var keyMaster = CreateACharacter("Key Master");
-                CreateToolInHand(keyMaster, (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("RedKey"));
-                keyMaster.Personality.InteractionRules.Add(GenericInteractionRulesKeys.CharacterSpecific,GetKMInteractionRules(keyMaster));
+                CreateToolInHand(keyMaster,
+                                 (new ObjectsFactory(new LevelInstaller())).CreateObject<ITransactionalObject>("Red Key"));
+                keyMaster.Personality.InteractionRules.Add(GenericInteractionRulesKeys.CharacterSpecific,
+                                                           GetKMInteractionRules(keyMaster));
 
-                yield return new TestCaseData(new CommunicateAction { Message = "Give me the red key." }, me, keyMaster).Returns("RedKey");
+                yield return
+                    new TestCaseData(new CommunicateAction {Message = "Give me the red key."}, me, keyMaster).Returns(
+                        "Red Key");
             }
         }
 
@@ -404,15 +454,17 @@ namespace GetTheMilkTests.ActionsTests
 
         private static Tool CreateToolInHand(Character character, IPositionableObject toolObject)
         {
-            character.TryPerformAction((new ObjectsFactory(new LevelInstaller())).CreateObject <OneObjectAction>("Pick"),toolObject);
+            character.TryPerformAction(
+                (new ObjectsFactory(new LevelInstaller())).CreateObject<OneObjectAction>("Pick"), toolObject);
             return ((Tool) toolObject);
         }
 
-        private static Character CreateACharacter(string name, bool fullToolInventory=false, int currencyAvailable=50)
+        private static Character CreateACharacter(string name, bool fullToolInventory = false,
+                                                  int currencyAvailable = 50)
         {
-            if(name=="Me")
+            if (name == "Me")
             {
-                var me = (new ObjectsFactory(new LevelInstaller())).CreateObject<IPlayer>("Me");
+                var me = new Player(new StubedTextBasedInteractivity());
                 me.ToolInventory.MaximumCapacity = (fullToolInventory) ? 0 : 2;
                 me.WeaponInventory.MaximumCapacity = 2;
                 me.Walet.MaxCapacity = 200;
@@ -420,7 +472,8 @@ namespace GetTheMilkTests.ActionsTests
                 me.RightHandObject.Objects.Clear();
                 me.LeftHandObject.Objects.Clear();
                 me.CellNumber = 1;
-                me.Personality.InteractionRules.Add(GenericInteractionRulesKeys.CharacterSpecific, GetMeInteractionRules());
+                me.Personality.InteractionRules.Add(GenericInteractionRulesKeys.CharacterSpecific,
+                                                    GetMeInteractionRules());
                 return me as Character;
             }
             if (name == "Key Master")
@@ -441,7 +494,8 @@ namespace GetTheMilkTests.ActionsTests
                 kcCharacter.Walet.CurrentCapacity = 5;
                 kcCharacter.RightHandObject.Objects.Clear();
                 kcCharacter.LeftHandObject.Objects.Clear();
-                kcCharacter.Personality.InteractionRules.Add(GenericInteractionRulesKeys.CharacterSpecific,GetKCInteractionRules());
+                kcCharacter.Personality.InteractionRules.Add(GenericInteractionRulesKeys.CharacterSpecific,
+                                                             GetKCInteractionRules());
                 kcCharacter.MapNumber = 1;
                 kcCharacter.CellNumber = 7;
                 return kcCharacter;
@@ -451,8 +505,8 @@ namespace GetTheMilkTests.ActionsTests
                 var skCharacter = (new ObjectsFactory(new LevelInstaller())).CreateObject<Character>("Shop Keeper");
                 skCharacter.ToolInventory.MaximumCapacity = (fullToolInventory) ? 0 : 2;
                 skCharacter.WeaponInventory.MaximumCapacity = 2;
-                skCharacter.Walet.MaxCapacity=2000;
-                skCharacter.Walet.CurrentCapacity= 50;
+                skCharacter.Walet.MaxCapacity = 2000;
+                skCharacter.Walet.CurrentCapacity = 50;
                 skCharacter.RightHandObject.Objects.Clear();
                 skCharacter.LeftHandObject.Objects.Clear();
                 return skCharacter;
@@ -501,12 +555,6 @@ namespace GetTheMilkTests.ActionsTests
                                    Reaction = new CommunicateAction {Message = "Interactive 2"}
                                }
                        };
-        }
-
-        private static GameAction FakeInteractiveSelector(GameAction[] options, ICharacter targetCharacter)
-        {
-            Assert.True(options.Any());
-            return options.First();
         }
     }
 }

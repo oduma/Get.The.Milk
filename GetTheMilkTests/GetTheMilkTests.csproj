@@ -67,6 +67,8 @@
     <Compile Include="ActionsTests\RedKey.cs" />
     <Compile Include="ActionsTests\ScrewDriver.cs" />
     <Compile Include="ActionsTests\ShopKeeper.cs" />
+    <Compile Include="ActionsTests\StubbedContainerOwner.cs" />
+    <Compile Include="ActionsTests\StubedTextBasedInteractivity.cs" />
     <Compile Include="ActionsTests\TwoCharactersActionsTests.cs" />
     <Compile Include="ActionsTests\TwoCharactersOneObjectTests.cs" />
     <Compile Include="ActionsTests\Wall.cs" />

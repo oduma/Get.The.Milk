@@ -1,5 +1,3 @@
-using System;
-using GetTheMilk;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Objects;
@@ -16,7 +14,7 @@ namespace GetTheMilkTests.ActionsTests
 
         public bool AllowsIndirectAction(GameAction a, IPositionableObject o)
         {
-            return (a is Open && o is GetTheMilk.TestLevel.Level1Objects.RedKey);
+            return (a is Open && o is RedKey);
         }
 
         public Inventory StorageContainer { get; set; }

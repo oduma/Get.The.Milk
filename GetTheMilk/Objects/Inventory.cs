@@ -32,7 +32,7 @@ namespace GetTheMilk.Objects
 
         public InventoryType InventoryType { get; set; }
 
-        public void Add<T>(params T[] os) where T:IPositionableObject
+        public bool Add<T>(params T[] os) where T:IPositionableObject
         {
             foreach (T o in os)
             {
@@ -50,9 +50,10 @@ namespace GetTheMilk.Objects
                 }
                 else
                 {
-                    break;
+                    return false;
                 }
             }
+            return true;
         }
 
         public void Remove<T>(T o) where T:IPositionableObject

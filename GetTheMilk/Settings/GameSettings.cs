@@ -30,5 +30,10 @@ namespace GetTheMilk.Settings
         {
             get { return 1; }
         }
+
+        public static int DefaultWalletMaxCapacity
+        {
+            get { return 200; }
+        }
     }
 }

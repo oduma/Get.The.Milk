@@ -117,12 +117,12 @@ namespace GetTheMilk.TestLevel
 
         public override Inventory PositionableObjects
         {
-            get { throw new System.NotImplementedException(); }
+            get { return new Inventory(); }
         }
 
         public override Inventory Characters
         {
-            get { throw new System.NotImplementedException(); }
+            get { return new Inventory(); }
         }
 
         public override string Name

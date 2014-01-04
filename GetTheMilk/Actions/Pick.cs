@@ -1,8 +1,6 @@
 ﻿using System.Linq;
 using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions

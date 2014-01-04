@@ -31,7 +31,7 @@ namespace GetTheMilk.Characters.BaseCharacters
         ActionResult TryPerformAction(TakeMoneyFrom action, ICharacter targetCharacter);
 
         ActionResult TryPerformObjectOnObjectAction(ObjectUseOnObjectAction action,
-                                                    IPositionableObject passiveTargetObject);
+                                                    ref IPositionableObject passiveTargetObject);
         bool TryAnySuitableInventories(IPositionableObject targetObject);
 
         ActionResult TryPerformMove(MovementAction movement, Map currentMap,

@@ -82,7 +82,7 @@ namespace GetTheMilkTests.IntegrationTests
             var openDoor = new Open();
 
             actionResult = player.TryPerformObjectOnObjectAction(openDoor,
-                                                                 ((MovementActionExtraData)movementResult.ExtraData).ObjectsBlocking[0]);
+                                                                 ref ((MovementActionExtraData)movementResult.ExtraData).ObjectsBlocking[0]);
             Assert.AreEqual(ActionResultType.Ok,actionResult.ResultType);
             Assert.AreEqual(2,level.PositionableObjects.Objects.Count);
             Assert.AreEqual(0,player.ToolInventory.Objects.Count);

@@ -27,7 +27,7 @@ namespace GetTheMilkTests.ActionsTests
                 return false;
             if (a is GiveTo)
                 return true;
-            if (a is CommunicateAction && o is ICharacter)
+            if (a is CommunicateAction && ((CommunicateAction)a).Message == "Give me the red key." && o is ICharacter)
                 return true;
             return false;
         }

@@ -150,7 +150,7 @@ namespace GetTheMilk.Characters.BaseCharacters
             return result;
         }
 
-        public ActionResult TryPerformObjectOnObjectAction(ObjectUseOnObjectAction action, IPositionableObject passiveTargetObject)
+        public ActionResult TryPerformObjectOnObjectAction(ObjectUseOnObjectAction action, ref IPositionableObject passiveTargetObject)
         {
             var activeTargetObject = ChooseTool();
             var actionResult = new ActionResult
@@ -196,15 +196,9 @@ namespace GetTheMilk.Characters.BaseCharacters
                 return true;
             }
             if (targetObject is Tool)
-            {
-                ToolInventory.Add(targetObject as Tool);
-                return true;
-            }
+                return ToolInventory.Add(targetObject as Tool);
             if (targetObject is Weapon)
-            {
-                WeaponInventory.Add(targetObject as Weapon);
-                return true;
-            }
+                return WeaponInventory.Add(targetObject as Weapon);
             return false;
         }
 
@@ -262,7 +256,9 @@ namespace GetTheMilk.Characters.BaseCharacters
     
         public IPositionableObject ChooseTool()
         {
-            return Interactivity.SelectAnObject(ToolInventory.Objects.ToArray())[0];
+
+            return Interactivity.SelectAnObject(new[] {ToolInventory.Objects, RightHandObject.Objects, LeftHandObject.Objects}.SelectMany(
+                c => c.Where(o => o is Tool), (c, o) => o).ToArray())[0];
         }
 
 

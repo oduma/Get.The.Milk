@@ -1,9 +1,5 @@
-﻿using GetTheMilk;
-using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Characters;
+﻿using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using NUnit.Framework;
 
@@ -13,10 +9,9 @@ namespace GetTheMilkTests.ActionsTests
     public class OneCharacterTwoObjectsActionTests
     {
         [Test,TestCaseSource(typeof(DataGeneratorForActions),"TestCases1C2O")]
-        public IPositionableObject TransfromFromMovementPreventingToNot(Character active, IPositionableObject activeObject, IPositionableObject passiveObject, ObjectUseOnObjectAction action)
+        public IPositionableObject TransfromFromMovementPreventingToNot(Character active, IPositionableObject passiveObject, ObjectUseOnObjectAction action)
         {
-            active.TryPerformObjectOnObjectAction(action, passiveObject);
-            Assert.IsNull(activeObject);
+            active.TryPerformObjectOnObjectAction(action, ref passiveObject);
             return passiveObject;
         }
 

@@ -25,7 +25,7 @@ namespace GetTheMilkTests.ActionsTests
 
         public override bool AllowsIndirectAction(GameAction a, IPositionableObject o)
         {
-                return ((o is ICharacter) && (a is GiveTo || a is Buy || a is Sell));
+            return ((o is ICharacter) && (a is GiveTo || a is Buy || a is Sell || a is Pick || a is Keep));
         }
     }
 }

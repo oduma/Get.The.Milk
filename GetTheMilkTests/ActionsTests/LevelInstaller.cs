@@ -1,12 +1,9 @@
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using GetTheMilk;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using Sciendo.Common.Logging;
 
@@ -24,11 +21,10 @@ namespace GetTheMilkTests.ActionsTests
                 container.Register(
                     Component.For<IPositionableObject>().ImplementedBy<Wall>().Named("Wall"),
                     Component.For<IPositionableObject>().ImplementedBy<RedDoor>().Named("RedDoor"),
-                    Component.For<ITransactionalObject>().ImplementedBy<RedKey>().Named("RedKey"),
+                    Component.For<ITransactionalObject>().ImplementedBy<RedKey>().Named("Red Key"),
                     Component.For<ITransactionalObject>().ImplementedBy<BlueKey>().Named("BlueKey"),
                     Component.For<ITransactionalObject>().ImplementedBy<ScrewDriver>().Named("SkrewDriver"),
                     Component.For<IPositionableObject>().ImplementedBy<Window>().Named("Window"),
-                    Component.For<ICharacter>().ImplementedBy<Player>().Named("Me"),
                     Component.For<ICharacter>().ImplementedBy<KeyMaster>().Named("Key Master"),
                     Component.For<ICharacter>().ImplementedBy<KeylessChild>().Named("Keyless Child"),
                     Component.For<ICharacter>().ImplementedBy<ShopKeeper>().Named("Shop Keeper"),

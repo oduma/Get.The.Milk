@@ -32,6 +32,7 @@ namespace GetTheMilk.Characters
         {
             BlockMovement = true;
             Experience = 1;
+            Walet.MaxCapacity = GameSettings.DefaultWalletMaxCapacity;
         }
 
         public override Personality Personality
