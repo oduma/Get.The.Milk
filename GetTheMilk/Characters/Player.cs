@@ -63,5 +63,10 @@ namespace GetTheMilk.Characters
                                                           GenericInteractionRulesKeys.PlayerResponses]);
 
         }
+
+        public static Player CreateNewInstance(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -102,6 +102,7 @@
     <Compile Include="Factories\LevelsFactory.cs" />
     <Compile Include="Factories\LevelsInstaller.cs" />
     <Compile Include="Factories\ObjectsFactory.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Levels\ILevel.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Navigation\Cell.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Utils\CalculationStrategies.cs" />
     <Compile Include="Utils\CoreExtensions.cs" />
     <Compile Include="Utils\GenericInteractionRulesKeys.cs" />
+    <Compile Include="Utils\Randomizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />

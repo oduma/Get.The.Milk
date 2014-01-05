@@ -1,3 +1,5 @@
+using GetTheMilk.Utils;
+
 namespace GetTheMilk.Settings
 {
     public static class GameSettings
@@ -34,6 +36,26 @@ namespace GetTheMilk.Settings
         public static int DefaultWalletMaxCapacity
         {
             get { return 200; }
+        }
+
+        public static int MinimumStartingExperience
+        {
+            get { return 1; }
+        }
+
+        public static int MinimumStartingMoney
+        {
+            get { return 20; }
+        }
+
+        public static int GetRandomMoneyBoost()
+        {
+            return Randomizer.GetRandom(5, 20);
+        }
+
+        public static int GetRandomExperienceBoost()
+        {
+            return Randomizer.GetRandom(10, 50);
         }
     }
 }

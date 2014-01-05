@@ -7,6 +7,7 @@ using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Utils;
 
 namespace GetTheMilk.UI
 {
@@ -24,9 +25,8 @@ namespace GetTheMilk.UI
 
         public GameAction SelectAnAction(GameAction[] availableActions, ICharacter targetCharacter)
         {
-                Random randomSelector = new Random();
-                var optionId = randomSelector.Next(0, availableActions.Length);
-                return availableActions[optionId];
+            var optionId = Randomizer.GetRandom(0,availableActions.Length);
+            return availableActions[optionId];
         }
 
         public GameAction SelectAnActionAndAnObject(ExposeInventoryExtraData exposeInvetoryActionExtraData)
