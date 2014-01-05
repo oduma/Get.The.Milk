@@ -55,10 +55,12 @@ namespace GetTheMilk.Abstracted.UI.Controllers
                     }
                 case "SAVE":
                     {
-                        Player player = Player.CreateNewInstance(Model.CharacterSetup.Name);
+                        Player.Destroy();
+                        Player player = Player.GetNewInstance();
+                        player.Name = Model.CharacterSetup.Name;
                         player.Walet.CurrentCapacity = Model.CharacterSetup.StartingMoney;
                         player.Experience = Model.CharacterSetup.StartingExperience;
-                        MXContainer.Instance.Redirect("NewGame/START");
+                        MXContainer.Instance.Redirect("GamePlay");
                         break;
                     }
             }

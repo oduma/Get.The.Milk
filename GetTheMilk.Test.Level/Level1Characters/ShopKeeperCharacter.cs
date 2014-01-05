@@ -91,6 +91,7 @@ namespace GetTheMilk.TestLevel.Level1Characters
         public override string Name
         {
             get { return "John the Shop Keeper"; }
+            set { ; }
         }
 
         public override bool AllowsIndirectAction(GameAction a, IPositionableObject o)

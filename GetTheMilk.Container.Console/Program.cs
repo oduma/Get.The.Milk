@@ -28,8 +28,8 @@ namespace GetTheMilk.Container.Console
             //new game view
             MXConsoleContainer.AddView<GameStartViewModel>(new Views.GameStartViewValidation(),"PHASE2");
 
-            //// activity view
-            //MXConsoleContainer.AddView<ActivityInProgress>(new Views.ActivityDoneView(), "DONE");
+            // game play view
+            MXConsoleContainer.AddView<GamePlayViewModel>(new Views.GamePlayView(), ViewPerspective.Default);
 
             ////weeks list view
             //MXConsoleContainer.AddView<List<WeekSummary>>(new Views.WeeksListView(), ViewPerspective.Default);

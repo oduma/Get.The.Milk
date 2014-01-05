@@ -14,6 +14,7 @@ namespace GetTheMilkTests.ActionsTests
         public override string Name
         {
             get { return "Key Master"; }
+            set { ; }
         }
 
         public override bool AllowsAction(GameAction a)

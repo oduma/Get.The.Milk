@@ -44,12 +44,14 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Controllers\GamePlayController.cs" />
     <Compile Include="Controllers\NewGameController.cs" />
     <Compile Include="Controllers\StoryController.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\ActivityType.cs" />
     <Compile Include="Models\BaseActivityViewModel.cs" />
     <Compile Include="Models\CharacterModel.cs" />
+    <Compile Include="Models\GamePlayViewModel.cs" />
     <Compile Include="Models\GameStartViewModel.cs" />
     <Compile Include="Models\GameViewModel.cs" />
     <Compile Include="Models\PagingInformation.cs" />

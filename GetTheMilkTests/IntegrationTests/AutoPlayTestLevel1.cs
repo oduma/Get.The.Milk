@@ -27,7 +27,9 @@ namespace GetTheMilkTests.IntegrationTests
            // var mockTheUi = (new Mock<IInteractivity>());
             var stubedUI = new StubTheInteractivity();
             //create a new player
-            var player = new Player(stubedUI);
+            Player.Destroy();
+            var player = Player.GetNewInstance(stubedUI);
+            player.Name = "Me";
             player.Walet.CurrentCapacity = 20;
 
 

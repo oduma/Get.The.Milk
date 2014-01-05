@@ -14,6 +14,9 @@ namespace GetTheMilk.Abstracted.UI
             NewGameController newGameController= new NewGameController();
             NavigationMap.Add("NewGame",newGameController);
             NavigationMap.Add("NewGame/{Action}",newGameController);
+            GamePlayController gamePlayeController = new GamePlayController();
+            NavigationMap.Add("GamePlay",gamePlayeController);
+            NavigationMap.Add("GamePlay/{LevelNo}/{Action}",gamePlayeController);
             //NavigationMap.Add("Activity/{Action}", gameController);
             //NavigationMap.Add("Activity/{SeriesId}/{Action}", gameController);
             //NavigationMap.Add("Activity/{WeekId},{DayId}/{Action}", gameController);

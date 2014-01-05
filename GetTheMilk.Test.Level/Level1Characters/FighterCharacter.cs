@@ -56,6 +56,7 @@ namespace GetTheMilk.TestLevel.Level1Characters
         public override string Name
         {
             get { return "Baddie"; }
+            set { ; }
         }
 
     }

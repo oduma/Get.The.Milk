@@ -426,7 +426,7 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         public int MapNumber { get; set; }
         public int CellNumber { get; set; }
-        public abstract string Name { get; }
+        public abstract string Name { get; set; }
         public bool BlockMovement { get; protected set; }
         public virtual bool AllowsAction(GameAction a)
         {

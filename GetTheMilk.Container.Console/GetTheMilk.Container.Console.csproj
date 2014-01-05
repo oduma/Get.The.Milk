@@ -50,6 +50,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\BaseActivityView.cs" />
+    <Compile Include="Views\GamePlayView.cs" />
     <Compile Include="Views\GameStartView.cs" />
     <Compile Include="Views\GameStartViewValidation.cs" />
     <Compile Include="Views\GameView.cs" />
