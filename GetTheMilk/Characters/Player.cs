@@ -9,30 +9,57 @@ namespace GetTheMilk.Characters
 {
     public class Player:Character,IPlayer
     {
-        public Player(IInteractivity interactivity):base()
-        {
-            Interactivity = interactivity;
-            Initialize();
-        }
-        public Player():base()
-        {
-            Interactivity =
-    (new ObjectsFactory(new InteractivityProvidersInstaller())).CreateObject<IInteractivity>(
-        GameSettings.InteractiveMode);
-            Initialize();
+        private string _name;
+        private static Player _instance;
+        private static object _lock = new object();
 
-        }
-
-        public override string Name
-        {
-            get { return "Me"; }
-        }
-
-        private void Initialize()
+        private Player():base()
         {
             BlockMovement = true;
-            Experience = 1;
+            Experience = GameSettings.MinimumStartingExperience;
             Walet.MaxCapacity = GameSettings.DefaultWalletMaxCapacity;
+        }
+
+        public static Player GetNewInstance()
+        {
+            if(_instance==null)
+            {
+                lock(_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance= new Player();
+                        _instance.Interactivity =
+                            (new ObjectsFactory(new InteractivityProvidersInstaller())).CreateObject<IInteractivity>(
+                                GameSettings.InteractiveMode);
+                    }
+                }
+            }
+            return _instance;
+        }
+
+        public static Player GetNewInstance(IInteractivity interactivityProvider)
+        {
+            if (_instance == null)
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new Player();
+                        _instance.Interactivity = interactivityProvider;
+                    }
+                }
+            }
+            return _instance;
+        }
+
+        public static void Destroy()
+        {
+            lock(_lock)
+            {
+                _instance = null;
+            }
         }
 
         public override Personality Personality
@@ -42,6 +69,12 @@ namespace GetTheMilk.Characters
                 base.Personality.Type=PersonalityType.Neutral;
                 return base.Personality;
             }
+        }
+
+        public override string Name
+        {
+            get { return _name; }
+            set { _name = value; }
         }
 
         public void LoadPlayer()
@@ -62,11 +95,6 @@ namespace GetTheMilk.Characters
                                                       targetCharacter.Personality.InteractionRules[
                                                           GenericInteractionRulesKeys.PlayerResponses]);
 
-        }
-
-        public static Player CreateNewInstance(string name)
-        {
-            throw new NotImplementedException();
         }
     }
 }

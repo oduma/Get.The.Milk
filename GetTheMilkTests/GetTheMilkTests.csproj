@@ -73,6 +73,7 @@
     <Compile Include="ActionsTests\TwoCharactersOneObjectTests.cs" />
     <Compile Include="ActionsTests\Wall.cs" />
     <Compile Include="ActionsTests\Window.cs" />
+    <Compile Include="CharacterTests\PlayerTests.cs" />
     <Compile Include="IntegrationTests\AutoPlayTestLevel1.cs" />
     <Compile Include="IntegrationTests\StubTheInteractivity.cs" />
     <Compile Include="LevelsLoaderTests\DataGeneratorForLevels.cs" />
