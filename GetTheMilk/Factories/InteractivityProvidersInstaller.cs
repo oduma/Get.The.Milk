@@ -2,6 +2,7 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using GetTheMilk.UI;
+using GetTheMilk.UI.ViewModels;
 using Sciendo.Common.Logging;
 
 namespace GetTheMilk.Factories

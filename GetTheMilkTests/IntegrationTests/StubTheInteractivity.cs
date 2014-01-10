@@ -8,6 +8,7 @@ using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Levels;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI;
@@ -63,6 +64,11 @@ namespace GetTheMilkTests.IntegrationTests
                 }
             }
             return gameActions.ToArray();
+        }
+
+        public void EnterLevel(IPlayer player, ILevel level)
+        {
+            throw new NotImplementedException();
         }
     }
 }

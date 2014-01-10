@@ -13,6 +13,7 @@ namespace GetTheMilk.Actions
         BlockedByObject,
         BlockedByCharacter,
         OriginNotOnTheMap,
-        UnknownError
+        UnknownError,
+        LevelCompleted
     }
 }

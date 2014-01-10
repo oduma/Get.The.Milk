@@ -15,12 +15,17 @@ namespace GetTheMilk.Levels
 
         Inventory Characters { get; }
 
-        IPlayer Player { get; }
+        IPlayer Player { get; set; }
+
+        string Story { get; }
 
         void Save();
 
         void Load(string saveFile);
 
-        void EnterLevel(IPlayer player,int mapNumber, int cellNumber);
+        int StartingMap { get; }
+
+        int StartingCell { get; }
+
     }
 }

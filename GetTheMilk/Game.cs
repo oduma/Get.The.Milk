@@ -1,4 +1,6 @@
-﻿namespace GetTheMilk
+﻿using GetTheMilk.Factories;
+
+namespace GetTheMilk
 {
     public class Game
     {
@@ -67,5 +69,19 @@ Full Story Line 47
             return Instance;
         }
 
+        public void ProceedToNextLevel()
+        {
+            
+            //if(new LevelsFactory().CreateLevel(CurrentLevel+1))
+            //{
+            //    CurrentLevel++;
+            //}
+            //else
+            //{
+            //    //there are no more levels to complete
+            //}
+        }
+
+        protected int CurrentLevel { get; set; }
     }
 }

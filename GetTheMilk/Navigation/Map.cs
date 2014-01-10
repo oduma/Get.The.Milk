@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Actions;
-using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Navigation
@@ -14,25 +12,28 @@ namespace GetTheMilk.Navigation
 
         public Cell[] Cells { get; set; }
 
-        public ActionResult AllowsMovement(ICharacter active, int defaultDistance, Direction direction,
+        public ActionResult CalculateMovement(ICharacter active, 
+            int defaultDistance, 
+            Direction direction,
             IEnumerable<IPositionableObject> allLevelObjects,
             IEnumerable<IPositionableObject> allLevelCharacters)
         {
             var currentCell = Cells.FirstOrDefault(c => c.Number == active.CellNumber);
+            int nextCellId=0;
             if(currentCell!=null)
             {
                 for(int i=0;i<defaultDistance;i++)
                 {
-                    var nextCellId = currentCell.GetNeighbourCellNumber(direction);
+                    nextCellId = currentCell.GetNeighbourCellNumber(direction);
                     if (nextCellId == 0)
-                        return CalculateMovementResult(active, direction, allLevelObjects, allLevelCharacters, i,
+                        return CalculateMovementResult(active.MapNumber,currentCell.Number, allLevelObjects, allLevelCharacters, 
                                                        ActionResultType.OutOfTheMap,new IPositionableObject[0]);
                     if (allLevelObjects != null)
                     {
                         var objectsBlocking =
                             allLevelObjects.Where(o => (o.MapNumber == Number && o.CellNumber == nextCellId)&&o.BlockMovement);
                         if (objectsBlocking.Any())
-                            return CalculateMovementResult(active, direction, allLevelObjects, allLevelCharacters, i,
+                            return CalculateMovementResult(active.MapNumber,currentCell.Number, allLevelObjects, allLevelCharacters, 
                                                            ActionResultType.BlockedByObject, objectsBlocking.ToArray());
                     }
                     var blockingCharacters = (allLevelCharacters == null)
@@ -43,23 +44,52 @@ namespace GetTheMilk.Navigation
                         var charactersBlocking =
                             blockingCharacters.Where(o => o.MapNumber == Number && o.CellNumber == nextCellId);
                         if (charactersBlocking.Any())
-                            return CalculateMovementResult(active, direction, allLevelObjects, allLevelCharacters, i,
+                            return CalculateMovementResult(active.MapNumber,currentCell.Number, allLevelObjects, allLevelCharacters, 
                                                            ActionResultType.BlockedByCharacter,
                                                            charactersBlocking.ToArray());
                     }
                     currentCell = Cells.FirstOrDefault(c => c.Number == nextCellId);
+                    if(currentCell.IsObjective)
+                    {
+                        return CalculateMovementResult(active.MapNumber,nextCellId, allLevelObjects, allLevelCharacters, 
+                                                       ActionResultType.LevelCompleted, new IPositionableObject[0]);
+                    }
                 }
             }
             else
-                return CalculateMovementResult(active, direction, allLevelObjects, allLevelCharacters, 0,
+                return CalculateMovementResult(active.MapNumber,active.CellNumber, allLevelObjects, allLevelCharacters,
                                                ActionResultType.OriginNotOnTheMap, new IPositionableObject[0]);
 
-            return CalculateMovementResult(active, direction, allLevelObjects, allLevelCharacters, defaultDistance,
+            return CalculateMovementResult(active.MapNumber,nextCellId, allLevelObjects, allLevelCharacters,
                                            ActionResultType.Ok, new IPositionableObject[0]);
         }
 
-        private ActionResult CalculateMovementResult(ICharacter active, Direction direction, IEnumerable<IPositionableObject> allObjects,
-                                                       IEnumerable<IPositionableObject> allLevelCharacters, int i,
+        public ActionResult CalculateDirectMovement(int targetMapNumber, 
+            int targetCellId,
+            Direction direction,
+            IEnumerable<IPositionableObject> allLevelObjects,
+            IEnumerable<IPositionableObject> allLevelCharacters)
+        {
+            if (direction != Direction.None)
+                return new ActionResult {ResultType = ActionResultType.UnknownError};
+            var blockingObjects = allLevelObjects.Where(
+                o => o.MapNumber == targetMapNumber && o.CellNumber == targetCellId);
+            var blockingCharacters=
+                    allLevelCharacters.Where(
+                        c =>
+                        c.MapNumber == targetMapNumber && c.CellNumber == targetCellId);
+            if (blockingObjects.Any())
+                return CalculateMovementResult(targetMapNumber, targetCellId, allLevelObjects, allLevelCharacters,
+                                               ActionResultType.BlockedByObject, blockingObjects.ToArray());
+            if(blockingCharacters.Any())
+                return CalculateMovementResult(targetMapNumber, targetCellId, allLevelObjects, allLevelCharacters,
+                                               ActionResultType.BlockedByCharacter, blockingCharacters.ToArray());
+            
+            return CalculateMovementResult(targetMapNumber, targetCellId, allLevelObjects, allLevelCharacters,
+                               ActionResultType.Ok, new IPositionableObject[0]);
+            }
+        private ActionResult CalculateMovementResult(int targetMapNumber,int targetCellId, IEnumerable<IPositionableObject> allObjects,
+                                                       IEnumerable<IPositionableObject> allLevelCharacters,
                                                        ActionResultType resultType,IPositionableObject[] objectsBlocking)
         {
 
@@ -67,10 +97,7 @@ namespace GetTheMilk.Navigation
                                      {
                                          ExtraData = new MovementActionExtraData
                                                          {
-                                                             MoveToCell =
-                                                                 (resultType == ActionResultType.OriginNotOnTheMap)
-                                                                     ? active.CellNumber
-                                                                     : CalculateMovement(active, direction, i),
+                                                             MoveToCell =targetCellId,
                                                              ObjectsBlocking = objectsBlocking
                                                          },
                                          ResultType = resultType
@@ -80,30 +107,17 @@ namespace GetTheMilk.Navigation
                                                    : allLevelCharacters.Where(
                                                        c =>
                                                        AreInRange(c.MapNumber, c.CellNumber,
-                                                                  active.MapNumber,
+                                                                  targetMapNumber,
                                                                   ((MovementActionExtraData)movementResult.ExtraData).MoveToCell)).ToArray();
             ((MovementActionExtraData)movementResult.ExtraData).ObjectsInRange = (allObjects == null)
                                                 ? null
                                                 : allObjects.Where(
                                                     c =>
-                                                    AreInRange(c.MapNumber, c.CellNumber, active.MapNumber,
+                                                    AreInRange(c.MapNumber, c.CellNumber, targetMapNumber,
                                                                ((MovementActionExtraData)movementResult.ExtraData).MoveToCell) &&
                                                     c is ITransactionalObject)
                                                       .ToArray();
             return movementResult;
-        }
-
-        public int CalculateMovement(ICharacter active, Direction direction, int possibleDistance)
-        {
-            var currentCell = Cells.FirstOrDefault(c => c.Number == active.CellNumber);
-            if (currentCell == null)
-                return 0;
-            for (int i = 0; i < possibleDistance; i++)
-            {
-                var nextCellId = currentCell.GetNeighbourCellNumber(direction);
-                currentCell = Cells.FirstOrDefault(c => c.Number == nextCellId);
-            }
-            return currentCell.Number;
         }
 
         public bool AreInRange(int activeMapNumber, int activeCellNumber, int passiveMapNumber, int passiveCellNumber)

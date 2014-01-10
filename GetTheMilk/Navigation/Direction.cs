@@ -8,5 +8,6 @@ namespace GetTheMilk.Navigation
         South,
         Top,
         Bottom,
+        None
     }
 }

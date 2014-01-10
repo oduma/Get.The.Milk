@@ -34,9 +34,10 @@ namespace GetTheMilkTests.IntegrationTests
 
 
             //The player enters level 1
-            level.EnterLevel(player,1,1);
+            var enterResult = player.EnterLevel(level);
             Assert.AreEqual(1,player.MapNumber);
             Assert.AreEqual(1,player.CellNumber);
+            Assert.AreEqual(ActionResultType.Ok,enterResult.ResultType);
 
             //The player walks to the east
             var walk = (new Walk());

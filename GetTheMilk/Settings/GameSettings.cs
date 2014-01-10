@@ -48,6 +48,11 @@ namespace GetTheMilk.Settings
             get { return 20; }
         }
 
+        public static int MaximumAvailableBonusPoints
+        {
+            get { return 100; }
+        }
+
         public static int GetRandomMoneyBoost()
         {
             return Randomizer.GetRandom(5, 20);

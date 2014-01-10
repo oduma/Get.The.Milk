@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Linq;
+using GetTheMilk.Actions;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Factories;
+using GetTheMilk.Levels;
+using GetTheMilk.Navigation;
 using GetTheMilk.Settings;
 using GetTheMilk.UI;
 using GetTheMilk.Utils;
@@ -95,6 +99,16 @@ namespace GetTheMilk.Characters
                                                       targetCharacter.Personality.InteractionRules[
                                                           GenericInteractionRulesKeys.PlayerResponses]);
 
+        }
+
+        public ActionResult EnterLevel(ILevel level)
+        {
+            level.Player = this;
+            MapNumber = level.StartingMap;
+            CellNumber =level.StartingCell;
+            return TryPerformMove(new EnterLevel {Direction = Direction.None, TargetCell = level.StartingCell},
+                                  level.Maps.FirstOrDefault(m=>m.Number==level.StartingMap), level.PositionableObjects.Objects,
+                                  level.Characters.Objects);
         }
     }
 }

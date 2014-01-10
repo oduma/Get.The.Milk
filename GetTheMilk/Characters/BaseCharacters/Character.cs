@@ -204,14 +204,30 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         public ActionResult TryPerformMove(MovementAction movement, Map currentMap,IEnumerable<IPositionableObject> allLevelObjects,IEnumerable<IPositionableObject> allLevelCharacters)
         {
-            var movementResult = currentMap.AllowsMovement(this,movement.DefaultDistance, movement.Direction,
-                                 (allLevelObjects == null)
-                                     ? null
-                                     : allLevelObjects.Where(
-                                         o =>
-                                         !o.BlockMovement || (!(o is IPositionableObject)) ||
-                                         ((IPositionableObject)o).StorageContainer.Owner.Name != Name),
-                                         (allLevelCharacters==null)?null:allLevelCharacters.Where(c=>c.Name!=Name));
+
+            ActionResult movementResult;
+            if(movement.TargetCell!=0 && movement.Direction==Direction.None)
+            {
+                //teleport directly
+                movementResult = currentMap.CalculateDirectMovement(currentMap.Number, movement.TargetCell,
+                                                                    Direction.None,
+                                                                    allLevelObjects ?? new IPositionableObject[0],
+                                                                    allLevelCharacters ?? new IPositionableObject[0]);
+            }
+            else
+            {
+                movementResult = currentMap.CalculateMovement(this, movement.DefaultDistance, movement.Direction,
+                 allLevelObjects ?? new IPositionableObject[0],
+                         allLevelCharacters ?? new IPositionableObject[0]);
+            }
+
+            if(movementResult.ResultType==ActionResultType.LevelCompleted)
+            {
+                if(movement.Perform(this))
+                {
+                    Game.CreateGameInstance().ProceedToNextLevel();
+                }
+            }
             if(movementResult.ResultType!=ActionResultType.OriginNotOnTheMap)
             {
                 movement.TargetCell = ((MovementActionExtraData)movementResult.ExtraData).MoveToCell;
@@ -220,6 +236,7 @@ namespace GetTheMilk.Characters.BaseCharacters
                     movementResult.ResultType=ActionResultType.UnknownError;
                 }
             }
+            movementResult.ForAction = movement;
             return movementResult;
         }
 

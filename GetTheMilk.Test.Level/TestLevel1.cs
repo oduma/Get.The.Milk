@@ -182,6 +182,22 @@ namespace GetTheMilk.TestLevel
             }
         }
 
+        public override string Story
+        {
+            get { return @"You open your eyes in a strange but very small test world.
+As you are a curious one you think about exploring it."; }
+        }
+
+        public override int StartingMap
+        {
+            get { return 1; }
+        }
+
+        public override int StartingCell
+        {
+            get { return 1; }
+        }
+
         public override string Name
         {
             get { return "The Dark Side of Level 1"; }

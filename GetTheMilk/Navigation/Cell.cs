@@ -42,5 +42,7 @@ namespace GetTheMilk.Navigation
             return (cellNumber == NorthCell || cellNumber == WestCell || cellNumber == SouthCell ||
                     cellNumber == EastCell || cellNumber == TopCell || cellNumber == BottomCell || cellNumber==Number);
         }
+
+        public bool IsObjective { get; set; }
     }
 }

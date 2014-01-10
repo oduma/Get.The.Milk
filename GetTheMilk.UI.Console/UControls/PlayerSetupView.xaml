@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="GetTheMilk.UI.Console.UControls.PlayerSetupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Label Content="{Binding Path=Description}" Grid.Row="0"/>
+        <ScrollViewer Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Content="Name:" Grid.Column="0" Grid.Row="0"/>
+                <TextBox Text="{Binding Path=Name}" Grid.Column="2" Grid.Row="0"/>
+                <Label Content="Money" Grid.Column="0" Grid.Row="1" />
+                <Label Content="{Binding Path=Money}" Grid.Column="1" Grid.Row="1" />
+                <Slider Grid.Column="2" HorizontalAlignment="Stretch" Grid.Row="1"
+                        Value="{Binding Path=Money}"
+                        Maximum="100"
+                        Minimum="0" SmallChange="1" LargeChange="10"/>
+                <Label Content="Experience" Grid.Column="0" Grid.Row="2"/>
+                <Label Content="{Binding Path=Experience}" Grid.Column="1" Grid.Row="2"/>
+                <Slider Grid.Column="2" HorizontalAlignment="Stretch" Grid.Row="2"
+                        Value="{Binding Path=Experience}"
+                        Maximum="100"
+                        Minimum="0" SmallChange="1" LargeChange="10"/>
+            </Grid>
+        </ScrollViewer>
+        <Button Content="Start" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding Path=SaveAndStart}" Grid.Row="2"/>
+    </Grid>
+</UserControl>

@@ -11,7 +11,8 @@ namespace GetTheMilk.Levels
         public abstract int Number { get; }
         public abstract Inventory PositionableObjects { get; }
         public abstract Inventory Characters { get; }
-        public IPlayer Player { get; private set; }
+        public IPlayer Player { get; set; }
+        public abstract string Story { get; }
 
         public void Save()
         {
@@ -26,13 +27,8 @@ namespace GetTheMilk.Levels
             }
         }
 
-        public void EnterLevel(IPlayer player, int mapNumber, int cellNumber)
-        {
-            Player = player;
-            Player.MapNumber = mapNumber;
-            Player.CellNumber = cellNumber;
-        }
-
+        public abstract int StartingMap { get; }
+        public abstract int StartingCell { get; }
         public abstract string Name { get; }
     }
 }

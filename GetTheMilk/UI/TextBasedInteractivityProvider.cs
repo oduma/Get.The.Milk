@@ -4,6 +4,7 @@ using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Levels;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 
@@ -37,6 +38,11 @@ namespace GetTheMilk.UI
         }
 
         public GameAction[] BuildActions(ExposeInventoryExtraData exposeInvetoryActionExtraData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EnterLevel(IPlayer player, ILevel level)
         {
             throw new NotImplementedException();
         }

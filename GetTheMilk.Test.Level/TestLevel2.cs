@@ -125,6 +125,23 @@ namespace GetTheMilk.TestLevel
             get { return new Inventory(); }
         }
 
+        public override string Story
+        {
+            get { return @"Level 2 story not written yet.
+Way ahead of time.
+Time, time, time..."; }
+        }
+
+        public override int StartingMap
+        {
+            get { return 1; }
+        }
+
+        public override int StartingCell
+        {
+            get { return 2; }
+        }
+
         public override string Name
         {
             get { return "The Light side of Level 2"; }

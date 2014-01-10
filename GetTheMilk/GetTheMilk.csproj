@@ -39,6 +39,7 @@
     <Reference Include="log4net">
       <HintPath>..\Lib\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="Sciendo.Common">
       <HintPath>..\Lib\Sciendo.Common.dll</HintPath>
     </Reference>
@@ -67,6 +68,7 @@
     <Compile Include="Actions\BaseActions\TwoCharactersAction.cs" />
     <Compile Include="Actions\BaseActions\UseOnCharacter.cs" />
     <Compile Include="Actions\Buy.cs" />
+    <Compile Include="Actions\EnterLevel.cs" />
     <Compile Include="Actions\ExposeInventory.cs" />
     <Compile Include="Actions\ExposeInventoryExtraData.cs" />
     <Compile Include="Actions\GenericActions\AnyTransferFrom.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Actions\Sell.cs" />
     <Compile Include="Actions\TakeFrom.cs" />
     <Compile Include="Actions\TakeMoneyFrom.cs" />
+    <Compile Include="Actions\Teleport.cs" />
     <Compile Include="Actions\Walk.cs" />
     <Compile Include="BaseCommon\IInventoryOwner.cs" />
     <Compile Include="Characters\BaseCharacters\Character.cs" />
@@ -125,6 +128,17 @@
     <Compile Include="UI\Interactivity.cs" />
     <Compile Include="UI\NoInteractivityProvider.cs" />
     <Compile Include="UI\TextBasedInteractivityProvider.cs" />
+    <Compile Include="UI\Translators\ActionResultToHuL.cs" />
+    <Compile Include="UI\ViewModels\BaseViewModels\GameBaseViewModel.cs" />
+    <Compile Include="UI\ViewModels\BaseViewModels\GameStartRequestEventArgs.cs" />
+    <Compile Include="UI\ViewModels\BaseViewModels\IGameBaseViewModel.cs" />
+    <Compile Include="UI\ViewModels\BaseViewModels\RelayCommand.cs" />
+    <Compile Include="UI\ViewModels\BaseViewModels\ViewModelBase.cs" />
+    <Compile Include="UI\ViewModels\GamePlayViewModel.cs" />
+    <Compile Include="UI\ViewModels\GameViewModel.cs" />
+    <Compile Include="UI\ViewModels\MainViewModel.cs" />
+    <Compile Include="UI\ViewModels\PlayerInfoViewModel.cs" />
+    <Compile Include="UI\ViewModels\PlayerSetupViewModel.cs" />
     <Compile Include="Utils\CalculationStrategies.cs" />
     <Compile Include="Utils\CoreExtensions.cs" />
     <Compile Include="Utils\GenericInteractionRulesKeys.cs" />

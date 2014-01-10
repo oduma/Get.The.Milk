@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Levels;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI;
 
@@ -36,6 +37,11 @@ namespace GetTheMilkTests.ActionsTests
         }
 
         public GameAction[] BuildActions(ExposeInventoryExtraData exposeInvetoryActionExtraData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EnterLevel(IPlayer player, ILevel level)
         {
             throw new NotImplementedException();
         }
