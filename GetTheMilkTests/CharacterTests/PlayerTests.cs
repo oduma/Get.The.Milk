@@ -1,4 +1,5 @@
-﻿using GetTheMilk.Characters;
+﻿using GetTheMilk.BaseCommon;
+using GetTheMilk.Characters;
 using NUnit.Framework;
 
 namespace GetTheMilkTests.CharacterTests
@@ -10,7 +11,7 @@ namespace GetTheMilkTests.CharacterTests
         public void PlayerCreation()
         {
             var player1 = Player.GetNewInstance();
-            player1.Name = "Me";
+            player1.SetPlayerName("Me");
             player1.Experience = 200;
             player1.Walet.CurrentCapacity = 250;
 

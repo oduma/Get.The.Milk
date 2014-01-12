@@ -7,11 +7,6 @@ namespace GetTheMilk.Actions
 {
     public class TakeMoneyFrom:GameAction
     {
-        public override string Name
-        {
-            get { return "TakeMoneyFrom"; }
-        }
-
         public int Amount { get; set; }
         public void Perform(ICharacter fromCharacter, ICharacter toCharacter)
         {

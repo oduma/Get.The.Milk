@@ -1,5 +1,6 @@
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects.BaseObjects;
 
@@ -12,10 +13,7 @@ namespace GetTheMilkTests.ActionsTests
             BlockMovement = false;
             BuyPrice = 5;
             SellPrice = 1;
-        }
-        public override string Name
-        {
-            get { return "SkrewDriver"; }
+            Name = new Noun {Main = "SkrewDriver", Narrator = "Skrew Driver"};
         }
 
         public override bool AllowsAction(GameAction a)

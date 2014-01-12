@@ -1,14 +1,13 @@
-﻿using System;
-using GetTheMilk.Actions;
+﻿using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Interactions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Utils;
 
-namespace GetTheMilk.TestLevel.Level1Characters
+namespace GetTheMilk.Test.Level.Level1Characters
 {
     public class ShopKeeperCharacter:Character
     {
@@ -17,6 +16,8 @@ namespace GetTheMilk.TestLevel.Level1Characters
             Walet.MaxCapacity = 1000;
             Walet.CurrentCapacity = 200;
             BlockMovement = true;
+            Name = new Noun {Main = "John the Shop Keeper", Narrator = "John the Shop Keeper"};
+
         }
 
 
@@ -88,15 +89,10 @@ namespace GetTheMilk.TestLevel.Level1Characters
                 return base.Personality;
             }
         }
-        public override string Name
-        {
-            get { return "John the Shop Keeper"; }
-            set { ; }
-        }
 
         public override bool AllowsIndirectAction(GameAction a, IPositionableObject o)
         {
-            return (a is Buy && o.StorageContainer.Owner.Name==Name) ||(a is Meet) || (a is CommunicateAction) || (a is Sell);
+            return (a is Buy && o.StorageContainer.Owner.Name.Main==Name.Main) ||(a is Meet) || (a is CommunicateAction) || (a is Sell);
         }
     }
 }

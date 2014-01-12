@@ -5,6 +5,7 @@ using GetTheMilk.Accounts;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Interactions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Factories;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
@@ -361,7 +362,7 @@ namespace GetTheMilk.Characters.BaseCharacters
                         {
                             if (!(r.Action is TwoCharactersAction))
                                 return false;
-                            return (r.Action.Name == incomingAction.Name) &&
+                            return (r.Action.Name.Infinitive == incomingAction.Name.Infinitive) &&
                                    targetCharacter.AllowsIndirectAction(r.Reaction, this)
                                    && AllowsAction(r.Reaction);
                         };
@@ -372,7 +373,7 @@ namespace GetTheMilk.Characters.BaseCharacters
         private GameAction SelectAppropriateAction(ICharacter targetCharacter,Func<ActionReaction, bool> selector)
         {
             var options =
-                Personality.InteractionRules.GetAllAplicableInteractionRules(targetCharacter.Name).Where(selector).
+                Personality.InteractionRules.GetAllAplicableInteractionRules(targetCharacter.Name.Main).Where(selector).
                     Select(a => a.Reaction);
             if (!options.Any())
                 return null;
@@ -443,7 +444,7 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         public int MapNumber { get; set; }
         public int CellNumber { get; set; }
-        public abstract string Name { get; set; }
+        public virtual Noun Name { get; protected set; }
         public bool BlockMovement { get; protected set; }
         public virtual bool AllowsAction(GameAction a)
         {

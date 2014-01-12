@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects;
@@ -9,9 +10,9 @@ namespace GetTheMilk.Actions
 {
     public class ExposeInventory:GameAction
     {
-        public override string Name
+        public ExposeInventory()
         {
-            get { return "ExposeInventory"; }
+            Name = new Verb {Infinitive = "To Expose", Past = "exposed", Present = "expose"};
         }
 
         public GameAction[] AllowedNextActions { get; set; }

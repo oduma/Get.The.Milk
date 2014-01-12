@@ -6,8 +6,9 @@ namespace GetTheMilkTests.ActionsTests
     {
         public StubbedContainerOwner()
         {
-            Name = "Some Name";
+            Name = new Noun {Main = "Some Name"};
         }
-        public string Name { get; private set; }
+
+        public Noun Name { get; private set; }
     }
 }

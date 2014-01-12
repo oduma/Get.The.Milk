@@ -1,7 +1,7 @@
-﻿using GetTheMilk.Objects;
+﻿using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects.BaseObjects;
 
-namespace GetTheMilk.TestLevel.Level1Objects
+namespace GetTheMilk.Test.Level.Level1Objects
 {
     public class CanOpener:Tool
     {
@@ -10,10 +10,7 @@ namespace GetTheMilk.TestLevel.Level1Objects
             BlockMovement = false;
             BuyPrice = 5;
             SellPrice = 1;
-        }
-        public override string Name
-        {
-            get { return "Can Opener"; }
+            Name = new Noun { Main = "Can Opener" };
         }
     }
 }

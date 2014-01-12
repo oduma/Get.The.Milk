@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using GetTheMilk.Actions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Factories;
 using GetTheMilk.Levels;
@@ -13,7 +14,6 @@ namespace GetTheMilk.Characters
 {
     public class Player:Character,IPlayer
     {
-        private string _name;
         private static Player _instance;
         private static object _lock = new object();
 
@@ -75,12 +75,6 @@ namespace GetTheMilk.Characters
             }
         }
 
-        public override string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-
         public void LoadPlayer()
         {
             throw new NotImplementedException();
@@ -93,9 +87,9 @@ namespace GetTheMilk.Characters
 
         public void LoadInteractionsWithPlayer(ICharacter targetCharacter)
         {
-            if (!base.Personality.InteractionRules.ContainsKey(targetCharacter.Name) 
+            if (!base.Personality.InteractionRules.ContainsKey(targetCharacter.Name.Main) 
                 && targetCharacter.Personality.InteractionRules.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
-                base.Personality.InteractionRules.Add(targetCharacter.Name,
+                base.Personality.InteractionRules.Add(targetCharacter.Name.Main,
                                                       targetCharacter.Personality.InteractionRules[
                                                           GenericInteractionRulesKeys.PlayerResponses]);
 
@@ -109,6 +103,13 @@ namespace GetTheMilk.Characters
             return TryPerformMove(new EnterLevel {Direction = Direction.None, TargetCell = level.StartingCell},
                                   level.Maps.FirstOrDefault(m=>m.Number==level.StartingMap), level.PositionableObjects.Objects,
                                   level.Characters.Objects);
+        }
+
+        public void SetPlayerName(string name)
+        {
+            Name = name != null 
+                ? new Noun {Main = name, Narrator=GameSettings.DefaultNarratorAddressingForPlayer} 
+            : new Noun {Main = "Payer 1", Narrator=GameSettings.DefaultNarratorAddressingForPlayer};
         }
     }
 }

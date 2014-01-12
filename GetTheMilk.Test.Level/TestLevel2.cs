@@ -1,4 +1,5 @@
-﻿using GetTheMilk.Levels;
+﻿using GetTheMilk.BaseCommon;
+using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
 
@@ -142,9 +143,9 @@ Time, time, time..."; }
             get { return 2; }
         }
 
-        public override string Name
+        public override Noun Name
         {
-            get { return "The Light side of Level 2"; }
+            get { return new Noun{Main="The Light side of Level 2"};} 
         }
     }
 }

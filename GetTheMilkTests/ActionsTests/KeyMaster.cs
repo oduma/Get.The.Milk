@@ -1,5 +1,6 @@
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects;
@@ -10,12 +11,6 @@ namespace GetTheMilkTests.ActionsTests
     public class KeyMaster:Character
     {
         private Personality _personality;
-
-        public override string Name
-        {
-            get { return "Key Master"; }
-            set { ; }
-        }
 
         public override bool AllowsAction(GameAction a)
         {
@@ -36,6 +31,7 @@ namespace GetTheMilkTests.ActionsTests
        public KeyMaster()
         {
             BlockMovement = false;
+           Name = new Noun {Main = "KeyMaster", Narrator = "the Key Master"};
         }
 
         public override Personality Personality

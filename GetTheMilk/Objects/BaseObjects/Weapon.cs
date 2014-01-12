@@ -1,5 +1,6 @@
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 
 namespace GetTheMilk.Objects.BaseObjects
@@ -11,7 +12,7 @@ namespace GetTheMilk.Objects.BaseObjects
         public WeaponType[] WeaponTypes { get; protected set; }
         public int MapNumber { get; set; }
         public int CellNumber { get; set; }
-        public abstract string Name { get; }
+        public Noun Name { get; protected set; }
         public bool BlockMovement { get; protected set; }
         public virtual bool AllowsAction(GameAction a)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 
@@ -7,11 +8,11 @@ namespace GetTheMilk.Actions
 {
     public class Kill:TwoCharactersAction
     {
-        public override string Name
-        {
-            get { return "Kill"; }
-        }
 
+        public Kill()
+        {
+            Name = new Verb {Infinitive = "To Kill", Past = "killed", Present = "kill"};
+        }
         public double ExperienceTaken { get; set; }
 
         public override bool Perform(ICharacter active, ICharacter passive)

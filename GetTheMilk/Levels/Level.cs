@@ -1,4 +1,5 @@
 using System.IO;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
@@ -29,6 +30,6 @@ namespace GetTheMilk.Levels
 
         public abstract int StartingMap { get; }
         public abstract int StartingCell { get; }
-        public abstract string Name { get; }
+        public abstract Noun Name { get; }
     }
 }

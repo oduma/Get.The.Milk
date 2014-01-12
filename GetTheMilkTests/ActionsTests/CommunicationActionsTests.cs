@@ -38,7 +38,7 @@ namespace GetTheMilkTests.ActionsTests
         {
             if(active.StartInteraction(action, passive).ResultType==ActionResultType.Ok)
             {
-                return active.RightHandObject.Objects[0].Name;
+                return active.RightHandObject.Objects[0].Name.Main;
             }
             return string.Empty;
 

@@ -13,6 +13,8 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         ActionResult EnterLevel(ILevel level);
 
+        void SetPlayerName(string name);
+
 
     }
 }

@@ -1,4 +1,5 @@
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 
@@ -6,11 +7,10 @@ namespace GetTheMilk.Actions
 {
     public class Quit : FightAction
     {
-        public override string Name
+        public Quit()
         {
-            get { return "Quit"; }
+            Name = new Verb {Infinitive = "To Quit", Past = "quited", Present = "quit"};
         }
-
         public ActionResult Perform(ICharacter character, ICharacter targetCharacter)
         {
 

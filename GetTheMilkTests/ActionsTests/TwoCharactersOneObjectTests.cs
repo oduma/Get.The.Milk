@@ -20,7 +20,7 @@ namespace GetTheMilkTests.ActionsTests
             if (result.ResultType==ActionResultType.NotOk)
                 return action.UseableObject.StorageContainer;
 
-            if(passive.Name=="Keyless Child")
+            if(passive.Name.Main=="Keyless Child")
             {
                 Assert.Contains(action.UseableObject,passive.RightHandObject.Objects);
                 Assert.True(!active.RightHandObject.Objects.Any());
@@ -48,22 +48,22 @@ namespace GetTheMilkTests.ActionsTests
             var result = active.TryPerformAction(action, passive);
             if (result.ResultType==ActionResultType.NotOk)
             {
-                if(action.Name=="Buy")
-                    Assert.AreEqual(passive.Name,action.UseableObject.StorageContainer.Owner.Name);
-                if(action.Name=="Sell")
-                    Assert.AreEqual(active.Name, action.UseableObject.StorageContainer.Owner.Name);
+                if(action.Name.Infinitive=="To Buy")
+                    Assert.AreEqual(passive.Name.Main,action.UseableObject.StorageContainer.Owner.Name.Main);
+                if(action.Name.Infinitive=="To Sell")
+                    Assert.AreEqual(active.Name.Main, action.UseableObject.StorageContainer.Owner.Name.Main);
 
                 return active.Walet.CurrentCapacity;
             }
             if(active.ToolInventory.MaximumCapacity==0)
-                Assert.AreEqual(passive.Name, action.UseableObject.StorageContainer.Owner.Name);
-            else if(passive.Name=="Shop Keeper")
+                Assert.AreEqual(passive.Name.Main, action.UseableObject.StorageContainer.Owner.Name.Main);
+            else if(passive.Name.Main=="Shop Keeper")
             {
-                Assert.AreEqual(active.Name, action.UseableObject.StorageContainer.Owner.Name);
+                Assert.AreEqual(active.Name.Main, action.UseableObject.StorageContainer.Owner.Name.Main);
             }
             else
             {
-                Assert.AreEqual(passive.Name, action.UseableObject.StorageContainer.Owner.Name);
+                Assert.AreEqual(passive.Name.Main, action.UseableObject.StorageContainer.Owner.Name.Main);
             }
             return active.Walet.CurrentCapacity;
         }

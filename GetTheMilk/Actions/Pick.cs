@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects.BaseObjects;
 
@@ -7,9 +8,9 @@ namespace GetTheMilk.Actions
 {
     public class Pick : OneObjectAction
     {
-        public override string Name
+        public Pick()
         {
-            get { return "Pick"; }
+            Name = new Verb {Infinitive = "To Pick", Past = "picked", Present = "pick"};
         }
 
         public override void Perform(ICharacter c, IPositionableObject o)

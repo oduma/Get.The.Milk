@@ -105,12 +105,12 @@ namespace GetTheMilk.UI.ViewModels
         public PlayerInfoViewModel()
         {
             _player = Player.GetNewInstance();
-            PlayerName = _player.Name;
+            PlayerName = _player.Name.Main;
             PlayerHealth = _player.Health;
             PlayerExperience = _player.Experience;
             PlayerMoney = _player.Walet.CurrentCapacity;
-            PlayerRightHandObject = (_player.RightHandObject.Objects == null || !_player.RightHandObject.Objects.Any()) ? "" : _player.RightHandObject.Objects[0].Name;
-            PlayerLeftHandObject = (_player.LeftHandObject.Objects == null || !_player.LeftHandObject.Objects.Any()) ? "" : _player.LeftHandObject.Objects[0].Name;
+            PlayerRightHandObject = (_player.RightHandObject.Objects == null || !_player.RightHandObject.Objects.Any()) ? "" : _player.RightHandObject.Objects[0].Name.Main;
+            PlayerLeftHandObject = (_player.LeftHandObject.Objects == null || !_player.LeftHandObject.Objects.Any()) ? "" : _player.LeftHandObject.Objects[0].Name.Main;
 
         }
     }

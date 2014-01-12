@@ -1,18 +1,17 @@
 ﻿using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Characters;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions
 {
     public class Keep:OneObjectAction
     {
-        public override string Name
-        {
-            get { return "Keep"; }
-        }
 
+        public Keep()
+        {
+            Name = new Verb {Infinitive = "To Keep", Past = "kept", Present = "keep"};
+        }
         public override void Perform(ICharacter c, IPositionableObject o)
         {
             if (o is Tool)

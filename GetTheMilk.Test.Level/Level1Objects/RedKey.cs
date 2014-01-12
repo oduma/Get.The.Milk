@@ -1,12 +1,13 @@
-﻿using GetTheMilk.Objects;
+﻿using GetTheMilk.BaseCommon;
+using GetTheMilk.Objects;
 
-namespace GetTheMilk.TestLevel.Level1Objects
+namespace GetTheMilk.Test.Level.Level1Objects
 {
     public class RedKey : AnyKey
     {
-        public override string Name
+        public RedKey()
         {
-            get { return "Red Key"; }
+            Name = new Noun { Main = "Red Key" };
         }
     }
 }

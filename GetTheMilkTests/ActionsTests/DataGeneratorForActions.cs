@@ -4,6 +4,7 @@ using GetTheMilk.Accounts;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Interactions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Factories;
@@ -462,7 +463,7 @@ namespace GetTheMilkTests.ActionsTests
             {
                 Player.Destroy();
                 var me = Player.GetNewInstance(new StubedTextBasedInteractivity());
-                me.Name = "Me";
+                me.SetPlayerName("Me");
                 me.ToolInventory.MaximumCapacity = (fullToolInventory) ? 0 : 2;
                 me.WeaponInventory.MaximumCapacity = 2;
                 me.Walet.MaxCapacity = 200;

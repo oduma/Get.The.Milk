@@ -1,15 +1,15 @@
 ﻿using GetTheMilk.Accounts;
 using GetTheMilk.Actions.GenericActions;
+using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Actions
 {
     public class Buy:AnyTransferFrom
     {
-        public override string Name
+        public Buy()
         {
-            get { return "Buy"; }
+            Name = new Verb {Infinitive = "To Buy", Past = "bought", Present = "buy"};
         }
-
         public override TransactionType TransactionType
         {
             get { return TransactionType.Debit; }

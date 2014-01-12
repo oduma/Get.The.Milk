@@ -1,12 +1,13 @@
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects;
 
 namespace GetTheMilkTests.ActionsTests
 {
     public class BlueKey:AnyKey
     {
-        public override string Name
+        public BlueKey()
         {
-            get { return "BlueKey"; }
+            Name = new Noun {Main = "BlueKey"};
         }
     }
 }

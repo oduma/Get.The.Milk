@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Factories;
@@ -29,7 +30,7 @@ namespace GetTheMilkTests.IntegrationTests
             //create a new player
             Player.Destroy();
             var player = Player.GetNewInstance(stubedUI);
-            player.Name = "Me";
+            player.SetPlayerName("Me");
             player.Walet.CurrentCapacity = 20;
 
 

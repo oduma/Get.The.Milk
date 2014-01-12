@@ -95,6 +95,8 @@
     <Compile Include="Actions\Teleport.cs" />
     <Compile Include="Actions\Walk.cs" />
     <Compile Include="BaseCommon\IInventoryOwner.cs" />
+    <Compile Include="BaseCommon\Noun.cs" />
+    <Compile Include="BaseCommon\Verb.cs" />
     <Compile Include="Characters\BaseCharacters\Character.cs" />
     <Compile Include="Characters\BaseCharacters\ICharacter.cs" />
     <Compile Include="Characters\BaseCharacters\IPlayer.cs" />
@@ -124,11 +126,15 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\GameSettings.cs" />
+    <Compile Include="Settings\Paths.cs" />
     <Compile Include="UI\GraphicBasedInteractivityProvider.cs" />
     <Compile Include="UI\Interactivity.cs" />
     <Compile Include="UI\NoInteractivityProvider.cs" />
     <Compile Include="UI\TextBasedInteractivityProvider.cs" />
+    <Compile Include="UI\Translators\ActionResultsTemplatesLoader.cs" />
     <Compile Include="UI\Translators\ActionResultToHuL.cs" />
+    <Compile Include="UI\Translators\MovementResultTemplates\Message.cs" />
+    <Compile Include="UI\Translators\MovementResultTemplates\MessagesFor.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\GameBaseViewModel.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\GameStartRequestEventArgs.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\IGameBaseViewModel.cs" />
@@ -150,6 +156,12 @@
   <ItemGroup>
     <Folder Include="bin\Debug\" />
     <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UI\Data\MovementResultTemplates.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UI\Translators\MovementResultsMessages.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

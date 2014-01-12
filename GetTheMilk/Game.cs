@@ -1,4 +1,7 @@
-﻿using GetTheMilk.Factories;
+﻿using System.Collections.Generic;
+using GetTheMilk.Settings;
+using GetTheMilk.UI.Translators;
+using GetTheMilk.UI.Translators.MovementResultTemplates;
 
 namespace GetTheMilk
 {
@@ -10,9 +13,13 @@ namespace GetTheMilk
 
         private static readonly Game Instance= new Game();
 
+        public List<MessagesFor> MessagesFor { get; set; }
+
         private Game()
         {
-            
+            MessagesFor =
+                (new ActionResultsTemplatesLoader()).LoadActionResultsTemplates(
+                    GameSettings.DefaultPaths.ActionResultsTemplates);
         }
 
         public readonly string FullDescription = @"Full Story Line 1

@@ -1,7 +1,8 @@
-﻿using GetTheMilk.Objects;
+﻿using GetTheMilk.BaseCommon;
+using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 
-namespace GetTheMilk.TestLevel.Level1Objects
+namespace GetTheMilk.Test.Level.Level1Objects
 {
     public class Knife:Weapon
     {
@@ -14,11 +15,7 @@ namespace GetTheMilk.TestLevel.Level1Objects
             WeaponTypes=new WeaponType[]{WeaponType.Attack,WeaponType.Deffense};
             BuyPrice = 10;
             SellPrice = 3;
-        }
-
-        public override string Name
-        {
-            get { return "Knife"; }
+            Name= new Noun { Main = "Knife" };
         }
     }
 }

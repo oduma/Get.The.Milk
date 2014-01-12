@@ -1,6 +1,7 @@
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Interactions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects;
@@ -11,12 +12,6 @@ namespace GetTheMilkTests.ActionsTests
 {
     public class ShopKeeper:Character
     {
-        public override string Name
-        {
-            get { return "Shop Keeper"; }
-            set { ; }
-        }
-
         public override bool AllowsAction(GameAction a)
         {
             return false;
@@ -34,6 +29,7 @@ namespace GetTheMilkTests.ActionsTests
         public ShopKeeper()
         {
             BlockMovement = false;
+            Name = new Noun {Main = "Shop Keeper", Narrator = "the Shop Keeper"};
         }
 
         public override Personality Personality

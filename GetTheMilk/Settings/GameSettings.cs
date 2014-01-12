@@ -53,6 +53,24 @@ namespace GetTheMilk.Settings
             get { return 100; }
         }
 
+        public static string DefaultNarratorAddressingForPlayer 
+        {
+            get { return "you"; }
+        }
+
+        public static Paths DefaultPaths
+        {
+            get
+            {
+                return new Paths();
+            }
+        }
+
+        public static string TranslatorErrorMessage
+        {
+            get { return "Blah, blah, blah... the game has lost his ability to communicate with you."; }
+        }
+
         public static int GetRandomMoneyBoost()
         {
             return Randomizer.GetRandom(5, 20);

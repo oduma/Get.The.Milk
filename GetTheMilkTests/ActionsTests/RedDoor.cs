@@ -1,5 +1,6 @@
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 
@@ -7,9 +8,12 @@ namespace GetTheMilkTests.ActionsTests
 {
     public class RedDoor : IPositionableObject
     {
+        public RedDoor()
+        {
+            Name = new Noun {Main = "RedDoor", Narrator = "Red Door"};
+        }
         public int MapNumber { get; set; }
         public int CellNumber { get; set; }
-        public string Name { get { return "Red Door"; } }
         public bool AllowsAction(GameAction a) { return false; }
 
         public bool AllowsIndirectAction(GameAction a, IPositionableObject o)
@@ -23,5 +27,7 @@ namespace GetTheMilkTests.ActionsTests
         {
             get { return true; }
         }
+
+        public Noun Name { get; private set; }
     }
 }

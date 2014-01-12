@@ -1,5 +1,5 @@
 using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Characters;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Utils;
 
@@ -7,9 +7,9 @@ namespace GetTheMilk.Actions
 {
     public class Attack : FightAction
     {
-        public override string Name
+        public Attack()
         {
-            get { return "Attack"; }
+            Name = new Verb { Infinitive = "To Attack", Past = "attacked", Present = "attack" };
         }
 
         public Hit Hit { get; set; }

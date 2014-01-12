@@ -1,9 +1,11 @@
-﻿using GetTheMilk.Characters.BaseCharacters;
+﻿using GetTheMilk.BaseCommon;
+using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.TestLevel.Level1Characters;
+using GetTheMilk.Test.Level.Level1Characters;
+using GetTheMilk.Test.Level.Level1Objects;
 using GetTheMilk.TestLevel.Level1Objects;
 
 namespace GetTheMilk.TestLevel
@@ -198,9 +200,9 @@ As you are a curious one you think about exploring it."; }
             get { return 1; }
         }
 
-        public override string Name
+        public override Noun Name
         {
-            get { return "The Dark Side of Level 1"; }
+            get { return new Noun{Main="The Dark Side of Level 1"};} 
         }
     }
 }

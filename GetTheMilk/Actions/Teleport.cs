@@ -1,12 +1,13 @@
 ﻿using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Actions
 {
     public class Teleport:MovementAction
     {
-        public override string Name
+        public Teleport()
         {
-            get { return "Teleport"; }
+            Name = new Verb {Infinitive = "To Teleport", Past = "teleported", Present = "teleport"};
         }
 
         public override int DefaultDistance

@@ -1,4 +1,5 @@
 ﻿using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 
@@ -6,11 +7,10 @@ namespace GetTheMilk.Actions
 {
     public class Meet:TwoCharactersAction
     {
-        public override string Name
+        public Meet()
         {
-            get { return "Meet"; }
+            Name = new Verb {Infinitive = "To Meet", Past = "meet", Present = "meet"};
         }
-
         public override bool Perform(ICharacter active, ICharacter passive)
         {
             if (active is IPlayer)

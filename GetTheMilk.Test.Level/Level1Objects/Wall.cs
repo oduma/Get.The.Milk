@@ -1,4 +1,5 @@
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 
@@ -9,9 +10,9 @@ namespace GetTheMilk.TestLevel.Level1Objects
         public int MapNumber { get; set; }
         public int CellNumber { get; set; }
 
-        public string Name
+        public Noun Name
         {
-            get { return "Wall"; }
+            get { return new Noun{Main="Wall"}; }
         }
 
         public bool AllowsAction(GameAction a)
