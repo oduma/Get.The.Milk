@@ -27,16 +27,18 @@ namespace GetTheMilkTests.TranslatorTests
             return actionResultToHuL.TranslateMovementResult(actionResult, active);
         }
 
-        [Test]
-        public void OutOfTheMap()
+        [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementOutOfTheWorld")]
+        public string OutOfTheMap(ActionResult actionResult,IPlayer active)
         {
-            Assert.Fail();
+            ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
+            return actionResultToHuL.TranslateMovementResult(actionResult, active);
         }
 
-        [Test]
-        public void BlockedByObjects()
+        [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementBlockedByObjs")]
+        public string BlockedByObjects(ActionResult actionResult, IPlayer active)
         {
-            Assert.Fail();
+            ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
+            return actionResultToHuL.TranslateMovementResult(actionResult, active);
         }
 
         [Test]

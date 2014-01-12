@@ -13,7 +13,7 @@ namespace GetTheMilkTests.ActionsTests
 
         public Window()
         {
-            Name = new Noun {Main = "Window"};
+            Name = new Noun {Main = "Window",Narrator="window"};
         }
 
         public bool AllowsAction(GameAction a)

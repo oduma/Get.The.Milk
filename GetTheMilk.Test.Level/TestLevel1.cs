@@ -6,7 +6,6 @@ using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Test.Level.Level1Characters;
 using GetTheMilk.Test.Level.Level1Objects;
-using GetTheMilk.TestLevel.Level1Objects;
 
 namespace GetTheMilk.TestLevel
 {

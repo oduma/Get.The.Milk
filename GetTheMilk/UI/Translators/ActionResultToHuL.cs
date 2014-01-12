@@ -41,10 +41,10 @@ namespace GetTheMilk.UI.Translators
                                                       (current, objectBlocking) =>
                                                       string.Format("{0}, {1}", current, objectBlocking.Name.Narrator));
             if (result.StartsWith(","))
-                result = result.Substring(1, result.Length - 1);
+                result = result.Substring(2, result.Length - 2);
             var andReplacementPosition = result.LastIndexOf(",");
             result = string.Format("{0} and {1}", result.Substring(0, andReplacementPosition),
-                                   result.Substring(andReplacementPosition, result.Length - andReplacementPosition));
+                                   result.Substring(andReplacementPosition + 2, result.Length - andReplacementPosition - 2));
             return result;
         }
     }

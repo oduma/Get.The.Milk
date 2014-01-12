@@ -15,15 +15,15 @@
   </MessagesFor>
   <MessagesFor ResultType="OutOfTheMap">
     <Messages>
-      <Message Id="To Walk" Value="{0} tried to {2} {3} but he hit the end of the world." />
-      <Message Id="To Run" Value="{0} tried to {2} {3} but he hit the end of the world." />
+      <Message Id="To Walk" Value="{0} tried to {2} {3} but the world has limits." />
+      <Message Id="To Run" Value="{0} tried to {2} {3} but the world has limits." />
     </Messages>
   </MessagesFor>
   <MessagesFor ResultType="BlockedByObject">
     <Messages>
-      <Message Id="To Walk" Value="{0}  tried to {2} {3}  but is impossible because of the {5}." />
-      <Message Id="To Run" Value="{0}  tried to {2} {3}  but is impossible because of the {5}." />
-      <Message Id="To Enter" Value="{0}  tried to {2} level {4}  but is impossible because of the {5}." />
+      <Message Id="To Walk" Value="{0} tried to {2} {3} but is impossible, blocked by a {5}." />
+      <Message Id="To Run" Value="{0} tried to {2} {3} but is impossible, blocked by a {5}." />
+      <Message Id="To Enter" Value="{0} tried to {2} level {4} but is impossible, blocked by a {5}." />
     </Messages>
   </MessagesFor>
   <MessagesFor ResultType="BlockedByCharacter">

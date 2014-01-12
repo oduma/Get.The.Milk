@@ -10,7 +10,7 @@ namespace GetTheMilk.Test.Level.Level1Objects
     {
         public int MapNumber { get; set; }
         public int CellNumber { get; set; }
-        public Noun Name { get { return new Noun {Main = "Red Door"}; } }
+        public Noun Name { get { return new Noun {Main = "Red Door",Narrator="red door"}; } }
         public bool AllowsAction(GameAction a) { return false; }
 
         public bool AllowsIndirectAction(GameAction a, IPositionableObject o)

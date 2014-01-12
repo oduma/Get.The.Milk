@@ -3,7 +3,7 @@ using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 
-namespace GetTheMilk.TestLevel.Level1Objects
+namespace GetTheMilk.Test.Level.Level1Objects
 {
     public class Wall:IPositionableObject
     {
@@ -12,7 +12,7 @@ namespace GetTheMilk.TestLevel.Level1Objects
 
         public Noun Name
         {
-            get { return new Noun{Main="Wall"}; }
+            get { return new Noun{Main="Wall",Narrator="wall"}; }
         }
 
         public bool AllowsAction(GameAction a)
