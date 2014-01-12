@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters.BaseCharacters;
@@ -20,18 +21,22 @@ namespace GetTheMilk.UI.Translators
             if(message==null)
                 return GameSettings.TranslatorErrorMessage;
             return string.Format(message.Value,
-                          active.Name.Narrator,
+                          Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(active.Name.Narrator.ToLower()),
                           actionResult.ForAction.Name.Past,
                           actionResult.ForAction.Name.Present,
                           ((MovementAction) actionResult.ForAction).Direction,
                           (actionResult.ForAction is EnterLevel) ? ((EnterLevel) actionResult.ForAction).LevelNo : 0,
-                          FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking),
-                          FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking));
+                          ((MovementActionExtraData) actionResult.ExtraData!=null)?
+                          FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking):"",
+                          ((MovementActionExtraData) actionResult.ExtraData!=null)?
+                          FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking):"");
 
         }
 
         private string FormatList(IEnumerable<IPositionableObject> objectsBlocking)
         {
+            if (objectsBlocking == null || !objectsBlocking.Any())
+                return "";
             string result = objectsBlocking.Aggregate(string.Empty,
                                                       (current, objectBlocking) =>
                                                       string.Format("{0}, {1}", current, objectBlocking.Name.Narrator));

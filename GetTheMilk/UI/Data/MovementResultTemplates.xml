@@ -9,8 +9,8 @@
   </MessagesFor>
   <MessagesFor ResultType="OriginNotOnTheMap">
     <Messages>
-      <Message Id="To Walk" Value="{0} is completely confused and cannot {2}." />
-      <Message Id="To Run" Value="{0} is completely confused and cannot {2}." />
+      <Message Id="To Walk" Value="Error {0} cannot {2}." />
+      <Message Id="To Run" Value="Error {0} cannot {2}." />
     </Messages>
   </MessagesFor>
   <MessagesFor ResultType="OutOfTheMap">

@@ -20,10 +20,11 @@ namespace GetTheMilkTests.TranslatorTests
             return actionResultToHuL.TranslateMovementResult(actionResult, active);
         }
 
-        [Test]
-        public void OriginNotOnTheMap()
+        [Test,TestCaseSource(typeof(DataGeneratorForTranslator),"TestCasesForTranslatorMovementError")]
+        public string OriginNotOnTheMap(ActionResult actionResult,IPlayer active)
         {
-            Assert.Fail();
+            ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
+            return actionResultToHuL.TranslateMovementResult(actionResult, active);
         }
 
         [Test]
