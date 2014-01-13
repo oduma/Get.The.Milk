@@ -13,6 +13,10 @@ namespace GetTheMilk.UI.Translators
     {
         public string TranslateMovementResult(ActionResult actionResult,IPlayer active)
         {
+            if(active==null)
+                return GameSettings.TranslatorErrorMessage;
+            if(!(actionResult.ForAction is MovementAction))
+                return GameSettings.TranslatorErrorMessage;
             var gameInstance = Game.CreateGameInstance();
             var messageFor = gameInstance.MessagesFor.FirstOrDefault(m => m.ResultType == actionResult.ResultType);
             if (messageFor == null)

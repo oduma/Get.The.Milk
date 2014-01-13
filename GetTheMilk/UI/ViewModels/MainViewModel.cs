@@ -35,8 +35,10 @@ namespace GetTheMilk.UI.ViewModels
         {
             try
             {
-                CurrentGameViewModel = (new ObjectsFactory(new InteractivityProvidersInstaller())).CreateObject<IInteractivity>("TextBased") as
-                    GamePlayViewModel;
+                //CurrentGameViewModel = (new ObjectsFactory(new InteractivityProvidersInstaller())).CreateObject<IInteractivity>("TextBased") as
+                //    GamePlayViewModel;
+                CurrentGameViewModel = new GamePlayViewModel();
+
                 ((GamePlayViewModel)CurrentGameViewModel).LevelNo = eventArgs.Level;
             }
             catch (Exception)

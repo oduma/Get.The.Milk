@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using GetTheMilk.Actions;
 using GetTheMilk.Characters;
+using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Settings;
+using GetTheMilk.Test.Level.Level1Characters;
 using GetTheMilkTests.ActionsTests;
 using NUnit.Framework;
 using RedDoor = GetTheMilk.Test.Level.Level1Objects.RedDoor;
@@ -111,5 +114,79 @@ namespace GetTheMilkTests.TranslatorTests
 
             }
         }
+
+        public static IEnumerable TestCasesForTranslatorMovementBlockedByChars
+        {
+            get
+            {
+                yield return
+                    new TestCaseData(
+                        new ActionResult
+                        {
+                            ResultType = ActionResultType.BlockedByCharacter,
+                            ForAction = new Walk { Direction = Direction.South },
+                            ExtraData =
+                                new MovementActionExtraData
+                                {
+                                    ObjectsBlocking =
+                                        new ICharacter[] { new FighterCharacter(), new ShopKeeperCharacter() }
+                                }
+                        },
+                        Player.GetNewInstance()).Returns("You tried to walk South but the Baddie and John the Shop Keeper is on the way.");
+
+                yield return
+                    new TestCaseData(
+                        new ActionResult
+                        {
+                            ResultType = ActionResultType.BlockedByCharacter,
+                            ForAction = new Run { Direction = Direction.West },
+                            ExtraData =
+                                new MovementActionExtraData
+                                {
+                                    ObjectsBlocking =
+                                        new ICharacter[] { new FighterCharacter(), new ShopKeeperCharacter() }
+                                }
+                        },
+                        Player.GetNewInstance()).Returns("You tried to run West but the Baddie and John the Shop Keeper is on the way.");
+                yield return
+                    new TestCaseData(
+                        new ActionResult
+                        {
+                            ResultType = ActionResultType.BlockedByCharacter,
+                            ForAction = new EnterLevel { LevelNo = 2 },
+                            ExtraData =
+                                new MovementActionExtraData
+                                {
+                                    ObjectsBlocking =
+                                        new ICharacter[] { new FighterCharacter(),new ShopKeeperCharacter()   }
+                                }
+                        },
+                        Player.GetNewInstance()).Returns("You tried to enter level 2 but the Baddie and John the Shop Keeper is on the way.");
+
+            }
+        }
+
+        public static IEnumerable TestCasesForTranslatorMovementNoActiveCharacter
+        {
+            get
+            {
+                yield return
+                    new TestCaseData(
+                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new Walk { Direction = Direction.South } }).Returns(GameSettings.TranslatorErrorMessage);
+
+            }
+        }
+
+        public static IEnumerable TestCasesForTranslatorMovementWrongAction
+        {
+            get
+            {
+                yield return
+                    new TestCaseData(
+                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new Kill () },
+                        Player.GetNewInstance()).Returns(GameSettings.TranslatorErrorMessage);
+            }
+        }
+
     }
 }

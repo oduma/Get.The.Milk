@@ -23,7 +23,7 @@ namespace GetTheMilk.UI.ViewModels
         {
             Player.Destroy();
             Player player = Player.GetNewInstance();
-            player.Name.Main = Name;
+            player.SetPlayerName(Name);
             player.Walet.CurrentCapacity = Money;
             player.Experience = Experience;
             if(GameStartRequest!=null)

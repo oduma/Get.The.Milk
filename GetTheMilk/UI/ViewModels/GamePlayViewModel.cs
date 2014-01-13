@@ -2,6 +2,7 @@ using System;
 using GetTheMilk.Characters;
 using GetTheMilk.Factories;
 using GetTheMilk.Levels;
+using GetTheMilk.UI.Translators;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.UI.ViewModels
@@ -20,7 +21,9 @@ namespace GetTheMilk.UI.ViewModels
                     try
                     {
                         _level = (new LevelsFactory().CreateLevel(value));
-                        Story = string.Format("{0}\r\n{1}",_level.Story,Player.GetNewInstance().EnterLevel(_level));
+                        Story = string.Format("{0}\r\n{1}", _level.Story,
+                                              (new ActionResultToHuL()).TranslateMovementResult(
+                                                  Player.GetNewInstance().EnterLevel(_level), Player.GetNewInstance()));
                     }
                     catch
                     {

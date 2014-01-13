@@ -222,6 +222,8 @@ namespace GetTheMilk.Characters.BaseCharacters
                          allLevelCharacters ?? new IPositionableObject[0]);
             }
 
+            movementResult.ForAction = movement;
+
             if(movementResult.ResultType==ActionResultType.LevelCompleted)
             {
                 if(movement.Perform(this))

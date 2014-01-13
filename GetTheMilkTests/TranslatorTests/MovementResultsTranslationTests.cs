@@ -41,22 +41,25 @@ namespace GetTheMilkTests.TranslatorTests
             return actionResultToHuL.TranslateMovementResult(actionResult, active);
         }
 
-        [Test]
-        public void BlockedByCharacters()
+        [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementBlockedByChars")]
+        public string BlockedByCharacters(ActionResult actionResult, IPlayer active)
         {
-            Assert.Fail();
+            ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
+            return actionResultToHuL.TranslateMovementResult(actionResult, active);
         }
 
-        [Test]
-        public void NoActiveCharacter()
+        [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementNoActiveCharacter")]
+        public string NoActiveCharacter(ActionResult actionResult)
         {
-            Assert.Fail();
+            ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
+            return actionResultToHuL.TranslateMovementResult(actionResult, null);
         }
 
-        [Test]
-        public void NotMovementAction()
+        [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementWrongAction")]
+        public string NotMovementAction(ActionResult actionResult, IPlayer active)
         {
-            Assert.Fail();
+            ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
+            return actionResultToHuL.TranslateMovementResult(actionResult, active);
         }
     }
 }

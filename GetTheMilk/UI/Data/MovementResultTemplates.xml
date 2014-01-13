@@ -28,9 +28,9 @@
   </MessagesFor>
   <MessagesFor ResultType="BlockedByCharacter">
     <Messages>
-      <Message Id="To Walk" Value="{0}  tried to {2} {3} but {6} is on the way." />
-      <Message Id="To Run" Value="{0}  tried to {2} {3} but {6} is on the way." />
-      <Message Id="To Enter" Value="{0}  tried to {2} level {4} but {6} is on the way." />
+      <Message Id="To Walk" Value="{0} tried to {2} {3} but {6} is on the way." />
+      <Message Id="To Run" Value="{0} tried to {2} {3} but {6} is on the way." />
+      <Message Id="To Enter" Value="{0} tried to {2} level {4} but {6} is on the way." />
     </Messages>
   </MessagesFor>
 </ArrayOfMessagesFor>
