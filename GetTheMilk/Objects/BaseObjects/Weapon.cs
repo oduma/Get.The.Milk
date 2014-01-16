@@ -29,5 +29,7 @@ namespace GetTheMilk.Objects.BaseObjects
         public int DefensePower { get; protected set; }
 
         public int AttackPower { get; protected set; }
+        public abstract string ApproachingMessage { get; set; }
+        public abstract string CloseUpMessage { get; set; }
     }
 }

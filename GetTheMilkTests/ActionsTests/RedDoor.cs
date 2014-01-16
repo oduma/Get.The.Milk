@@ -6,7 +6,7 @@ using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilkTests.ActionsTests
 {
-    public class RedDoor : IPositionableObject
+    public class RedDoor : INonCharacterObject
     {
         public RedDoor()
         {
@@ -29,5 +29,7 @@ namespace GetTheMilkTests.ActionsTests
         }
 
         public Noun Name { get; private set; }
+        public string ApproachingMessage { get; set; }
+        public string CloseUpMessage { get; set; }
     }
 }

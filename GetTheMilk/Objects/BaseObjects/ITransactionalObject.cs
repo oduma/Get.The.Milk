@@ -1,6 +1,6 @@
 namespace GetTheMilk.Objects.BaseObjects
 {
-    public interface ITransactionalObject : IPositionableObject
+    public interface ITransactionalObject : INonCharacterObject
     {
         int BuyPrice { get; }
 

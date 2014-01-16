@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Xml.Serialization;
 
-namespace GetTheMilk.UI.Translators.MovementResultTemplates
+namespace GetTheMilk.UI.Translators.Common
 {
     [Serializable]
     public class Message

@@ -25,5 +25,8 @@ namespace GetTheMilkTests.ActionsTests
         {
             return ((o is ICharacter) && (a is GiveTo || a is Buy || a is Sell || a is Pick || a is Keep));
         }
+
+        public override string ApproachingMessage { get; set; }
+        public override string CloseUpMessage { get; set; }
     }
 }

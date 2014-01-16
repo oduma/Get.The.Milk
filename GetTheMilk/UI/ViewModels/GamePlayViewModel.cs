@@ -22,7 +22,7 @@ namespace GetTheMilk.UI.ViewModels
                     {
                         _level = (new LevelsFactory().CreateLevel(value));
                         Story = string.Format("{0}\r\n{1}", _level.Story,
-                                              (new ActionResultToHuL()).TranslateMovementResult(
+                                              (new ActionResultToHuL()).TranslateActionResult(
                                                   Player.GetNewInstance().EnterLevel(_level), Player.GetNewInstance()));
                     }
                     catch

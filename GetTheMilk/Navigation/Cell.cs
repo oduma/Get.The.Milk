@@ -43,6 +43,22 @@ namespace GetTheMilk.Navigation
                     cellNumber == EastCell || cellNumber == TopCell || cellNumber == BottomCell || cellNumber==Number);
         }
 
+        public Direction GetDirectionToCell(int cellNumber)
+        {
+            if(cellNumber==NorthCell)
+                return Direction.North;
+            if(cellNumber==WestCell)
+                return Direction.West;
+            if(cellNumber==SouthCell)
+                return Direction.South;
+            if(cellNumber==EastCell)
+                return Direction.East;
+            if(cellNumber==BottomCell)
+                return Direction.Bottom;
+            if(cellNumber==TopCell)
+                return Direction.Top;
+            return Direction.None;
+        }
         public bool IsObjective { get; set; }
     }
 }

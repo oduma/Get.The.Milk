@@ -2,6 +2,7 @@
 using GetTheMilk;
 using GetTheMilk.Actions;
 using GetTheMilk.UI.Translators;
+using GetTheMilk.UI.Translators.Common;
 using GetTheMilk.UI.Translators.MovementResultTemplates;
 using NUnit.Framework;
 using Sciendo.Common.Serialization;
@@ -14,7 +15,7 @@ namespace GetTheMilkTests.TranslatorTests
         [Test, TestCaseSource(typeof(DataGeneratorForLoader), "TestCasesForLoader")]
         public int LoadDefaultMessages(string directory)
         {
-            var loader= new ActionResultsTemplatesLoader();
+            var loader= new TemplatesLoader();
             var templates = loader.LoadActionResultsTemplates(directory);
             Assert.IsNotNull(templates);
             return templates.Count;
@@ -26,6 +27,7 @@ namespace GetTheMilkTests.TranslatorTests
             Game myGame = Game.CreateGameInstance();
             Assert.IsNotNull(myGame.MessagesFor);
             Assert.AreEqual(5,myGame.MessagesFor.Count);
+            Assert.AreEqual("Looking {0} {1}.",myGame.MovementExtraDataTemplate.MessageForObjectsInRange);
         }
 
         [Test]
@@ -132,7 +134,20 @@ namespace GetTheMilkTests.TranslatorTests
                                                                     }
                                                         }
                                                 };
+            
             Serializer.SerializeToFile<MessagesFor>(messagesFor,"test.xml");
+        }
+
+        [Test]
+        [Ignore("This is not a test")]
+        public void SaveDefaultMovementExtraDataMessagesTemplates()
+        {
+            var messagesFor = new MovementExtraDataTemplate
+                                                {
+                                                    MessageForObjectsInRange = "my own thingy"
+                                                };
+
+            Serializer.SerializeOneToFile<MovementExtraDataTemplate>(messagesFor, "test1.xml");
         }
 
     }

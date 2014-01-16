@@ -21,5 +21,7 @@ namespace GetTheMilk.Objects.BaseObjects
         public Inventory StorageContainer { get; set; }
         public int BuyPrice { get; protected set; }
         public int SellPrice { get; protected set; }
+        public abstract string ApproachingMessage { get; set; }
+        public abstract string CloseUpMessage { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilkTests.ActionsTests
 {
-    public class Window:IPositionableObject
+    public class Window:INonCharacterObject
     {
         public int MapNumber { get; set; }
         public int CellNumber { get; set; }
@@ -33,5 +33,7 @@ namespace GetTheMilkTests.ActionsTests
 
         public Inventory StorageContainer { get; set; }
         public Noun Name { get; private set; }
+        public string ApproachingMessage { get; set; }
+        public string CloseUpMessage { get; set; }
     }
 }

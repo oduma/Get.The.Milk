@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GetTheMilk.Settings;
 using GetTheMilk.UI.Translators;
+using GetTheMilk.UI.Translators.Common;
 using GetTheMilk.UI.Translators.MovementResultTemplates;
 
 namespace GetTheMilk
@@ -15,11 +16,16 @@ namespace GetTheMilk
 
         public List<MessagesFor> MessagesFor { get; set; }
 
+        public MovementExtraDataTemplate MovementExtraDataTemplate { get; private set; }
+
         private Game()
         {
+            var templatesLoader = new TemplatesLoader();
             MessagesFor =
-                (new ActionResultsTemplatesLoader()).LoadActionResultsTemplates(
+                templatesLoader.LoadActionResultsTemplates(
                     GameSettings.DefaultPaths.ActionResultsTemplates);
+            MovementExtraDataTemplate =
+                templatesLoader.LoadActionExtraDataTemplate(GameSettings.DefaultPaths.ActionResultsTemplates);
         }
 
         public readonly string FullDescription = @"Full Story Line 1

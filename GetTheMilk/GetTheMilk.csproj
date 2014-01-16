@@ -95,6 +95,7 @@
     <Compile Include="Actions\Teleport.cs" />
     <Compile Include="Actions\Walk.cs" />
     <Compile Include="BaseCommon\IInventoryOwner.cs" />
+    <Compile Include="BaseCommon\IObjectHumanInterface.cs" />
     <Compile Include="BaseCommon\Noun.cs" />
     <Compile Include="BaseCommon\Verb.cs" />
     <Compile Include="Characters\BaseCharacters\Character.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Navigation\Direction.cs" />
     <Compile Include="Navigation\Map.cs" />
     <Compile Include="Objects\AnyKey.cs" />
+    <Compile Include="Objects\BaseObjects\INonCharacterObject.cs" />
     <Compile Include="Objects\BaseObjects\IPositionableObject.cs" />
     <Compile Include="Objects\BaseObjects\ITransactionalObject.cs" />
     <Compile Include="Objects\BaseObjects\Tool.cs" />
@@ -131,10 +133,11 @@
     <Compile Include="UI\Interactivity.cs" />
     <Compile Include="UI\NoInteractivityProvider.cs" />
     <Compile Include="UI\TextBasedInteractivityProvider.cs" />
-    <Compile Include="UI\Translators\ActionResultsTemplatesLoader.cs" />
+    <Compile Include="UI\Translators\TemplatesLoader.cs" />
     <Compile Include="UI\Translators\ActionResultToHuL.cs" />
-    <Compile Include="UI\Translators\MovementResultTemplates\Message.cs" />
-    <Compile Include="UI\Translators\MovementResultTemplates\MessagesFor.cs" />
+    <Compile Include="UI\Translators\Common\Message.cs" />
+    <Compile Include="UI\Translators\Common\MessagesFor.cs" />
+    <Compile Include="UI\Translators\MovementResultTemplates\MovementExtraDataTemplate.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\GameBaseViewModel.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\GameStartRequestEventArgs.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\IGameBaseViewModel.cs" />
@@ -158,6 +161,9 @@
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="UI\Data\MovementExtraDataTemplate.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="UI\Data\MovementResultTemplates.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

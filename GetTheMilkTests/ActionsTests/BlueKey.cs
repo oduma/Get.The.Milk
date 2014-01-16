@@ -9,5 +9,8 @@ namespace GetTheMilkTests.ActionsTests
         {
             Name = new Noun {Main = "BlueKey"};
         }
+
+        public override string ApproachingMessage { get; set; }
+        public override string CloseUpMessage { get; set; }
     }
 }

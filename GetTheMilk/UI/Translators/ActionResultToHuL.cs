@@ -3,7 +3,9 @@ using System.Linq;
 using System.Threading;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Levels;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Settings;
 
@@ -11,7 +13,7 @@ namespace GetTheMilk.UI.Translators
 {
     public class ActionResultToHuL
     {
-        public string TranslateMovementResult(ActionResult actionResult,IPlayer active)
+        public string TranslateActionResult(ActionResult actionResult,IPlayer active)
         {
             if(active==null)
                 return GameSettings.TranslatorErrorMessage;
@@ -35,6 +37,17 @@ namespace GetTheMilk.UI.Translators
                           ((MovementActionExtraData) actionResult.ExtraData!=null)?
                           FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking):"");
 
+        }
+
+        public string TranslateMovementExtraData(MovementActionExtraData extraData,IPlayer active,ILevel level)
+        {
+            return string.Join("\r\n",
+                        extraData.ObjectsInRange.OrderBy(o => o.CellNumber).Select(
+                            o =>
+                            string.Format(Game.CreateGameInstance().MovementExtraDataTemplate.MessageForObjectsInRange,
+                                          level.Maps.FirstOrDefault(m=>m.Number==active.MapNumber)
+                                          .Cells.FirstOrDefault(c => c.Number == active.CellNumber).GetDirectionToCell(o.CellNumber),
+                                          ((IObjectHumanInterface) o).ApproachingMessage)));
         }
 
         private string FormatList(IEnumerable<IPositionableObject> objectsBlocking)
