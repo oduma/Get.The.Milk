@@ -8,23 +8,56 @@ namespace GetTheMilk.UI.ViewModels
 {
     public class ActionPanelViewModel:ViewModelBase
     {
-        public List<MovementAction> MovementActions
+        private MovementAction _movementType;
+
+        public MovementAction MovementType
         {
-            get { return new List<MovementAction> {new Run(), new Walk()}; }
+            get { return _movementType; }
+            set
+            {
+                if (value != _movementType)
+                {
+                    _movementType = value;
+                    RaisePropertyChanged("MovementType");
+                }
+            }
         }
 
-        public List<Direction> Directions
+        public ActionPanelViewModel()
+        {
+            MovementType = new Walk();
+        }
+
+        public List<ShortcutDirection> Directions
         {
             get
             {
-                return new List<Direction>
+                return new List<ShortcutDirection>
                            {
-                               Direction.Top,
-                               Direction.Bottom,
-                               Direction.North,
-                               Direction.East,
-                               Direction.South,
-                               Direction.West
+                               new ShortcutDirection
+                               {
+                               Direction = Direction.Top,
+                               Shortcuts=new []{"E"}},
+                               new ShortcutDirection
+                               {
+                               Direction = Direction.Bottom,
+                               Shortcuts=new []{"D"}},
+                               new ShortcutDirection
+                               {
+                               Direction = Direction.North,
+                               Shortcuts=new []{"W"}},
+                               new ShortcutDirection
+                               {
+                               Direction = Direction.East,
+                               Shortcuts=new []{"S"}},
+                               new ShortcutDirection
+                               {
+                               Direction = Direction.South,
+                               Shortcuts=new []{"Z"}},
+                               new ShortcutDirection
+                               {
+                               Direction = Direction.West,
+                               Shortcuts=new []{"A"}}
                            };
             }
         }

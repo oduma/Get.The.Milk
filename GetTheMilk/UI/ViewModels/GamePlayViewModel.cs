@@ -73,10 +73,26 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
+        private ActionPanelViewModel _actionPanelViewModel;
+
+        public ActionPanelViewModel ActionPanelViewModel
+        {
+            get { return _actionPanelViewModel; }
+            set
+            {
+                if (value != _actionPanelViewModel)
+                {
+                    _actionPanelViewModel = value;
+                    RaisePropertyChanged("ActionPanelViewModel");
+                }
+            }
+        }
+
         public GamePlayViewModel()
         {
             
             PlayerInfoViewModel=new PlayerInfoViewModel();
+            ActionPanelViewModel= new ActionPanelViewModel();
           
         }
 

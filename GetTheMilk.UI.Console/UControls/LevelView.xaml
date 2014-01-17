@@ -10,7 +10,9 @@
         <DataTemplate DataType="{x:Type ViewModels:PlayerInfoViewModel}">
             <UCViews:PlayerInfoView />
         </DataTemplate>
-
+        <DataTemplate DataType="{x:Type ViewModels:ActionPanelViewModel}">
+            <UCViews:ActionPanel/>
+        </DataTemplate> 
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -30,5 +32,6 @@
         <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3">
             <TextBlock Text="{Binding Path=Story}" Grid.Row="1" Grid.ColumnSpan="3"/>
         </ScrollViewer>
+        <ContentControl Grid.Row="2"  Grid.Column ="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Path=ActionPanelViewModel}"/>
     </Grid>
 </UserControl>
