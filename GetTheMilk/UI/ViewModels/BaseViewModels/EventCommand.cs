@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
-namespace WpfApplication1.ViewModels
+namespace GetTheMilk.UI.ViewModels.BaseViewModels
 {
     public sealed class EventCommand : TriggerAction<DependencyObject>
     {

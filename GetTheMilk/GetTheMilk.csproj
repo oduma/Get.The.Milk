@@ -149,6 +149,7 @@
     <Compile Include="UI\ViewModels\BaseViewModels\GameStartRequestEventArgs.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\IGameBaseViewModel.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\RelayCommand.cs" />
+    <Compile Include="UI\ViewModels\BaseViewModels\RelayCommandOfT.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\ViewModelBase.cs" />
     <Compile Include="UI\ViewModels\GamePlayViewModel.cs" />
     <Compile Include="UI\ViewModels\GameViewModel.cs" />

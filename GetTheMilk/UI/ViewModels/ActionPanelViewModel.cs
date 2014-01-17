@@ -26,6 +26,12 @@ namespace GetTheMilk.UI.ViewModels
         public ActionPanelViewModel()
         {
             MovementType = new Walk();
+            KeyPressed = new RelayCommand<object>(KeyPressedCommand);
+        }
+
+        private void KeyPressedCommand(object obj)
+        {
+            ;
         }
 
         public List<ShortcutDirection> Directions
@@ -61,6 +67,8 @@ namespace GetTheMilk.UI.ViewModels
                            };
             }
         }
+
+        public RelayCommand<object> KeyPressed { get; private set; }
 
     }
 }
