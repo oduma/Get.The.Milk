@@ -1,4 +1,5 @@
 using System;
+using GetTheMilk.Actions;
 using GetTheMilk.Characters;
 using GetTheMilk.Factories;
 using GetTheMilk.Levels;
@@ -21,9 +22,14 @@ namespace GetTheMilk.UI.ViewModels
                     try
                     {
                         _level = (new LevelsFactory().CreateLevel(value));
-                        Story = string.Format("{0}\r\n{1}", _level.Story,
-                                              (new ActionResultToHuL()).TranslateActionResult(
-                                                  Player.GetNewInstance().EnterLevel(_level), Player.GetNewInstance()));
+                        ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
+                        Player player = Player.GetNewInstance();
+                        var actionResult = player.EnterLevel(_level);
+                        Story = string.Format("{0}\r\n{1}\r\n{2}", _level.Story,
+                                              actionResultToHuL.TranslateActionResult(
+                                                  actionResult, player),
+                                              actionResultToHuL.TranslateMovementExtraData(
+                                                  actionResult.ExtraData as MovementActionExtraData, player, _level));
                     }
                     catch
                     {

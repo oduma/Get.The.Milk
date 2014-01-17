@@ -2,10 +2,12 @@
 using GetTheMilk.Actions;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Settings;
 using GetTheMilk.Test.Level.Level1Characters;
+using GetTheMilk.TestLevel;
 using GetTheMilkTests.ActionsTests;
 using NUnit.Framework;
 using RedDoor = GetTheMilk.Test.Level.Level1Objects.RedDoor;
@@ -187,6 +189,66 @@ namespace GetTheMilkTests.TranslatorTests
                         Player.GetNewInstance()).Returns(GameSettings.TranslatorErrorMessage);
             }
         }
+
+        public static IEnumerable TestCasesForTranslatorMovementExtraData
+        {
+            get
+            {
+                var player = Player.GetNewInstance();
+                player.CellNumber = 1;
+                player.MapNumber = 1;
+                var redDoor = new RedDoor();
+                redDoor.CellNumber = 2;
+                redDoor.MapNumber = 1;
+                var wall = new Wall();
+                wall.CellNumber = 4;
+                wall.MapNumber = 1;
+
+                yield return
+                    new TestCaseData(
+                        new ActionResult
+                        {
+                            ExtraData =
+                                new MovementActionExtraData
+                                {
+                                    ObjectsInRange = 
+                                        new IPositionableObject[] { redDoor,wall }
+                                }
+                        },
+                        player, new TestLevel1()).Returns("Looking East There is a red door in the distance, or is it a wall?.\r\nLooking South You see a wall.");
+
+                //yield return
+                //    new TestCaseData(
+                //        new ActionResult
+                //        {
+                //            ResultType = ActionResultType.BlockedByObject,
+                //            ForAction = new Run { Direction = Direction.West },
+                //            ExtraData =
+                //                new MovementActionExtraData
+                //                {
+                //                    ObjectsBlocking =
+                //                        new IPositionableObject[] { new RedDoor(), new Wall(), new Window() }
+                //                }
+                //        },
+                //        Player.GetNewInstance()).Returns("You tried to run West but is impossible, blocked by a red door, wall and window.");
+                //yield return
+                //    new TestCaseData(
+                //        new ActionResult
+                //        {
+                //            ResultType = ActionResultType.BlockedByObject,
+                //            ForAction = new EnterLevel { LevelNo = 2 },
+                //            ExtraData =
+                //                new MovementActionExtraData
+                //                {
+                //                    ObjectsBlocking =
+                //                        new IPositionableObject[] { new RedDoor(), new Wall(), new Window() }
+                //                }
+                //        },
+                //        Player.GetNewInstance()).Returns("You tried to enter level 2 but is impossible, blocked by a red door, wall and window.");
+
+            }
+        }
+
 
     }
 }

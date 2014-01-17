@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GetTheMilk.Actions;
+﻿using GetTheMilk.Actions;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Levels;
 using GetTheMilk.UI.Translators;
 using NUnit.Framework;
 
@@ -60,6 +56,14 @@ namespace GetTheMilkTests.TranslatorTests
         {
             ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
             return actionResultToHuL.TranslateActionResult(actionResult, active);
+        }
+
+        [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementExtraData")]
+        public string MovementExtraDataTest(ActionResult actionResult, IPlayer active, ILevel level)
+        {
+            ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
+            return actionResultToHuL.TranslateMovementExtraData(actionResult.ExtraData as MovementActionExtraData, active,level);
+            
         }
     }
 }
