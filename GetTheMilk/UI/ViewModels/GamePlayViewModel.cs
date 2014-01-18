@@ -1,5 +1,6 @@
 using System;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters;
 using GetTheMilk.Factories;
 using GetTheMilk.Levels;
@@ -22,14 +23,9 @@ namespace GetTheMilk.UI.ViewModels
                     try
                     {
                         _level = (new LevelsFactory().CreateLevel(value));
-                        ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
                         Player player = Player.GetNewInstance();
                         var actionResult = player.EnterLevel(_level);
-                        Story = string.Format("{0}\r\n{1}\r\n{2}", _level.Story,
-                                              actionResultToHuL.TranslateActionResult(
-                                                  actionResult, player),
-                                              actionResultToHuL.TranslateMovementExtraData(
-                                                  actionResult.ExtraData as MovementActionExtraData, player, _level));
+                        Story = string.Format("{0}\r\n{1}",_level.Story, RecordActionResult(actionResult, player));
                     }
                     catch
                     {
@@ -40,6 +36,16 @@ namespace GetTheMilk.UI.ViewModels
                     RaisePropertyChanged("LevelNo");
                 }
             }
+        }
+
+        private string RecordActionResult(ActionResult actionResult, Player player)
+        {
+            ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
+            return string.Format("\r\n{0}\r\n{1}", 
+                                 actionResultToHuL.TranslateActionResult(
+                                     actionResult, player),
+                                 actionResultToHuL.TranslateMovementExtraData(
+                                     actionResult.ExtraData as MovementActionExtraData, player, _level));
         }
 
         private ILevel _level;
@@ -82,10 +88,21 @@ namespace GetTheMilk.UI.ViewModels
             {
                 if (value != _actionPanelViewModel)
                 {
+                    if (_actionPanelViewModel != null)
+                        _actionPanelViewModel.ActionExecutionRequest -= _actionPanelViewModel_ActionExecutionRequest;
                     _actionPanelViewModel = value;
+                    _actionPanelViewModel.ActionExecutionRequest += _actionPanelViewModel_ActionExecutionRequest;
                     RaisePropertyChanged("ActionPanelViewModel");
                 }
             }
+        }
+
+        void _actionPanelViewModel_ActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
+        {
+            Story += RecordActionResult(_playerInfoViewModel.PlayerDoesAction(e.GameAction, _level.Maps,
+                                                                       _level.PositionableObjects.Objects,
+                                                                       _level.Characters.Objects),Player.GetNewInstance());
+
         }
 
         public GamePlayViewModel()

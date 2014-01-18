@@ -18,6 +18,8 @@ namespace GetTheMilk
 
         public MovementExtraDataTemplate MovementExtraDataTemplate { get; private set; }
 
+        public GamePreferences Preferences { get; set; }
+
         private Game()
         {
             var templatesLoader = new TemplatesLoader();
@@ -26,6 +28,7 @@ namespace GetTheMilk
                     GameSettings.DefaultPaths.ActionResultsTemplates);
             MovementExtraDataTemplate =
                 templatesLoader.LoadActionExtraDataTemplate(GameSettings.DefaultPaths.ActionResultsTemplates);
+            Preferences=new GamePreferences();
         }
 
         public readonly string FullDescription = @"Full Story Line 1

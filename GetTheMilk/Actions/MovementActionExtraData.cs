@@ -1,4 +1,3 @@
-using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions
@@ -12,5 +11,7 @@ namespace GetTheMilk.Actions
         public int MoveToCell { get; set; }
 
         public IPositionableObject[] ObjectsInRange { get; set; }
+
+        public IPositionableObject[] ObjectsInCell { get; set; }
     }
 }

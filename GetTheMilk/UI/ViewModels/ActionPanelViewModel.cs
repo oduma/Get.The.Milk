@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Navigation;
@@ -8,6 +11,8 @@ namespace GetTheMilk.UI.ViewModels
 {
     public class ActionPanelViewModel:ViewModelBase
     {
+        public event EventHandler<ActionExecutionRequestEventArgs> ActionExecutionRequest;
+
         private MovementAction _movementType;
 
         public MovementAction MovementType
@@ -26,12 +31,28 @@ namespace GetTheMilk.UI.ViewModels
         public ActionPanelViewModel()
         {
             MovementType = new Walk();
-            KeyPressed = new RelayCommand<object>(KeyPressedCommand);
+            KeyPressed = new RelayCommand<KeyEventArgs>(KeyPressedCommand);
+            KeyUnPressed=new RelayCommand<KeyEventArgs>(KeyUnPressedCommand);
         }
 
-        private void KeyPressedCommand(object obj)
+        private void KeyUnPressedCommand(KeyEventArgs obj)
         {
-            ;
+            if (obj.Key == Key.RightCtrl || obj.Key == Key.LeftCtrl)
+                MovementType = new Walk();
+
+        }
+
+        private void KeyPressedCommand(KeyEventArgs obj)
+        {
+            if(obj.Key==Key.RightCtrl || obj.Key==Key.LeftCtrl)
+                MovementType=new Run();
+            var direction = Directions.FirstOrDefault(d => d.Shortcuts.Contains(obj.Key.ToString()));
+            if(direction!=null)
+            {
+                MovementType.Direction = direction.Direction;
+                if(ActionExecutionRequest!=null)
+                    ActionExecutionRequest(this,new ActionExecutionRequestEventArgs(MovementType));
+            }
         }
 
         public List<ShortcutDirection> Directions
@@ -68,7 +89,9 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
-        public RelayCommand<object> KeyPressed { get; private set; }
+        public RelayCommand<KeyEventArgs> KeyPressed { get; private set; }
+
+        public RelayCommand<KeyEventArgs> KeyUnPressed { get; private set; }
 
     }
 }

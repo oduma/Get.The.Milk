@@ -114,6 +114,7 @@
     <Compile Include="Factories\LevelsInstaller.cs" />
     <Compile Include="Factories\ObjectsFactory.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GamePreferences.cs" />
     <Compile Include="Levels\ILevel.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Navigation\Cell.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="UI\Translators\Common\Message.cs" />
     <Compile Include="UI\Translators\Common\MessagesFor.cs" />
     <Compile Include="UI\Translators\MovementResultTemplates\MovementExtraDataTemplate.cs" />
+    <Compile Include="UI\ViewModels\ActionExecutionRequestEventArgs.cs" />
     <Compile Include="UI\ViewModels\ActionPanelViewModel.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\EventCommand.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\GameBaseViewModel.cs" />
@@ -175,6 +177,7 @@
     </Content>
     <Content Include="UI\Data\MovementResultTemplates.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="UI\Translators\MovementResultsMessages.xml" />
   </ItemGroup>

@@ -8,5 +8,9 @@ namespace GetTheMilk.UI.Translators.MovementResultTemplates
     {
         [XmlAttribute(AttributeName="ObjectsInRangeTemplate")]
         public string MessageForObjectsInRange { get; set; }
+
+        [XmlAttribute(AttributeName = "ObjectsInCellTemplate")]
+        public string MessageForObjectsInCell { get; set; }
+
     }
 }

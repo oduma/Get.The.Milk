@@ -40,7 +40,7 @@ namespace GetTheMilk.Navigation
         public bool IsANeighbourOfOrSelf(int cellNumber)
         {
             return (cellNumber == NorthCell || cellNumber == WestCell || cellNumber == SouthCell ||
-                    cellNumber == EastCell || cellNumber == TopCell || cellNumber == BottomCell || cellNumber==Number);
+                    cellNumber == EastCell || cellNumber == TopCell || cellNumber == BottomCell);
         }
 
         public Direction GetDirectionToCell(int cellNumber)

@@ -12,7 +12,7 @@ namespace GetTheMilk.Test.Level.Level1Objects
         {
             Name = new Noun { Main = "Red Key" };
             _approachingMessage = "A glint catches your eye.";
-            _closeUpMessage = "You nottice the Red Key of Kirna and you wonder how did you knew what it was.";
+            _closeUpMessage = "the Red Key of Kirna and you wonder how did you knew what it was.";
         }
 
         public override string ApproachingMessage

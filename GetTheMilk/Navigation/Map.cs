@@ -115,8 +115,19 @@ namespace GetTheMilk.Navigation
                                                     c =>
                                                     AreInRange(c.MapNumber, c.CellNumber, targetMapNumber,
                                                                ((MovementActionExtraData)movementResult.ExtraData).MoveToCell) &&
-                                                    c is ITransactionalObject)
+                                                    c is INonCharacterObject)
                                                       .ToArray();
+            ((MovementActionExtraData)movementResult.ExtraData).ObjectsInCell = ((allLevelCharacters == null)
+                                                   ? new IPositionableObject[0]
+                                                   : allLevelCharacters.Where(
+                                                       c =>c.MapNumber==targetMapNumber && c.CellNumber==
+                                                                  ((MovementActionExtraData)movementResult.ExtraData).MoveToCell))
+                                                .Union(((allObjects == null)
+                                                ? new IPositionableObject[0]
+                                                : allObjects.Where(
+                                                    c =>c.MapNumber==targetMapNumber && c.CellNumber==((MovementActionExtraData)movementResult.ExtraData).MoveToCell &&
+                                                    c is INonCharacterObject)))
+                                               .ToArray();
             return movementResult;
         }
 

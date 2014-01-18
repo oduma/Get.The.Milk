@@ -46,5 +46,6 @@ namespace GetTheMilk.Test.Level.Level1Objects
             get { return _closeUpMessage; }
             set { _closeUpMessage = value; }
         }
+
     }
 }

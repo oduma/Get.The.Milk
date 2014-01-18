@@ -65,6 +65,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Behaviors\FocusBehavior.cs" />
     <Compile Include="UControls\ActionPanel.xaml.cs">
       <DependentUpon>ActionPanel.xaml</DependentUpon>
     </Compile>

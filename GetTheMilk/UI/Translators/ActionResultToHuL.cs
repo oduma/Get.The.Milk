@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using GetTheMilk.Actions;
@@ -33,34 +34,51 @@ namespace GetTheMilk.UI.Translators
                           ((MovementAction) actionResult.ForAction).Direction,
                           (actionResult.ForAction is EnterLevel) ? ((EnterLevel) actionResult.ForAction).LevelNo : 0,
                           ((MovementActionExtraData) actionResult.ExtraData!=null)?
-                          FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking):"",
+                          FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking,NarratorNaming):"",
                           ((MovementActionExtraData) actionResult.ExtraData!=null)?
-                          FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking):"");
+                          FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking,NarratorNaming):"");
 
+        }
+
+        private static string NarratorNaming(IPositionableObject obj)
+        {
+            return obj.Name.Narrator;
         }
 
         public string TranslateMovementExtraData(MovementActionExtraData extraData,IPlayer active,ILevel level)
         {
-            return string.Join("\r\n",
+            var game = Game.CreateGameInstance();
+            var objectsInTheCell = string.Empty;
+            if(extraData.ObjectsInCell.Any())
+                objectsInTheCell=string.Format(game.MovementExtraDataTemplate.MessageForObjectsInCell +"\r\n",
+                                                 FormatList(extraData.ObjectsInCell, CloseUpMessageNaming));
+            var objectsInRange = string.Join("\r\n",
                         extraData.ObjectsInRange.OrderBy(o => o.CellNumber).Select(
                             o =>
                             string.Format(Game.CreateGameInstance().MovementExtraDataTemplate.MessageForObjectsInRange,
                                           level.Maps.FirstOrDefault(m=>m.Number==active.MapNumber)
                                           .Cells.FirstOrDefault(c => c.Number == active.CellNumber).GetDirectionToCell(o.CellNumber),
                                           ((IObjectHumanInterface) o).ApproachingMessage)));
+            return string.Format("{0}{1}", objectsInTheCell, objectsInRange);
         }
 
-        private string FormatList(IEnumerable<IPositionableObject> objectsBlocking)
+        private string CloseUpMessageNaming(IPositionableObject obj)
         {
-            if (objectsBlocking == null || !objectsBlocking.Any())
+            return obj is IObjectHumanInterface ? ((IObjectHumanInterface) obj).CloseUpMessage : string.Empty;
+        }
+
+        private string FormatList(IEnumerable<IPositionableObject> objects,Func<IPositionableObject,string> namingMethod)
+        {
+            if (objects == null || !objects.Any())
                 return "";
-            string result = objectsBlocking.Aggregate(string.Empty,
-                                                      (current, objectBlocking) =>
-                                                      string.Format("{0}, {1}", current, objectBlocking.Name.Narrator));
+            string result = objects.Aggregate(string.Empty,
+                                                      (current, currentObject) =>
+                                                      string.Format("{0}, {1}", current, namingMethod(currentObject)));
             if (result.StartsWith(","))
                 result = result.Substring(2, result.Length - 2);
             var andReplacementPosition = result.LastIndexOf(",");
-            result = string.Format("{0} and {1}", result.Substring(0, andReplacementPosition),
+            if(objects.Count()>1)
+                result = string.Format("{0} and {1}", result.Substring(0, andReplacementPosition),
                                    result.Substring(andReplacementPosition + 2, result.Length - andReplacementPosition - 2));
             return result;
         }

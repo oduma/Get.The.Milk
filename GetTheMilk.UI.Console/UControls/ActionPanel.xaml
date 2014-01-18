@@ -5,11 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:ViewModels="clr-namespace:GetTheMilk.UI.ViewModels.BaseViewModels;assembly=GetTheMilk"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:Behaviors="clr-namespace:GetTheMilk.UI.Console.Behaviors" mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Behaviors:FocusBehavior.FocusFirst="True">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="PreviewKeyDown">
             <ViewModels:EventCommand Command="{Binding Path=KeyPressed}"  CommandName="KeyPressed" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=InvokeParameter}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="PreviewKeyUp">
+            <ViewModels:EventCommand Command="{Binding Path=KeyUnPressed}" CommandName="KeyUnPressed" CommandParameter="{Binding RelativeSource={RelativeSource Self},Path=InvokeParameter}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
