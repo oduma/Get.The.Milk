@@ -10,7 +10,7 @@ namespace GetTheMilk.Test.Level.Level1Objects
 
         public RedKey()
         {
-            Name = new Noun { Main = "Red Key" };
+            Name = new Noun { Main = "Red Key" ,Narrator = "the Red Key"};
             _approachingMessage = "A glint catches your eye.";
             _closeUpMessage = "the Red Key of Kirna and you wonder how did you knew what it was.";
         }

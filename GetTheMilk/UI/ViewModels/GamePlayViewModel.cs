@@ -1,6 +1,5 @@
 using System;
 using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters;
 using GetTheMilk.Factories;
 using GetTheMilk.Levels;
@@ -40,12 +39,19 @@ namespace GetTheMilk.UI.ViewModels
 
         private string RecordActionResult(ActionResult actionResult, Player player)
         {
-            ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
+            var actionResultToHuL = new ActionResultToHuL();
+            var additionalInformation = string.Empty;
+            if(actionResult.ExtraData is MovementActionExtraData )
+            {
+                var movementExtraData = actionResult.ExtraData as MovementActionExtraData;
+                additionalInformation = actionResultToHuL.TranslateMovementExtraData(movementExtraData, player, _level);
+                _actionPanelViewModel.DisplayPossibleActions(movementExtraData.ObjectsInCell);
+            }
+            _playerInfoViewModel.PlayerCurrentPosition = player.CellNumber;
             return string.Format("\r\n{0}\r\n{1}", 
                                  actionResultToHuL.TranslateActionResult(
-                                     actionResult, player),
-                                 actionResultToHuL.TranslateMovementExtraData(
-                                     actionResult.ExtraData as MovementActionExtraData, player, _level));
+                                     actionResult, player),additionalInformation);
+            
         }
 
         private ILevel _level;
@@ -89,15 +95,15 @@ namespace GetTheMilk.UI.ViewModels
                 if (value != _actionPanelViewModel)
                 {
                     if (_actionPanelViewModel != null)
-                        _actionPanelViewModel.ActionExecutionRequest -= _actionPanelViewModel_ActionExecutionRequest;
+                        _actionPanelViewModel.ActionExecutionRequest -= ActionPanelViewModelActionExecutionRequest;
                     _actionPanelViewModel = value;
-                    _actionPanelViewModel.ActionExecutionRequest += _actionPanelViewModel_ActionExecutionRequest;
+                    _actionPanelViewModel.ActionExecutionRequest += ActionPanelViewModelActionExecutionRequest;
                     RaisePropertyChanged("ActionPanelViewModel");
                 }
             }
         }
 
-        void _actionPanelViewModel_ActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
+        void ActionPanelViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
         {
             Story += RecordActionResult(_playerInfoViewModel.PlayerDoesAction(e.GameAction, _level.Maps,
                                                                        _level.PositionableObjects.Objects,

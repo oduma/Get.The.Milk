@@ -16,6 +16,9 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Content="Player:" Grid.Row="0" Grid.Column="0"/>
 
@@ -28,6 +31,8 @@
         <Label Content="{Binding Path=PlayerMoney}" Grid.Row="0" Grid.Column="7"/>
         <Label Content="{Binding Path=PlayerRightHandObject}" Grid.Row="0" Grid.Column="8"/>
         <Label Content="{Binding Path=PlayerLeftHandObject}" Grid.Row="0" Grid.Column="9"/>
+        <Label Content="Pos:" Grid.Column="10" Grid.Row="0"/>
+        <Label Content="{Binding Path=PlayerCurrentPosition}" Grid.Column="11" Grid.Row="0"/>
 
     </Grid>
 </UserControl>

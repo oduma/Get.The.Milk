@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
+using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.UI.ViewModels
@@ -33,6 +34,14 @@ namespace GetTheMilk.UI.ViewModels
             MovementType = new Walk();
             KeyPressed = new RelayCommand<KeyEventArgs>(KeyPressedCommand);
             KeyUnPressed=new RelayCommand<KeyEventArgs>(KeyUnPressedCommand);
+            PerformAction=new RelayCommand<ActionWithTargetModel>(PerformActionCommand);
+            Actions= new ObservableCollection<ActionWithTargetModel>();
+        }
+
+        private void PerformActionCommand(ActionWithTargetModel obj)
+        {
+            if(ActionExecutionRequest!=null)
+                ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(obj.Action,obj.TargetObject));
         }
 
         private void KeyUnPressedCommand(KeyEventArgs obj)
@@ -46,52 +55,35 @@ namespace GetTheMilk.UI.ViewModels
         {
             if(obj.Key==Key.RightCtrl || obj.Key==Key.LeftCtrl)
                 MovementType=new Run();
-            var direction = Directions.FirstOrDefault(d => d.Shortcuts.Contains(obj.Key.ToString()));
-            if(direction!=null)
-            {
-                MovementType.Direction = direction.Direction;
-                if(ActionExecutionRequest!=null)
-                    ActionExecutionRequest(this,new ActionExecutionRequestEventArgs(MovementType));
-            }
+            var direction = CardinalStar.GetDirectionByShortcut(obj.Key.ToString());
+            if (direction == Direction.None) return;
+            MovementType.Direction = direction;
+            if(ActionExecutionRequest!=null)
+                ActionExecutionRequest(this,new ActionExecutionRequestEventArgs(MovementType));
         }
 
-        public List<ShortcutDirection> Directions
-        {
-            get
-            {
-                return new List<ShortcutDirection>
-                           {
-                               new ShortcutDirection
-                               {
-                               Direction = Direction.Top,
-                               Shortcuts=new []{"E"}},
-                               new ShortcutDirection
-                               {
-                               Direction = Direction.Bottom,
-                               Shortcuts=new []{"D"}},
-                               new ShortcutDirection
-                               {
-                               Direction = Direction.North,
-                               Shortcuts=new []{"W"}},
-                               new ShortcutDirection
-                               {
-                               Direction = Direction.East,
-                               Shortcuts=new []{"S"}},
-                               new ShortcutDirection
-                               {
-                               Direction = Direction.South,
-                               Shortcuts=new []{"Z"}},
-                               new ShortcutDirection
-                               {
-                               Direction = Direction.West,
-                               Shortcuts=new []{"A"}}
-                           };
-            }
-        }
+        public CardinalStar Directions { get { return new CardinalStar(); } }
 
+        public ObservableCollection<ActionWithTargetModel> Actions { get; set; }
+        
         public RelayCommand<KeyEventArgs> KeyPressed { get; private set; }
 
         public RelayCommand<KeyEventArgs> KeyUnPressed { get; private set; }
 
+        public RelayCommand<ActionWithTargetModel> PerformAction { get; private set; }
+
+        public void DisplayPossibleActions(IPositionableObject[] objectsInCell)
+        {
+            Actions.Clear();
+            foreach(var objectInCell in objectsInCell)
+            {
+                if(objectInCell.StorageContainer.Owner is ILevel)
+                {
+                    Actions.Add(new ActionWithTargetModel{Action=new Pick(),TargetObject = objectInCell});
+                    Actions.Add(new ActionWithTargetModel { Action = new Keep(), TargetObject = objectInCell });
+                    Actions.Add(new ActionWithTargetModel { Action = new Kick(), TargetObject = objectInCell});
+                }
+            }
+        }
     }
 }

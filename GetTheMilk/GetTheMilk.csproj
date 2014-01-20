@@ -146,6 +146,7 @@
     <Compile Include="UI\Translators\MovementResultTemplates\MovementExtraDataTemplate.cs" />
     <Compile Include="UI\ViewModels\ActionExecutionRequestEventArgs.cs" />
     <Compile Include="UI\ViewModels\ActionPanelViewModel.cs" />
+    <Compile Include="UI\ViewModels\ActionWithTargetModel.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\EventCommand.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\GameBaseViewModel.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\GameStartRequestEventArgs.cs" />
@@ -153,12 +154,13 @@
     <Compile Include="UI\ViewModels\BaseViewModels\RelayCommand.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\RelayCommandOfT.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\ViewModelBase.cs" />
+    <Compile Include="UI\ViewModels\CardinalStar.cs" />
     <Compile Include="UI\ViewModels\GamePlayViewModel.cs" />
     <Compile Include="UI\ViewModels\GameViewModel.cs" />
     <Compile Include="UI\ViewModels\MainViewModel.cs" />
     <Compile Include="UI\ViewModels\PlayerInfoViewModel.cs" />
     <Compile Include="UI\ViewModels\PlayerSetupViewModel.cs" />
-    <Compile Include="UI\ViewModels\ShortcutDirection.cs" />
+    <Compile Include="UI\ViewModels\DirectionShortcut.cs" />
     <Compile Include="Utils\CalculationStrategies.cs" />
     <Compile Include="Utils\CoreExtensions.cs" />
     <Compile Include="Utils\GenericInteractionRulesKeys.cs" />

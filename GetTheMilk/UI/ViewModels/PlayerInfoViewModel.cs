@@ -104,6 +104,20 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
+        private int _playerCurrentPosition;
+
+        public int PlayerCurrentPosition
+        {
+            get { return _playerCurrentPosition; }
+            set
+            {
+                if (value != _playerCurrentPosition)
+                {
+                    _playerCurrentPosition = value;
+                    RaisePropertyChanged("PlayerCurrentPosition");
+                }
+            }
+        }
         private readonly Player _player;
 
         public PlayerInfoViewModel()
@@ -118,13 +132,18 @@ namespace GetTheMilk.UI.ViewModels
 
         }
 
-        public ActionResult PlayerDoesAction(GameAction gameAction, Map[] levelMaps, 
+        public ActionResult PlayerMoves(GameAction gameAction, Map[] levelMaps, 
             IEnumerable<IPositionableObject> allLevelObjects, 
             IEnumerable<IPositionableObject> allLevelCharacters)
         {
             if (gameAction is MovementAction)
                 return _player.TryPerformMove(gameAction as MovementAction, levelMaps.FirstOrDefault(m=>m.Number==_player.MapNumber), allLevelObjects, allLevelCharacters);
             return null;
+        }
+
+        public ActionResult PlayerDoesAction(GameAction action, IPositionableObject targetObject)
+        {
+            return _player.TryPerformAction(action, targetObject);
         }
     }
 }
