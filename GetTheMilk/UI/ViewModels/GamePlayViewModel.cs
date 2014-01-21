@@ -1,8 +1,12 @@
 using System;
+using System.Linq;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters;
+using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Factories;
 using GetTheMilk.Levels;
+using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.Translators;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
@@ -24,7 +28,7 @@ namespace GetTheMilk.UI.ViewModels
                         _level = (new LevelsFactory().CreateLevel(value));
                         Player player = Player.GetNewInstance();
                         var actionResult = player.EnterLevel(_level);
-                        Story = string.Format("{0}\r\n{1}",_level.Story, RecordActionResult(actionResult, player));
+                        Story = string.Format("{0}\r\n{1}",_level.Story, RecordMovementResult(actionResult, player));
                     }
                     catch
                     {
@@ -37,7 +41,7 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
-        private string RecordActionResult(ActionResult actionResult, Player player)
+        private string RecordMovementResult(ActionResult actionResult, Player player)
         {
             var actionResultToHuL = new ActionResultToHuL();
             var additionalInformation = string.Empty;
@@ -49,7 +53,7 @@ namespace GetTheMilk.UI.ViewModels
             }
             _playerInfoViewModel.PlayerCurrentPosition = player.CellNumber;
             return string.Format("\r\n{0}\r\n{1}", 
-                                 actionResultToHuL.TranslateActionResult(
+                                 actionResultToHuL.TranslateMovementResult(
                                      actionResult, player),additionalInformation);
             
         }
@@ -105,9 +109,27 @@ namespace GetTheMilk.UI.ViewModels
 
         void ActionPanelViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
         {
-            Story += RecordActionResult(_playerInfoViewModel.PlayerDoesAction(e.GameAction, _level.Maps,
+            if (e.GameAction is MovementAction)
+                Story += RecordMovementResult(_playerInfoViewModel.PlayerMoves(e.GameAction, _level.Maps,
                                                                        _level.PositionableObjects.Objects,
-                                                                       _level.Characters.Objects),Player.GetNewInstance());
+                                                                       _level.Characters.Objects), Player.GetNewInstance());
+            else
+                Story += RecordActionResult(_playerInfoViewModel.PlayerDoesAction(e.GameAction, e.TargetObject),
+                                            Player.GetNewInstance(), e.TargetObject);
+        }
+
+        private string RecordActionResult(ActionResult actionResult,IPlayer player,IPositionableObject targetObject)
+        {
+            var actionResultToHuL = new ActionResultToHuL();
+            _actionPanelViewModel.DisplayPossibleActions(
+                _level.PositionableObjects.Objects.Where(
+                    o => o.MapNumber == player.MapNumber && o.CellNumber == player.CellNumber).ToArray());
+            _playerInfoViewModel.PlayerLeftHandObject = (player.LeftHandObject.Objects.Any())?player.LeftHandObject.Objects[0].Name.Main:string.Empty;
+            _playerInfoViewModel.PlayerRightHandObject = (player.RightHandObject.Objects.Any())?player.RightHandObject.Objects[0].Name.Main:string.Empty;
+            return string.Format("\r\n{0}\r\n",
+                                 actionResultToHuL.TranslateActionResult(
+                                     actionResult,player,targetObject));
+            
 
         }
 

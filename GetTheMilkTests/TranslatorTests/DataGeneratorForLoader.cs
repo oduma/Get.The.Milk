@@ -17,7 +17,7 @@ namespace GetTheMilkTests.TranslatorTests
                 yield return new TestCaseData("").Returns(0);
                 yield return new TestCaseData("non existent folder").Returns(0);
                 yield return
-                    new TestCaseData(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"UI\Data")).Returns(5);
+                    new TestCaseData(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"UI\Data")).Returns(7);
             }
         }
     }

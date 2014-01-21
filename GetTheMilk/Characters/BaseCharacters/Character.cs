@@ -98,7 +98,7 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         public ActionResult TryPerformAction(GameAction action, params IPositionableObject[] targetObjects)
         {
-            var actionResult = new ActionResult{ResultType=ActionResultType.Ok};
+            var actionResult = new ActionResult{ResultType=ActionResultType.Ok,ForAction=action};
             foreach(var targetObject in targetObjects)
             {
                 if(targetObject.AllowsIndirectAction(action,this))

@@ -26,7 +26,7 @@ namespace GetTheMilkTests.TranslatorTests
         {
             Game myGame = Game.CreateGameInstance();
             Assert.IsNotNull(myGame.MessagesFor);
-            Assert.AreEqual(5,myGame.MessagesFor.Count);
+            Assert.AreEqual(7,myGame.MessagesFor.Count);
             Assert.AreEqual("Looking {0} {1}.",myGame.MovementExtraDataTemplate.MessageForObjectsInRange);
         }
 

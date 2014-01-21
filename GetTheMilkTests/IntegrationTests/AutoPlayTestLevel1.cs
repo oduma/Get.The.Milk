@@ -61,16 +61,16 @@ namespace GetTheMilkTests.IntegrationTests
             Assert.AreEqual(4, player.CellNumber);
             Assert.AreEqual(0, ((MovementActionExtraData)movementResult.ExtraData).CharactersInRange.Count());
             Assert.AreEqual(0, ((MovementActionExtraData)movementResult.ExtraData).ObjectsBlocking.Count());
-            Assert.AreEqual(1, ((MovementActionExtraData)movementResult.ExtraData).ObjectsInRange.Count());
+            Assert.AreEqual(2, ((MovementActionExtraData)movementResult.ExtraData).ObjectsInRange.Count());
             
             //the player has found something
             //pick it up and keep it
 
             var pick = new Keep();
             //simulate the UI
-            var actionResult = player.TryPerformAction(pick, stubedUI.SelectAnObject(((MovementActionExtraData)movementResult.ExtraData).ObjectsInRange));
+            var actionResult = player.TryPerformAction(pick, stubedUI.SelectAnObject(((MovementActionExtraData)movementResult.ExtraData).ObjectsInCell));
             Assert.AreEqual(ActionResultType.Ok,actionResult.ResultType);
-            Assert.AreEqual(player.Name, ((MovementActionExtraData)movementResult.ExtraData).ObjectsInRange[0].StorageContainer.Owner.Name);
+            Assert.AreEqual(player.Name, ((MovementActionExtraData)movementResult.ExtraData).ObjectsInCell[0].StorageContainer.Owner.Name);
             Assert.AreEqual(3,level.PositionableObjects.Objects.Count);
 
             //the user runs to the east

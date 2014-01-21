@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using GetTheMilk.Settings;
 using GetTheMilk.UI.Translators;
 using GetTheMilk.UI.Translators.Common;
 using GetTheMilk.UI.Translators.MovementResultTemplates;
+using Sciendo.Common.Serialization;
 
 namespace GetTheMilk
 {
@@ -100,5 +103,10 @@ Full Story Line 47
         }
 
         protected int CurrentLevel { get; set; }
+
+        public void Save()
+        {
+            Serializer.SerializeOneToFile<Game>(this,Path.Combine(GameSettings.DefaultPaths.SaveDefaultPath,Guid.NewGuid().ToString()));
+        }
     }
 }

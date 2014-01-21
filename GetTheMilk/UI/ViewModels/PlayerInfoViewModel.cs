@@ -14,6 +14,7 @@ namespace GetTheMilk.UI.ViewModels
 {
     public class PlayerInfoViewModel:ViewModelBase
     {
+        public RelayCommand ShowInventory { get; private set; }
         private string _playerName;
 
         public string PlayerName
@@ -129,7 +130,13 @@ namespace GetTheMilk.UI.ViewModels
             PlayerMoney = _player.Walet.CurrentCapacity;
             PlayerRightHandObject = (_player.RightHandObject.Objects == null || !_player.RightHandObject.Objects.Any()) ? "" : _player.RightHandObject.Objects[0].Name.Main;
             PlayerLeftHandObject = (_player.LeftHandObject.Objects == null || !_player.LeftHandObject.Objects.Any()) ? "" : _player.LeftHandObject.Objects[0].Name.Main;
+            ShowInventory= new RelayCommand(ShowInventoryCommand);
 
+        }
+
+        private void ShowInventoryCommand()
+        {
+            throw new NotImplementedException();
         }
 
         public ActionResult PlayerMoves(GameAction gameAction, Map[] levelMaps, 

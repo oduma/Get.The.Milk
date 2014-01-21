@@ -11,6 +11,8 @@ namespace GetTheMilk.UI.ViewModels
         public RelayCommand ExitCommand { get; private set; }
 
         public RelayCommand NewCommand { get; private set; }
+
+        public RelayCommand SaveCommand { get; private set; }
         
         private GameBaseViewModel _currentGameViewModel;
 
@@ -55,6 +57,12 @@ namespace GetTheMilk.UI.ViewModels
             ExitCommand = new RelayCommand(Exit);
             CurrentGameViewModel=new GameViewModel();
             NewCommand=new RelayCommand(LoadPlayerSetup);
+            SaveCommand=new RelayCommand(SaveGame);
+        }
+
+        private void SaveGame()
+        {
+            Game.CreateGameInstance().Save();
         }
 
         private void LoadPlayerSetup()

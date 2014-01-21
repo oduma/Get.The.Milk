@@ -1,5 +1,12 @@
 <?xml version="1.0"?>
 <ArrayOfMessagesFor xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!--{0} Player.Name.Narrator
+      {1} Action.Name.Past
+      {2} Action.Name.Present
+      {3} Direction
+      {4} Level.Number
+      {5} ObjectBlocking.Name.Narrator
+      {6} CharacterBlocking.Name.Narrator-->
   <MessagesFor ResultType="Ok">
     <Messages>
       <Message Id="To Walk" Value="{0} {1} {3}." />

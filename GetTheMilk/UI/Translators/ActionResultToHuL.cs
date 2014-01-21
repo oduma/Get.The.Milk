@@ -14,18 +14,18 @@ namespace GetTheMilk.UI.Translators
 {
     public class ActionResultToHuL
     {
-        public string TranslateActionResult(ActionResult actionResult,IPlayer active)
+        public string TranslateMovementResult(ActionResult actionResult,IPlayer active)
         {
             if(active==null)
                 return GameSettings.TranslatorErrorMessage;
             if(!(actionResult.ForAction is MovementAction))
                 return GameSettings.TranslatorErrorMessage;
             var gameInstance = Game.CreateGameInstance();
-            var messageFor = gameInstance.MessagesFor.FirstOrDefault(m => m.ResultType == actionResult.ResultType);
-            if (messageFor == null)
+            var messagesFor = gameInstance.MessagesFor.Where(m => m.ResultType == actionResult.ResultType);
+            if (!messagesFor.Any())
                 return GameSettings.TranslatorErrorMessage;
-            var message = messageFor.Messages.FirstOrDefault(m => m.Id == actionResult.ForAction.Name.Infinitive);
-            if(message==null)
+            var message = messagesFor.SelectMany(m => m.Messages, (m, f) => f).FirstOrDefault(o => o.Id == actionResult.ForAction.Name.Infinitive);
+            if (message == null)
                 return GameSettings.TranslatorErrorMessage;
             return string.Format(message.Value,
                           Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(active.Name.Narrator.ToLower()),
@@ -40,6 +40,26 @@ namespace GetTheMilk.UI.Translators
 
         }
 
+        public string TranslateActionResult(ActionResult actionResult, IPlayer active,IPositionableObject targetObject)
+        {
+            if (active == null)
+                return GameSettings.TranslatorErrorMessage;
+            var gameInstance = Game.CreateGameInstance();
+            var messagesFor = gameInstance.MessagesFor.Where(m => m.ResultType == actionResult.ResultType);
+            if (!messagesFor.Any())
+                return GameSettings.TranslatorErrorMessage;
+            var message = messagesFor.SelectMany(m=>m.Messages,(m,f)=>f).FirstOrDefault(o=>o.Id==actionResult.ForAction.Name.Infinitive);
+            if (message==null)
+                return GameSettings.TranslatorErrorMessage;
+            return string.Format(message.Value,
+                          Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(active.Name.Narrator.ToLower()),
+                          actionResult.ForAction.Name.Past,
+                          actionResult.ForAction.Name.Present,
+                          targetObject.Name.Narrator);
+
+        }
+
+
         private static string NarratorNaming(IPositionableObject obj)
         {
             return obj.Name.Narrator;
@@ -49,7 +69,7 @@ namespace GetTheMilk.UI.Translators
         {
             var game = Game.CreateGameInstance();
             var objectsInTheCell = string.Empty;
-            if(extraData.ObjectsInCell.Any())
+            if(extraData.ObjectsInCell !=null && extraData.ObjectsInCell.Any())
                 objectsInTheCell=string.Format(game.MovementExtraDataTemplate.MessageForObjectsInCell +"\r\n",
                                                  FormatList(extraData.ObjectsInCell, CloseUpMessageNaming));
             var objectsInRange = string.Join("\r\n",

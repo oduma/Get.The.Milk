@@ -12,5 +12,16 @@ namespace GetTheMilk.Settings
                 return Path.Combine(AppDomain.CurrentDomain.BaseDirectory,@"UI\Data\");
             }
         }
+
+        public string SaveDefaultPath
+        {
+            get
+            {
+                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Saved");
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+                return path;
+            }
+        }
     }
 }
