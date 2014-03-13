@@ -15,30 +15,34 @@ namespace GetTheMilkTests.ActionsTests
     public class DataGeneratorForActions
     {
 
-        private static readonly Level Level = Level.Create(1);
         public static IEnumerable TestCases1C1O
         {
             get
             {
+                Level _level = Level.Create(1);
+
                 //Kick a wall (nothing happens)
                 yield return
                     new TestCaseData(new Player(),
                                      new Kick(),
-                                     Level.Objects.Objects.FirstOrDefault(o=>o.Name.Main=="Wall"))
-                        .Returns(null);
+                                     _level.Objects.Objects.FirstOrDefault(o=>o.Name.Main=="Wall"))
+                        .Returns(_level.Objects);
+
                 //Pick a key, key in hand
                 var meCharacter = new Player();
                 yield return
                     new TestCaseData(meCharacter,
                                      new Keep(),
-                                     Level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key")).Returns(meCharacter.Inventory);
+                                     _level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key")).Returns(meCharacter.Inventory);
+
+                _level = Level.Create(1);
+
                 meCharacter = new Player();
-                meCharacter.Inventory = new Inventory
-                                            {InventoryType = InventoryType.CharacterInventory, MaximumCapacity = 0};
+                meCharacter.Inventory = new Inventory { InventoryType = InventoryType.CharacterInventory, MaximumCapacity = 0 };
                 yield return
                     new TestCaseData(meCharacter,
                                      new Keep(),
-                                     Level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key")).Returns(meCharacter.Inventory);
+                                     _level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key")).Returns(_level.Objects);
             }
         }
 
@@ -46,17 +50,19 @@ namespace GetTheMilkTests.ActionsTests
         {
             get
             {
+                Level _level = Level.Create(1);
+
                 //Give a key to a character that doesn't want it (nothing happens)
                 var active = new Player();
-                var passive = Level.Characters.Characters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFoey");
+                var passive = _level.Characters.Characters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFoey");
                 var action = new GiveTo();
-                active.Inventory.Add(Level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key"));
+                active.Inventory.Add(_level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key"));
                 yield return
                     new TestCaseData(active, passive, action).Returns(
                         active.Inventory);
 
                 //Give a key to a character that wants it (key changes owners)
-                passive = Level.Characters.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
+                passive = _level.Characters.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
                 action = new GiveTo();
                 yield return
                     new TestCaseData(active, passive, action).Returns(
@@ -69,9 +75,11 @@ namespace GetTheMilkTests.ActionsTests
         {
             get
             {
+                Level _level = Level.Create(1);
+
                 //not enough money
                 var active = new Player();
-                var passive = Level.Characters.Characters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFriendly");
+                var passive = _level.Characters.Characters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFriendly");
 
                 yield return new TestCaseData(active, passive, 100, TransactionType.Debit).Returns(
                     active.Walet.CurrentCapacity);
@@ -86,10 +94,12 @@ namespace GetTheMilkTests.ActionsTests
         {
             get
             {
+                Level _level = Level.Create(1);
+
                 //Try to buy a key from a character not enough money (nothing happens)
                 var active = new Player();
                 active.Walet.CurrentCapacity = 1;
-                var passive = Level.Characters.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly"); 
+                var passive = _level.Characters.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly"); 
 
                 var buyAction = new Buy();
 
@@ -129,9 +139,11 @@ namespace GetTheMilkTests.ActionsTests
         {
             get
             {
+                Level _level = Level.Create(1);
+
                 //Try to open a door with wrong key
                 var active = new Player();
-                var passive = Level.Objects.Objects.Select(o=>o.Name.Main="Red Door");
+                var passive = _level.Objects.Objects.Select(o=>o.Name.Main="Red Door");
                 var blueKey = new Tool
                                   {
                                       Name = new Noun {Main = "Blue Key", Narrator = "the Blue Key"},
@@ -153,7 +165,7 @@ namespace GetTheMilkTests.ActionsTests
                 
                 //try to open a door with the right key
 
-                active.Inventory.Add(Level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key"));
+                active.Inventory.Add(_level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key"));
                 yield return
                     new TestCaseData(active,
                                      passive,
@@ -167,22 +179,24 @@ namespace GetTheMilkTests.ActionsTests
         {
             get
             {
+                Level _level = Level.Create(1);
+
                 //walk off the margin of the map
                 var active = new Player();
-                active.Inventory.Add(Level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key"));
+                active.Inventory.Add(_level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key"));
                 var walkNorth = new Walk();
                 walkNorth.Direction = Direction.North;
                 yield return
-                    new TestCaseData(active,Level,
-                                     walkNorth, Level.Maps[0], null, null).
+                    new TestCaseData(active,_level,
+                                     walkNorth, _level.Maps[0], null, null).
                         Returns(ActionResultType.OutOfTheMap);
 
                 //run off the margin of the map
                 var runNorth = new Run();
                 runNorth.Direction = Direction.North;
                 yield return
-                    new TestCaseData(active, Level,
-                                     runNorth, Level.Maps[0], null, null).
+                    new TestCaseData(active, _level,
+                                     runNorth, _level.Maps[0], null, null).
                         Returns(ActionResultType.OutOfTheMap);
 
 
@@ -192,17 +206,17 @@ namespace GetTheMilkTests.ActionsTests
                 var runEast = new Run();
                 runEast.Direction = Direction.East;
                 yield return
-                    new TestCaseData(active, Level,
-                                     runEast, Level.Maps[0], Level.Objects.Objects, null).
+                    new TestCaseData(active, _level,
+                                     runEast, _level.Maps[0], _level.Objects.Objects, null).
                         Returns(ActionResultType.Blocked);
 
                 //move blocking character
-                Level.Characters.Characters[0].CellNumber = 7;
+                _level.Characters.Characters[0].CellNumber = 7;
                 var runSouth = new Run();
                 runSouth.Direction = Direction.South;
                 yield return
-                    new TestCaseData(active, Level,
-                                     runSouth, Level.Maps[0], null, Level.Characters.Characters).
+                    new TestCaseData(active, _level,
+                                     runSouth, _level.Maps[0], null, _level.Characters.Characters).
                         Returns(ActionResultType.Blocked);
 
                 //walk Ok
@@ -210,8 +224,8 @@ namespace GetTheMilkTests.ActionsTests
                 var walkSouth = new Walk();
                 walkSouth.Direction = Direction.South;
                 yield return
-                    new TestCaseData(active, Level,
-                                     walkSouth, Level.Maps[0], null, Level.Characters.Characters).
+                    new TestCaseData(active, _level,
+                                     walkSouth, _level.Maps[0], null, _level.Characters.Characters).
                         Returns(ActionResultType.Ok);
 
             }

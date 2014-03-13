@@ -13,7 +13,7 @@ namespace GetTheMilk.Actions
             Name = new Verb {Infinitive = "To Keep", Past = "kept", Present = "keep"};
             ActionType = ActionType.Keep;
         }
-        public void Perform(ICharacter c, NonCharacterObject o)
+        public override void Perform(ICharacter c, NonCharacterObject o)
         {
             c.Inventory.Add(o);
         }
