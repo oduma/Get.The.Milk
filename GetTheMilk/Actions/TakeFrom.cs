@@ -1,18 +1,22 @@
 ﻿using GetTheMilk.Accounts;
-using GetTheMilk.Actions.GenericActions;
+using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
+using GetTheMilk.Characters.BaseCharacters;
 
 namespace GetTheMilk.Actions
 {
-    public class TakeFrom:AnyTransferFrom
+    public class TakeFrom : ObjectTransferAction
     {
         public TakeFrom()
         {
-            Name = new Verb {Infinitive = "To Take", Past = "took", Present = "take"};
+            Name = new Verb { Infinitive = "To Give", Past = "gave", Present = "give" };
+            TransactionType = TransactionType.None;
+            ActionType = ActionType.TakeFrom;
         }
-        public override TransactionType TransactionType
+        public override bool Perform(ICharacter a, ICharacter p)
         {
-            get { return TransactionType.None; }
+            return base.Perform(p, a);
         }
+
     }
 }

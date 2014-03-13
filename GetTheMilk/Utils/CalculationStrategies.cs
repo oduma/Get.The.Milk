@@ -15,7 +15,7 @@ namespace GetTheMilk.Utils
         //Expert = 3/4+1 ~ maximum experince =coefficient 2
         public static int CalculateAttackPower(int weaponPower, int currentExperience)
         {
-            return (int)Math.Ceiling((double) weaponPower*CalculateExperienceCoefficient(((double) GameSettings.MaximumExperience/
+            return (int)Math.Ceiling((double) weaponPower*CalculateExperienceCoefficient(((double) GameSettings.GetInstance().MaximumExperience/
                                                 ((double) ((currentExperience == 0) ? 1.0 : currentExperience)))));
 
         }
@@ -40,7 +40,7 @@ namespace GetTheMilk.Utils
         //Expert = 3/4+1 ~ maximum experince =coefficient 2
         public static int CalculateDefensePower(int weaponPower, int currentExperience)
         {
-            return (int)Math.Ceiling(((double)weaponPower/2.0) * CalculateExperienceCoefficient(((double)GameSettings.MaximumExperience /
+            return (int)Math.Ceiling(((double)weaponPower/2.0) * CalculateExperienceCoefficient(((double)GameSettings.GetInstance().MaximumExperience /
                                                 ((double)((currentExperience == 0) ? 1.0 : currentExperience)))));
 
         }

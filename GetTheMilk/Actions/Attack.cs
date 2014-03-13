@@ -10,6 +10,7 @@ namespace GetTheMilk.Actions
         public Attack()
         {
             Name = new Verb { Infinitive = "To Attack", Past = "attacked", Present = "attack" };
+            ActionType = ActionType.Attack;
         }
 
         public Hit Hit { get; set; }

@@ -1,17 +1,21 @@
 using GetTheMilk.Accounts;
-using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions.BaseActions
 {
-    public abstract class ObjectTransferAction : GameAction
+    public class ObjectTransferAction : GameAction
     {
-        public abstract TransactionType TransactionType { get;}
+        public TransactionType TransactionType { get; protected set; }
 
-        public abstract bool Perform(ICharacter active, ICharacter passive);
+        public NonCharacterObject UseableObject { get; set; }
 
-        public IPositionableObject UseableObject { get; set; }
+        public virtual bool Perform(ICharacter active, ICharacter passive)
+        {
+            if (UseableObject.StorageContainer.Owner.Name == active.Name)
+                return (passive.Inventory.Add(UseableObject));
+            return false;
+
+        }
     }
 }

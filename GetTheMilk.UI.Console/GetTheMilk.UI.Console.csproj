@@ -139,10 +139,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GetTheMilk.Test.Level\GetTheMilk.Test.Level.csproj">
-      <Project>{ff09336f-85d2-4798-8fe9-f5dd02c06ac0}</Project>
-      <Name>GetTheMilk.Test.Level</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GetTheMilk\GetTheMilk.csproj">
       <Project>{0f1b4894-f8a9-41f9-861e-3f3f14d87d8f}</Project>
       <Name>GetTheMilk</Name>

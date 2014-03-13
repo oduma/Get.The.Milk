@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Levels;
@@ -12,7 +13,12 @@ namespace GetTheMilk.UI
 {
     public class GraphicBasedInteractivityProvider:IInteractivity
     {
-        public IPositionableObject[] SelectAnObject(IPositionableObject[] availableObjects)
+        public IPositionable[] SelectAnObject(IPositionable[] availableObjects)
+        {
+            throw new NotImplementedException();
+        }
+
+        public NonCharacterObject[] SelectAnObject(NonCharacterObject[] availableObjects)
         {
             throw new NotImplementedException();
         }
@@ -32,17 +38,17 @@ namespace GetTheMilk.UI
             throw new NotImplementedException();
         }
 
-        public void SelectWeapons(List<Weapon> attackWeapons, List<IPositionableObject> rightHandObjects, List<Weapon> defenseWeapons, List<IPositionableObject> leftHandObjects)
+        public void SelectWeapons(List<Weapon> attackWeapons, Weapon activeAttackWeapon, List<Weapon> defenseWeapons, Weapon activeDefenseWeapon)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SelectWeapons(List<Weapon> attackWeapons, List<IPositionable> rightHandObjects, List<Weapon> defenseWeapons, List<IPositionable> leftHandObjects)
         {
             throw new NotImplementedException();
         }
 
         public GameAction[] BuildActions(ExposeInventoryExtraData exposeInvetoryActionExtraData)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void EnterLevel(IPlayer player, ILevel level)
         {
             throw new NotImplementedException();
         }

@@ -1,112 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
+using GetTheMilk.Characters;
+using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Levels;
 using GetTheMilk.Settings;
-using GetTheMilk.UI.Translators;
-using GetTheMilk.UI.Translators.Common;
-using GetTheMilk.UI.Translators.MovementResultTemplates;
-using Sciendo.Common.Serialization;
+using Newtonsoft.Json;
 
 namespace GetTheMilk
 {
     public class Game
     {
-        public readonly string Name = "Get The Milk";
 
-        public readonly string Description = "Game description - the short version";
+        [JsonIgnore]
+        public Level CurrentLevel { get; set; }
 
-        private static readonly Game Instance= new Game();
+        [JsonIgnore]
+        public Player Player { get; set; }
 
-        public List<MessagesFor> MessagesFor { get; set; }
 
-        public MovementExtraDataTemplate MovementExtraDataTemplate { get; private set; }
+        private static readonly Game Instance = new Game();
 
-        public GamePreferences Preferences { get; set; }
+        public static void Load(string fullPath)
+        {
+            var gameSettings = GameSettings.GetInstance();
+            using (TextReader textReader = new StreamReader(gameSettings.CurrentReadStrategy(fullPath)))
+            {
+
+                var gamePackages = JsonConvert.DeserializeObject<GamePackages>(textReader.ReadToEnd());
+                Instance.Player = Player.Load<Player>(gamePackages.PlayerPackages);
+                Instance.CurrentLevel = Level.Create(gamePackages.LevelPackages);
+            }
+        }
 
         private Game()
         {
-            var templatesLoader = new TemplatesLoader();
-            MessagesFor =
-                templatesLoader.LoadActionResultsTemplates(
-                    GameSettings.DefaultPaths.ActionResultsTemplates);
-            MovementExtraDataTemplate =
-                templatesLoader.LoadActionExtraDataTemplate(GameSettings.DefaultPaths.ActionResultsTemplates);
-            Preferences=new GamePreferences();
         }
-
-        public readonly string FullDescription = @"Full Story Line 1
-Full Story Line 2
-Full Story Line 3
-Full Story Line 4
-Full Story Line 5
-Full Story Line 6
-Full Story Line 7
-Full Story Line 8
-Full Story Line 9
-Full Story Line 10
-Full Story Line 11
-Full Story Line 12
-Full Story Line 13
-Full Story Line 14
-Full Story Line 15
-Full Story Line 16
-Full Story Line 17
-Full Story Line 18
-Full Story Line 19
-Full Story Line 20
-Full Story Line 21
-Full Story Line 22
-Full Story Line 23
-Full Story Line 24
-Full Story Line 25
-Full Story Line 26
-Full Story Line 27
-Full Story Line 28
-Full Story Line 29
-Full Story Line 30
-Full Story Line 31
-Full Story Line 32
-Full Story Line 33
-Full Story Line 34
-Full Story Line 35
-Full Story Line 36
-Full Story Line 37
-Full Story Line 38
-Full Story Line 39
-Full Story Line 40
-Full Story Line 41
-Full Story Line 42
-Full Story Line 43
-Full Story Line 44
-Full Story Line 45
-Full Story Line 46
-Full Story Line 47
-";
 
         public static Game CreateGameInstance()
         {
+            if (Instance.Player == null)
+                Instance.Player = new Player();
             return Instance;
         }
 
-        
+
         public void ProceedToNextLevel()
         {
-            
-            //if(new LevelsFactory().CreateLevel(CurrentLevel+1))
-            //{
-            //    CurrentLevel++;
-            //}
-            //else
-            //{
-            //    //there are no more levels to complete
-            //}
+            CurrentLevel = Level.Create(CurrentLevel.Number + 1);
         }
 
-        protected int CurrentLevel { get; set; }
-
-        public void Save()
+        public void Save(string fileName)
         {
-            Serializer.SerializeOneToFile<Game>(this,Path.Combine(GameSettings.DefaultPaths.SaveDefaultPath,Guid.NewGuid().ToString()));
+            LevelPackages levelPackages = CurrentLevel.Save();
+
+            CharacterSavedPackages characterPackages=Player.Save();
+
+            var gamePackages =
+                JsonConvert.SerializeObject(new GamePackages
+                                                {LevelPackages = levelPackages, PlayerPackages = characterPackages});
+            GameSettings.GetInstance().CurrentWriteStrategy(gamePackages,
+                                                            Path.Combine(
+                                                                GameSettings.GetInstance().DefaultPaths.SaveDefaultPath,
+                                                                fileName));
+
         }
     }
 }

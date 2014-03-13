@@ -59,7 +59,7 @@ namespace GetTheMilkTests.TranslatorTests
         }
 
         [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementExtraData")]
-        public string MovementExtraDataTest(ActionResult actionResult, IPlayer active, ILevel level)
+        public string MovementExtraDataTest(ActionResult actionResult, IPlayer active, Level level)
         {
             ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
             return actionResultToHuL.TranslateMovementExtraData(actionResult.ExtraData as MovementActionExtraData, active,level);

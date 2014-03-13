@@ -10,8 +10,9 @@ namespace GetTheMilk.Actions
         public Kick()
         {
             Name = new Verb {Infinitive = "To Kick", Past = "kicked", Present = "kick"};
+            ActionType = ActionType.Kick;
         }
-        public override void Perform(ICharacter c, IPositionableObject o)
+        public void Perform(ICharacter c, NonCharacterObject o)
         {
                 o.StorageContainer = null;
         }

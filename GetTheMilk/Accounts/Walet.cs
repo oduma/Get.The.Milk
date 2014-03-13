@@ -1,6 +1,6 @@
 using System;
-using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
+using Newtonsoft.Json;
 
 namespace GetTheMilk.Accounts
 {
@@ -20,6 +20,7 @@ namespace GetTheMilk.Accounts
             }
         }
 
+        [JsonIgnore]
         public ICharacter Owner { get; set; }
 
 

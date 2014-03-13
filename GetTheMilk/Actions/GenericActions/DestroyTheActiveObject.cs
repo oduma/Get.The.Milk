@@ -4,10 +4,10 @@ using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions.GenericActions
 {
-    public abstract class DestroyTheActiveObject:ObjectUseOnObjectAction
+    public class DestroyTheActiveObject:ObjectUseOnObjectAction
     {
 
-        public override void Perform(ref IPositionableObject a, ref IPositionableObject p)
+        public override void Perform(ref NonCharacterObject a, ref NonCharacterObject p)
         {
             a.StorageContainer.Remove(a);
             a = null;

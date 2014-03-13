@@ -7,6 +7,7 @@ namespace GetTheMilk.Actions.BaseActions
         public CommunicateAction()
         {
             Name = new Verb {Infinitive = "To Communicate", Past = "communicated", Present = "communicate"};
+            ActionType = ActionType.Communicate;
         }
 
         public string Message { get; set; }

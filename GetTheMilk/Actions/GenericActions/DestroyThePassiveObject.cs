@@ -4,9 +4,9 @@ using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions.GenericActions
 {
-    public abstract class DestroyThePassiveObject:ObjectUseOnObjectAction
+    public class DestroyThePassiveObject:ObjectUseOnObjectAction
     {
-        public override void Perform(ref IPositionableObject a, ref IPositionableObject p)
+        public override void Perform(ref NonCharacterObject a, ref NonCharacterObject p)
         {
                 p.StorageContainer.Remove(p);
                 p = null;

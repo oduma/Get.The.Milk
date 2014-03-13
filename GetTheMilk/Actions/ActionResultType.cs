@@ -10,8 +10,7 @@ namespace GetTheMilk.Actions
         Lost,
         RequestQuit,
         OutOfTheMap,
-        BlockedByObject,
-        BlockedByCharacter,
+        Blocked,
         OriginNotOnTheMap,
         UnknownError,
         LevelCompleted

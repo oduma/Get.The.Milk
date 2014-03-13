@@ -111,6 +111,7 @@ namespace GetTheMilk.TestLevel
                                    }
                            };
             }
+            set{}
         }
 
 
@@ -131,6 +132,7 @@ namespace GetTheMilk.TestLevel
             get { return @"Level 2 story not written yet.
 Way ahead of time.
 Time, time, time..."; }
+            set{}
         }
 
         public override int StartingMap

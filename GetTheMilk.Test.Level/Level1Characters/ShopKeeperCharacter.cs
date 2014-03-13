@@ -90,7 +90,7 @@ namespace GetTheMilk.Test.Level.Level1Characters
             }
         }
 
-        public override bool AllowsIndirectAction(GameAction a, IPositionableObject o)
+        public override bool AllowsIndirectAction(GameAction a, IPositionable o)
         {
             return (a is Buy && o.StorageContainer.Owner.Name.Main==Name.Main) ||(a is Meet) || (a is CommunicateAction) || (a is Sell);
         }

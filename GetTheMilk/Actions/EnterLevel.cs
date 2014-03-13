@@ -8,10 +8,8 @@ namespace GetTheMilk.Actions
         public EnterLevel()
         {
             Name = new Verb {Infinitive = "To Enter", Past = "entered", Present = "enter"};
-        }
-        public override int DefaultDistance
-        {
-            get { return 0; }
+            DefaultDistance = 0;
+            ActionType = ActionType.EnterLevel;
         }
 
         public int LevelNo { get; set; }

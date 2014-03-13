@@ -10,6 +10,7 @@ namespace GetTheMilk.Actions
         public Quit()
         {
             Name = new Verb {Infinitive = "To Quit", Past = "quited", Present = "quit"};
+            ActionType = ActionType.Quit;
         }
         public ActionResult Perform(ICharacter character, ICharacter targetCharacter)
         {

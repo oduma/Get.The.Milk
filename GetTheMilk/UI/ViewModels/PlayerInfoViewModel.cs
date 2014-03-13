@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
+using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
@@ -121,17 +121,14 @@ namespace GetTheMilk.UI.ViewModels
         }
         private readonly Player _player;
 
-        public PlayerInfoViewModel()
+        public PlayerInfoViewModel(Game game)
         {
-            _player = Player.GetNewInstance();
+            _player = game.Player;
             PlayerName = _player.Name.Main;
             PlayerHealth = _player.Health;
             PlayerExperience = _player.Experience;
             PlayerMoney = _player.Walet.CurrentCapacity;
-            PlayerRightHandObject = (_player.RightHandObject.Objects == null || !_player.RightHandObject.Objects.Any()) ? "" : _player.RightHandObject.Objects[0].Name.Main;
-            PlayerLeftHandObject = (_player.LeftHandObject.Objects == null || !_player.LeftHandObject.Objects.Any()) ? "" : _player.LeftHandObject.Objects[0].Name.Main;
-            ShowInventory= new RelayCommand(ShowInventoryCommand);
-
+            ShowInventory = new RelayCommand(ShowInventoryCommand);
         }
 
         private void ShowInventoryCommand()
@@ -140,15 +137,15 @@ namespace GetTheMilk.UI.ViewModels
         }
 
         public ActionResult PlayerMoves(GameAction gameAction, Map[] levelMaps, 
-            IEnumerable<IPositionableObject> allLevelObjects, 
-            IEnumerable<IPositionableObject> allLevelCharacters)
+            IEnumerable<NonCharacterObject> allLevelObjects, 
+            IEnumerable<Character> allLevelCharacters)
         {
             if (gameAction is MovementAction)
                 return _player.TryPerformMove(gameAction as MovementAction, levelMaps.FirstOrDefault(m=>m.Number==_player.MapNumber), allLevelObjects, allLevelCharacters);
             return null;
         }
 
-        public ActionResult PlayerDoesAction(GameAction action, IPositionableObject targetObject)
+        public ActionResult PlayerDoesAction(GameAction action, NonCharacterObject targetObject)
         {
             return _player.TryPerformAction(action, targetObject);
         }

@@ -39,6 +39,9 @@
     <Reference Include="log4net">
       <HintPath>..\Lib\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -54,44 +57,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionsTests\BlueKey.cs" />
-    <Compile Include="ActionsTests\CommunicationActionsTests.cs" />
     <Compile Include="ActionsTests\DataGeneratorForActions.cs" />
-    <Compile Include="ActionsTests\KeylessChild.cs" />
-    <Compile Include="ActionsTests\KeyMaster.cs" />
-    <Compile Include="ActionsTests\LevelInstaller.cs" />
     <Compile Include="ActionsTests\MovementsTests.cs" />
     <Compile Include="ActionsTests\OneCharacterOneObjectActionTests.cs" />
     <Compile Include="ActionsTests\OneCharacterTwoObjectsActionTests.cs" />
-    <Compile Include="ActionsTests\RedDoor.cs" />
-    <Compile Include="ActionsTests\RedKey.cs" />
-    <Compile Include="ActionsTests\ScrewDriver.cs" />
-    <Compile Include="ActionsTests\ShopKeeper.cs" />
     <Compile Include="ActionsTests\StubbedContainerOwner.cs" />
     <Compile Include="ActionsTests\StubedTextBasedInteractivity.cs" />
     <Compile Include="ActionsTests\TwoCharactersActionsTests.cs" />
     <Compile Include="ActionsTests\TwoCharactersOneObjectTests.cs" />
-    <Compile Include="ActionsTests\Wall.cs" />
-    <Compile Include="ActionsTests\Window.cs" />
-    <Compile Include="CharacterTests\PlayerTests.cs" />
     <Compile Include="IntegrationTests\AutoPlayTestLevel1.cs" />
     <Compile Include="IntegrationTests\StubTheInteractivity.cs" />
-    <Compile Include="LevelsLoaderTests\DataGeneratorForLevels.cs" />
-    <Compile Include="LevelsLoaderTests\LevelsLoaderInfrastructureTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TranslatorTests\DataGeneratorForLoader.cs" />
+    <Compile Include="SaveLoadTests\GameSaveLoadTests.cs" />
+    <Compile Include="SaveLoadTests\SaveLevelTests.cs" />
+    <Compile Include="SaveLoadTests\SaveLoadPlayer.cs" />
+    <Compile Include="SaveLoadTests\SerializeDeserializeTests.cs" />
+    <Compile Include="Stubs\BlueDoorActions.cs" />
+    <Compile Include="Stubs\CanOpenerActions.cs" />
+    <Compile Include="Stubs\MockInventoryOwner.cs" />
+    <Compile Include="Stubs\RedDoorActions.cs" />
     <Compile Include="TranslatorTests\DataGeneratorForTranslator.cs" />
-    <Compile Include="TranslatorTests\LoaderTests.cs" />
     <Compile Include="TranslatorTests\MovementResultsTranslationTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="GameData\GDES.gdu">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GameData\GDT.gdu">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GameData\GL1.gdu">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GetTheMilk.Test.Level\GetTheMilk.Test.Level.csproj">
-      <Project>{ff09336f-85d2-4798-8fe9-f5dd02c06ac0}</Project>
-      <Name>GetTheMilk.Test.Level</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GetTheMilk\GetTheMilk.csproj">
       <Project>{0f1b4894-f8a9-41f9-861e-3f3f14d87d8f}</Project>
       <Name>GetTheMilk</Name>

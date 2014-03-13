@@ -1,11 +1,12 @@
 using System;
+using System.IO;
+using GetTheMilk.Settings;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.UI.ViewModels
 {
     public class GameViewModel: GameBaseViewModel
     {
-        private Game _game;
 
         private string _description;
 
@@ -13,9 +14,11 @@ namespace GetTheMilk.UI.ViewModels
 
         public GameViewModel()
         {
-            _game = Game.CreateGameInstance();
-            Description = _game.Description;
-            FullStory = _game.FullDescription;
+            var gameSettings = GameSettings.GetInstance();
+            Description = gameSettings.Description;
+            FullStory =
+                File.OpenText(Path.Combine(gameSettings.DefaultPaths.GameData,
+                                           gameSettings.DefaultPaths.GameDescriptionFileName)).ReadToEnd();
 
         }
 

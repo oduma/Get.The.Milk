@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
+using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects.BaseObjects;
 using NUnit.Framework;
@@ -12,20 +15,21 @@ namespace GetTheMilkTests.ActionsTests
     public class MovementsTests
     {
         [Test, TestCaseSource(typeof (DataGeneratorForActions), "TestCasesM")]
-        public ActionResultType MoveOffTheMap(Character active, MovementAction movement, Map currentMap,List<IPositionableObject> blockingObjects,List<Character> blockingCharacters)
+        public ActionResultType MoveTest(Player active, Level level, MovementAction movement, Map currentMap,List<NonCharacterObject> blockingObjects,List<Character> blockingCharacters)
         {
+            active.EnterLevel(level);
             var movementResult = active.TryPerformMove(movement, currentMap, blockingObjects, blockingCharacters);
             if(movement.Direction==Direction.North)
                 Assert.AreEqual(active.CellNumber,((MovementActionExtraData)movementResult.ExtraData).MoveToCell);
             else if(movement.Direction==Direction.East)
             {
-                Assert.AreEqual(2,((MovementActionExtraData)movementResult.ExtraData).MoveToCell);
-                Assert.AreEqual(blockingObjects,((MovementActionExtraData)movementResult.ExtraData).ObjectsBlocking);
+                Assert.AreEqual(1,((MovementActionExtraData)movementResult.ExtraData).MoveToCell);
+                Assert.AreEqual(1,((MovementActionExtraData)movementResult.ExtraData).ObjectsBlocking.Length);
             }
             else if(movement is Run && movement.Direction==Direction.South)
             {
                 Assert.AreEqual(4, ((MovementActionExtraData)movementResult.ExtraData).MoveToCell);
-                Assert.AreEqual(1,((MovementActionExtraData)movementResult.ExtraData).ObjectsBlocking.Length);
+                Assert.AreEqual(1,((MovementActionExtraData)movementResult.ExtraData).CharactersBlocking.Length);
             }
             else
             {
@@ -34,7 +38,7 @@ namespace GetTheMilkTests.ActionsTests
             if(movementResult.ResultType==ActionResultType.Ok)
             {
                 Assert.AreEqual(4,active.CellNumber);
-                foreach(var followingObject in active.RightHandObject.Objects)
+                foreach(var followingObject in active.Inventory.Objects)
                 {
                     Assert.AreEqual(4,followingObject.CellNumber);
                 }

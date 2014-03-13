@@ -1,4 +1,3 @@
-using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 
 namespace GetTheMilk.Accounts

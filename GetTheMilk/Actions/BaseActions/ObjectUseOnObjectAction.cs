@@ -1,10 +1,13 @@
-using GetTheMilk.Objects;
+using System;
 using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions.BaseActions
 {
-    public abstract class ObjectUseOnObjectAction : GameAction
+    public class ObjectUseOnObjectAction : GameAction
     {
-        public abstract void Perform(ref IPositionableObject uObject, ref IPositionableObject pObject);
+        public virtual void Perform(ref NonCharacterObject a, ref NonCharacterObject p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

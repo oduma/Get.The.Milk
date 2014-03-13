@@ -9,10 +9,8 @@ namespace GetTheMilk.Actions
         public Run()
         {
             Name = new Verb {Infinitive = "To Run", Past = "ran", Present = "run"};
-        }
-        public override int DefaultDistance
-        {
-            get { return GameSettings.DefaultRunDistance; }
+            DefaultDistance = GameSettings.GetInstance().DefaultRunDistance;
+            ActionType = ActionType.Run;
         }
     }
 }

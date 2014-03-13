@@ -16,17 +16,18 @@ namespace GetTheMilk.UI.Translators
     {
         public string TranslateMovementResult(ActionResult actionResult,IPlayer active)
         {
+            var gameSettings = GameSettings.GetInstance();
+
             if(active==null)
-                return GameSettings.TranslatorErrorMessage;
+                return gameSettings.TranslatorErrorMessage;
             if(!(actionResult.ForAction is MovementAction))
-                return GameSettings.TranslatorErrorMessage;
-            var gameInstance = Game.CreateGameInstance();
-            var messagesFor = gameInstance.MessagesFor.Where(m => m.ResultType == actionResult.ResultType);
+                return gameSettings.TranslatorErrorMessage;
+            var messagesFor = gameSettings.MessagesFor.Where(m => m.ResultType == actionResult.ResultType);
             if (!messagesFor.Any())
-                return GameSettings.TranslatorErrorMessage;
+                return gameSettings.TranslatorErrorMessage;
             var message = messagesFor.SelectMany(m => m.Messages, (m, f) => f).FirstOrDefault(o => o.Id == actionResult.ForAction.Name.Infinitive);
             if (message == null)
-                return GameSettings.TranslatorErrorMessage;
+                return gameSettings.TranslatorErrorMessage;
             return string.Format(message.Value,
                           Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(active.Name.Narrator.ToLower()),
                           actionResult.ForAction.Name.Past,
@@ -40,17 +41,18 @@ namespace GetTheMilk.UI.Translators
 
         }
 
-        public string TranslateActionResult(ActionResult actionResult, IPlayer active,IPositionableObject targetObject)
+        public string TranslateActionResult(ActionResult actionResult, IPlayer active,IPositionable targetObject)
         {
+            var gameSettings = GameSettings.GetInstance();
+
             if (active == null)
-                return GameSettings.TranslatorErrorMessage;
-            var gameInstance = Game.CreateGameInstance();
-            var messagesFor = gameInstance.MessagesFor.Where(m => m.ResultType == actionResult.ResultType);
+                return gameSettings.TranslatorErrorMessage;
+            var messagesFor = gameSettings.MessagesFor.Where(m => m.ResultType == actionResult.ResultType);
             if (!messagesFor.Any())
-                return GameSettings.TranslatorErrorMessage;
+                return gameSettings.TranslatorErrorMessage;
             var message = messagesFor.SelectMany(m=>m.Messages,(m,f)=>f).FirstOrDefault(o=>o.Id==actionResult.ForAction.Name.Infinitive);
             if (message==null)
-                return GameSettings.TranslatorErrorMessage;
+                return gameSettings.TranslatorErrorMessage;
             return string.Format(message.Value,
                           Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(active.Name.Narrator.ToLower()),
                           actionResult.ForAction.Name.Past,
@@ -60,34 +62,34 @@ namespace GetTheMilk.UI.Translators
         }
 
 
-        private static string NarratorNaming(IPositionableObject obj)
+        private static string NarratorNaming(IPositionable obj)
         {
             return obj.Name.Narrator;
         }
 
-        public string TranslateMovementExtraData(MovementActionExtraData extraData,IPlayer active,ILevel level)
+        public string TranslateMovementExtraData(MovementActionExtraData extraData,IPlayer active,Level level)
         {
-            var game = Game.CreateGameInstance();
+            var gameSettings = GameSettings.GetInstance();
             var objectsInTheCell = string.Empty;
             if(extraData.ObjectsInCell !=null && extraData.ObjectsInCell.Any())
-                objectsInTheCell=string.Format(game.MovementExtraDataTemplate.MessageForObjectsInCell +"\r\n",
+                objectsInTheCell=string.Format(gameSettings.MovementExtraDataTemplate.MessageForObjectsInCell +"\r\n",
                                                  FormatList(extraData.ObjectsInCell, CloseUpMessageNaming));
             var objectsInRange = string.Join("\r\n",
                         extraData.ObjectsInRange.OrderBy(o => o.CellNumber).Select(
                             o =>
-                            string.Format(Game.CreateGameInstance().MovementExtraDataTemplate.MessageForObjectsInRange,
+                            string.Format(gameSettings.MovementExtraDataTemplate.MessageForObjectsInRange,
                                           level.Maps.FirstOrDefault(m=>m.Number==active.MapNumber)
                                           .Cells.FirstOrDefault(c => c.Number == active.CellNumber).GetDirectionToCell(o.CellNumber),
                                           ((IObjectHumanInterface) o).ApproachingMessage)));
             return string.Format("{0}{1}", objectsInTheCell, objectsInRange);
         }
 
-        private string CloseUpMessageNaming(IPositionableObject obj)
+        private string CloseUpMessageNaming(IPositionable obj)
         {
             return obj is IObjectHumanInterface ? ((IObjectHumanInterface) obj).CloseUpMessage : string.Empty;
         }
 
-        private string FormatList(IEnumerable<IPositionableObject> objects,Func<IPositionableObject,string> namingMethod)
+        private string FormatList(IEnumerable<IPositionable> objects,Func<IPositionable,string> namingMethod)
         {
             if (objects == null || !objects.Any())
                 return "";

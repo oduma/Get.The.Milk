@@ -12,10 +12,11 @@ namespace GetTheMilk.Actions
         public Kill()
         {
             Name = new Verb {Infinitive = "To Kill", Past = "killed", Present = "kill"};
+            ActionType = ActionType.Kill;
         }
         public double ExperienceTaken { get; set; }
 
-        public override bool Perform(ICharacter active, ICharacter passive)
+        public override bool Perform(Character active, Character passive)
         {
             active.Experience += (int)Math.Ceiling(passive.Experience*ExperienceTaken);
             if(passive.StorageContainer!=null && passive.StorageContainer.Owner!=null)

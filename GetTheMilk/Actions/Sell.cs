@@ -1,18 +1,23 @@
 ﻿using GetTheMilk.Accounts;
-using GetTheMilk.Actions.GenericActions;
+using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
+using GetTheMilk.Characters.BaseCharacters;
 
 namespace GetTheMilk.Actions
 {
-    public class Sell:AnyTransferTo
+    public class Sell:ObjectTransferAction
     {
         public Sell()
         {
             Name = new Verb {Infinitive = "To Sell", Past = "sold", Present = "sell"};
+            TransactionType = TransactionType.Credit;
+            ActionType = ActionType.Sell;
         }
-        public override TransactionType TransactionType
+
+        public override bool Perform(ICharacter a, ICharacter p)
         {
-            get { return TransactionType.Credit; }
+            return base.Perform(a, p);
         }
+
     }
 }

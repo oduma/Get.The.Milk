@@ -6,7 +6,7 @@ namespace GetTheMilk.UI.ViewModels
     public class ActionWithTargetModel
     {
         private OneObjectAction _action;
-        private IPositionableObject _targetObject;
+        private NonCharacterObject _targetObject;
         private string _displayValue;
 
         public OneObjectAction Action
@@ -22,7 +22,7 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
-        public IPositionableObject TargetObject
+        public NonCharacterObject TargetObject
         {
             get { return _targetObject; }
             set

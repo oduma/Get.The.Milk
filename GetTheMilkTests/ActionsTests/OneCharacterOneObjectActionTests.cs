@@ -1,6 +1,7 @@
 ﻿using GetTheMilk;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects;
@@ -13,18 +14,14 @@ namespace GetTheMilkTests.ActionsTests
     public class OneCharacterOneObjectActionTests
     {
         [Test,TestCaseSource(typeof(DataGeneratorForActions),"TestCases1C1O")]
-        public Inventory OneCharacterOnOneObjectAction(Character character,OneObjectAction action, IPositionableObject targetObject)
+        public Inventory OneCharacterOnOneObjectAction(Character character,OneObjectAction action, NonCharacterObject targetObject)
         {
             if (character.TryPerformAction(action,targetObject).ResultType==ActionResultType.NotOk)
                 return targetObject.StorageContainer;
 
             if(targetObject.StorageContainer.InventoryType==InventoryType.CharacterInventory)
             {
-                Assert.Contains(targetObject,character.ToolInventory.Objects);
-            }
-            if (targetObject.StorageContainer.InventoryType == InventoryType.InHand)
-            {
-                Assert.AreEqual(targetObject,character.RightHandObject.Objects[0]);
+                Assert.Contains(targetObject,character.Inventory.Objects);
             }
             return targetObject.StorageContainer;
         }

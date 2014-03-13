@@ -1,115 +1,71 @@
 ﻿using System;
 using System.Linq;
+using GetTheMilk.Accounts;
 using GetTheMilk.Actions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Factories;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
+using GetTheMilk.Objects;
 using GetTheMilk.Settings;
 using GetTheMilk.UI;
 using GetTheMilk.Utils;
 
 namespace GetTheMilk.Characters
 {
-    public class Player:Character,IPlayer
+    public class Player : Character, IPlayer
     {
-        private static Player _instance;
-        private static object _lock = new object();
-
-        private Player():base()
+        public Player()
         {
+            var gameSettings = GameSettings.GetInstance();
+            Inventory = new Inventory
+                            {
+                                InventoryType = InventoryType.CharacterInventory,
+                                MaximumCapacity = gameSettings.DefaulMaximumCapacity
+                            };
             BlockMovement = true;
-            Experience = GameSettings.MinimumStartingExperience;
-            Walet.MaxCapacity = GameSettings.DefaultWalletMaxCapacity;
-        }
+            Experience = GameSettings.GetInstance().MinimumStartingExperience;
+            Walet = new Walet
+                        {
+                            MaxCapacity = GameSettings.GetInstance().DefaultWalletMaxCapacity,
+                            CurrentCapacity = gameSettings.MinimumStartingMoney
+                        };
+            Interactivity = (new ObjectsFactory(new InteractivityProvidersInstaller())).CreateObject<IInteractivity>(
+                                GameSettings.GetInstance().InteractiveMode);
+            ObjectTypeId = "Player";
 
-        public static Player GetNewInstance()
-        {
-            if(_instance==null)
-            {
-                lock(_lock)
-                {
-                    if (_instance == null)
-                    {
-                        _instance= new Player();
-                        _instance.Interactivity =
-                            (new ObjectsFactory(new InteractivityProvidersInstaller())).CreateObject<IInteractivity>(
-                                GameSettings.InteractiveMode);
-                    }
-                }
-            }
-            return _instance;
-        }
+            SetPlayerName(gameSettings.DefaultPlayerName);
 
-        public static Player GetNewInstance(IInteractivity interactivityProvider)
-        {
-            if (_instance == null)
-            {
-                lock (_lock)
-                {
-                    if (_instance == null)
-                    {
-                        _instance = new Player();
-                        _instance.Interactivity = interactivityProvider;
-                    }
-                }
-            }
-            return _instance;
-        }
+            Range = gameSettings.DefaultRange;
 
-        public static void Destroy()
-        {
-            lock(_lock)
-            {
-                _instance = null;
-            }
-        }
-
-        public override Personality Personality
-        {
-            get
-            {
-                base.Personality.Type=PersonalityType.Neutral;
-                return base.Personality;
-            }
-        }
-
-        public void LoadPlayer()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SavePlayer()
-        {
-            throw new NotImplementedException();
         }
 
         public void LoadInteractionsWithPlayer(ICharacter targetCharacter)
         {
-            if (!base.Personality.InteractionRules.ContainsKey(targetCharacter.Name.Main) 
-                && targetCharacter.Personality.InteractionRules.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
-                base.Personality.InteractionRules.Add(targetCharacter.Name.Main,
-                                                      targetCharacter.Personality.InteractionRules[
+            if (!InteractionRules.ContainsKey(targetCharacter.Name.Main)
+                && targetCharacter.InteractionRules.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
+                InteractionRules.Add(targetCharacter.Name.Main,
+                                                      targetCharacter.InteractionRules[
                                                           GenericInteractionRulesKeys.PlayerResponses]);
 
         }
 
-        public ActionResult EnterLevel(ILevel level)
+        public ActionResult EnterLevel(Level level)
         {
             level.Player = this;
             MapNumber = level.StartingMap;
-            CellNumber =level.StartingCell;
-            return TryPerformMove(new EnterLevel {Direction = Direction.None, TargetCell = level.StartingCell},
-                                  level.Maps.FirstOrDefault(m=>m.Number==level.StartingMap), level.PositionableObjects.Objects,
-                                  level.Characters.Objects);
+            CellNumber = level.StartingCell;
+            return TryPerformMove(new EnterLevel { Direction = Direction.None, TargetCell = level.StartingCell },
+                                  level.Maps.FirstOrDefault(m => m.Number == level.StartingMap), level.Objects.Objects,
+                                  level.Characters.Characters);
         }
 
         public void SetPlayerName(string name)
         {
-            Name = name != null 
-                ? new Noun {Main = name, Narrator=GameSettings.DefaultNarratorAddressingForPlayer} 
-            : new Noun {Main = "Payer 1", Narrator=GameSettings.DefaultNarratorAddressingForPlayer};
+            Name = name != null
+                ? new Noun { Main = name, Narrator = GameSettings.GetInstance().DefaultNarratorAddressingForPlayer }
+            : new Noun { Main = "Payer 1", Narrator = GameSettings.GetInstance().DefaultNarratorAddressingForPlayer };
         }
     }
 }

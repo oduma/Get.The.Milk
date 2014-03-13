@@ -1,5 +1,5 @@
 using System;
-using GetTheMilk.Characters;
+using GetTheMilk.Levels;
 using GetTheMilk.Settings;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
@@ -14,21 +14,21 @@ namespace GetTheMilk.UI.ViewModels
         public PlayerSetupViewModel()
         {
             Description = "Player setup:";
-            MaximumAvailableBonusPoints = GameSettings.MaximumAvailableBonusPoints;
+            MaximumAvailableBonusPoints = GameSettings.GetInstance().MaximumAvailableBonusPoints;
             Money = MaximumAvailableBonusPoints/2;
             SaveAndStart= new RelayCommand(StartNewGame);
         }
 
         private void StartNewGame()
         {
-            Player.Destroy();
-            Player player = Player.GetNewInstance();
-            player.SetPlayerName(Name);
-            player.Walet.CurrentCapacity = Money;
-            player.Experience = Experience;
-            if(GameStartRequest!=null)
+            var game = Game.CreateGameInstance();
+            game.Player.SetPlayerName(Name);
+            game.Player.Walet.CurrentCapacity = Money;
+            game.Player.Experience = Experience;
+            game.CurrentLevel = Level.Create(1);
+            if (GameStartRequest != null)
             {
-                GameStartRequest(this,new GameStartRequestEventArgs(1));
+                GameStartRequest(this,new GameStartRequestEventArgs(game));
             }
 
         }

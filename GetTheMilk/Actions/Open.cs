@@ -1,4 +1,5 @@
-﻿using GetTheMilk.Actions.GenericActions;
+﻿using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Actions.GenericActions;
 using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Actions
@@ -8,6 +9,7 @@ namespace GetTheMilk.Actions
         public Open()
         {
             Name = new Verb {Infinitive = "To Open", Past = "opened", Present = "open"};
+            ActionType = ActionType.Open;
         }
     }
 }

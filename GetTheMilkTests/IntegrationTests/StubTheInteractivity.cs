@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GetTheMilk;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Levels;
@@ -17,7 +18,7 @@ namespace GetTheMilkTests.IntegrationTests
 {
     public class StubTheInteractivity:IInteractivity
     {
-        public IPositionableObject[] SelectAnObject(IPositionableObject[] availableObjects)
+        public NonCharacterObject[] SelectAnObject(NonCharacterObject[] availableObjects)
         {
             return availableObjects;
         }
@@ -37,7 +38,7 @@ namespace GetTheMilkTests.IntegrationTests
             return new Buy {UseableObject = ((ExposeInventoryExtraData) exposeInvetoryActionExtraData).Contents[1]};
         }
 
-        public void SelectWeapons(List<Weapon> attackWeapons, List<IPositionableObject> rightHandObjects, List<Weapon> defenseWeapons, List<IPositionableObject> leftHandObjects)
+        public void SelectWeapons(List<Weapon> attackWeapons, Weapon activeAttackWeapon, List<Weapon> defenseWeapons, Weapon activeDefenseWeapon)
         {
             ;
         }
@@ -64,11 +65,6 @@ namespace GetTheMilkTests.IntegrationTests
                 }
             }
             return gameActions.ToArray();
-        }
-
-        public void EnterLevel(IPlayer player, ILevel level)
-        {
-            throw new NotImplementedException();
         }
     }
 }

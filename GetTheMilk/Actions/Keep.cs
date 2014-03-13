@@ -11,13 +11,11 @@ namespace GetTheMilk.Actions
         public Keep()
         {
             Name = new Verb {Infinitive = "To Keep", Past = "kept", Present = "keep"};
+            ActionType = ActionType.Keep;
         }
-        public override void Perform(ICharacter c, IPositionableObject o)
+        public void Perform(ICharacter c, NonCharacterObject o)
         {
-            if (o is Tool)
-                c.ToolInventory.Add(o as Tool);
-            else if (o is Weapon)
-                c.WeaponInventory.Add(o as Weapon);
+            c.Inventory.Add(o);
         }
     }
 }

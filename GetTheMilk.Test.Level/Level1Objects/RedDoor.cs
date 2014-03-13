@@ -15,7 +15,7 @@ namespace GetTheMilk.Test.Level.Level1Objects
         public Noun Name { get { return new Noun {Main = "Red Door",Narrator="red door"}; } }
         public bool AllowsAction(GameAction a) { return false; }
 
-        public bool AllowsIndirectAction(GameAction a, IPositionableObject o)
+        public bool AllowsIndirectAction(GameAction a, IPositionable o)
         {
             return (a is Open && o is RedKey);
         }

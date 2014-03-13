@@ -1,11 +1,14 @@
+using System;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions.BaseActions
 {
-    public abstract class OneObjectAction : GameAction
+    public class OneObjectAction : GameAction
     {
-        public abstract void Perform(ICharacter active, IPositionableObject pObject);
-
+        public virtual void Perform(ICharacter c, NonCharacterObject o)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

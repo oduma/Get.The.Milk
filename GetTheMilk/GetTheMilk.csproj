@@ -39,6 +39,9 @@
     <Reference Include="log4net">
       <HintPath>..\Lib\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\Trials\WebAPI\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="Sciendo.Common">
       <HintPath>..\Lib\Sciendo.Common.dll</HintPath>
@@ -63,6 +66,7 @@
     <Compile Include="Actions\ActionResult.cs" />
     <Compile Include="Actions\ActionResultType.cs" />
     <Compile Include="Actions\Attack.cs" />
+    <Compile Include="Actions\BaseActions\ActionType.cs" />
     <Compile Include="Actions\BaseActions\CommunicateAction.cs" />
     <Compile Include="Actions\BaseActions\FightAction.cs" />
     <Compile Include="Actions\BaseActions\GameAction.cs" />
@@ -76,8 +80,6 @@
     <Compile Include="Actions\EnterLevel.cs" />
     <Compile Include="Actions\ExposeInventory.cs" />
     <Compile Include="Actions\ExposeInventoryExtraData.cs" />
-    <Compile Include="Actions\GenericActions\AnyTransferFrom.cs" />
-    <Compile Include="Actions\GenericActions\AnyTransferTo.cs" />
     <Compile Include="Actions\GenericActions\DestroyBothObjects.cs" />
     <Compile Include="Actions\GenericActions\DestroyTheActiveObject.cs" />
     <Compile Include="Actions\GenericActions\DestroyThePassiveObject.cs" />
@@ -91,7 +93,6 @@
     <Compile Include="Actions\Meet.cs" />
     <Compile Include="Actions\MovementActionExtraData.cs" />
     <Compile Include="Actions\Open.cs" />
-    <Compile Include="Actions\Pick.cs" />
     <Compile Include="Actions\Quit.cs" />
     <Compile Include="Actions\Run.cs" />
     <Compile Include="Actions\Sell.cs" />
@@ -99,35 +100,45 @@
     <Compile Include="Actions\TakeMoneyFrom.cs" />
     <Compile Include="Actions\Teleport.cs" />
     <Compile Include="Actions\Walk.cs" />
+    <Compile Include="BaseCommon\IActionAllowed.cs" />
     <Compile Include="BaseCommon\IInventoryOwner.cs" />
     <Compile Include="BaseCommon\IObjectHumanInterface.cs" />
+    <Compile Include="BaseCommon\IPositionable.cs" />
     <Compile Include="BaseCommon\Noun.cs" />
     <Compile Include="BaseCommon\Verb.cs" />
     <Compile Include="Characters\BaseCharacters\Character.cs" />
+    <Compile Include="Characters\BaseCharacters\CharacterSavedPackages.cs" />
     <Compile Include="Characters\BaseCharacters\ICharacter.cs" />
     <Compile Include="Characters\BaseCharacters\IPlayer.cs" />
-    <Compile Include="Characters\Personality.cs" />
-    <Compile Include="Characters\PersonalityType.cs" />
+    <Compile Include="Characters\CharacterCollection.cs" />
+    <Compile Include="Characters\NPCFoeyActions.cs" />
+    <Compile Include="Characters\NPCFriendlyActions.cs" />
     <Compile Include="Characters\Player.cs" />
+    <Compile Include="Characters\PlayerActions.cs" />
     <Compile Include="Factories\InteractivityProvidersInstaller.cs" />
-    <Compile Include="Factories\LevelsFactory.cs" />
-    <Compile Include="Factories\LevelsInstaller.cs" />
+    <Compile Include="Factories\ObjectActionsFactory.cs" />
+    <Compile Include="Factories\ObjectsActionAllowedInstaller.cs" />
     <Compile Include="Factories\ObjectsFactory.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GamePackaages.cs" />
     <Compile Include="GamePreferences.cs" />
-    <Compile Include="Levels\ILevel.cs" />
     <Compile Include="Levels\Level.cs" />
+    <Compile Include="Levels\LevelPackages.cs" />
     <Compile Include="Navigation\Cell.cs" />
     <Compile Include="Navigation\Direction.cs" />
     <Compile Include="Navigation\Map.cs" />
-    <Compile Include="Objects\AnyKey.cs" />
     <Compile Include="Objects\BaseObjects\INonCharacterObject.cs" />
-    <Compile Include="Objects\BaseObjects\IPositionableObject.cs" />
     <Compile Include="Objects\BaseObjects\ITransactionalObject.cs" />
+    <Compile Include="Objects\BaseObjects\IWeapon.cs" />
+    <Compile Include="Objects\BaseObjects\NonCharacterObject.cs" />
+    <Compile Include="Objects\BaseObjects\ObjectCategory.cs" />
     <Compile Include="Objects\BaseObjects\Tool.cs" />
     <Compile Include="Objects\BaseObjects\Weapon.cs" />
+    <Compile Include="Objects\DecorActions.cs" />
     <Compile Include="Objects\Inventory.cs" />
     <Compile Include="Objects\InventoryType.cs" />
+    <Compile Include="Objects\KeyActions.cs" />
+    <Compile Include="Objects\WeaponActions.cs" />
     <Compile Include="Objects\WeaponType.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -135,11 +146,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\GameSettings.cs" />
     <Compile Include="Settings\Paths.cs" />
+    <Compile Include="Settings\TemplatesPackage.cs" />
     <Compile Include="UI\GraphicBasedInteractivityProvider.cs" />
     <Compile Include="UI\Interactivity.cs" />
     <Compile Include="UI\NoInteractivityProvider.cs" />
     <Compile Include="UI\TextBasedInteractivityProvider.cs" />
-    <Compile Include="UI\Translators\TemplatesLoader.cs" />
     <Compile Include="UI\Translators\ActionResultToHuL.cs" />
     <Compile Include="UI\Translators\Common\Message.cs" />
     <Compile Include="UI\Translators\Common\MessagesFor.cs" />
@@ -161,9 +172,13 @@
     <Compile Include="UI\ViewModels\PlayerInfoViewModel.cs" />
     <Compile Include="UI\ViewModels\PlayerSetupViewModel.cs" />
     <Compile Include="UI\ViewModels\DirectionShortcut.cs" />
+    <Compile Include="Utils\ActionJsonConverter.cs" />
     <Compile Include="Utils\CalculationStrategies.cs" />
+    <Compile Include="Utils\CharacterJsonConverter.cs" />
     <Compile Include="Utils\CoreExtensions.cs" />
     <Compile Include="Utils\GenericInteractionRulesKeys.cs" />
+    <Compile Include="Utils\IO\ReadWriteStrategies.cs" />
+    <Compile Include="Utils\NonCharacterObjectJsonConvert.cs" />
     <Compile Include="Utils\Randomizer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -172,20 +187,6 @@
   <ItemGroup>
     <Folder Include="bin\Debug\" />
     <Folder Include="obj\Debug\TempPE\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="UI\Data\MovementExtraDataTemplate.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="UI\Data\MovementResultTemplates.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="UI\Data\OneObjectActionResultTemplates.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="UI\Translators\MovementResultsMessages.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,10 +9,8 @@ namespace GetTheMilk.Actions
         public Walk()
         {
             Name = new Verb {Infinitive = "To Walk", Past = "walked", Present = "walk"};
-        }
-        public override int DefaultDistance
-        {
-            get { return GameSettings.DefaultWalkDistance; }
+            DefaultDistance = GameSettings.GetInstance().DefaultWalkDistance;
+            ActionType = ActionType.Walk;
         }
     }
 }

@@ -1,64 +1,100 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using GetTheMilk.UI.Translators.Common;
+using GetTheMilk.UI.Translators.MovementResultTemplates;
 using GetTheMilk.Utils;
+using GetTheMilk.Utils.IO;
+using Newtonsoft.Json;
 
 namespace GetTheMilk.Settings
 {
-    public static class GameSettings
+    public class GameSettings
     {
-        public static bool AllowChoiceOfDefensiveWeapons
+        private static readonly GameSettings Instance = new GameSettings();
+
+        public static GameSettings GetInstance()
+        {
+            if (Instance.MessagesFor == null || Instance.MovementExtraDataTemplate == null)
+            {
+                using (
+                    Stream fs =
+                        Instance.CurrentReadStrategy(Path.Combine(Instance.DefaultPaths.GameData,
+                                                                  Instance.DefaultPaths.TemplatesFileName)))
+                {
+                    var tPackageContent = (new StreamReader(fs)).ReadToEnd();
+                    var templatesPackage = JsonConvert.DeserializeObject<TemplatesPackage>(tPackageContent);
+                    Instance.MessagesFor = templatesPackage.MessagesFor;
+                    Instance.MovementExtraDataTemplate = templatesPackage.MovementExtraDataTemplate;
+                }
+            }
+            return Instance;
+        }
+
+        public Func<string, Stream> CurrentReadStrategy { get { return ReadWriteStrategies.UncompressedReader; } }
+
+
+        public Action<string, string> CurrentWriteStrategy { get { return ReadWriteStrategies.UncompressedWriter; } }
+
+        public List<MessagesFor> MessagesFor { get; private set; }
+
+        public MovementExtraDataTemplate MovementExtraDataTemplate { get; private set; }
+
+        public bool AllowChoiceOfDefensiveWeapons
         {
             get { return false; }
         }
 
-        public static bool FightersRightHanded
+        public bool FightersRightHanded
         {
             get { return true; }
         }
 
-        public static string InteractiveMode { get { return "TextBased"; } }
+        public string InteractiveMode { get { return "TextBased"; } }
 
-        public static int MaximumExperience { get { return 1000; } }
+        public  int MaximumExperience { get { return 1000; } }
 
-        public static int FullDefaultHealth
+        public  int FullDefaultHealth
         {
             get { return 10; }
         }
 
-        public static int DefaultRunDistance
+        public  int DefaultRunDistance
         {
             get { return 3; }
         }
 
-        public static int DefaultWalkDistance   
+        public  int DefaultWalkDistance   
         {
             get { return 1; }
         }
 
-        public static int DefaultWalletMaxCapacity
+        public  int DefaultWalletMaxCapacity
         {
             get { return 200; }
         }
 
-        public static int MinimumStartingExperience
+        public  int MinimumStartingExperience
         {
             get { return 1; }
         }
 
-        public static int MinimumStartingMoney
+        public  int MinimumStartingMoney
         {
             get { return 20; }
         }
 
-        public static int MaximumAvailableBonusPoints
+        public  int MaximumAvailableBonusPoints
         {
             get { return 100; }
         }
 
-        public static string DefaultNarratorAddressingForPlayer 
+        public  string DefaultNarratorAddressingForPlayer 
         {
             get { return "you"; }
         }
 
-        public static Paths DefaultPaths
+        public  Paths DefaultPaths
         {
             get
             {
@@ -66,17 +102,42 @@ namespace GetTheMilk.Settings
             }
         }
 
-        public static string TranslatorErrorMessage
+        public  string TranslatorErrorMessage
         {
             get { return "Blah, blah, blah... the game has lost his ability to communicate with you."; }
         }
 
-        public static int GetRandomMoneyBoost()
+        public  string DefaultPlayerName
+        {
+            get { return "Player"; }
+        }
+
+        public  int DefaultRange
+        {
+            get { return 1; }
+        }
+
+        public  string DefaultGameName
+        {
+            get { return "Get the milk"; }
+        }
+
+        public  string Description
+        {
+            get { return "Some description here."; }
+        }
+
+        public int DefaulMaximumCapacity
+        {
+            get { return 20; }
+        }
+
+        public  int GetRandomMoneyBoost()
         {
             return Randomizer.GetRandom(5, 20);
         }
 
-        public static int GetRandomExperienceBoost()
+        public  int GetRandomExperienceBoost()
         {
             return Randomizer.GetRandom(10, 50);
         }

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
+using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
@@ -73,14 +72,13 @@ namespace GetTheMilk.UI.ViewModels
 
         public RelayCommand<ActionWithTargetModel> PerformAction { get; private set; }
 
-        public void DisplayPossibleActions(IPositionableObject[] objectsInCell)
+        public void DisplayPossibleActions(NonCharacterObject[] objectsInCell)
         {
             Actions.Clear();
             foreach(var objectInCell in objectsInCell)
             {
-                if(objectInCell.StorageContainer.Owner is ILevel)
+                if(objectInCell.StorageContainer.InventoryType==InventoryType.LevelInventory)
                 {
-                    Actions.Add(new ActionWithTargetModel{Action=new Pick(),TargetObject = objectInCell});
                     Actions.Add(new ActionWithTargetModel { Action = new Keep(), TargetObject = objectInCell });
                     Actions.Add(new ActionWithTargetModel { Action = new Kick(), TargetObject = objectInCell});
                 }

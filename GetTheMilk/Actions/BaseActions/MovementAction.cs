@@ -1,24 +1,24 @@
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Navigation;
+using Newtonsoft.Json;
 
 namespace GetTheMilk.Actions.BaseActions
 {
-    public abstract class MovementAction : GameAction
+    public class MovementAction : GameAction
     {
         public Direction Direction { get; set; }
 
-        public abstract int DefaultDistance { get; }
+        [JsonIgnore]
+        public int DefaultDistance { get; protected set; }
 
-        public bool Perform(Character active)
+        public bool Perform(ICharacter active)
         {
             if (TargetCell == 0)
                 return false;
             active.CellNumber = TargetCell;
-            active.RightHandObject.FollowTheLeader();
-            active.LeftHandObject.FollowTheLeader();
-            active.ToolInventory.FollowTheLeader();
-            active.WeaponInventory.FollowTheLeader();
+            if(active.Inventory!=null)
+                active.Inventory.FollowTheLeader();
             return true;
         }
 

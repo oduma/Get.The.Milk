@@ -1,10 +1,13 @@
-using GetTheMilk.Characters;
+using System;
 using GetTheMilk.Characters.BaseCharacters;
 
 namespace GetTheMilk.Actions.BaseActions
 {
-    public abstract class TwoCharactersAction : GameAction
+    public class TwoCharactersAction : GameAction
     {
-        public abstract bool Perform(ICharacter active, ICharacter passive);
+        public virtual bool Perform(Character active, Character passive)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

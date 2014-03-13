@@ -1,35 +1,15 @@
-using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
-
 namespace GetTheMilk.Objects.BaseObjects
 {
-    public abstract class Weapon : ITransactionalObject
+    public class Weapon : Tool, IWeapon
     {
         public int Durability { get; set; }
+        public WeaponType[] WeaponTypes { get; set; }
+        public int DefensePower { get; set; }
+        public int AttackPower { get; set; }
 
-        public WeaponType[] WeaponTypes { get; protected set; }
-        public int MapNumber { get; set; }
-        public int CellNumber { get; set; }
-        public Noun Name { get; protected set; }
-        public bool BlockMovement { get; protected set; }
-        public virtual bool AllowsAction(GameAction a)
+        public Weapon()
         {
-            return (a is FightAction);
+            ObjectCategory = ObjectCategory.Weapon;
         }
-        public virtual bool AllowsIndirectAction(GameAction a, IPositionableObject o)
-        {
-            return ((a is Buy) || (a is Sell) || (a is GiveTo) || (a is TakeFrom)) && (o is ICharacter);
-        }
-        public Inventory StorageContainer { get; set; }
-        public int BuyPrice { get; protected set; }
-        public int SellPrice { get; protected set; }
-
-        public int DefensePower { get; protected set; }
-
-        public int AttackPower { get; protected set; }
-        public abstract string ApproachingMessage { get; set; }
-        public abstract string CloseUpMessage { get; set; }
     }
 }

@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Levels;
 using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.UI
 {
     public interface IInteractivity
     {
-        IPositionableObject[] SelectAnObject(IPositionableObject[] availableObjects);
+        NonCharacterObject[] SelectAnObject(NonCharacterObject[] availableObjects);
 
         ICharacter SelectACharacter(ICharacter[] availableCharacters);
 
@@ -17,11 +17,9 @@ namespace GetTheMilk.UI
 
         GameAction SelectAnActionAndAnObject(ExposeInventoryExtraData exposeInvetoryActionExtraData);
 
-        void SelectWeapons(List<Weapon> attackWeapons, List<IPositionableObject> rightHandObjects,
-                           List<Weapon> defenseWeapons, List<IPositionableObject> leftHandObjects);
+        void SelectWeapons(List<Weapon> attackWeapons, Weapon activeAttackWeapon,
+                           List<Weapon> defenseWeapons, Weapon activeDefenseWeapon);
 
         GameAction[] BuildActions(ExposeInventoryExtraData exposeInvetoryActionExtraData);
-
-        void EnterLevel(IPlayer player, ILevel level);
     }
 }

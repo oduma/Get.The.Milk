@@ -23,7 +23,7 @@ namespace GetTheMilk.Test.Level.Level1Objects
             return false;
         }
 
-        public bool AllowsIndirectAction(GameAction a, IPositionableObject o)
+        public bool AllowsIndirectAction(GameAction a, IPositionable o)
         {
             return false;
         }

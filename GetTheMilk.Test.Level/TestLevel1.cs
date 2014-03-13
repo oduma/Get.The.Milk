@@ -125,6 +125,7 @@ namespace GetTheMilk.TestLevel
                                    }
                            };
             }
+            set{}
         }
 
         public override int Number { get { return 1; } }
@@ -136,7 +137,7 @@ namespace GetTheMilk.TestLevel
                 if(_positionableObjects==null)
                 {
                     _positionableObjects=(new Inventory{InventoryType=InventoryType.LevelInventory,MaximumCapacity=1000,Owner=this});
-                    _positionableObjects.Add(new IPositionableObject[]
+                    _positionableObjects.Add(new IPositionable[]
                                                  {
                                                      new RedKey
                                                          {
@@ -187,6 +188,7 @@ namespace GetTheMilk.TestLevel
         {
             get { return @"You open your eyes in a strange but very small test world.
 As you are a curious one you think about exploring it."; }
+            set{}
         }
 
         public override int StartingMap

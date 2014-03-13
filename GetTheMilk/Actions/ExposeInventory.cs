@@ -13,6 +13,7 @@ namespace GetTheMilk.Actions
         public ExposeInventory()
         {
             Name = new Verb {Infinitive = "To Expose", Past = "exposed", Present = "expose"};
+            ActionType = ActionType.ExposeInventory;
         }
 
         public GameAction[] AllowedNextActions { get; set; }
@@ -24,12 +25,8 @@ namespace GetTheMilk.Actions
         public ActionResult Perform(ICharacter targetCharacter)
         {
             var result = new ActionResult {ResultType = ActionResultType.Ok};
-            var list = new List<IPositionableObject>();
-            list.AddRange(targetCharacter.ToolInventory.Objects);
-            list.AddRange(targetCharacter.WeaponInventory.Objects);
-            list.AddRange(targetCharacter.RightHandObject.Objects);
-            list.AddRange(targetCharacter.LeftHandObject.Objects);
-
+            var list = new List<NonCharacterObject>();
+            list.AddRange(targetCharacter.Inventory.Objects);
             result.ExtraData = new ExposeInventoryExtraData
                                    {
                                        Contents = list.ToArray(),

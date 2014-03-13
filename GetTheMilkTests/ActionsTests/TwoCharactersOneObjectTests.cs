@@ -23,8 +23,8 @@ namespace GetTheMilkTests.ActionsTests
 
             if(passive.Name.Main=="Keyless Child")
             {
-                Assert.Contains(action.UseableObject,passive.RightHandObject.Objects);
-                Assert.True(!active.RightHandObject.Objects.Any());
+                Assert.Contains(action.UseableObject,passive.Inventory.Objects);
+                Assert.True(!active.Inventory.Objects.Any());
                 return action.UseableObject.StorageContainer;
             }
             return null;
@@ -56,7 +56,7 @@ namespace GetTheMilkTests.ActionsTests
 
                 return active.Walet.CurrentCapacity;
             }
-            if(active.ToolInventory.MaximumCapacity==0)
+            if(active.Inventory.MaximumCapacity==0)
                 Assert.AreEqual(passive.Name.Main, action.UseableObject.StorageContainer.Owner.Name.Main);
             else if(passive.Name.Main=="Shop Keeper")
             {

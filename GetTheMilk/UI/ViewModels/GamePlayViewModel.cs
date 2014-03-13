@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Factories;
@@ -14,6 +15,8 @@ namespace GetTheMilk.UI.ViewModels
 {
     public class GamePlayViewModel:GameBaseViewModel
     {
+        private Game _game;
+
         private int _levelNo;
 
         public int LevelNo
@@ -23,42 +26,28 @@ namespace GetTheMilk.UI.ViewModels
             {
                 if(value!=_levelNo)
                 {
-                    try
-                    {
-                        _level = (new LevelsFactory().CreateLevel(value));
-                        Player player = Player.GetNewInstance();
-                        var actionResult = player.EnterLevel(_level);
-                        Story = string.Format("{0}\r\n{1}",_level.Story, RecordMovementResult(actionResult, player));
-                    }
-                    catch
-                    {
-                        Story = "Level " + value + " doesn't exist.";
-                    }
-
                     _levelNo = value;
                     RaisePropertyChanged("LevelNo");
                 }
             }
         }
 
-        private string RecordMovementResult(ActionResult actionResult, Player player)
+        private string RecordMovementResult(ActionResult actionResult)
         {
             var actionResultToHuL = new ActionResultToHuL();
             var additionalInformation = string.Empty;
             if(actionResult.ExtraData is MovementActionExtraData )
             {
                 var movementExtraData = actionResult.ExtraData as MovementActionExtraData;
-                additionalInformation = actionResultToHuL.TranslateMovementExtraData(movementExtraData, player, _level);
+                additionalInformation = actionResultToHuL.TranslateMovementExtraData(movementExtraData, _game.Player, _game.CurrentLevel);
                 _actionPanelViewModel.DisplayPossibleActions(movementExtraData.ObjectsInCell);
             }
-            _playerInfoViewModel.PlayerCurrentPosition = player.CellNumber;
+            _playerInfoViewModel.PlayerCurrentPosition = _game.Player.CellNumber;
             return string.Format("\r\n{0}\r\n{1}", 
                                  actionResultToHuL.TranslateMovementResult(
-                                     actionResult, player),additionalInformation);
+                                     actionResult, _game.Player),additionalInformation);
             
         }
-
-        private ILevel _level;
 
         private string _story;
         public string Story
@@ -110,33 +99,34 @@ namespace GetTheMilk.UI.ViewModels
         void ActionPanelViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
         {
             if (e.GameAction is MovementAction)
-                Story += RecordMovementResult(_playerInfoViewModel.PlayerMoves(e.GameAction, _level.Maps,
-                                                                       _level.PositionableObjects.Objects,
-                                                                       _level.Characters.Objects), Player.GetNewInstance());
+                Story += RecordMovementResult(_playerInfoViewModel.PlayerMoves(e.GameAction, _game.CurrentLevel.Maps,
+                                                                       _game.CurrentLevel.Objects.Objects,
+                                                                       _game.CurrentLevel.Characters.Characters));
             else
                 Story += RecordActionResult(_playerInfoViewModel.PlayerDoesAction(e.GameAction, e.TargetObject),
-                                            Player.GetNewInstance(), e.TargetObject);
+                                             e.TargetObject);
         }
 
-        private string RecordActionResult(ActionResult actionResult,IPlayer player,IPositionableObject targetObject)
+        private string RecordActionResult(ActionResult actionResult, NonCharacterObject targetObject)
         {
             var actionResultToHuL = new ActionResultToHuL();
             _actionPanelViewModel.DisplayPossibleActions(
-                _level.PositionableObjects.Objects.Where(
-                    o => o.MapNumber == player.MapNumber && o.CellNumber == player.CellNumber).ToArray());
-            _playerInfoViewModel.PlayerLeftHandObject = (player.LeftHandObject.Objects.Any())?player.LeftHandObject.Objects[0].Name.Main:string.Empty;
-            _playerInfoViewModel.PlayerRightHandObject = (player.RightHandObject.Objects.Any())?player.RightHandObject.Objects[0].Name.Main:string.Empty;
+                _game.CurrentLevel.Objects.Objects.Where(
+                    o => o.MapNumber == _game.Player.MapNumber && o.CellNumber == _game.Player.CellNumber).ToArray());
             return string.Format("\r\n{0}\r\n",
                                  actionResultToHuL.TranslateActionResult(
-                                     actionResult,player,targetObject));
-            
+                                     actionResult, _game.Player, targetObject));
+
 
         }
 
-        public GamePlayViewModel()
+        public GamePlayViewModel(Game game)
         {
-            
-            PlayerInfoViewModel=new PlayerInfoViewModel();
+            _game=game;
+            var actionResult = _game.Player.EnterLevel(_game.CurrentLevel);
+            Story = string.Format("{0}\r\n{1}", _game.CurrentLevel.Story, RecordMovementResult(actionResult));
+            LevelNo = _game.CurrentLevel.Number;
+            PlayerInfoViewModel=new PlayerInfoViewModel(_game);
             ActionPanelViewModel= new ActionPanelViewModel();
           
         }
