@@ -16,6 +16,30 @@ namespace GetTheMilk.Characters
 {
     public class Player : Character, IPlayer
     {
+        public Player(IInteractivity interactivity)
+        {
+            var gameSettings = GameSettings.GetInstance();
+            Inventory = new Inventory
+            {
+                InventoryType = InventoryType.CharacterInventory,
+                MaximumCapacity = gameSettings.DefaulMaximumCapacity
+            };
+            BlockMovement = true;
+            Experience = GameSettings.GetInstance().MinimumStartingExperience;
+            Walet = new Walet
+            {
+                MaxCapacity = GameSettings.GetInstance().DefaultWalletMaxCapacity,
+                CurrentCapacity = gameSettings.MinimumStartingMoney
+            };
+            Interactivity = interactivity;
+            ObjectTypeId = "Player";
+
+            SetPlayerName(gameSettings.DefaultPlayerName);
+
+            Range = gameSettings.DefaultRange;
+
+        }
+
         public Player()
         {
             var gameSettings = GameSettings.GetInstance();

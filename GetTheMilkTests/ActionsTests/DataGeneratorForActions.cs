@@ -142,8 +142,8 @@ namespace GetTheMilkTests.ActionsTests
                 Level _level = Level.Create(1);
 
                 //Try to open a door with wrong key
-                var active = new Player();
-                var passive = _level.Objects.Objects.Select(o=>o.Name.Main="Red Door");
+                var active = new Player(new StubedTextBasedInteractivity());
+                var passive = _level.Objects.Objects.FirstOrDefault(o=>o.Name.Main=="Red Door");
                 var blueKey = new Tool
                                   {
                                       Name = new Noun {Main = "Blue Key", Narrator = "the Blue Key"},
@@ -162,9 +162,9 @@ namespace GetTheMilkTests.ActionsTests
                     new TestCaseData(active,
                                      passive,
                                      new Open()).Returns(passive);
-                
-                //try to open a door with the right key
 
+                //try to open a door with the right key
+                active = new Player(new StubedTextBasedInteractivity());
                 active.Inventory.Add(_level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key"));
                 yield return
                     new TestCaseData(active,
