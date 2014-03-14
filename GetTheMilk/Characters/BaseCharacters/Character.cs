@@ -37,6 +37,7 @@ namespace GetTheMilk.Characters.BaseCharacters
             var character= JsonConvert.DeserializeObject<T>(characterPackages.CharacterCore, new CharacterJsonConverter());
             character.Inventory = JsonConvert.DeserializeObject<Inventory>(characterPackages.CharacterInventory,
                                                                            new NonChracterObjectConverter());
+            character.Inventory.LinkObjectsToInventory();
             character.InteractionRules =
                 JsonConvert.DeserializeObject<SortedList<string, ActionReaction[]>>(
                     characterPackages.CharacterInteractionRules, new ActionJsonConverter());

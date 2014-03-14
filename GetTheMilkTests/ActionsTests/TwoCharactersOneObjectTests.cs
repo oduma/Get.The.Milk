@@ -21,10 +21,10 @@ namespace GetTheMilkTests.ActionsTests
             if (result.ResultType==ActionResultType.NotOk)
                 return action.UseableObject.StorageContainer;
 
-            if(passive.Name.Main=="Keyless Child")
+            if(passive.Name.Main=="Player")
             {
                 Assert.Contains(action.UseableObject,passive.Inventory.Objects);
-                Assert.True(!active.Inventory.Objects.Any());
+                Assert.True(active.Inventory.Objects.All(o => o.Name.Main != action.UseableObject.Name.Main));
                 return action.UseableObject.StorageContainer;
             }
             return null;
@@ -38,7 +38,7 @@ namespace GetTheMilkTests.ActionsTests
                 return active.Walet.CurrentCapacity;
             active.Walet.PerformTransaction(new TransactionDetails
                                                 {TransactionType = transactionType, Price = amount, Towards = passive});
-            Assert.AreEqual(60,passive.Walet.CurrentCapacity);
+            Assert.AreEqual(210,passive.Walet.CurrentCapacity);
 
             return active.Walet.CurrentCapacity;
         }
@@ -58,7 +58,7 @@ namespace GetTheMilkTests.ActionsTests
             }
             if(active.Inventory.MaximumCapacity==0)
                 Assert.AreEqual(passive.Name.Main, action.UseableObject.StorageContainer.Owner.Name.Main);
-            else if(passive.Name.Main=="Shop Keeper")
+            else if (passive.Name.Main == "John the Shop Keeper")
             {
                 Assert.AreEqual(active.Name.Main, action.UseableObject.StorageContainer.Owner.Name.Main);
             }

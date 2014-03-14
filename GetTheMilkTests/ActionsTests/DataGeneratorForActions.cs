@@ -54,19 +54,21 @@ namespace GetTheMilkTests.ActionsTests
 
                 //Give a key to a character that doesn't want it (nothing happens)
                 var active = new Player();
-                var passive = _level.Characters.Characters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFoey");
+                var passive = _level.Characters.Characters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFoe");
                 var action = new GiveTo();
+                action.UseableObject = passive.Inventory.Objects[0];
                 active.Inventory.Add(_level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key"));
                 yield return
                     new TestCaseData(active, passive, action).Returns(
-                        active.Inventory);
+                        passive.Inventory);
 
                 //Give a key to a character that wants it (key changes owners)
                 passive = _level.Characters.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
-                action = new GiveTo();
+                action= new GiveTo();
+                action.UseableObject = passive.Inventory.Objects[0];
                 yield return
-                    new TestCaseData(active, passive, action).Returns(
-                        passive.Inventory);
+                    new TestCaseData(passive, active, action).Returns(
+                        active.Inventory);
 
             }
         }
@@ -85,7 +87,7 @@ namespace GetTheMilkTests.ActionsTests
                     active.Walet.CurrentCapacity);
 
                 yield return new TestCaseData(active, passive, 10, TransactionType.Debit).Returns(
-                    40);
+                    10);
 
             }
         }
@@ -102,6 +104,7 @@ namespace GetTheMilkTests.ActionsTests
                 var passive = _level.Characters.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly"); 
 
                 var buyAction = new Buy();
+                buyAction.UseableObject = passive.Inventory.Objects[0];
 
                 yield return
                     new TestCaseData(active, passive, buyAction).Returns(
@@ -110,27 +113,27 @@ namespace GetTheMilkTests.ActionsTests
                 //Try to sell a key to a character not enough money (nothing happens)
 
                 var sellAction = new Sell();
+                sellAction.UseableObject = passive.Inventory.Objects[0];
                 yield return
                     new TestCaseData(passive, active, sellAction).Returns(
-                        50);
+                        200);
 
                 //Try to buy a key no room in your inventory
 
+                active = new Player();
                 active.Inventory.MaximumCapacity = 0;
-
-                buyAction = new Buy();
+                active.Walet.CurrentCapacity = 50;
                 yield return
                     new TestCaseData(active, passive, buyAction).Returns(
                         50);
                 //Succesfully buy a skrew driver
+                active= new Player();
                 active.Inventory.MaximumCapacity = 10;
                 active.Walet.CurrentCapacity = 200;
 
-                buyAction = new Buy();
-                buyAction.UseableObject = passive.Inventory.Objects.FirstOrDefault();
                 yield return
                     new TestCaseData(active, passive, buyAction).Returns(
-                        45);
+                        190);
 
             }
         }

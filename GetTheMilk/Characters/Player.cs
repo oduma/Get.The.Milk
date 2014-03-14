@@ -34,35 +34,22 @@ namespace GetTheMilk.Characters
             Interactivity = interactivity;
             ObjectTypeId = "Player";
 
+            var factory = ObjectActionsFactory.GetFactory();
+
+            var objAction = factory.CreateObjectAction("Player");
+            AllowsAction = objAction.AllowsAction;
+            AllowsIndirectAction = objAction.AllowsIndirectAction;
+
+
             SetPlayerName(gameSettings.DefaultPlayerName);
 
             Range = gameSettings.DefaultRange;
 
         }
 
-        public Player()
+        public Player():this((new ObjectsFactory(new InteractivityProvidersInstaller())).CreateObject<IInteractivity>(
+                                GameSettings.GetInstance().InteractiveMode))
         {
-            var gameSettings = GameSettings.GetInstance();
-            Inventory = new Inventory
-                            {
-                                InventoryType = InventoryType.CharacterInventory,
-                                MaximumCapacity = gameSettings.DefaulMaximumCapacity
-                            };
-            BlockMovement = true;
-            Experience = GameSettings.GetInstance().MinimumStartingExperience;
-            Walet = new Walet
-                        {
-                            MaxCapacity = GameSettings.GetInstance().DefaultWalletMaxCapacity,
-                            CurrentCapacity = gameSettings.MinimumStartingMoney
-                        };
-            Interactivity = (new ObjectsFactory(new InteractivityProvidersInstaller())).CreateObject<IInteractivity>(
-                                GameSettings.GetInstance().InteractiveMode);
-            ObjectTypeId = "Player";
-
-            SetPlayerName(gameSettings.DefaultPlayerName);
-
-            Range = gameSettings.DefaultRange;
-
         }
 
         public void LoadInteractionsWithPlayer(ICharacter targetCharacter)
