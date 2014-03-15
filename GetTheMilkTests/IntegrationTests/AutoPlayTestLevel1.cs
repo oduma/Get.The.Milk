@@ -27,10 +27,9 @@ namespace GetTheMilkTests.IntegrationTests
 
             //create a mock for the ui interactions
 
-           // var mockTheUi = (new Mock<IInteractivity>());
             var stubedUI = new StubTheInteractivity();
             //create a new player
-            var player = new Player();
+            var player = new Player(stubedUI);
             player.SetPlayerName("Me");
             player.Walet.CurrentCapacity = 20;
 
@@ -112,9 +111,9 @@ namespace GetTheMilkTests.IntegrationTests
                 player.ChooseFromAnotherInventory(interactionResult.ExtraData as ExposeInventoryExtraData)
                 as ObjectTransferAction, ((MovementActionExtraData)movementResult.ExtraData).CharactersInRange[0] as ICharacter);
             //Assert.AreEqual(1,player.RightHandObject.Objects.Count);
-            Assert.AreEqual(0, ((ICharacter)((MovementActionExtraData)movementResult.ExtraData).CharactersInRange[0]).Inventory.Objects.Count);
-            Assert.AreEqual(10,player.Walet.CurrentCapacity);
-            Assert.AreEqual(210, ((ICharacter)((MovementActionExtraData)movementResult.ExtraData).CharactersInRange[0]).Walet.CurrentCapacity);
+            Assert.AreEqual(1, ((ICharacter)((MovementActionExtraData)movementResult.ExtraData).CharactersInRange[0]).Inventory.Objects.Count);
+            Assert.AreEqual(15,player.Walet.CurrentCapacity);
+            Assert.AreEqual(205, ((ICharacter)((MovementActionExtraData)movementResult.ExtraData).CharactersInRange[0]).Walet.CurrentCapacity);
             //Assert.AreEqual(player.Name,player.RightHandObject.Objects[0].StorageContainer.Owner.Name);
 
             //the player tries to run south
@@ -129,7 +128,7 @@ namespace GetTheMilkTests.IntegrationTests
             //simulated the UI for selecting an option
             var attack = new Attack ();
 
-            interactionResult = player.StartInteraction(attack, ((MovementActionExtraData)movementResult.ExtraData).ObjectsBlocking[0] as ICharacter);
+            interactionResult = player.StartInteraction(attack, ((MovementActionExtraData)movementResult.ExtraData).CharactersBlocking[0]);
 
             Assert.AreNotEqual(ActionResultType.NotOk,interactionResult.ResultType);
             if(interactionResult.ResultType==ActionResultType.Win)
@@ -138,7 +137,7 @@ namespace GetTheMilkTests.IntegrationTests
                     stubedUI.BuildActions(interactionResult.ExtraData as ExposeInventoryExtraData);
                 foreach(var gameAction in gameActions)
                 {
-                    player.TryPerformAction(gameAction, ((MovementActionExtraData)movementResult.ExtraData).ObjectsBlocking[0] as ICharacter);
+                    player.TryPerformAction(gameAction, ((MovementActionExtraData)movementResult.ExtraData).CharactersBlocking[0]);
                 }
                 Assert.AreEqual(1,level.Characters.Characters.Count);
                 Assert.AreEqual(1,player.Experience);

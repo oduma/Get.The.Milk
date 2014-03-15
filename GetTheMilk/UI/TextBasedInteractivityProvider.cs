@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Levels;
-using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.UI
@@ -38,12 +35,7 @@ namespace GetTheMilk.UI
             throw new NotImplementedException();
         }
 
-        public void SelectWeapons(List<Weapon> attackWeapons, Weapon activeAttackWeapon, List<Weapon> defenseWeapons, Weapon activeDefenseWeapon)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SelectWeapons(List<Weapon> attackWeapons, List<IPositionable> rightHandObjects, List<Weapon> defenseWeapons, List<IPositionable> leftHandObjects)
+        public void SelectWeapons(IEnumerable<Weapon> weapons, ref Weapon activeAttackWeapon, ref Weapon activeDefenseWeapon)
         {
             throw new NotImplementedException();
         }

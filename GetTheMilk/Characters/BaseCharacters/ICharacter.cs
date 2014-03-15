@@ -29,7 +29,7 @@ namespace GetTheMilk.Characters.BaseCharacters
         ActionResult TryPerformAction(GameAction action, params NonCharacterObject[] targetObjects);
         ActionResult TryPerformAction(ObjectTransferAction action, ICharacter targetCharacter);
         ActionResult TryPerformAction(FightAction action, ICharacter targetCharacter);
-        ActionResult TryPerformAction(TwoCharactersAction action, Character targetCharacter);
+        ActionResult TryPerformAction(TwoCharactersAction action, ICharacter targetCharacter);
         ActionResult TryPerformAction(CommunicateAction action, ICharacter targetCharacter);
         ActionResult TryPerformAction(ExposeInventory action, ICharacter targetCharacter);
         ActionResult TryPerformAction(TakeMoneyFrom action, ICharacter targetCharacter);

@@ -230,11 +230,11 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         public virtual void PrepareForBattle()
         {
-            Interactivity.SelectWeapons(Inventory.Objects.Where(w => (w.ObjectCategory==ObjectCategory.Weapon) && 
-                ((Weapon)w).WeaponTypes.Contains(WeaponType.Attack)).
-                        Select(w => (Weapon)w).ToList(), ActiveAttackWeapon, Inventory.Objects.Where(w => (w.ObjectCategory == ObjectCategory.Weapon) && 
-                            ((Weapon)w).WeaponTypes.Contains(WeaponType.Deffense)).
-                        Select(w => (Weapon)w).ToList(), ActiveDefenseWeapon);
+            Weapon activeAttackWeapon= new Weapon();
+            Weapon activeDefenseWeapon=new Weapon();
+            Interactivity.SelectWeapons(Inventory.Objects.Where(w => (w.ObjectCategory==ObjectCategory.Weapon)).Select(w=>(Weapon)w), ref activeAttackWeapon, ref activeDefenseWeapon);
+            ActiveAttackWeapon = activeAttackWeapon;
+            ActiveDefenseWeapon = activeDefenseWeapon;
         }
 
         public Weapon ActiveDefenseWeapon { get; set; }
@@ -283,13 +283,13 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         }
 
-        public ActionResult TryPerformAction(TwoCharactersAction action, Character targetCharacter)
+        public ActionResult TryPerformAction(TwoCharactersAction action, ICharacter targetCharacter)
         {
             var result = new ActionResult { ResultType = ActionResultType.NotOk };
             if (AllowsAction(action)
                 && targetCharacter.AllowsIndirectAction(action, this))
             {
-                if (action.Perform(this, targetCharacter))
+                if (action.Perform(this, targetCharacter as Character))
                     result.ResultType = ActionResultType.Ok;
             }
             return result;

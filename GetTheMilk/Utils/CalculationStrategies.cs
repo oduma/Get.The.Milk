@@ -49,17 +49,28 @@ namespace GetTheMilk.Utils
 
         public static void CalculateDamages(Hit hit, Hit counterHit, ICharacter attacker, ICharacter defender)
         {
-            if (counterHit == null)
+            if(hit==null)
             {
-                hit.WithWeapon.Durability--;
-                defender.Health -= hit.Power;
+                if(counterHit!=null)
+                {
+                    counterHit.WithWeapon.Durability--;
+                    attacker.Health -= (counterHit.Power);
+                }
             }
             else
             {
-                defender.Health -= (hit.Power - counterHit.Power);
-                counterHit.WithWeapon.Durability--;
-                hit.WithWeapon.Durability--;
-                attacker.Health -= (counterHit.Power);
+                if (counterHit == null)
+                {
+                    hit.WithWeapon.Durability--;
+                    defender.Health -= hit.Power;
+                }
+                else
+                {
+                    defender.Health -= (hit.Power - counterHit.Power);
+                    counterHit.WithWeapon.Durability--;
+                    hit.WithWeapon.Durability--;
+                    attacker.Health -= (counterHit.Power);
+                }
             }
         }
 

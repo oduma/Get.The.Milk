@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects.BaseObjects;
 
@@ -17,8 +16,7 @@ namespace GetTheMilk.UI
 
         GameAction SelectAnActionAndAnObject(ExposeInventoryExtraData exposeInvetoryActionExtraData);
 
-        void SelectWeapons(List<Weapon> attackWeapons, Weapon activeAttackWeapon,
-                           List<Weapon> defenseWeapons, Weapon activeDefenseWeapon);
+        void SelectWeapons(IEnumerable<Weapon> weapons, ref Weapon activeAttackWeapon, ref Weapon activeDefenseWeapon);
 
         GameAction[] BuildActions(ExposeInventoryExtraData exposeInvetoryActionExtraData);
     }

@@ -6,6 +6,8 @@ namespace GetTheMilk.Objects.BaseObjects
         public WeaponType[] WeaponTypes { get; set; }
         public int DefensePower { get; set; }
         public int AttackPower { get; set; }
+        public bool IsCurrentAttack { get; set; }
+        public bool IsCurrentDefense { get; set; }
 
         public Weapon()
         {
