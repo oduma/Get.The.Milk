@@ -4,6 +4,7 @@ using GetTheMilk.Accounts;
 using GetTheMilk.Actions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
+using GetTheMilk.Factories;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
@@ -21,26 +22,39 @@ namespace GetTheMilkTests.ActionsTests
             {
                 Level _level = Level.Create(1);
 
+                var active = new Player();
+                var factory = ObjectActionsFactory.GetFactory();
+
+                var objAction = factory.CreateObjectAction("Player");
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
                 //Kick a wall (nothing happens)
                 yield return
-                    new TestCaseData(new Player(),
+                    new TestCaseData(active,
                                      new Kick(),
                                      _level.Objects.Objects.FirstOrDefault(o=>o.Name.Main=="Wall"))
                         .Returns(_level.Objects);
 
                 //Pick a key, key in hand
-                var meCharacter = new Player();
+                active = new Player();
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
                 yield return
-                    new TestCaseData(meCharacter,
+                    new TestCaseData(active,
                                      new Keep(),
-                                     _level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key")).Returns(meCharacter.Inventory);
+                                     _level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key")).Returns(active.Inventory);
 
                 _level = Level.Create(1);
 
-                meCharacter = new Player();
-                meCharacter.Inventory = new Inventory { InventoryType = InventoryType.CharacterInventory, MaximumCapacity = 0 };
+                active = new Player();
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
+                active.Inventory = new Inventory { InventoryType = InventoryType.CharacterInventory, MaximumCapacity = 0 };
                 yield return
-                    new TestCaseData(meCharacter,
+                    new TestCaseData(active,
                                      new Keep(),
                                      _level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key")).Returns(_level.Objects);
             }
@@ -54,6 +68,13 @@ namespace GetTheMilkTests.ActionsTests
 
                 //Give a key to a character that doesn't want it (nothing happens)
                 var active = new Player();
+
+                var factory = ObjectActionsFactory.GetFactory();
+
+                var objAction = factory.CreateObjectAction("Player");
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
                 var passive = _level.Characters.Characters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFoe");
                 var action = new GiveTo();
                 action.UseableObject = passive.Inventory.Objects[0];
@@ -81,6 +102,13 @@ namespace GetTheMilkTests.ActionsTests
 
                 //not enough money
                 var active = new Player();
+
+                var factory = ObjectActionsFactory.GetFactory();
+
+                var objAction = factory.CreateObjectAction("Player");
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
                 var passive = _level.Characters.Characters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFriendly");
 
                 yield return new TestCaseData(active, passive, 100, TransactionType.Debit).Returns(
@@ -100,6 +128,13 @@ namespace GetTheMilkTests.ActionsTests
 
                 //Try to buy a key from a character not enough money (nothing happens)
                 var active = new Player();
+
+                var factory = ObjectActionsFactory.GetFactory();
+
+                var objAction = factory.CreateObjectAction("Player");
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
                 active.Walet.CurrentCapacity = 1;
                 var passive = _level.Characters.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly"); 
 
@@ -121,6 +156,10 @@ namespace GetTheMilkTests.ActionsTests
                 //Try to buy a key no room in your inventory
 
                 active = new Player();
+
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
                 active.Inventory.MaximumCapacity = 0;
                 active.Walet.CurrentCapacity = 50;
                 yield return
@@ -128,6 +167,10 @@ namespace GetTheMilkTests.ActionsTests
                         50);
                 //Succesfully buy a skrew driver
                 active= new Player();
+
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
                 active.Inventory.MaximumCapacity = 10;
                 active.Walet.CurrentCapacity = 200;
 
@@ -146,6 +189,13 @@ namespace GetTheMilkTests.ActionsTests
 
                 //Try to open a door with wrong key
                 var active = new Player(new StubedTextBasedInteractivity());
+
+                var factory = ObjectActionsFactory.GetFactory();
+
+                var objAction = factory.CreateObjectAction("Player");
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
                 var passive = _level.Objects.Objects.FirstOrDefault(o=>o.Name.Main=="Red Door");
                 var blueKey = new Tool
                                   {
@@ -168,6 +218,10 @@ namespace GetTheMilkTests.ActionsTests
 
                 //try to open a door with the right key
                 active = new Player(new StubedTextBasedInteractivity());
+
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
                 active.Inventory.Add(_level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key"));
                 yield return
                     new TestCaseData(active,
@@ -186,6 +240,13 @@ namespace GetTheMilkTests.ActionsTests
 
                 //walk off the margin of the map
                 var active = new Player();
+
+                var factory = ObjectActionsFactory.GetFactory();
+
+                var objAction = factory.CreateObjectAction("Player");
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
                 active.Inventory.Add(_level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key"));
                 var walkNorth = new Walk();
                 walkNorth.Direction = Direction.North;

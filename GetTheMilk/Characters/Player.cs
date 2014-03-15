@@ -34,13 +34,6 @@ namespace GetTheMilk.Characters
             Interactivity = interactivity;
             ObjectTypeId = "Player";
 
-            var factory = ObjectActionsFactory.GetFactory();
-
-            var objAction = factory.CreateObjectAction("Player");
-            AllowsAction = objAction.AllowsAction;
-            AllowsIndirectAction = objAction.AllowsIndirectAction;
-
-
             SetPlayerName(gameSettings.DefaultPlayerName);
 
             Range = gameSettings.DefaultRange;

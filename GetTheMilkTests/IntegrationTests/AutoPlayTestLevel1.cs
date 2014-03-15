@@ -30,6 +30,13 @@ namespace GetTheMilkTests.IntegrationTests
             var stubedUI = new StubTheInteractivity();
             //create a new player
             var player = new Player(stubedUI);
+            var factory = ObjectActionsFactory.GetFactory();
+
+            var objAction = factory.CreateObjectAction("Player");
+            player.AllowsAction = objAction.AllowsAction;
+            player.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
+
             player.SetPlayerName("Me");
             player.Walet.CurrentCapacity = 20;
 
