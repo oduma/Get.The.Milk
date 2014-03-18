@@ -56,11 +56,12 @@ namespace GetTheMilkTests.TranslatorTests
                 var objAction = factory.CreateObjectAction("Player");
                 active.AllowsAction = objAction.AllowsAction;
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
-
+                active.EnterLevel(Level);
+                active.CellNumber = 20;
 
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.OriginNotOnTheMap, ForAction = new Walk { Direction = Direction.South } },
+                        new ActionResult { ResultType = ActionResultType.OriginNotOnTheMap, ForAction = new Walk { Direction = Direction.North } },
                         active).Returns("Error You cannot walk.");
 
                 yield return
@@ -119,7 +120,7 @@ namespace GetTheMilkTests.TranslatorTests
                                             ObjectsBlocking =Level.Objects.Objects.ToArray()
                                         }
                             },
-                        active).Returns("You tried to walk South but is impossible, blocked by a red door, wall and window.");
+                        active).Returns("You tried to walk South but the Red Key, red door, wall and wall are on the way.");
 
                 yield return
                     new TestCaseData(
@@ -133,7 +134,7 @@ namespace GetTheMilkTests.TranslatorTests
                                     ObjectsBlocking =Level.Objects.Objects.ToArray()
                                 }
                         },
-                        active).Returns("You tried to run West but is impossible, blocked by a red door, wall and window.");
+                        active).Returns("You tried to run West but the Red Key, red door, wall and wall are on the way.");
                 yield return
                     new TestCaseData(
                         new ActionResult { ResultType = ActionResultType.Blocked, ForAction = new EnterLevel { LevelNo = 2 },
@@ -142,7 +143,7 @@ namespace GetTheMilkTests.TranslatorTests
                                 {
                                     ObjectsBlocking =Level.Objects.Objects.ToArray()
                                 } },
-                        active).Returns("You tried to enter level 2 but is impossible, blocked by a red door, wall and window.");
+                        active).Returns("You tried to enter level 2 but is impossible, blocked by the Red Key, red door, wall and wall.");
 
             }
         }
@@ -171,7 +172,7 @@ namespace GetTheMilkTests.TranslatorTests
                                     CharactersBlocking = Level.Characters.Characters.ToArray()
                                 }
                         },
-                        active).Returns("You tried to walk South but the Baddie and John the Shop Keeper is on the way.");
+                        active).Returns("You tried to walk South but John the Shop Keeper and the Baddie are on the way.");
 
                 yield return
                     new TestCaseData(
@@ -185,7 +186,7 @@ namespace GetTheMilkTests.TranslatorTests
                                     CharactersBlocking = Level.Characters.Characters.ToArray()
                                 }
                         },
-                        active).Returns("You tried to run West but the Baddie and John the Shop Keeper is on the way.");
+                        active).Returns("You tried to run West but John the Shop Keeper and the Baddie are on the way.");
                 yield return
                     new TestCaseData(
                         new ActionResult
@@ -198,7 +199,7 @@ namespace GetTheMilkTests.TranslatorTests
                                     CharactersBlocking = Level.Characters.Characters.ToArray()
                                 }
                         },
-                        active).Returns("You tried to enter level 2 but the Baddie and John the Shop Keeper is on the way.");
+                        active).Returns("You tried to enter level 2 but is impossible, blocked by John the Shop Keeper and the Baddie.");
 
             }
         }
@@ -244,6 +245,7 @@ namespace GetTheMilkTests.TranslatorTests
                 active.AllowsAction = objAction.AllowsAction;
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
 
+                active.EnterLevel(Level);
 
                 yield return
                     new TestCaseData(
@@ -252,38 +254,10 @@ namespace GetTheMilkTests.TranslatorTests
                             ExtraData =
                                 new MovementActionExtraData
                                 {
-                                    ObjectsInRange = Level.Objects.Objects.ToArray()
+                                    ObjectsInRange = Level.Objects.Objects.Where(o=>o.CellNumber==2 || o.CellNumber==4).ToArray()
                                 }
                         },
-                        active, Level).Returns("Looking East There is a red door in the distance, or is it a wall?.\r\nLooking South You see a wall.");
-
-                yield return
-                    new TestCaseData(
-                        new ActionResult
-                        {
-                            ResultType = ActionResultType.Blocked,
-                            ForAction = new Run { Direction = Direction.West },
-                            ExtraData =
-                                new MovementActionExtraData
-                                {
-                                    ObjectsBlocking = Level.Objects.Objects.ToArray()
-                                }
-                        },
-                        active).Returns("You tried to run West but is impossible, blocked by a red door, wall and window.");
-                yield return
-                    new TestCaseData(
-                        new ActionResult
-                        {
-                            ResultType = ActionResultType.Blocked,
-                            ForAction = new EnterLevel { LevelNo = 2 },
-                            ExtraData =
-                                new MovementActionExtraData
-                                {
-                                    ObjectsBlocking = Level.Objects.Objects.ToArray()
-                                }
-                        },
-                        active).Returns("You tried to enter level 2 but is impossible, blocked by a red door, wall and window.");
-
+                        active, Level).Returns("Looking East You see a wall.\r\nLooking South A glint catches your eye..");
             }
         }
 

@@ -37,7 +37,7 @@ namespace GetTheMilk.UI.Translators
                           ((MovementActionExtraData) actionResult.ExtraData!=null)?
                           FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking,NarratorNaming):"",
                           ((MovementActionExtraData) actionResult.ExtraData!=null)?
-                          FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking,NarratorNaming):"");
+                          FormatList(((MovementActionExtraData) actionResult.ExtraData).CharactersBlocking,NarratorNaming):"");
 
         }
 
@@ -74,14 +74,25 @@ namespace GetTheMilk.UI.Translators
             if(extraData.ObjectsInCell !=null && extraData.ObjectsInCell.Any())
                 objectsInTheCell=string.Format(gameSettings.MovementExtraDataTemplate.MessageForObjectsInCell +"\r\n",
                                                  FormatList(extraData.ObjectsInCell, CloseUpMessageNaming));
-            var objectsInRange = string.Join("\r\n",
+            var objectsInRange =string.Empty;
+            if(extraData.ObjectsInRange!=null && extraData.ObjectsInRange.Any())
+                objectsInRange = string.Join("\r\n",
                         extraData.ObjectsInRange.OrderBy(o => o.CellNumber).Select(
                             o =>
                             string.Format(gameSettings.MovementExtraDataTemplate.MessageForObjectsInRange,
                                           level.Maps.FirstOrDefault(m=>m.Number==active.MapNumber)
                                           .Cells.FirstOrDefault(c => c.Number == active.CellNumber).GetDirectionToCell(o.CellNumber),
                                           ((IObjectHumanInterface) o).ApproachingMessage)));
-            return string.Format("{0}{1}", objectsInTheCell, objectsInRange);
+            var charactersInRange = string.Empty;
+            if (extraData.CharactersInRange != null && extraData.CharactersInRange.Any())
+                charactersInRange = string.Join("\r\n",
+                        extraData.CharactersInRange.OrderBy(o => o.CellNumber).Select(
+                            o =>
+                            string.Format(gameSettings.MovementExtraDataTemplate.MessageForObjectsInRange,
+                                          level.Maps.FirstOrDefault(m => m.Number == active.MapNumber)
+                                          .Cells.FirstOrDefault(c => c.Number == active.CellNumber).GetDirectionToCell(o.CellNumber),
+                                          ((IObjectHumanInterface)o).ApproachingMessage)));
+            return string.Format("{0}{1}{2}", objectsInTheCell, objectsInRange,charactersInRange);
         }
 
         private string CloseUpMessageNaming(IPositionable obj)
