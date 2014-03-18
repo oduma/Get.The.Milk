@@ -14,6 +14,9 @@
         <DataTemplate DataType="{x:Type ViewModels:ActionPanelViewModel}">
             <UCViews:ActionPanel/>
         </DataTemplate> 
+        <DataTemplate DataType="{x:Type ViewModels:InventoryViewModel}">
+            <UCViews:Inventory/>
+        </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -31,8 +34,9 @@
         <ContentControl Grid.Row="0" Name="ActionPanelControl"  Grid.Column ="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Path=PlayerInfoViewModel}"/>
 
         <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3">
-            <TextBlock Text="{Binding Path=Story}" Grid.Row="1" Grid.ColumnSpan="3"/>
+            <TextBlock Text="{Binding Path=Story}" Grid.Row="1" Grid.ColumnSpan="3" Visibility="{Binding Path=StoryVisible}"/>
         </ScrollViewer>
+        <ContentControl Grid.Row="1" Name="InventoryControl"  Grid.ColumnSpan ="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Path=InventoryViewModel}" Visibility="{Binding Path=InventoryVisible}"/>
         <ContentControl Grid.Row="2"  TabIndex="-1" Name="ActionPanel" Grid.Column ="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Path=ActionPanelViewModel}" Focusable="True"/>
     </Grid>
 </UserControl>

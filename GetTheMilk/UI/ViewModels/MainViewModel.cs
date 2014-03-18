@@ -21,7 +21,9 @@ namespace GetTheMilk.UI.ViewModels
                 if (value != _currentGameViewModel)
                 {
                     if (_currentGameViewModel != null)
+                    {
                         _currentGameViewModel.GameStartRequest -= CurrentGameViewModelGameStartRequest;
+                    }
                     _currentGameViewModel = value;
                     _currentGameViewModel.GameStartRequest += CurrentGameViewModelGameStartRequest;
                     RaisePropertyChanged("CurrentGameViewModel");

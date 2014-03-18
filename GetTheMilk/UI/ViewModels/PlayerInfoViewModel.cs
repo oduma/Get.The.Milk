@@ -14,6 +14,8 @@ namespace GetTheMilk.UI.ViewModels
 {
     public class PlayerInfoViewModel:ViewModelBase
     {
+        public event EventHandler<ActionExecutionRequestEventArgs> ActionExecutionRequest;
+
         public RelayCommand ShowInventory { get; private set; }
         private string _playerName;
 
@@ -133,7 +135,11 @@ namespace GetTheMilk.UI.ViewModels
 
         private void ShowInventoryCommand()
         {
-            throw new NotImplementedException();
+            ExposeInventory exposeInventory = new ExposeInventory();
+            exposeInventory.IncludeWallet = false;
+            
+            if(ActionExecutionRequest!=null)
+                ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(exposeInventory,null,_player,_player));
         }
 
         public ActionResult PlayerMoves(GameAction gameAction, Map[] levelMaps, 

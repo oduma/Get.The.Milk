@@ -4,6 +4,7 @@ using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Levels;
 using GetTheMilk.Settings;
 using Newtonsoft.Json;
+using GetTheMilk.Factories;
 
 namespace GetTheMilk
 {
@@ -38,7 +39,15 @@ namespace GetTheMilk
         public static Game CreateGameInstance()
         {
             if (Instance.Player == null)
+            {
                 Instance.Player = new Player();
+                var factory = ObjectActionsFactory.GetFactory();
+
+                var objAction = factory.CreateObjectAction("Player");
+                Instance.Player.AllowsAction = objAction.AllowsAction;
+                Instance.Player.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
+            }
             return Instance;
         }
 

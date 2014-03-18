@@ -10,6 +10,7 @@ using GetTheMilk.Levels;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.Translators;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
+using System.Windows;
 
 namespace GetTheMilk.UI.ViewModels
 {
@@ -63,6 +64,20 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
+        private Visibility _storyVisible;
+        public Visibility StoryVisible
+        {
+            get { return _storyVisible; }
+            set
+            {
+                if (value != _storyVisible)
+                {
+                    _storyVisible = value;
+                    RaisePropertyChanged("StoryVisible");
+                }
+            }
+        }
+
         private PlayerInfoViewModel _playerInfoViewModel;
 
         public PlayerInfoViewModel PlayerInfoViewModel
@@ -72,7 +87,10 @@ namespace GetTheMilk.UI.ViewModels
             {
                 if(value != _playerInfoViewModel)
                 {
+                    if (_playerInfoViewModel != null)
+                        _playerInfoViewModel.ActionExecutionRequest -= PlayerInfoViewModelActionExecutionRequest;
                     _playerInfoViewModel = value;
+                    _playerInfoViewModel.ActionExecutionRequest += PlayerInfoViewModelActionExecutionRequest;
                     RaisePropertyChanged("PlayerInfoViewModel");
                 }
             }
@@ -107,6 +125,19 @@ namespace GetTheMilk.UI.ViewModels
                                              e.TargetObject);
         }
 
+        void PlayerInfoViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
+        {
+            if (e.GameAction is ExposeInventory)
+            {
+                var actionResult = e.ActiveCharacter.TryPerformAction(e.GameAction,e.TargetCharacter);
+                if(actionResult.ResultType== ActionResultType.Ok)
+                {
+                    StoryVisible = Visibility.Hidden;
+                    //InventoryVisible = true;
+                }
+            }
+        }
+
         private string RecordActionResult(ActionResult actionResult, NonCharacterObject targetObject)
         {
             var actionResultToHuL = new ActionResultToHuL();
@@ -128,8 +159,10 @@ namespace GetTheMilk.UI.ViewModels
             PlayerInfoViewModel=new PlayerInfoViewModel(_game);
             ActionPanelViewModel= new ActionPanelViewModel();
             Story = string.Format("{0}\r\n{1}", _game.CurrentLevel.Story, RecordMovementResult(actionResult));
+            StoryVisible = Visibility.Visible;
         }
 
         public override event EventHandler<GameStartRequestEventArgs> GameStartRequest;
+
     }
 }
