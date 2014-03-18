@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 namespace GetTheMilkTests.SaveLoadTests
 {
     [TestFixture]
-    public class SaveLevelTests
+    public class SaveLoadLevelTests
     {
         [Test]
         public void SaveAndLoadLevelWithoutPlayer()
@@ -356,6 +356,13 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.False(actual.Objects.Objects.Any(o=>o.StorageContainer.Owner.Name.Main!=actual.Name.Main));
             Assert.IsNotNull(actual.Characters);
             Assert.AreEqual(level.Characters.Characters.Count, actual.Characters.Characters.Count);
+        }
+
+        [Test]
+        public void LoadALevelAndCheckObjects()
+        {
+            Level level = Level.Create(1);
+            Assert.IsNotNull(level);
         }
     }
 }

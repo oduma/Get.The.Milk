@@ -103,6 +103,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="GameData\GDES.gdu">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GameData\GDT.gdu">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GameData\GL1.gdu">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -139,6 +148,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Get.The.Milk.L1.ObjectActions\Get.The.Milk.L1.ObjectActions.csproj">
+      <Project>{3f76d762-4647-4ab3-943d-37e61ce086ec}</Project>
+      <Name>Get.The.Milk.L1.ObjectActions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GetTheMilk\GetTheMilk.csproj">
       <Project>{0f1b4894-f8a9-41f9-861e-3f3f14d87d8f}</Project>
       <Name>GetTheMilk</Name>

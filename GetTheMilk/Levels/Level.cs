@@ -62,9 +62,10 @@ namespace GetTheMilk.Levels
 
         public static Level Create(int levelNo)
         {
-            using(TextReader tr = new StreamReader(GameSettings.GetInstance().CurrentReadStrategy(Path.Combine(
-                GameSettings.GetInstance().DefaultPaths.GameData,
-                string.Format(GameSettings.GetInstance().DefaultPaths.LevelsFileNameTemplate, levelNo)))))
+            var gameSettings = GameSettings.GetInstance();
+            using(TextReader tr = new StreamReader(gameSettings.CurrentReadStrategy(Path.Combine(
+                gameSettings.DefaultPaths.GameData,
+                string.Format(gameSettings.DefaultPaths.LevelsFileNameTemplate, levelNo)))))
             {
                 return Create(JsonConvert.DeserializeObject<LevelPackages>(tr.ReadToEnd()));
             }

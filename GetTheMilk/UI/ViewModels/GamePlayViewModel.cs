@@ -124,11 +124,10 @@ namespace GetTheMilk.UI.ViewModels
         {
             _game=game;
             var actionResult = _game.Player.EnterLevel(_game.CurrentLevel);
-            Story = string.Format("{0}\r\n{1}", _game.CurrentLevel.Story, RecordMovementResult(actionResult));
             LevelNo = _game.CurrentLevel.Number;
             PlayerInfoViewModel=new PlayerInfoViewModel(_game);
             ActionPanelViewModel= new ActionPanelViewModel();
-          
+            Story = string.Format("{0}\r\n{1}", _game.CurrentLevel.Story, RecordMovementResult(actionResult));
         }
 
         public override event EventHandler<GameStartRequestEventArgs> GameStartRequest;

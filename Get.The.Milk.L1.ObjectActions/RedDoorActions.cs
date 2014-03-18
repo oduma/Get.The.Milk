@@ -1,11 +1,10 @@
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
 
-namespace GetTheMilkTests.Stubs
+namespace Get.The.Milk.L1.ObjectActions
 {
-    public class CanOpenerActions:IActionAllowed
+    public class RedDoorActions:IActionAllowed
     {
         public string ObjectTypeId { get; set; }
         public bool AllowsAction(GameAction a)
@@ -15,12 +14,11 @@ namespace GetTheMilkTests.Stubs
 
         public bool AllowsIndirectAction(GameAction a, IPositionable o)
         {
-            return (o is ICharacter && (a is Keep || a is GiveTo || a is Buy || a is Sell));
+            return (a is Open && o.Name.Main=="Red Key");
         }
-
-        public CanOpenerActions()
+        public RedDoorActions()
         {
-            ObjectTypeId = "CanOpener";
+            ObjectTypeId = "RedDoor";
         }
     }
 }
