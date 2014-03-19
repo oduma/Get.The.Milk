@@ -78,6 +78,36 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
+        private Visibility _inventoryVisible;
+        public Visibility InventoryVisible
+        {
+            get { return _inventoryVisible; }
+            set
+            {
+                if (value != _inventoryVisible)
+                {
+                    _inventoryVisible = value;
+                    RaisePropertyChanged("InventoryVisible");
+                }
+            }
+        }
+
+        private InventoryViewModel _inventoryViewModel;
+
+        public InventoryViewModel InventoryViewModel
+        {
+            get { return _inventoryViewModel; }
+            set
+            {
+                if (value != _inventoryViewModel)
+                {
+                    _inventoryViewModel = value;
+                    RaisePropertyChanged("InventoryViewModel");
+                }
+            }
+        }
+
+
         private PlayerInfoViewModel _playerInfoViewModel;
 
         public PlayerInfoViewModel PlayerInfoViewModel
@@ -87,10 +117,7 @@ namespace GetTheMilk.UI.ViewModels
             {
                 if(value != _playerInfoViewModel)
                 {
-                    if (_playerInfoViewModel != null)
-                        _playerInfoViewModel.ActionExecutionRequest -= PlayerInfoViewModelActionExecutionRequest;
                     _playerInfoViewModel = value;
-                    _playerInfoViewModel.ActionExecutionRequest += PlayerInfoViewModelActionExecutionRequest;
                     RaisePropertyChanged("PlayerInfoViewModel");
                 }
             }
@@ -120,22 +147,25 @@ namespace GetTheMilk.UI.ViewModels
                 Story += RecordMovementResult(_playerInfoViewModel.PlayerMoves(e.GameAction, _game.CurrentLevel.Maps,
                                                                        _game.CurrentLevel.Objects.Objects,
                                                                        _game.CurrentLevel.Characters.Characters));
+            else if(e.GameAction==null)
+            {
+                StoryVisible = Visibility.Visible;
+                InventoryVisible = Visibility.Hidden;
+            }
+            else if (e.GameAction is ExposeInventory)
+            {
+                var actionResult = e.ActiveCharacter.TryPerformAction(e.GameAction, e.TargetCharacter);
+                if (actionResult.ResultType == ActionResultType.Ok)
+                {
+                    StoryVisible = Visibility.Hidden;
+                    InventoryVisible = Visibility.Visible;
+                    InventoryViewModel = new InventoryViewModel(_game.Player.Name.Main,actionResult.ExtraData as ExposeInventoryExtraData);
+
+                }
+            }
             else
                 Story += RecordActionResult(_playerInfoViewModel.PlayerDoesAction(e.GameAction, e.TargetObject),
                                              e.TargetObject);
-        }
-
-        void PlayerInfoViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
-        {
-            if (e.GameAction is ExposeInventory)
-            {
-                var actionResult = e.ActiveCharacter.TryPerformAction(e.GameAction,e.TargetCharacter);
-                if(actionResult.ResultType== ActionResultType.Ok)
-                {
-                    StoryVisible = Visibility.Hidden;
-                    //InventoryVisible = true;
-                }
-            }
         }
 
         private string RecordActionResult(ActionResult actionResult, NonCharacterObject targetObject)
@@ -157,9 +187,10 @@ namespace GetTheMilk.UI.ViewModels
             var actionResult = _game.Player.EnterLevel(_game.CurrentLevel);
             LevelNo = _game.CurrentLevel.Number;
             PlayerInfoViewModel=new PlayerInfoViewModel(_game);
-            ActionPanelViewModel= new ActionPanelViewModel();
+            ActionPanelViewModel= new ActionPanelViewModel(_game.Player);
             Story = string.Format("{0}\r\n{1}", _game.CurrentLevel.Story, RecordMovementResult(actionResult));
             StoryVisible = Visibility.Visible;
+            InventoryVisible = Visibility.Hidden;
         }
 
         public override event EventHandler<GameStartRequestEventArgs> GameStartRequest;

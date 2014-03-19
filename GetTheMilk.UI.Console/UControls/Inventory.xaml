@@ -6,6 +6,24 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions> 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Label Name="InventoryFor" Content="{Binding Path=OwnerName}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <Label Name="ToolsTitle" Content="Tools" Grid.Column="0" Grid.Row="1"/>
+        <ListView Grid.Column="0" ItemsSource="{Binding Path=Tools}" Grid.Row="2">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Path=Name.Main}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </Grid>
 </UserControl>

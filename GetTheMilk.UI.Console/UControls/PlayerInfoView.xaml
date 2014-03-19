@@ -19,7 +19,6 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Content="Player:" Grid.Row="0" Grid.Column="0"/>
 
@@ -34,6 +33,5 @@
         <Label Content="{Binding Path=PlayerLeftHandObject}" Grid.Row="0" Grid.Column="9"/>
         <Label Content="Pos:" Grid.Column="10" Grid.Row="0"/>
         <Label Content="{Binding Path=PlayerCurrentPosition}" Grid.Column="11" Grid.Row="0"/>
-        <Button Content="Inventory" Command="{Binding Path=ShowInventory}" Grid.Column="12" Grid.Row="0"/>
     </Grid>
 </UserControl>

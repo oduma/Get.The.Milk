@@ -14,9 +14,6 @@ namespace GetTheMilk.UI.ViewModels
 {
     public class PlayerInfoViewModel:ViewModelBase
     {
-        public event EventHandler<ActionExecutionRequestEventArgs> ActionExecutionRequest;
-
-        public RelayCommand ShowInventory { get; private set; }
         private string _playerName;
 
         public string PlayerName
@@ -77,36 +74,6 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
-        private string _playerRightHandObject;
-
-        public string PlayerRightHandObject
-        {
-            get { return _playerRightHandObject; }
-            set
-            {
-                if (value != _playerRightHandObject)
-                {
-                    _playerRightHandObject = value;
-                    RaisePropertyChanged("PlayerRightHandObject");
-                }
-            }
-        }
-
-        private string _playerLeftHandObject;
-
-        public string PlayerLeftHandObject
-        {
-            get { return _playerLeftHandObject; }
-            set
-            {
-                if (value != _playerLeftHandObject)
-                {
-                    _playerLeftHandObject = value;
-                    RaisePropertyChanged("PlayerLeftHandObject");
-                }
-            }
-        }
-
         private int _playerCurrentPosition;
 
         public int PlayerCurrentPosition
@@ -130,16 +97,6 @@ namespace GetTheMilk.UI.ViewModels
             PlayerHealth = _player.Health;
             PlayerExperience = _player.Experience;
             PlayerMoney = _player.Walet.CurrentCapacity;
-            ShowInventory = new RelayCommand(ShowInventoryCommand);
-        }
-
-        private void ShowInventoryCommand()
-        {
-            ExposeInventory exposeInventory = new ExposeInventory();
-            exposeInventory.IncludeWallet = false;
-            
-            if(ActionExecutionRequest!=null)
-                ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(exposeInventory,null,_player,_player));
         }
 
         public ActionResult PlayerMoves(GameAction gameAction, Map[] levelMaps, 

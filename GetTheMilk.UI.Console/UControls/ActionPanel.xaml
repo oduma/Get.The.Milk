@@ -25,6 +25,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -38,6 +39,7 @@
             <Label Name="East" Content="{Binding Path=Directions.East.Shortcut}" Grid.Column="2" Grid.Row="1"/>
             <Label Name="Top" Content="{Binding Path=Directions.Top.Shortcut}" Grid.Column="2" Grid.Row="0"/>
             <Label Name="Bottom" Content="{Binding Path=Directions.Bottom.Shortcut}" Grid.Column="2" Grid.Row="2"/>
+            <Label Name="Inventory" Content="{Binding Path=InventoryShowHide}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"/>
         </Grid>
         <ListView Grid.Column="1" ItemsSource="{Binding Path=Actions}">
             <ListView.ItemsPanel>

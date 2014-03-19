@@ -7,6 +7,7 @@ using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
+using GetTheMilk.Characters;
 
 namespace GetTheMilk.UI.ViewModels
 {
@@ -29,13 +30,15 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
-        public ActionPanelViewModel()
+        public ActionPanelViewModel(Player player)
         {
+            _player = player;
             MovementType = new Walk();
             KeyPressed = new RelayCommand<KeyEventArgs>(KeyPressedCommand);
             KeyUnPressed=new RelayCommand<KeyEventArgs>(KeyUnPressedCommand);
             PerformAction=new RelayCommand<ActionWithTargetModel>(PerformActionCommand);
             Actions= new ObservableCollection<ActionWithTargetModel>();
+            InventoryShowHide = "Show Inventory";
         }
 
         private void PerformActionCommand(ActionWithTargetModel obj)
@@ -56,12 +59,54 @@ namespace GetTheMilk.UI.ViewModels
             if(obj.Key==Key.RightCtrl || obj.Key==Key.LeftCtrl)
                 MovementType=new Run();
             var direction = CardinalStar.GetDirectionByShortcut(obj.Key.ToString());
-            if (direction == Direction.None) return;
-            MovementType.Direction = direction;
-            if(ActionExecutionRequest!=null)
-                ActionExecutionRequest(this,new ActionExecutionRequestEventArgs(MovementType));
+            if (direction != Direction.None)
+            {
+                MovementType.Direction = direction;
+                if (ActionExecutionRequest != null)
+                    ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(MovementType));
+            }
+            else
+            {
+                if(obj.Key.ToString().ToUpper()=="I")
+                {
+                    ExposeInventory exposeInventory = ToggleInventory();
+
+                    if (ActionExecutionRequest != null)
+                        ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(exposeInventory, null, _player, _player));
+
+                }
+            }
         }
 
+        private ExposeInventory ToggleInventory()
+        {
+            if (InventoryShowHide == "Show Inventory")
+            {
+                InventoryShowHide = "Hide Inventory";
+                ExposeInventory exposeInventory = new ExposeInventory();
+                exposeInventory.IncludeWallet = false;
+                return exposeInventory;
+            }
+            InventoryShowHide = "Show Inventory";
+            return null;
+        }
+
+        private string _inventoryShowHide;
+        private Player _player;
+
+        public string InventoryShowHide
+        {
+            get { return _inventoryShowHide; }
+            set
+            {
+                if (value != _inventoryShowHide)
+                {
+                    _inventoryShowHide = value;
+                    RaisePropertyChanged("InventoryShowHide");
+                }
+
+            }
+        }
         public CardinalStar Directions { get { return new CardinalStar(); } }
 
         public ObservableCollection<ActionWithTargetModel> Actions { get; set; }
