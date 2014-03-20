@@ -471,7 +471,9 @@ namespace GetTheMilk.Characters.BaseCharacters
         public int CellNumber { get; set; }
         public bool BlockMovement { get; set; }
         public string ObjectTypeId { get; set; }
+        [JsonIgnore]
         public Func<GameAction, bool> AllowsAction { get; set; }
+        [JsonIgnore]
         public Func<GameAction, IPositionable, bool> AllowsIndirectAction { get; set; }
     }
 }

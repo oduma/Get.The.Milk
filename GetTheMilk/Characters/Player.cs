@@ -57,12 +57,15 @@ namespace GetTheMilk.Characters
 
         public ActionResult EnterLevel(Level level)
         {
-            level.Player = this;
-            MapNumber = level.StartingMap;
-            CellNumber = level.StartingCell;
-            return TryPerformMove(new EnterLevel { Direction = Direction.None, TargetCell = level.StartingCell },
-                                  level.Maps.FirstOrDefault(m => m.Number == level.StartingMap), level.Objects.Objects,
-                                  level.Characters.Characters);
+            if (level.Player == null)
+            {
+                level.Player = this;
+                MapNumber = level.StartingMap;
+                CellNumber = level.StartingCell;
+            }
+            return TryPerformMove(new EnterLevel { Direction = Direction.None, TargetCell = CellNumber },
+                level.Maps.FirstOrDefault(m => m.Number == MapNumber), level.Objects.Objects,
+                level.Characters.Characters);
         }
 
         public void SetPlayerName(string name)

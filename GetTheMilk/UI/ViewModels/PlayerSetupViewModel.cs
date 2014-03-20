@@ -25,7 +25,6 @@ namespace GetTheMilk.UI.ViewModels
             game.Player.SetPlayerName(Name);
             game.Player.Walet.CurrentCapacity = Money;
             game.Player.Experience = Experience;
-            game.CurrentLevel = Level.Create(1);
             if (GameStartRequest != null)
             {
                 GameStartRequest(this,new GameStartRequestEventArgs(game));

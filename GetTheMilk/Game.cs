@@ -20,7 +20,7 @@ namespace GetTheMilk
 
         private static readonly Game Instance = new Game();
 
-        public static void Load(string fullPath)
+        public static Game Load(string fullPath)
         {
             var gameSettings = GameSettings.GetInstance();
             using (TextReader textReader = new StreamReader(gameSettings.CurrentReadStrategy(fullPath)))
@@ -29,7 +29,9 @@ namespace GetTheMilk
                 var gamePackages = JsonConvert.DeserializeObject<GamePackages>(textReader.ReadToEnd());
                 Instance.Player = Player.Load<Player>(gamePackages.PlayerPackages);
                 Instance.CurrentLevel = Level.Create(gamePackages.LevelPackages);
+                Instance.CurrentLevel.Player = Instance.Player;
             }
+            return Instance;
         }
 
         private Game()
@@ -47,6 +49,10 @@ namespace GetTheMilk
                 Instance.Player.AllowsAction = objAction.AllowsAction;
                 Instance.Player.AllowsIndirectAction = objAction.AllowsIndirectAction;
 
+            }
+            if(Instance.CurrentLevel==null)
+            {
+                Instance.CurrentLevel = Level.Create(1);
             }
             return Instance;
         }

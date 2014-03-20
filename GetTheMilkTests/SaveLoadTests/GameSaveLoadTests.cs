@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using GetTheMilk;
 using GetTheMilk.Actions;
 using GetTheMilk.Settings;
@@ -6,6 +7,7 @@ using GetTheMilk.UI.Translators.Common;
 using GetTheMilk.UI.Translators.MovementResultTemplates;
 using NUnit.Framework;
 using Newtonsoft.Json;
+using GetTheMilk.Navigation;
 
 namespace GetTheMilkTests.SaveLoadTests
 {
@@ -23,13 +25,51 @@ namespace GetTheMilkTests.SaveLoadTests
 
 
         [Test]
-        public void LoadANewUncompressedGameFromFile()
+        public void LoadANewGame()
         {
             Game game = Game.CreateGameInstance();
             Assert.IsNotNull(game);
             Assert.IsNotNull(game.Player);
-            Assert.IsNull(game.CurrentLevel);
+            Assert.IsNotNull(game.CurrentLevel);
            
+        }
+
+        [Test]
+        public void SaveAndLoadGameToUncompressedFile()
+        {
+            Game game = Game.CreateGameInstance();
+            Assert.IsNotNull(game);
+            Assert.IsNotNull(game.Player);
+            Assert.IsNotNull(game.CurrentLevel);
+            game.Player.EnterLevel(game.CurrentLevel);
+            game.Player.SetPlayerName("my own name");
+            Walk walk = new Walk();
+            walk.Direction = Direction.South;
+            game.Player.TryPerformMove(walk, game.CurrentLevel.Maps[0], game.CurrentLevel.Objects.Objects, game.CurrentLevel.Characters.Characters);
+            game.Save("gamesavedtest.gsu");
+            Assert.True(File.Exists(@"Saved\gamesavedtest.gsu"));
+
+            var gameLoaded = Game.Load(@"Saved\gamesavedtest.gsu");
+            Assert.IsNotNull(gameLoaded);
+            Assert.IsNotNull(gameLoaded.Player);
+            Assert.IsNotNull(gameLoaded.CurrentLevel);
+            Assert.AreEqual(4,gameLoaded.Player.CellNumber); 
+            Assert.AreEqual(1,gameLoaded.Player.MapNumber);
+            Assert.AreEqual("my own name",gameLoaded.Player.Name.Main);
+
+        }
+
+        [Test]
+        public void LoadGameFromUncompressedFile()
+        {
+            var gameLoaded = Game.Load(@"Saved\previouslySavedgame.gsu");
+            Assert.IsNotNull(gameLoaded);
+            Assert.IsNotNull(gameLoaded.Player);
+            Assert.IsNotNull(gameLoaded.CurrentLevel);
+            Assert.AreEqual(4, gameLoaded.Player.CellNumber);
+            Assert.AreEqual(1, gameLoaded.Player.MapNumber);
+            Assert.AreEqual("my own name", gameLoaded.Player.Name.Main);
+
         }
 
         [Test]

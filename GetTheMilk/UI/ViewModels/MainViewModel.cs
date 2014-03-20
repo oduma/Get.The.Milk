@@ -1,3 +1,4 @@
+using System;
 using GetTheMilk.Settings;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
@@ -10,7 +11,9 @@ namespace GetTheMilk.UI.ViewModels
         public RelayCommand NewCommand { get; private set; }
 
         public RelayCommand SaveCommand { get; private set; }
-        
+
+        public RelayCommand LoadCommand { get; private set; }
+
         private GameBaseViewModel _currentGameViewModel;
 
         public GameBaseViewModel CurrentGameViewModel
@@ -44,12 +47,19 @@ namespace GetTheMilk.UI.ViewModels
             CurrentGameViewModel=new GameViewModel();
             NewCommand=new RelayCommand(LoadPlayerSetup);
             SaveCommand=new RelayCommand(SaveGame);
+            LoadCommand=new RelayCommand(LoadGame);
+        }
+
+        private void LoadGame()
+        {
+            CurrentGameViewModel=new LoadGameViewModel();
         }
 
         private void SaveGame()
         {
-            var fileName = string.Empty;
-            _game.Save(fileName);
+            var fileName = string.Format("{0}.{1}",Guid.NewGuid().ToString(),"gsu");
+            var game=Game.CreateGameInstance();
+            game.Save(fileName);
         }
 
         private void LoadPlayerSetup()
@@ -62,9 +72,6 @@ namespace GetTheMilk.UI.ViewModels
         {
             ;
         }
-
-        private readonly Game _game;
-
         public string Title { get; set; }
     }
 }

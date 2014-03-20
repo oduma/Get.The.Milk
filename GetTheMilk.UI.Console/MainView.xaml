@@ -18,6 +18,9 @@
         <DataTemplate DataType="{x:Type vm:GamePlayViewModel}">
             <UCViews:LevelView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LoadGameViewModel}">
+            <UCViews:LoadGameView/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -29,7 +32,7 @@
                 <MenuItem Header="_New Game" Command="{Binding Path=NewCommand}"/>
                 <MenuItem Header="_View Game Story" Command="{Binding Path=NewCommand}"/>
                 <MenuItem Header="Save Game" Command="{Binding Path=SaveCommand}"/>
-                <MenuItem Header="_Load Game"/>
+                <MenuItem Header="_Load Game" Command="{Binding Path=LoadCommand}"/>
                 <MenuItem Header="_Preferences"/>
                 <Separator/>
                 <MenuItem Header="_Exit" Command="{Binding Path=ExitCommand}"/>
