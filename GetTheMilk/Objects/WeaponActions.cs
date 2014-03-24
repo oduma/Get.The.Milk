@@ -12,7 +12,7 @@ namespace GetTheMilk.Objects
         public string ObjectTypeId { get; set; }
         public bool AllowsAction(GameAction a)
         {
-            return (a is FightAction);
+            return (a.ActionType==ActionType.Attack);
 
         }
 

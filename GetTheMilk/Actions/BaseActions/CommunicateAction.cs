@@ -10,6 +10,17 @@ namespace GetTheMilk.Actions.BaseActions
             ActionType = ActionType.Communicate;
         }
 
+        public override ActionResult Perform()
+        {
+            return new ActionResult {ForAction = this, ExtraData = Message, ResultType = ActionResultType.Ok};
+        }
         public string Message { get; set; }
+
+        public override GameAction CreateNewInstance()
+        {
+            return new CommunicateAction();
+        }
+
+
     }
 }

@@ -16,7 +16,9 @@ namespace GetTheMilk.Actions.Interactions
             while (action != null && (result.ResultType == ActionResultType.Ok
                                       || result.ResultType == ActionResultType.RequestQuit))
             {
-                var tempResult = Active.TryPerformAction(action, Passive);
+                action.TargetCharacter = Passive;
+                action.ActiveCharacter = Active;
+                var tempResult = action.Perform();
                 if (tempResult.ResultType == ActionResultType.Ok
                     || tempResult.ResultType == ActionResultType.RequestQuit)
                 {

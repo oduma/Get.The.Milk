@@ -14,16 +14,16 @@ namespace GetTheMilkTests.ActionsTests
     public class OneCharacterOneObjectActionTests
     {
         [Test,TestCaseSource(typeof(DataGeneratorForActions),"TestCases1C1O")]
-        public Inventory OneCharacterOnOneObjectAction(Character character,OneObjectAction action, NonCharacterObject targetObject)
+        public Inventory OneCharacterOnOneObjectAction(GameAction action)
         {
-            if (character.TryPerformAction(action,targetObject).ResultType==ActionResultType.NotOk)
-                return targetObject.StorageContainer;
+            if (action.Perform().ResultType==ActionResultType.NotOk)
+                return action.TargetObject.StorageContainer;
 
-            if(targetObject.StorageContainer.InventoryType==InventoryType.CharacterInventory)
+            if (action.TargetObject.StorageContainer.InventoryType == InventoryType.CharacterInventory)
             {
-                Assert.Contains(targetObject,character.Inventory.Objects);
+                Assert.Contains(action.TargetObject, action.TargetCharacter.Inventory);
             }
-            return targetObject.StorageContainer;
+            return action.TargetObject.StorageContainer;
         }
     }
 }

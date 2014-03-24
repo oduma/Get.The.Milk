@@ -1,15 +1,15 @@
-using System.Collections.Generic;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects;
-using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions
 {
     public class ExposeInventory:GameAction
     {
+        public override bool CanPerform()
+        {
+            return TargetCharacter.AllowsAction(this);
+        }
+
         public ExposeInventory()
         {
             Name = new Verb {Infinitive = "To Expose", Past = "exposed", Present = "expose"};
@@ -20,21 +20,27 @@ namespace GetTheMilk.Actions
 
         public bool IncludeWallet { get; set; }
 
-        public int Amount { get; set; }
-
-        public ActionResult Perform(ICharacter targetCharacter)
+        public override ActionResult Perform()
         {
-            var result = new ActionResult {ResultType = ActionResultType.Ok};
-            var list = new List<NonCharacterObject>();
-            list.AddRange(targetCharacter.Inventory.Objects);
+            var result = new ActionResult {ResultType = ActionResultType.Ok, ForAction=this};
+            if (!CanPerform())
+            {
+                result.ResultType = ActionResultType.NotOk;
+                return result;
+            }
             result.ExtraData = new ExposeInventoryExtraData
                                    {
-                                       Contents = list.ToArray(),
+                                       Contents = TargetCharacter.Inventory,
                                        PossibleUses = AllowedNextActions,
-                                       Money = (IncludeWallet) ? Amount : 0
+                                       Money = (IncludeWallet)?TargetCharacter.Walet.CurrentCapacity:0
                                    };
 
             return result;
         }
+        public override GameAction CreateNewInstance()
+        {
+            return new ExposeInventory();
+        }
+
     }
 }

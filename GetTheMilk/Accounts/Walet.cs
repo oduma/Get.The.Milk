@@ -44,6 +44,9 @@ namespace GetTheMilk.Accounts
 
         public bool CanPerformTransaction(TransactionDetails transactionDetails)
         {
+            //free gift
+            if (transactionDetails.TransactionType == TransactionType.None)
+                return true;
             //give money
             if(transactionDetails.TransactionType==TransactionType.Debit)
             {

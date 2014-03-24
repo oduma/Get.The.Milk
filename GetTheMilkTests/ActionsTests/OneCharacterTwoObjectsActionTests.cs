@@ -10,10 +10,10 @@ namespace GetTheMilkTests.ActionsTests
     public class OneCharacterTwoObjectsActionTests
     {
         [Test,TestCaseSource(typeof(DataGeneratorForActions),"TestCases1C2O")]
-        public IPositionable TransfromFromMovementPreventingToNot(Character active, NonCharacterObject passiveObject, ObjectUseOnObjectAction action)
+        public IPositionable TransfromFromMovementPreventingToNot(ObjectUseOnObjectAction action)
         {
-            active.TryPerformObjectOnObjectAction(action, ref passiveObject);
-            return passiveObject;
+            action.Perform();
+            return action.TargetObject;
         }
 
     }

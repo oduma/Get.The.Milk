@@ -1,20 +1,33 @@
 ﻿using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions
 {
-    public class Kick:OneObjectAction
+    public class Kick:GameAction
     {
+        public override bool CanPerform()
+        {
+            return TargetObject.AllowsIndirectAction(this, ActiveCharacter);
+        }
+
         public Kick()
         {
             Name = new Verb {Infinitive = "To Kick", Past = "kicked", Present = "kick"};
             ActionType = ActionType.Kick;
         }
-        public void Perform(ICharacter c, NonCharacterObject o)
+
+        public override ActionResult Perform()
         {
-                o.StorageContainer = null;
+            return new ActionResult
+                   {
+                       ForAction = this,
+                       ResultType = (CanPerform()) ? ActionResultType.Ok : ActionResultType.NotOk
+                   };
         }
+        public override GameAction CreateNewInstance()
+        {
+            return new Kick();
+        }
+
     }
 }

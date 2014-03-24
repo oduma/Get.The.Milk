@@ -1,6 +1,5 @@
 ﻿using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
 
 namespace GetTheMilk.Actions
 {
@@ -11,14 +10,18 @@ namespace GetTheMilk.Actions
             Name = new Verb {Infinitive = "To Meet", Past = "meet", Present = "meet"};
             ActionType = ActionType.Meet;
         }
-        public override bool Perform(Character active, Character passive)
+        public override ActionResult Perform()
         {
-            if (active is IPlayer)
-                ((IPlayer) active).LoadInteractionsWithPlayer(passive);
-            else if (passive is IPlayer)
-                ((IPlayer)passive).LoadInteractionsWithPlayer(active);
+            if (!CanPerform())
+                return new ActionResult { ForAction = this, ResultType = ActionResultType.NotOk };
 
-            return true;
+            EstablishInteractionRules();
+            return new ActionResult {ForAction = this, ResultType = ActionResultType.Ok};
         }
+        public override GameAction CreateNewInstance()
+        {
+            return new Meet();
+        }
+
     }
 }

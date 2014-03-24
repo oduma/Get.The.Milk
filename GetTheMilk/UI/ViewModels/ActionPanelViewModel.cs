@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GetTheMilk.Actions;
@@ -117,15 +118,17 @@ namespace GetTheMilk.UI.ViewModels
 
         public RelayCommand<ActionWithTargetModel> PerformAction { get; private set; }
 
-        public void DisplayPossibleActions(NonCharacterObject[] objectsInCell)
+        public void DisplayPossibleActions(IEnumerable<NonCharacterObject> targetObjects)
         {
             Actions.Clear();
-            foreach(var objectInCell in objectsInCell)
+            foreach(var targetObject in targetObjects)
             {
-                if(objectInCell.StorageContainer.InventoryType==InventoryType.LevelInventory)
+                if(targetObject.StorageContainer.InventoryType==InventoryType.LevelInventory)
                 {
-                    Actions.Add(new ActionWithTargetModel { Action = new Keep(), TargetObject = objectInCell });
-                    Actions.Add(new ActionWithTargetModel { Action = new Kick(), TargetObject = objectInCell});
+                    foreach (var possibleAction in _player.DetermineAllPossibleActionsForTargetObject(targetObject))
+                    {
+                        Actions.Add(new ActionWithTargetModel { Action = possibleAction, TargetObject = targetObject });
+                    }
                 }
             }
         }

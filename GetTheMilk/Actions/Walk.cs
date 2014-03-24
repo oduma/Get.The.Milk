@@ -6,6 +6,11 @@ namespace GetTheMilk.Actions
 {
     public class Walk:MovementAction
     {
+        public override GameAction CreateNewInstance()
+        {
+            return new Walk();
+        }
+
         public Walk()
         {
             Name = new Verb {Infinitive = "To Walk", Past = "walked", Present = "walk"};

@@ -51,7 +51,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ApproachingMessage = "I think I'm massive.",
                 CellNumber = 123,
                 CloseUpMessage = "You can't pass me",
-                MapNumber = 2,
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsAction = (a) => false
@@ -64,7 +63,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ApproachingMessage = "I think I'm massive.",
                 CellNumber = 124,
                 CloseUpMessage = "You can't pass me",
-                MapNumber = 2,
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsAction = (a) => false
@@ -75,10 +73,10 @@ namespace GetTheMilkTests.SaveLoadTests
             actual.LinkObjectsToInventory();
             Assert.AreEqual(mockInventory.InventoryType, actual.InventoryType);
             Assert.AreEqual(mockInventory.MaximumCapacity, actual.MaximumCapacity);
-            Assert.AreEqual(mockInventory.Objects.Count, actual.Objects.Count);
-            Assert.AreEqual(mockInventory.Objects[0].CellNumber, actual.Objects[0].CellNumber);
-            Assert.AreEqual(mockInventory.Objects[1].CellNumber, actual.Objects[1].CellNumber);
-            Assert.True(mockInventory.Objects.Any(o => o.StorageContainer != null));
+            Assert.AreEqual(mockInventory.Count, actual.Count);
+            Assert.AreEqual(mockInventory[0].CellNumber, actual[0].CellNumber);
+            Assert.AreEqual(mockInventory[1].CellNumber, actual[1].CellNumber);
+            Assert.True(mockInventory.Any(o => o.StorageContainer != null));
         }
 
         [Test]
@@ -97,7 +95,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ApproachingMessage = "I think I'm massive.",
                 CellNumber = 123,
                 CloseUpMessage = "You can't pass me",
-                MapNumber = 2,
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsAction = (a) => false,
@@ -112,7 +109,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ApproachingMessage = "I think I'm massive.",
                 CellNumber = 124,
                 CloseUpMessage = "You can't pass me",
-                MapNumber = 2,
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsAction = (a) => false,
@@ -125,14 +121,14 @@ namespace GetTheMilkTests.SaveLoadTests
             actual.LinkObjectsToInventory();
             Assert.AreEqual(mockInventory.InventoryType, actual.InventoryType);
             Assert.AreEqual(mockInventory.MaximumCapacity, actual.MaximumCapacity);
-            Assert.AreEqual(mockInventory.Objects.Count, actual.Objects.Count);
-            Assert.AreEqual(mockInventory.Objects[0].CellNumber, actual.Objects[0].CellNumber);
-            Assert.AreEqual(mockInventory.Objects[1].CellNumber, actual.Objects[1].CellNumber);
-            Assert.AreEqual(((Tool)mockInventory.Objects[0]).BuyPrice, ((Tool)actual.Objects[0]).BuyPrice);
-            Assert.AreEqual(((Tool)mockInventory.Objects[0]).SellPrice, ((Tool)actual.Objects[0]).SellPrice);
-            Assert.AreEqual(((Tool)mockInventory.Objects[1]).BuyPrice, ((Tool)actual.Objects[1]).BuyPrice);
-            Assert.AreEqual(((Tool)mockInventory.Objects[1]).SellPrice, ((Tool)actual.Objects[1]).SellPrice);
-            Assert.True(mockInventory.Objects.Any(o=>o.StorageContainer!=null));
+            Assert.AreEqual(mockInventory.Count, actual.Count);
+            Assert.AreEqual(mockInventory[0].CellNumber, actual[0].CellNumber);
+            Assert.AreEqual(mockInventory[1].CellNumber, actual[1].CellNumber);
+            Assert.AreEqual(((Tool)mockInventory[0]).BuyPrice, ((Tool)actual[0]).BuyPrice);
+            Assert.AreEqual(((Tool)mockInventory[0]).SellPrice, ((Tool)actual[0]).SellPrice);
+            Assert.AreEqual(((Tool)mockInventory[1]).BuyPrice, ((Tool)actual[1]).BuyPrice);
+            Assert.AreEqual(((Tool)mockInventory[1]).SellPrice, ((Tool)actual[1]).SellPrice);
+            Assert.True(mockInventory.Any(o=>o.StorageContainer!=null));
         }
 
         [Test]
@@ -151,7 +147,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ApproachingMessage = "I think I'm massive.",
                 CellNumber = 123,
                 CloseUpMessage = "You can't pass me",
-                MapNumber = 2,
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsAction = (a) => false,
@@ -166,7 +161,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ApproachingMessage = "I think I'm massive.",
                 CellNumber = 124,
                 CloseUpMessage = "You can't pass me",
-                MapNumber = 2,
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsAction = (a) => false,
@@ -183,7 +177,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ApproachingMessage = "I think I'm massive.",
                 CellNumber = 123,
                 CloseUpMessage = "You can't pass me",
-                MapNumber = 2,
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsAction = (a) => false
@@ -196,17 +189,17 @@ namespace GetTheMilkTests.SaveLoadTests
             actual.LinkObjectsToInventory();
             Assert.AreEqual(mockInventory.InventoryType, actual.InventoryType);
             Assert.AreEqual(mockInventory.MaximumCapacity, actual.MaximumCapacity);
-            Assert.AreEqual(mockInventory.Objects.Count, actual.Objects.Count);
-            Assert.AreEqual(mockInventory.Objects[0].CellNumber, actual.Objects[0].CellNumber);
-            Assert.AreEqual(mockInventory.Objects[1].CellNumber, actual.Objects[1].CellNumber);
-            Assert.AreEqual(((Tool)mockInventory.Objects[0]).BuyPrice, ((Tool)actual.Objects[0]).BuyPrice);
-            Assert.AreEqual(((Tool)mockInventory.Objects[0]).SellPrice, ((Tool)actual.Objects[0]).SellPrice);
-            Assert.AreEqual(((Tool)mockInventory.Objects[1]).BuyPrice, ((Tool)actual.Objects[1]).BuyPrice);
-            Assert.AreEqual(((Tool)mockInventory.Objects[1]).SellPrice, ((Tool)actual.Objects[1]).SellPrice);
-            Assert.AreEqual(ObjectCategory.Decor, actual.Objects[2].ObjectCategory);
-            Assert.AreEqual(ObjectCategory.Weapon, actual.Objects[1].ObjectCategory);
-            Assert.AreEqual(ObjectCategory.Tool, actual.Objects[0].ObjectCategory);
-            Assert.True(mockInventory.Objects.Any(o => o.StorageContainer != null));
+            Assert.AreEqual(mockInventory.Count, actual.Count);
+            Assert.AreEqual(mockInventory[0].CellNumber, actual[0].CellNumber);
+            Assert.AreEqual(mockInventory[1].CellNumber, actual[1].CellNumber);
+            Assert.AreEqual(((Tool)mockInventory[0]).BuyPrice, ((Tool)actual[0]).BuyPrice);
+            Assert.AreEqual(((Tool)mockInventory[0]).SellPrice, ((Tool)actual[0]).SellPrice);
+            Assert.AreEqual(((Tool)mockInventory[1]).BuyPrice, ((Tool)actual[1]).BuyPrice);
+            Assert.AreEqual(((Tool)mockInventory[1]).SellPrice, ((Tool)actual[1]).SellPrice);
+            Assert.AreEqual(ObjectCategory.Decor, actual[2].ObjectCategory);
+            Assert.AreEqual(ObjectCategory.Weapon, actual[1].ObjectCategory);
+            Assert.AreEqual(ObjectCategory.Tool, actual[0].ObjectCategory);
+            Assert.True(mockInventory.Any(o => o.StorageContainer != null));
         }
 
         [Test]
@@ -276,7 +269,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ApproachingMessage = "I think I'm massive.",
                 CellNumber = 124,
                 CloseUpMessage = "You can't pass me",
-                MapNumber = 2,
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsAction = (a) => false,
@@ -293,7 +285,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ApproachingMessage = "I think I'm massive.",
                 CellNumber = 123,
                 CloseUpMessage = "You can't pass me",
-                MapNumber = 2,
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsAction = (a) => false,
@@ -326,7 +317,6 @@ namespace GetTheMilkTests.SaveLoadTests
                                             Experience = 200,
                                             Health = 100,
                                             Inventory = skInventory,
-                                            MapNumber = 2,
                                             Name = new Noun {Main = "John the Shop Keeper", Narrator = "John the Shop Keeper"},
                                             ObjectTypeId = "NPCFriendly",
                                             InteractionRules=skInteractionRules,
@@ -352,8 +342,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.AreEqual(skCharacter.Health, actual.Health);
             Assert.IsNotNull(actual.Interactivity);
             Assert.AreEqual(skCharacter.Inventory.Owner.Name.Main, actual.Inventory.Owner.Name.Main);
-            Assert.AreEqual(skCharacter.Inventory.Objects.Count, actual.Inventory.Objects.Count);
-            Assert.AreEqual(skCharacter.MapNumber, actual.MapNumber);
+            Assert.AreEqual(skCharacter.Inventory.Count, actual.Inventory.Count);
             Assert.AreEqual(skCharacter.Name.Main, actual.Name.Main);
             Assert.AreEqual(skCharacter.Name.Narrator, actual.Name.Narrator);
             Assert.AreEqual(skCharacter.Range, actual.Range);

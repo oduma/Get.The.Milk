@@ -30,7 +30,7 @@ namespace GetTheMilkTests.IntegrationTests
 
         public GameAction SelectAnActionAndAnObject(ExposeInventoryExtraData exposeInvetoryActionExtraData)
         {
-            return new Buy {UseableObject = ((ExposeInventoryExtraData) exposeInvetoryActionExtraData).Contents[1]};
+            return new Buy {TargetObject = ((ExposeInventoryExtraData) exposeInvetoryActionExtraData).Contents.First()};
         }
 
         public void SelectWeapons(IEnumerable<Weapon> weapons, ref Weapon activeAttackWeapon, ref Weapon activeDefenseWeapon)
@@ -50,24 +50,24 @@ namespace GetTheMilkTests.IntegrationTests
         public GameAction[] BuildActions(ExposeInventoryExtraData exposeInvetoryActionExtraData)
         {
             List<GameAction> gameActions=new List<GameAction>();
-            for(int i=0;i<exposeInvetoryActionExtraData.PossibleUses.Length;i++)
-            {
-                if(exposeInvetoryActionExtraData.PossibleUses[i] is TakeFrom)
-                {
-                    for(int j=0;j<exposeInvetoryActionExtraData.Contents.Length;j++)
-                    {
-                        gameActions.Add(new TakeFrom{UseableObject=exposeInvetoryActionExtraData.Contents[i]});
-                    }
-                }
-                if(exposeInvetoryActionExtraData.PossibleUses[i] is TakeMoneyFrom)
-                {
-                    gameActions.Add(new TakeMoneyFrom{Amount=exposeInvetoryActionExtraData.Money});
-                }
-                if(exposeInvetoryActionExtraData.PossibleUses[i] is Kill)
-                {
-                    gameActions.Add(new Kill());
-                }
-            }
+            //for(int i=0;i<exposeInvetoryActionExtraData.PossibleUses.Length;i++)
+            //{
+            //    if(exposeInvetoryActionExtraData.PossibleUses[i] is TakeFrom)
+            //    {
+            //        for(int j=0;j<exposeInvetoryActionExtraData.Contents.Length;j++)
+            //        {
+            //            gameActions.Add(new TakeFrom{UseableObject=exposeInvetoryActionExtraData.Contents[i]});
+            //        }
+            //    }
+            //    if(exposeInvetoryActionExtraData.PossibleUses[i] is TakeMoneyFrom)
+            //    {
+            //        gameActions.Add(new TakeMoneyFrom{Amount=exposeInvetoryActionExtraData.Money});
+            //    }
+            //    if(exposeInvetoryActionExtraData.PossibleUses[i] is Kill)
+            //    {
+            //        gameActions.Add(new Kill());
+            //    }
+            //}
             return gameActions.ToArray();
         }
     }

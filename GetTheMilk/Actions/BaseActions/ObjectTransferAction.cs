@@ -1,5 +1,4 @@
 using GetTheMilk.Accounts;
-using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions.BaseActions
@@ -8,14 +7,47 @@ namespace GetTheMilk.Actions.BaseActions
     {
         public TransactionType TransactionType { get; protected set; }
 
-        public NonCharacterObject UseableObject { get; set; }
-
-        public virtual bool Perform(ICharacter active, ICharacter passive)
+        public override bool CanPerform()
         {
-            if (UseableObject.StorageContainer.Owner.Name == active.Name)
-                return (passive.Inventory.Add(UseableObject));
-            return false;
-
+            return (TargetObject.AllowsIndirectAction(this, TargetCharacter)
+                    && TargetCharacter.AllowsIndirectAction(this, TargetObject)
+                    && ActiveCharacter.Walet.CanPerformTransaction(GetTransactionDetails())
+                    && (TargetObject.StorageContainer.Owner.Name == TargetCharacter.Name));
         }
+
+        private TransactionDetails GetTransactionDetails()
+        {
+            return new TransactionDetails
+            {
+                Price = (TransactionType == TransactionType.Debit)
+                            ? ((ITransactionalObject)TargetObject).BuyPrice
+                            : ((ITransactionalObject)TargetObject).SellPrice,
+                Towards = TargetCharacter,
+                TransactionType = TransactionType
+            };
+        }
+
+        public override ActionResult Perform()
+        {
+            if (TransactionType != TransactionType.None && !ActiveCharacter.Walet.PerformTransaction(GetTransactionDetails()))
+                return new ActionResult
+                {
+                    ForAction = this,
+                    ResultType = ActionResultType.NotOk
+                };
+
+            var addedOk = TargetCharacter.Inventory.Add(ActiveObject);
+            return new ActionResult
+                   {
+                       ForAction = this,
+                       ResultType = (addedOk) ? ActionResultType.Ok : ActionResultType.NotOk
+                   };
+        }
+
+        public override GameAction CreateNewInstance()
+        {
+            return new ObjectTransferAction();
+        }
+
     }
 }

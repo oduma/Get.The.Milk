@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Levels;
+using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Characters.BaseCharacters
 {

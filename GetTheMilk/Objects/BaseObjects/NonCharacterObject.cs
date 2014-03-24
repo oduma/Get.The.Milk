@@ -9,7 +9,6 @@ namespace GetTheMilk.Objects.BaseObjects
     {
         public string ObjectTypeId { get; set; }
         public Noun Name { get; set; }
-        public int MapNumber { get; set; }
         public int CellNumber { get; set; }
         public bool BlockMovement { get; set; }
         [JsonIgnore]

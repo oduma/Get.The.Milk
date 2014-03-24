@@ -41,7 +41,7 @@ namespace GetTheMilk.UI.ViewModels
             {
                 var movementExtraData = actionResult.ExtraData as MovementActionExtraData;
                 additionalInformation = actionResultToHuL.TranslateMovementExtraData(movementExtraData, _game.Player, _game.CurrentLevel);
-                _actionPanelViewModel.DisplayPossibleActions(movementExtraData.ObjectsInCell);
+                _actionPanelViewModel.DisplayPossibleActions(movementExtraData.ObjectsInCell.Union(movementExtraData.ObjectsInRange).ToArray());
             }
             _playerInfoViewModel.PlayerCurrentPosition = _game.Player.CellNumber;
             return string.Format("\r\n{0}\r\n{1}", 
@@ -144,9 +144,7 @@ namespace GetTheMilk.UI.ViewModels
         void ActionPanelViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
         {
             if (e.GameAction is MovementAction)
-                Story += RecordMovementResult(_playerInfoViewModel.PlayerMoves(e.GameAction, _game.CurrentLevel.Maps,
-                                                                       _game.CurrentLevel.Objects.Objects,
-                                                                       _game.CurrentLevel.Characters.Characters));
+                Story += RecordMovementResult(_playerInfoViewModel.PlayerMoves(e.GameAction as MovementAction, _game.CurrentLevel.CurrentMap));
             else if(e.GameAction==null)
             {
                 StoryVisible = Visibility.Visible;
@@ -154,7 +152,8 @@ namespace GetTheMilk.UI.ViewModels
             }
             else if (e.GameAction is ExposeInventory)
             {
-                var actionResult = e.ActiveCharacter.TryPerformAction(e.GameAction, e.TargetCharacter);
+
+                var actionResult = e.GameAction.Perform();
                 if (actionResult.ResultType == ActionResultType.Ok)
                 {
                     StoryVisible = Visibility.Hidden;
@@ -164,16 +163,16 @@ namespace GetTheMilk.UI.ViewModels
                 }
             }
             else
-                Story += RecordActionResult(_playerInfoViewModel.PlayerDoesAction(e.GameAction, e.TargetObject),
-                                             e.TargetObject);
+
+                Story += RecordActionResult(e.GameAction.Perform(),
+                                             e.GameAction.TargetObject);
         }
 
         private string RecordActionResult(ActionResult actionResult, NonCharacterObject targetObject)
         {
             var actionResultToHuL = new ActionResultToHuL();
             _actionPanelViewModel.DisplayPossibleActions(
-                _game.CurrentLevel.Objects.Objects.Where(
-                    o => o.MapNumber == _game.Player.MapNumber && o.CellNumber == _game.Player.CellNumber).ToArray());
+                _game.CurrentLevel.CurrentMap.Cells[_game.Player.CellNumber].AllObjects);
             return string.Format("\r\n{0}\r\n",
                                  actionResultToHuL.TranslateActionResult(
                                      actionResult, _game.Player, targetObject));

@@ -33,7 +33,7 @@ namespace GetTheMilk.UI.Translators
                           actionResult.ForAction.Name.Past,
                           actionResult.ForAction.Name.Present,
                           ((MovementAction) actionResult.ForAction).Direction,
-                          (actionResult.ForAction is EnterLevel) ? ((EnterLevel) actionResult.ForAction).LevelNo : 0,
+                          (actionResult.ForAction is EnterLevel) ? ((EnterLevel) actionResult.ForAction).CurrentMap.LevelNo : 0,
                           ((MovementActionExtraData) actionResult.ExtraData!=null)?
                           FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking,NarratorNaming):"",
                           ((MovementActionExtraData) actionResult.ExtraData!=null)?
@@ -80,8 +80,8 @@ namespace GetTheMilk.UI.Translators
                         extraData.ObjectsInRange.OrderBy(o => o.CellNumber).Select(
                             o =>
                             string.Format(gameSettings.MovementExtraDataTemplate.MessageForObjectsInRange,
-                                          level.Maps.FirstOrDefault(m=>m.Number==active.MapNumber)
-                                          .Cells.FirstOrDefault(c => c.Number == active.CellNumber).GetDirectionToCell(o.CellNumber),
+                                          level.CurrentMap
+                                          .Cells[active.CellNumber].GetDirectionToCell(o.CellNumber),
                                           ((IObjectHumanInterface) o).ApproachingMessage)));
             var charactersInRange = string.Empty;
             if (extraData.CharactersInRange != null && extraData.CharactersInRange.Any())
@@ -89,8 +89,7 @@ namespace GetTheMilk.UI.Translators
                         extraData.CharactersInRange.OrderBy(o => o.CellNumber).Select(
                             o =>
                             string.Format(gameSettings.MovementExtraDataTemplate.MessageForObjectsInRange,
-                                          level.Maps.FirstOrDefault(m => m.Number == active.MapNumber)
-                                          .Cells.FirstOrDefault(c => c.Number == active.CellNumber).GetDirectionToCell(o.CellNumber),
+                                          level.CurrentMap.Cells[active.CellNumber].GetDirectionToCell(o.CellNumber),
                                           ((IObjectHumanInterface)o).ApproachingMessage)));
             return string.Format("{0}{1}{2}", objectsInTheCell, objectsInRange,charactersInRange);
         }

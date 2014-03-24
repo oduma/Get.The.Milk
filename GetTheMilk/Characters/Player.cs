@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using GetTheMilk.Accounts;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Factories;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
+using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Settings;
 using GetTheMilk.UI;
 using GetTheMilk.Utils;
@@ -60,12 +62,9 @@ namespace GetTheMilk.Characters
             if (level.Player == null)
             {
                 level.Player = this;
-                MapNumber = level.StartingMap;
                 CellNumber = level.StartingCell;
             }
-            return TryPerformMove(new EnterLevel { Direction = Direction.None, TargetCell = CellNumber },
-                level.Maps.FirstOrDefault(m => m.Number == MapNumber), level.Objects.Objects,
-                level.Characters.Characters);
+            return (new EnterLevel { Direction = Direction.None, TargetCell = CellNumber,TargetCharacter=this }).Perform();
         }
 
         public void SetPlayerName(string name)
@@ -74,5 +73,6 @@ namespace GetTheMilk.Characters
                 ? new Noun { Main = name, Narrator = GameSettings.GetInstance().DefaultNarratorAddressingForPlayer }
             : new Noun { Main = "Payer 1", Narrator = GameSettings.GetInstance().DefaultNarratorAddressingForPlayer };
         }
+
     }
 }

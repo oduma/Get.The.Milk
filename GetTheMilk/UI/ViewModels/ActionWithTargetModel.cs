@@ -5,11 +5,11 @@ namespace GetTheMilk.UI.ViewModels
 {
     public class ActionWithTargetModel
     {
-        private OneObjectAction _action;
+        private GameAction _action;
         private NonCharacterObject _targetObject;
         private string _displayValue;
 
-        public OneObjectAction Action
+        public GameAction Action
         {
             get { return _action; }
             set

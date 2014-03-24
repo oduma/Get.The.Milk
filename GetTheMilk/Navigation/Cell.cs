@@ -1,7 +1,14 @@
+using GetTheMilk.Characters;
+using GetTheMilk.Objects;
+
 namespace GetTheMilk.Navigation
 {
     public class Cell
     {
+        public Inventory AllObjects { get; set; }
+
+        public CharacterCollection AllCharacters { get; set; }
+
         public int Number { get; set; }
 
         public int NorthCell { get; set; }
@@ -33,7 +40,7 @@ namespace GetTheMilk.Navigation
                 case Direction.South:
                     return SouthCell;
                 default:
-                    return 0;
+                    return -1;
             }
         }
 

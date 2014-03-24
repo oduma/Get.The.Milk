@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionsTests\ActionsFactoryTests.cs" />
     <Compile Include="ActionsTests\DataGeneratorForActions.cs" />
     <Compile Include="ActionsTests\ExposeInentoryActionTests.cs" />
     <Compile Include="ActionsTests\MovementsTests.cs" />

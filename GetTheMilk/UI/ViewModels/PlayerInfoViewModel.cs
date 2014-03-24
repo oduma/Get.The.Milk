@@ -99,18 +99,15 @@ namespace GetTheMilk.UI.ViewModels
             PlayerMoney = _player.Walet.CurrentCapacity;
         }
 
-        public ActionResult PlayerMoves(GameAction gameAction, Map[] levelMaps, 
-            IEnumerable<NonCharacterObject> allLevelObjects, 
-            IEnumerable<Character> allLevelCharacters)
+        public ActionResult PlayerMoves(MovementAction gameAction, Map levelMap)
         {
-            if (gameAction is MovementAction)
-                return _player.TryPerformMove(gameAction as MovementAction, levelMaps.FirstOrDefault(m=>m.Number==_player.MapNumber), allLevelObjects, allLevelCharacters);
-            return null;
+            gameAction.CurrentMap = levelMap;
+            return gameAction.Perform();
         }
 
-        public ActionResult PlayerDoesAction(GameAction action, NonCharacterObject targetObject)
+        public ActionResult PlayerDoesAction(GameAction action)
         {
-            return _player.TryPerformAction(action, targetObject);
+            return action.Perform();
         }
     }
 }

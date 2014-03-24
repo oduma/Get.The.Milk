@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
@@ -15,30 +17,29 @@ namespace GetTheMilkTests.ActionsTests
     public class MovementsTests
     {
         [Test, TestCaseSource(typeof (DataGeneratorForActions), "TestCasesM")]
-        public ActionResultType MoveTest(Player active, Level level, MovementAction movement, Map currentMap,List<NonCharacterObject> blockingObjects,List<Character> blockingCharacters)
+        public ActionResultType MoveTest(MovementAction movement)
         {
-            active.EnterLevel(level);
-            var movementResult = active.TryPerformMove(movement, currentMap, blockingObjects, blockingCharacters);
+            var movementResult = movement.Perform();
             if(movement.Direction==Direction.North)
-                Assert.AreEqual(active.CellNumber,((MovementActionExtraData)movementResult.ExtraData).MoveToCell);
+                Assert.AreEqual(0,movement.ActiveCharacter.CellNumber);
             else if(movement.Direction==Direction.East)
             {
-                Assert.AreEqual(1,((MovementActionExtraData)movementResult.ExtraData).MoveToCell);
-                Assert.AreEqual(1,((MovementActionExtraData)movementResult.ExtraData).ObjectsBlocking.Length);
+                Assert.AreEqual(0, movement.ActiveCharacter.CellNumber);
+                Assert.AreEqual(1, ((MovementActionExtraData)movementResult.ExtraData).ObjectsBlocking.Count());
             }
             else if(movement is Run && movement.Direction==Direction.South)
             {
-                Assert.AreEqual(4, ((MovementActionExtraData)movementResult.ExtraData).MoveToCell);
-                Assert.AreEqual(1,((MovementActionExtraData)movementResult.ExtraData).CharactersBlocking.Length);
+                Assert.AreEqual(3, movement.ActiveCharacter.CellNumber);
+                Assert.AreEqual(1, ((MovementActionExtraData)movementResult.ExtraData).CharactersBlocking.Count());
             }
             else
             {
-                Assert.AreEqual(4,((MovementActionExtraData)movementResult.ExtraData).MoveToCell);
+                Assert.AreEqual(3, movement.ActiveCharacter.CellNumber);
             }
             if(movementResult.ResultType==ActionResultType.Ok)
             {
-                Assert.AreEqual(4,active.CellNumber);
-                foreach(var followingObject in active.Inventory.Objects)
+                Assert.AreEqual(3, movement.ActiveCharacter.CellNumber);
+                foreach (var followingObject in movement.ActiveCharacter.Inventory)
                 {
                     Assert.AreEqual(4,followingObject.CellNumber);
                 }

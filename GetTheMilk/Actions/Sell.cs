@@ -1,7 +1,6 @@
 ﻿using GetTheMilk.Accounts;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
 
 namespace GetTheMilk.Actions
 {
@@ -13,10 +12,16 @@ namespace GetTheMilk.Actions
             TransactionType = TransactionType.Credit;
             ActionType = ActionType.Sell;
         }
-
-        public override bool Perform(ICharacter a, ICharacter p)
+        public override ActionResult Perform()
         {
-            return base.Perform(a, p);
+            var result = base.Perform();
+            result.ForAction = this;
+            return result;
+        }
+
+        public override GameAction CreateNewInstance()
+        {
+            return new Sell();
         }
 
     }

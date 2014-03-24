@@ -7,20 +7,12 @@ using Newtonsoft.Json;
 
 namespace GetTheMilk.Objects
 {
-    public class Inventory
+    public class Inventory:List<NonCharacterObject>
     {
         public int MaximumCapacity { get; set; }
-
-        private List<NonCharacterObject> _objects;
-
-        public List<NonCharacterObject> Objects
-        {
-            get { return _objects = (_objects) ?? new List<NonCharacterObject>(); }
-        }
-
         public void LinkObjectsToInventory()
         {
-            foreach (var o in _objects.Where(o => o.StorageContainer == null))
+            foreach (var o in this.Where(o => o.StorageContainer == null))
                 o.StorageContainer = this;
         }
 
@@ -28,10 +20,9 @@ namespace GetTheMilk.Objects
         {
             if (Owner is ICharacter)
             {
-                foreach (var o in Objects)
+                foreach (var o in this)
                 {
                     o.CellNumber = ((ICharacter)Owner).CellNumber;
-                    o.MapNumber = ((ICharacter)Owner).MapNumber;
                 }
             }
         }
@@ -47,15 +38,14 @@ namespace GetTheMilk.Objects
             {
                 if (o == null)
                     return false;
-                if ((Objects.Count + 1 <= MaximumCapacity))
+                if ((Count + 1 <= MaximumCapacity))
                 {
-                    Objects.Add(o);
+                    Add(o);
                     if (o.StorageContainer != null)
                         o.StorageContainer.Remove(o);
                     o.StorageContainer = this;
                     if (Owner is ICharacter)
                     {
-                        o.MapNumber = ((ICharacter)Owner).MapNumber;
                         o.CellNumber = ((ICharacter)Owner).CellNumber;
                     }
                 }
@@ -69,9 +59,9 @@ namespace GetTheMilk.Objects
 
         public void Remove<T>(T o) where T : NonCharacterObject
         {
-            if (Objects.Contains(o))
+            if (Contains(o))
             {
-                Objects.Remove(o);
+                Remove(o);
             }
         }
     }

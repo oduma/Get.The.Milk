@@ -15,17 +15,17 @@ namespace GetTheMilkTests.ActionsTests
     public class TwoCharactersOneObjectTests
     {
         [Test,TestCaseSource(typeof(DataGeneratorForActions),"TestCases2C1O")]
-        public Inventory TwoCharactersOneObjectAction(Character active, Character passive, ObjectTransferAction action)
+        public Inventory TwoCharactersOneObjectAction(ObjectTransferAction action)
         {
-            var result = active.TryPerformAction(action, passive);
+            var result = action.Perform();
             if (result.ResultType==ActionResultType.NotOk)
-                return action.UseableObject.StorageContainer;
+                return action.ActiveObject.StorageContainer;
 
-            if(passive.Name.Main=="Player")
+            if(action.TargetCharacter.Name.Main=="Player")
             {
-                Assert.Contains(action.UseableObject,passive.Inventory.Objects);
-                Assert.True(active.Inventory.Objects.All(o => o.Name.Main != action.UseableObject.Name.Main));
-                return action.UseableObject.StorageContainer;
+                Assert.Contains(action.TargetObject,action.TargetCharacter.Inventory);
+                Assert.True(action.ActiveCharacter.Inventory.All(o => o.Name.Main != action.TargetObject.Name.Main));
+                return action.TargetObject.StorageContainer;
             }
             return null;
         }
@@ -44,29 +44,29 @@ namespace GetTheMilkTests.ActionsTests
         }
 
         [Test, TestCaseSource(typeof(DataGeneratorForActions), "TestCases2C1OC")]
-        public int TwoCharactersCurrencyAction(Character active, Character passive, ObjectTransferAction action)
+        public int TwoCharactersCurrencyAction(ObjectTransferAction action)
         {
-            var result = active.TryPerformAction(action, passive);
+            var result = action.Perform();
             if (result.ResultType==ActionResultType.NotOk)
             {
                 if(action.Name.Infinitive=="To Buy")
-                    Assert.AreEqual(passive.Name.Main,action.UseableObject.StorageContainer.Owner.Name.Main);
+                    Assert.AreEqual(action.TargetCharacter.Name.Main,action.TargetObject.StorageContainer.Owner.Name.Main);
                 if(action.Name.Infinitive=="To Sell")
-                    Assert.AreEqual(active.Name.Main, action.UseableObject.StorageContainer.Owner.Name.Main);
+                    Assert.AreEqual(action.ActiveCharacter.Name.Main, action.TargetObject.StorageContainer.Owner.Name.Main);
 
-                return active.Walet.CurrentCapacity;
+                return action.ActiveCharacter.Walet.CurrentCapacity;
             }
-            if(active.Inventory.MaximumCapacity==0)
-                Assert.AreEqual(passive.Name.Main, action.UseableObject.StorageContainer.Owner.Name.Main);
-            else if (passive.Name.Main == "John the Shop Keeper")
+            if(action.ActiveCharacter.Inventory.MaximumCapacity==0)
+                Assert.AreEqual(action.TargetCharacter.Name.Main, action.TargetObject.StorageContainer.Owner.Name.Main);
+            else if (action.TargetCharacter.Name.Main == "John the Shop Keeper")
             {
-                Assert.AreEqual(active.Name.Main, action.UseableObject.StorageContainer.Owner.Name.Main);
+                Assert.AreEqual(action.ActiveCharacter.Name.Main, action.TargetObject.StorageContainer.Owner.Name.Main);
             }
             else
             {
-                Assert.AreEqual(passive.Name.Main, action.UseableObject.StorageContainer.Owner.Name.Main);
+                Assert.AreEqual(action.TargetCharacter.Name.Main, action.TargetObject.StorageContainer.Owner.Name.Main);
             }
-            return active.Walet.CurrentCapacity;
+            return action.ActiveCharacter.Walet.CurrentCapacity;
         }
 
     }

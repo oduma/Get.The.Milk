@@ -5,8 +5,6 @@ namespace GetTheMilk.BaseCommon
 {
     public interface IPositionable:IInventoryOwner
     {
-        int MapNumber { get; set; }
-
         int CellNumber { get; set; }
 
         bool BlockMovement { get; set; }

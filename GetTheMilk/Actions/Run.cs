@@ -12,5 +12,11 @@ namespace GetTheMilk.Actions
             DefaultDistance = GameSettings.GetInstance().DefaultRunDistance;
             ActionType = ActionType.Run;
         }
+
+        public override GameAction CreateNewInstance()
+        {
+            return new Run();
+        }
+
     }
 }

@@ -1,7 +1,6 @@
-using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 
-namespace GetTheMilk.Actions
+namespace GetTheMilk.Actions.Fight
 {
     public class Hit
     {

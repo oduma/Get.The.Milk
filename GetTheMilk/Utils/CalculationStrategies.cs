@@ -1,5 +1,6 @@
 using System;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.Fight;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Settings;

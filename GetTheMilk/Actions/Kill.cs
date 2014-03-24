@@ -1,7 +1,6 @@
 ﻿using System;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 
 namespace GetTheMilk.Actions
@@ -16,13 +15,21 @@ namespace GetTheMilk.Actions
         }
         public double ExperienceTaken { get; set; }
 
-        public override bool Perform(Character active, Character passive)
+        public override ActionResult Perform()
         {
-            active.Experience += (int)Math.Ceiling(passive.Experience*ExperienceTaken);
-            if(passive.StorageContainer!=null && passive.StorageContainer.Owner!=null)
-                passive.StorageContainer.Remove(passive);
-            passive = null;
-            return true;
+            if(!CanPerform())
+                return new ActionResult { ForAction = this, ResultType = ActionResultType.NotOk };
+
+            ActiveCharacter.Experience += (int)Math.Ceiling(TargetCharacter.Experience*ExperienceTaken);
+            if(TargetCharacter.StorageContainer!=null && TargetCharacter.StorageContainer.Owner!=null)
+                TargetCharacter.StorageContainer.Remove(TargetCharacter as Character);
+            TargetCharacter = null;
+            return new ActionResult {ForAction = this, ResultType = ActionResultType.Ok};
         }
+        public override GameAction CreateNewInstance()
+        {
+            return new Kill();
+        }
+
     }
 }

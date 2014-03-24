@@ -31,10 +31,8 @@ namespace GetTheMilkTests.ActionsTests
 
                 //Kick a wall (nothing happens)
                 yield return
-                    new TestCaseData(active,
-                                     new Kick(),
-                                     _level.Objects.Objects.FirstOrDefault(o=>o.Name.Main=="Wall"))
-                        .Returns(_level.Objects);
+                    new TestCaseData(new Kick{ActiveCharacter=active,TargetObject=_level.CurrentMap.Cells[1].AllObjects.FirstOrDefault(o=>o.Name.Main=="Wall")})
+                        .Returns(_level.CurrentMap.Cells[1].AllObjects);
 
                 //Pick a key, key in hand
                 active = new Player();
@@ -43,8 +41,8 @@ namespace GetTheMilkTests.ActionsTests
 
                 yield return
                     new TestCaseData(active,
-                                     new Keep(),
-                                     _level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key")).Returns(active.Inventory);
+                                     new Keep{ActiveCharacter=active,TargetCharacter=active,},
+                                     _level.CurrentMap.Cells[4].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key")).Returns(active.Inventory);
 
                 _level = Level.Create(1);
 
@@ -56,7 +54,7 @@ namespace GetTheMilkTests.ActionsTests
                 yield return
                     new TestCaseData(active,
                                      new Keep(),
-                                     _level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key")).Returns(_level.Objects);
+                                     _level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key")).Returns(_level.CurrentMap.Cells[3].AllObjects);
             }
         }
 
@@ -75,20 +73,32 @@ namespace GetTheMilkTests.ActionsTests
                 active.AllowsAction = objAction.AllowsAction;
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
 
-                var passive = _level.Characters.Characters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFoe");
+                var passive = _level.CurrentMap.Cells[8].AllCharacters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFoe");
                 var action = new GiveTo();
-                action.UseableObject = passive.Inventory.Objects[0];
-                active.Inventory.Add(_level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key"));
+                action.ActiveCharacter = active;
+                action.TargetCharacter = passive;
+                action.TargetObject = _level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key");
+                active.Inventory.Add(_level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key"));
                 yield return
-                    new TestCaseData(active, passive, action).Returns(
+                    new TestCaseData(action).Returns(
+                        passive.Inventory);
+
+                //Give a key that the active character doesn have it. Nothing happens
+                passive = _level.CurrentMap.Cells[2].AllCharacters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
+
+                action= new GiveTo();
+                action.ActiveCharacter = active;
+                action.TargetCharacter = passive;
+                action.TargetObject = _level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key");
+                yield return
+                    new TestCaseData(action).Returns(
                         passive.Inventory);
 
                 //Give a key to a character that wants it (key changes owners)
-                passive = _level.Characters.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
                 action= new GiveTo();
-                action.UseableObject = passive.Inventory.Objects[0];
+                action.TargetObject = passive.Inventory[0];
                 yield return
-                    new TestCaseData(passive, active, action).Returns(
+                    new TestCaseData(action).Returns(
                         active.Inventory);
 
             }
@@ -109,7 +119,7 @@ namespace GetTheMilkTests.ActionsTests
                 active.AllowsAction = objAction.AllowsAction;
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
 
-                var passive = _level.Characters.Characters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFriendly");
+                var passive = _level.CurrentMap.Cells[2].AllCharacters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFriendly");
 
                 yield return new TestCaseData(active, passive, 100, TransactionType.Debit).Returns(
                     active.Walet.CurrentCapacity);
@@ -136,10 +146,10 @@ namespace GetTheMilkTests.ActionsTests
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
 
                 active.Walet.CurrentCapacity = 1;
-                var passive = _level.Characters.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly"); 
+                var passive = _level.CurrentMap.Cells[2].AllCharacters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly"); 
 
                 var buyAction = new Buy();
-                buyAction.UseableObject = passive.Inventory.Objects[0];
+                buyAction.TargetObject = passive.Inventory[0];
 
                 yield return
                     new TestCaseData(active, passive, buyAction).Returns(
@@ -148,7 +158,7 @@ namespace GetTheMilkTests.ActionsTests
                 //Try to sell a key to a character not enough money (nothing happens)
 
                 var sellAction = new Sell();
-                sellAction.UseableObject = passive.Inventory.Objects[0];
+                sellAction.TargetObject = passive.Inventory[0];
                 yield return
                     new TestCaseData(passive, active, sellAction).Returns(
                         200);
@@ -196,7 +206,7 @@ namespace GetTheMilkTests.ActionsTests
                 active.AllowsAction = objAction.AllowsAction;
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
 
-                var passive = _level.Objects.Objects.FirstOrDefault(o=>o.Name.Main=="Red Door");
+                var passive = _level.CurrentMap.Cells[4].AllObjects.FirstOrDefault(o=>o.Name.Main=="Red Door");
                 var blueKey = new Tool
                                   {
                                       Name = new Noun {Main = "Blue Key", Narrator = "the Blue Key"},
@@ -222,7 +232,7 @@ namespace GetTheMilkTests.ActionsTests
                 active.AllowsAction = objAction.AllowsAction;
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
 
-                active.Inventory.Add(_level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key"));
+                active.Inventory.Add(_level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key"));
                 yield return
                     new TestCaseData(active,
                                      passive,
@@ -247,12 +257,12 @@ namespace GetTheMilkTests.ActionsTests
                 active.AllowsAction = objAction.AllowsAction;
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
 
-                active.Inventory.Add(_level.Objects.Objects.FirstOrDefault(o => o.Name.Main == "Red Key"));
+                active.Inventory.Add(_level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key"));
                 var walkNorth = new Walk();
                 walkNorth.Direction = Direction.North;
                 yield return
                     new TestCaseData(active,_level,
-                                     walkNorth, _level.Maps[0], null, null).
+                                     walkNorth, _level.CurrentMap, null, null).
                         Returns(ActionResultType.OutOfTheMap);
 
                 //run off the margin of the map
@@ -260,7 +270,7 @@ namespace GetTheMilkTests.ActionsTests
                 runNorth.Direction = Direction.North;
                 yield return
                     new TestCaseData(active, _level,
-                                     runNorth, _level.Maps[0], null, null).
+                                     runNorth, _level.CurrentMap, null, null).
                         Returns(ActionResultType.OutOfTheMap);
 
 
@@ -271,16 +281,16 @@ namespace GetTheMilkTests.ActionsTests
                 runEast.Direction = Direction.East;
                 yield return
                     new TestCaseData(active, _level,
-                                     runEast, _level.Maps[0], _level.Objects.Objects, null).
+                                     runEast, _level.CurrentMap).
                         Returns(ActionResultType.Blocked);
 
                 //move blocking character
-                _level.Characters.Characters[0].CellNumber = 7;
+                //_level.Characters.Characters[0].CellNumber = 7;
                 var runSouth = new Run();
                 runSouth.Direction = Direction.South;
                 yield return
                     new TestCaseData(active, _level,
-                                     runSouth, _level.Maps[0], null, _level.Characters.Characters).
+                                     runSouth, _level.CurrentMap).
                         Returns(ActionResultType.Blocked);
 
                 //walk Ok
@@ -289,7 +299,7 @@ namespace GetTheMilkTests.ActionsTests
                 walkSouth.Direction = Direction.South;
                 yield return
                     new TestCaseData(active, _level,
-                                     walkSouth, _level.Maps[0], null, _level.Characters.Characters).
+                                     walkSouth, _level.CurrentMap).
                         Returns(ActionResultType.Ok);
 
             }

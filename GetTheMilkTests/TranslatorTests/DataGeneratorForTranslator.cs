@@ -56,6 +56,7 @@ namespace GetTheMilkTests.TranslatorTests
                 var objAction = factory.CreateObjectAction("Player");
                 active.AllowsAction = objAction.AllowsAction;
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                Level.Player = null;
                 active.EnterLevel(Level);
                 active.CellNumber = 20;
 
@@ -117,7 +118,7 @@ namespace GetTheMilkTests.TranslatorTests
                                 ExtraData =
                                     new MovementActionExtraData
                                         {
-                                            ObjectsBlocking =Level.Objects.Objects.ToArray()
+                                            ObjectsBlocking =Level.CurrentMap.Cells[1].AllObjects
                                         }
                             },
                         active).Returns("You tried to walk South but the Red Key, red door, wall and wall are on the way.");
@@ -131,7 +132,7 @@ namespace GetTheMilkTests.TranslatorTests
                             ExtraData =
                                 new MovementActionExtraData
                                 {
-                                    ObjectsBlocking =Level.Objects.Objects.ToArray()
+                                    ObjectsBlocking = Level.CurrentMap.Cells[1].AllObjects
                                 }
                         },
                         active).Returns("You tried to run West but the Red Key, red door, wall and wall are on the way.");
@@ -141,7 +142,7 @@ namespace GetTheMilkTests.TranslatorTests
                             ExtraData =
                                 new MovementActionExtraData
                                 {
-                                    ObjectsBlocking =Level.Objects.Objects.ToArray()
+                                    ObjectsBlocking = Level.CurrentMap.Cells[1].AllObjects
                                 } },
                         active).Returns("You tried to enter level 2 but is impossible, blocked by the Red Key, red door, wall and wall.");
 
@@ -169,7 +170,7 @@ namespace GetTheMilkTests.TranslatorTests
                             ExtraData =
                                 new MovementActionExtraData
                                 {
-                                    CharactersBlocking = Level.Characters.Characters.ToArray()
+                                    CharactersBlocking = Level.CurrentMap.Cells[1].AllCharacters
                                 }
                         },
                         active).Returns("You tried to walk South but John the Shop Keeper and the Baddie are on the way.");
@@ -183,7 +184,7 @@ namespace GetTheMilkTests.TranslatorTests
                             ExtraData =
                                 new MovementActionExtraData
                                 {
-                                    CharactersBlocking = Level.Characters.Characters.ToArray()
+                                    CharactersBlocking = Level.CurrentMap.Cells[1].AllCharacters
                                 }
                         },
                         active).Returns("You tried to run West but John the Shop Keeper and the Baddie are on the way.");
@@ -196,7 +197,7 @@ namespace GetTheMilkTests.TranslatorTests
                             ExtraData =
                                 new MovementActionExtraData
                                 {
-                                    CharactersBlocking = Level.Characters.Characters.ToArray()
+                                    CharactersBlocking = Level.CurrentMap.Cells[1].AllCharacters
                                 }
                         },
                         active).Returns("You tried to enter level 2 but is impossible, blocked by John the Shop Keeper and the Baddie.");
@@ -244,7 +245,7 @@ namespace GetTheMilkTests.TranslatorTests
                 var objAction = factory.CreateObjectAction("Player");
                 active.AllowsAction = objAction.AllowsAction;
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
-
+                Level.Player = null;
                 active.EnterLevel(Level);
 
                 yield return
@@ -254,7 +255,7 @@ namespace GetTheMilkTests.TranslatorTests
                             ExtraData =
                                 new MovementActionExtraData
                                 {
-                                    ObjectsInRange = Level.Objects.Objects.Where(o=>o.CellNumber==2 || o.CellNumber==4).ToArray()
+                                    ObjectsInRange = Level.CurrentMap.Cells[2].AllObjects.Union(Level.CurrentMap.Cells[4].AllObjects)
                                 }
                         },
                         active, Level).Returns("Looking East You see a wall.\r\nLooking South A glint catches your eye..");

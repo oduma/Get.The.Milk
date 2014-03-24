@@ -1,11 +1,9 @@
 ﻿using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions
 {
-    public class Keep:OneObjectAction
+    public class Keep:ObjectTransferAction
     {
 
         public Keep()
@@ -13,9 +11,18 @@ namespace GetTheMilk.Actions
             Name = new Verb {Infinitive = "To Keep", Past = "kept", Present = "keep"};
             ActionType = ActionType.Keep;
         }
-        public override void Perform(ICharacter c, NonCharacterObject o)
+        public override ActionResult Perform()
         {
-            c.Inventory.Add(o);
+            var result = base.Perform();
+            result.ForAction = this;
+            return result;
         }
+
+        public override GameAction CreateNewInstance()
+        {
+            return new Keep();
+        }
+
+
     }
 }

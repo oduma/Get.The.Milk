@@ -6,18 +6,11 @@ using Newtonsoft.Json;
 
 namespace GetTheMilk.Characters
 {
-    public class CharacterCollection
+    public class CharacterCollection:List<Character>
     {
-        private List<Character> _characters;
-
-        public List<Character> Characters
-        {
-            get { return _characters = (_characters) ?? new List<Character>(); }
-        }
-
         public void LinkCharactersToInventory()
         {
-            foreach (var o in _characters.Where(o => o.StorageContainer == null))
+            foreach (var o in this.Where(o => o.StorageContainer == null))
                 o.StorageContainer = this;
         }
 
@@ -28,7 +21,7 @@ namespace GetTheMilk.Characters
         {
             foreach (T o in os)
             {
-                Characters.Add(o);
+                Add(o);
                 if (o.StorageContainer != null)
                     o.StorageContainer.Remove(o);
                 o.StorageContainer = this;
@@ -37,9 +30,9 @@ namespace GetTheMilk.Characters
 
         public void Remove<T>(T o) where T : Character
         {
-            if (Characters.Contains(o))
+            if (Contains(o))
             {
-                Characters.Remove(o);
+                Remove(o);
             }
         }
 

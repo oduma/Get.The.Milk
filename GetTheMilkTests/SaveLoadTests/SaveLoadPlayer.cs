@@ -27,7 +27,6 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.AreEqual(player.InteractionRules.Count, actual.InteractionRules.Count);
             Assert.AreEqual(player.InteractionRules[GenericInteractionRulesKeys.All].Length, actual.InteractionRules[GenericInteractionRulesKeys.All].Length);
             Assert.AreEqual(player.Interactivity.GetType(), actual.Interactivity.GetType());
-            Assert.AreEqual(player.MapNumber, actual.MapNumber);
             Assert.AreEqual(player.Name.Main, actual.Name.Main);
             Assert.AreEqual(player.Name.Narrator, actual.Name.Narrator);
             Assert.AreEqual(player.Range, actual.Range);

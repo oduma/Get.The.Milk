@@ -27,18 +27,18 @@ namespace GetTheMilkTests.ActionsTests
             active.AllowsAction = objAction.AllowsAction;
             active.AllowsIndirectAction = objAction.AllowsIndirectAction;
 
-            active.Inventory.Add(_level.Objects.Objects.FirstOrDefault(o => o.ObjectCategory == ObjectCategory.Tool));
+            active.Inventory.Add(_level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.ObjectCategory == ObjectCategory.Tool));
 
-            Assert.AreEqual(1, active.Inventory.Objects.Count());
+            Assert.AreEqual(1, active.Inventory.Count());
 
             ExposeInventory exposeInventory = new ExposeInventory();
             exposeInventory.IncludeWallet = false;
-            var result = active.TryPerformAction(exposeInventory, active);
+            var result = exposeInventory.Perform();
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.ExtraData);
             Assert.IsNotNull(((ExposeInventoryExtraData)result.ExtraData).Contents);
-            Assert.AreEqual(1,((ExposeInventoryExtraData)result.ExtraData).Contents.Length);
-            Assert.IsNotNull(((ExposeInventoryExtraData)result.ExtraData).Contents[0]);
+            Assert.AreEqual(1,((ExposeInventoryExtraData)result.ExtraData).Contents.Count());
+            Assert.True(((ExposeInventoryExtraData)result.ExtraData).Contents.Any());
         }
     }
 }

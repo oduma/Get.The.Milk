@@ -1,21 +1,26 @@
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters;
-using GetTheMilk.Characters.BaseCharacters;
 
 namespace GetTheMilk.Actions
 {
-    public class Quit : FightAction
+    public class Quit : TwoCharactersAction
     {
         public Quit()
         {
             Name = new Verb {Infinitive = "To Quit", Past = "quited", Present = "quit"};
             ActionType = ActionType.Quit;
         }
-        public ActionResult Perform(ICharacter character, ICharacter targetCharacter)
+        public override ActionResult Perform()
         {
+            if (!CanPerform())
+                return new ActionResult { ForAction = this, ResultType = ActionResultType.NotOk };
 
             return new ActionResult {ResultType = ActionResultType.RequestQuit};
+        }
+
+        public override GameAction CreateNewInstance()
+        {
+            return new Quit();
         }
 
     }
