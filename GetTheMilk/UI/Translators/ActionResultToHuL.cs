@@ -33,7 +33,7 @@ namespace GetTheMilk.UI.Translators
                           actionResult.ForAction.Name.Past,
                           actionResult.ForAction.Name.Present,
                           ((MovementAction) actionResult.ForAction).Direction,
-                          (actionResult.ForAction is EnterLevel) ? ((EnterLevel) actionResult.ForAction).CurrentMap.LevelNo : 0,
+                          (actionResult.ForAction is EnterLevel) ? ((EnterLevel) actionResult.ForAction).CurrentMap.Parent.Number : 0,
                           ((MovementActionExtraData) actionResult.ExtraData!=null)?
                           FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking,NarratorNaming):"",
                           ((MovementActionExtraData) actionResult.ExtraData!=null)?

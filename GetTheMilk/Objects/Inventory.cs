@@ -40,7 +40,7 @@ namespace GetTheMilk.Objects
                     return false;
                 if ((Count + 1 <= MaximumCapacity))
                 {
-                    Add(o);
+                    base.Add(o);
                     if (o.StorageContainer != null)
                         o.StorageContainer.Remove(o);
                     o.StorageContainer = this;

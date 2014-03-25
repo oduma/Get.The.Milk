@@ -13,8 +13,36 @@ namespace GetTheMilk.Levels
 {
     public class Level:IInventoryOwner
     {
+        private Inventory _inventory;
+        private CharacterCollection _characters;
         public Map CurrentMap { get; set; }
         public int Number { get; set; }
+
+        [JsonIgnore]
+        public Inventory Inventory
+        {
+            get { return _inventory=(_inventory)??new Inventory(); }
+            set
+            {
+                _inventory = value;
+                if (_inventory != null)
+                {
+                    _inventory.Owner = this;
+                }
+            }
+        }
+
+        [JsonIgnore]
+        public CharacterCollection Characters
+        {
+            get { return _characters=(_characters)??new CharacterCollection(); }
+            set
+            {
+                _characters = value;
+                if (_characters != null)
+                    _characters.Owner = this;
+            }
+        }
 
         [JsonIgnore]
         public IPlayer Player { get; set; }
@@ -25,11 +53,11 @@ namespace GetTheMilk.Levels
             var levelPackages = new LevelPackages
                        {
                            LevelCore = JsonConvert.SerializeObject(this),
-                           //LevelObjects = JsonConvert.SerializeObject(Objects),
+                           LevelObjects = JsonConvert.SerializeObject(Inventory),
                            LevelCharacters= new List<CharacterSavedPackages>()
                        };
-            //foreach (var character in Characters)
-            //    levelPackages.LevelCharacters.Add(character.Save());
+            foreach (var character in Characters)
+                levelPackages.LevelCharacters.Add(character.Save());
             return levelPackages;
         }
 
@@ -47,16 +75,18 @@ namespace GetTheMilk.Levels
         public static Level Create(LevelPackages levelPackages)
         {
             Level level = JsonConvert.DeserializeObject<Level>(levelPackages.LevelCore);
-            //level.Objects = JsonConvert.DeserializeObject<Inventory>(levelPackages.LevelObjects,
-            //                                                         new NonChracterObjectConverter());
-            //level.Objects.LinkObjectsToInventory();
-            //foreach(var characterPackage in levelPackages.LevelCharacters)
-            //{
-            //    level.Characters.Add(Character.Load<Character>(characterPackage));
-            //}
+            level.CurrentMap.LinkToParentLevel(level);
+            level.Inventory = JsonConvert.DeserializeObject<Inventory>(levelPackages.LevelObjects,
+                                                                     new NonChracterObjectConverter());
+            level.Inventory.LinkObjectsToInventory();
+            foreach (var characterPackage in levelPackages.LevelCharacters)
+            {
+                level.Characters.Add(Character.Load<Character>(characterPackage));
+            }
             return level;
         }
         public  int StartingCell { get; set; }
         public  Noun Name { get; set; }
+
     }
 }

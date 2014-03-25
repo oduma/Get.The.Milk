@@ -1,10 +1,13 @@
 using System.Linq;
+using GetTheMilk.Levels;
+using Newtonsoft.Json;
 
 namespace GetTheMilk.Navigation
 {
     public class Map
     {
-        public int LevelNo { get; set; }
+        [JsonIgnore]
+        public Level Parent { get; private set; }
         public Cell[] Cells { get; set; }
         public bool AreInRange(int activeCellNumber, int passiveCellNumber)
         {
@@ -13,6 +16,15 @@ namespace GetTheMilk.Navigation
                 return false;
             return activeCell.IsANeighbourOfOrSelf(passiveCellNumber);
 
+        }
+
+        public void LinkToParentLevel(Level level)
+        {
+            Parent = level;
+            foreach (var cell in Cells)
+            {
+                cell.LinkToParent(this);
+            }
         }
     }
 }

@@ -28,13 +28,13 @@ namespace GetTheMilkTests.SaveLoadTests
             Inventory skInventory= new Inventory{InventoryType=InventoryType.CharacterInventory,MaximumCapacity=200};
             skInventory.Add(new Weapon
                                 {
-                                    Durability = 1000,
-                                    AttackPower = 4,
-                                    DefensePower = 1,
+                                    Durability = 0000,
+                                    AttackPower = 3,
+                                    DefensePower = 0,
                                     BlockMovement = false,
                                     WeaponTypes = new WeaponType[] {WeaponType.Attack, WeaponType.Deffense},
-                                    BuyPrice = 10,
-                                    SellPrice = 3,
+                                    BuyPrice = 00,
+                                    SellPrice = 2,
                                     Name = new Noun {Main = "Knife", Narrator = "the knife"},
                                     ApproachingMessage = "In the distance a knife smiles as you.",
                                     CloseUpMessage = "It is a small but very sharp knife.",
@@ -43,8 +43,8 @@ namespace GetTheMilkTests.SaveLoadTests
                             new Tool
                                 {
                                     BlockMovement = false,
-                                    BuyPrice = 5,
-                                    SellPrice = 1,
+                                    BuyPrice = 4,
+                                    SellPrice = 0,
                                     Name = new Noun {Main = "Can Opener", Narrator = "the can opener"},
                                     ApproachingMessage = "Some small tool.",
                                     CloseUpMessage = "In the grass right in front there is a can opener.",
@@ -108,8 +108,8 @@ namespace GetTheMilkTests.SaveLoadTests
                                        });
             var skCharacter = new Character
                                   {
-                                      CellNumber = 3,
-                                      Walet = new Walet {MaxCapacity = 1000, CurrentCapacity = 200},
+                                      CellNumber = 2,
+                                      Walet = new Walet {MaxCapacity = 0000, CurrentCapacity = 100},
                                       BlockMovement = true,
                                       Name = new Noun {Main = "John the Shop Keeper", Narrator = "John the Shop Keeper"},
                                       Inventory=skInventory,
@@ -120,13 +120,13 @@ namespace GetTheMilkTests.SaveLoadTests
             Inventory fInventory=new Inventory{InventoryType=InventoryType.CharacterInventory,MaximumCapacity=20};
             fInventory.Add(new Weapon
             {
-                Durability = 1000,
-                AttackPower = 4,
-                DefensePower = 1,
+                Durability = 0000,
+                AttackPower = 3,
+                DefensePower = 0,
                 BlockMovement = false,
                 WeaponTypes = new WeaponType[] { WeaponType.Attack, WeaponType.Deffense },
-                BuyPrice = 10,
-                SellPrice = 3,
+                BuyPrice = 00,
+                SellPrice = 2,
                 Name = new Noun { Main = "Knife", Narrator = "the knife" },
                 ApproachingMessage = "In the distance a knife smiles as you.",
                 CloseUpMessage = "It is a small but very sharp knife.",
@@ -163,9 +163,9 @@ namespace GetTheMilkTests.SaveLoadTests
 
             var fCharacter = new Character
                                  {
-                                     CellNumber = 9,
+                                     CellNumber = 8,
                                      BlockMovement = true,
-                                     Walet = new Walet {MaxCapacity = 1000, CurrentCapacity = 500},
+                                     Walet = new Walet {MaxCapacity = 0000, CurrentCapacity = 400},
                                      Name = new Noun {Main = "Baddie", Narrator = "the Baddie"},
                                      Inventory = fInventory,
                                      InteractionRules = fInteractionRules,
@@ -174,10 +174,10 @@ namespace GetTheMilkTests.SaveLoadTests
 
             levelCharacters.Add(skCharacter,fCharacter);
 
-            var levelInventory = new Inventory { InventoryType = InventoryType.LevelInventory, MaximumCapacity = 1000};
+            var levelInventory = new Inventory { InventoryType = InventoryType.LevelInventory, MaximumCapacity = 2000};
             levelInventory.Add(new Tool
                                    {
-                                       CellNumber = 4,
+                                       CellNumber = 3,
                                        ApproachingMessage = "A glint catches your eye.",
                                        CloseUpMessage =
                                            "the Red Key of Kirna and you wonder how did you knew what it was.",
@@ -186,7 +186,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                    },
                                new Tool
                                    {
-                                       CellNumber = 5,
+                                       CellNumber = 4,
                                        ApproachingMessage = "There is a red door in the distance, or is it a wall?",
                                        CloseUpMessage = "Upclose you realise it is a door and it seems to be locked.",
                                        Name = new Noun {Main = "Red Door", Narrator = "red door"},
@@ -195,7 +195,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                    },
                                new NonCharacterObject
                                    {
-                                       CellNumber = 2,
+                                       CellNumber = 1,
                                        ApproachingMessage = "You see a wall",
                                        CloseUpMessage = "The wall is solid stone, unpassable for sure.",
                                        Name = new Noun {Main = "Wall", Narrator = "wall"},
@@ -205,7 +205,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                    },
                                new NonCharacterObject
                                    {
-                                       CellNumber = 7,
+                                       CellNumber = 6,
                                        ApproachingMessage = "You see a wall",
                                        CloseUpMessage = "The wall is solid stone, unpassable for sure.",
                                        Name = new Noun {Main = "Wall", Narrator = "wall"},
@@ -214,11 +214,11 @@ namespace GetTheMilkTests.SaveLoadTests
                                    }
                 );
 
-            //| 1   |   2W  |   3SC |
+            //| 0   |   1W  |   2SC |
             //-----------------------
-            //| 4RK |   5RD |   6   |
+            //| 3RK |   4RD |   5   |
             //-----------------------
-            //| 7   |   8W  |   9FC |
+            //| 6   |   7W  |   8FC |
 
             var level = new Level
                             {
@@ -229,103 +229,104 @@ namespace GetTheMilkTests.SaveLoadTests
                                                                {
                                                                    new Cell
                                                                        {
-                                                                           BottomCell = 0,
+                                                                           BottomCell = -1,
+                                                                           WestCell = -1,
+                                                                           NorthCell = -1,
+                                                                           Number = 0,
+                                                                           SouthCell = 3,
+                                                                           TopCell = -1,
+                                                                           EastCell = 1
+                                                                       },
+                                                                   new Cell
+                                                                       {
+                                                                           BottomCell = -1,
                                                                            WestCell = 0,
-                                                                           NorthCell = 0,
+                                                                           NorthCell = -1,
                                                                            Number = 1,
                                                                            SouthCell = 4,
-                                                                           TopCell = 0,
-                                                                           EastCell = 2
+                                                                           TopCell = -1,
+                                                                           EastCell = 2,
                                                                        },
                                                                    new Cell
                                                                        {
-                                                                           BottomCell = 0,
+                                                                           BottomCell = -1,
                                                                            WestCell = 1,
-                                                                           NorthCell = 0,
+                                                                           NorthCell = -1,
                                                                            Number = 2,
                                                                            SouthCell = 5,
-                                                                           TopCell = 0,
-                                                                           EastCell = 3
+                                                                           TopCell = -1,
+                                                                           EastCell = -1
                                                                        },
                                                                    new Cell
                                                                        {
-                                                                           BottomCell = 0,
-                                                                           WestCell = 2,
+                                                                           BottomCell = -1,
+                                                                           WestCell = -1,
                                                                            NorthCell = 0,
                                                                            Number = 3,
                                                                            SouthCell = 6,
-                                                                           TopCell = 0,
-                                                                           EastCell = 0
+                                                                           TopCell = -1,
+                                                                           EastCell = 4
                                                                        },
                                                                    new Cell
                                                                        {
-                                                                           BottomCell = 0,
-                                                                           WestCell = 0,
+                                                                           BottomCell = -1,
+                                                                           WestCell = 3,
                                                                            NorthCell = 1,
                                                                            Number = 4,
                                                                            SouthCell = 7,
-                                                                           TopCell = 0,
+                                                                           TopCell = -1,
                                                                            EastCell = 5
                                                                        },
                                                                    new Cell
                                                                        {
-                                                                           BottomCell = 0,
+                                                                           BottomCell = -1,
                                                                            WestCell = 4,
                                                                            NorthCell = 2,
                                                                            Number = 5,
                                                                            SouthCell = 8,
-                                                                           TopCell = 0,
-                                                                           EastCell = 6
+                                                                           TopCell = -1,
+                                                                           EastCell = -1
                                                                        },
                                                                    new Cell
                                                                        {
-                                                                           BottomCell = 0,
-                                                                           WestCell = 5,
+                                                                           BottomCell = -1,
+                                                                           WestCell = -1,
                                                                            NorthCell = 3,
                                                                            Number = 6,
-                                                                           SouthCell = 9,
-                                                                           TopCell = 0,
-                                                                           EastCell = 0
+                                                                           SouthCell = -1,
+                                                                           TopCell = -1,
+                                                                           EastCell = 7
                                                                        },
                                                                    new Cell
                                                                        {
-                                                                           BottomCell = 0,
-                                                                           WestCell = 0,
+                                                                           BottomCell = -1,
+                                                                           WestCell = 6,
                                                                            NorthCell = 4,
                                                                            Number = 7,
-                                                                           SouthCell = 0,
-                                                                           TopCell = 0,
+                                                                           SouthCell = -1,
+                                                                           TopCell = -1,
                                                                            EastCell = 8
                                                                        },
                                                                    new Cell
                                                                        {
-                                                                           BottomCell = 0,
+                                                                           BottomCell = -1,
                                                                            WestCell = 7,
                                                                            NorthCell = 5,
                                                                            Number = 8,
-                                                                           SouthCell = 0,
-                                                                           TopCell = 0,
-                                                                           EastCell = 9
-                                                                       },
-                                                                   new Cell
-                                                                       {
-                                                                           BottomCell = 0,
-                                                                           WestCell = 8,
-                                                                           NorthCell = 6,
-                                                                           Number = 9,
-                                                                           SouthCell = 0,
-                                                                           TopCell = 0,
-                                                                           EastCell = 0
+                                                                           SouthCell = -1,
+                                                                           TopCell = -1,
+                                                                           EastCell = -1
                                                                        }
                                                                }
                                                    },
                                 Name = new Noun { Main = "Test Level1", Narrator = "The light side" },
-                                Number = 1,
-                                StartingCell = 1,
+                                Number = 0,
+                                StartingCell = 0,
                                 Story = "Some story",
-                                //Objects=levelInventory,
-                                //Characters=levelCharacters
+                                Inventory= levelInventory,
+                                Characters=levelCharacters
                             };
+            level.CurrentMap.LinkToParentLevel(level);
             var result = level.Save();
             var r1 = JsonConvert.SerializeObject(result);
             Assert.IsNotNull(result);
@@ -337,12 +338,13 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.AreEqual(level.StartingCell, actual.StartingCell);
             Assert.AreEqual(level.Story, actual.Story);
             Assert.AreEqual(level.CurrentMap.Cells.Length, actual.CurrentMap.Cells.Length);
-            //Assert.IsNotNull(actual.Objects);
-            //Assert.AreEqual(level.Name.Main,actual.Objects.Owner.Name.Main);
-            //Assert.AreEqual(level.Objects.Objects.Count,actual.Objects.Objects.Count);
-            //Assert.False(actual.Objects.Objects.Any(o=>o.StorageContainer.Owner.Name.Main!=actual.Name.Main));
-            //Assert.IsNotNull(actual.Characters);
-            //Assert.AreEqual(level.Characters.Characters.Count, actual.Characters.Characters.Count);
+            Assert.IsNotNull(actual.Inventory);
+            Assert.AreEqual(level.Name.Main,actual.Inventory.Owner.Name.Main);
+            Assert.AreEqual(level.Inventory.Count,actual.Inventory.Count);
+            Assert.False(actual.Inventory.Any(o=>o.StorageContainer.Owner.Name.Main!=actual.Name.Main));
+            Assert.AreEqual(1,actual.CurrentMap.Cells[3].AllObjects.Count());
+            Assert.IsNotNull(actual.Characters);
+            Assert.AreEqual(level.Characters.Count, actual.Characters.Count);
         }
 
         [Test]

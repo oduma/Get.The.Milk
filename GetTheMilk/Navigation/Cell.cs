@@ -1,13 +1,28 @@
-using GetTheMilk.Characters;
-using GetTheMilk.Objects;
+using System.Collections.Generic;
+using System.Linq;
+using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Objects.BaseObjects;
+using Newtonsoft.Json;
 
 namespace GetTheMilk.Navigation
 {
     public class Cell
     {
-        public Inventory AllObjects { get; set; }
+        [JsonIgnore]
+        public IEnumerable<NonCharacterObject> AllObjects
+        {
+            get { return Parent.Parent.Inventory.Where(o => o.CellNumber == Number); }
+        }
 
-        public CharacterCollection AllCharacters { get; set; }
+        [JsonIgnore]
+        public IEnumerable<Character> AllCharacters
+        {
+            get { return Parent.Parent.Characters.Where(c => c.CellNumber == Number); }
+        }
+
+
+        [JsonIgnore]
+        public Map Parent { get; private set; }
 
         public int Number { get; set; }
 
@@ -67,5 +82,10 @@ namespace GetTheMilk.Navigation
             return Direction.None;
         }
         public bool IsObjective { get; set; }
+
+        public void LinkToParent(Map map)
+        {
+            Parent = map;
+        }
     }
 }

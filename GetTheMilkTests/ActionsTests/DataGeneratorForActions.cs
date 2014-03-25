@@ -31,7 +31,7 @@ namespace GetTheMilkTests.ActionsTests
 
                 //Kick a wall (nothing happens)
                 yield return
-                    new TestCaseData(new Kick{ActiveCharacter=active,TargetObject=_level.CurrentMap.Cells[1].AllObjects.FirstOrDefault(o=>o.Name.Main=="Wall")})
+                    new TestCaseData(new Kick { ActiveCharacter = active, TargetObject = _level.CurrentMap.Cells[1].AllObjects.FirstOrDefault(o => o.Name.Main == "Wall") })
                         .Returns(_level.CurrentMap.Cells[1].AllObjects);
 
                 //Pick a key, key in hand
@@ -41,7 +41,7 @@ namespace GetTheMilkTests.ActionsTests
 
                 yield return
                     new TestCaseData(active,
-                                     new Keep{ActiveCharacter=active,TargetCharacter=active,},
+                                     new Keep { ActiveCharacter = active, TargetCharacter = active, },
                                      _level.CurrentMap.Cells[4].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key")).Returns(active.Inventory);
 
                 _level = Level.Create(1);
@@ -73,7 +73,7 @@ namespace GetTheMilkTests.ActionsTests
                 active.AllowsAction = objAction.AllowsAction;
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
 
-                var passive = _level.CurrentMap.Cells[8].AllCharacters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFoe");
+                var passive = _level.CurrentMap.Cells[8].AllCharacters.FirstOrDefault(c => c.ObjectTypeId == "NPCFoe");
                 var action = new GiveTo();
                 action.ActiveCharacter = active;
                 action.TargetCharacter = passive;
@@ -86,7 +86,7 @@ namespace GetTheMilkTests.ActionsTests
                 //Give a key that the active character doesn have it. Nothing happens
                 passive = _level.CurrentMap.Cells[2].AllCharacters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
 
-                action= new GiveTo();
+                action = new GiveTo();
                 action.ActiveCharacter = active;
                 action.TargetCharacter = passive;
                 action.TargetObject = _level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key");
@@ -95,7 +95,7 @@ namespace GetTheMilkTests.ActionsTests
                         passive.Inventory);
 
                 //Give a key to a character that wants it (key changes owners)
-                action= new GiveTo();
+                action = new GiveTo();
                 action.TargetObject = passive.Inventory[0];
                 yield return
                     new TestCaseData(action).Returns(
@@ -119,7 +119,7 @@ namespace GetTheMilkTests.ActionsTests
                 active.AllowsAction = objAction.AllowsAction;
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
 
-                var passive = _level.CurrentMap.Cells[2].AllCharacters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFriendly");
+                var passive = _level.CurrentMap.Cells[2].AllCharacters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
 
                 yield return new TestCaseData(active, passive, 100, TransactionType.Debit).Returns(
                     active.Walet.CurrentCapacity);
@@ -146,7 +146,7 @@ namespace GetTheMilkTests.ActionsTests
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
 
                 active.Walet.CurrentCapacity = 1;
-                var passive = _level.CurrentMap.Cells[2].AllCharacters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly"); 
+                var passive = _level.CurrentMap.Cells[2].AllCharacters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
 
                 var buyAction = new Buy();
                 buyAction.TargetObject = passive.Inventory[0];
@@ -176,7 +176,7 @@ namespace GetTheMilkTests.ActionsTests
                     new TestCaseData(active, passive, buyAction).Returns(
                         50);
                 //Succesfully buy a skrew driver
-                active= new Player();
+                active = new Player();
 
                 active.AllowsAction = objAction.AllowsAction;
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
@@ -206,10 +206,10 @@ namespace GetTheMilkTests.ActionsTests
                 active.AllowsAction = objAction.AllowsAction;
                 active.AllowsIndirectAction = objAction.AllowsIndirectAction;
 
-                var passive = _level.CurrentMap.Cells[4].AllObjects.FirstOrDefault(o=>o.Name.Main=="Red Door");
+                var passive = _level.CurrentMap.Cells[4].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Door");
                 var blueKey = new Tool
                                   {
-                                      Name = new Noun {Main = "Blue Key", Narrator = "the Blue Key"},
+                                      Name = new Noun { Main = "Blue Key", Narrator = "the Blue Key" },
                                       AllowsAction = (a) =>
                                                          {
                                                              return (a.Name.Infinitive == "To Open");
@@ -261,7 +261,7 @@ namespace GetTheMilkTests.ActionsTests
                 var walkNorth = new Walk();
                 walkNorth.Direction = Direction.North;
                 yield return
-                    new TestCaseData(active,_level,
+                    new TestCaseData(active, _level,
                                      walkNorth, _level.CurrentMap, null, null).
                         Returns(ActionResultType.OutOfTheMap);
 
