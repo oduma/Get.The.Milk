@@ -41,8 +41,8 @@ namespace GetTheMilkTests.TranslatorTests
                         active).Returns("You ran West.");
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new EnterLevel { LevelNo=2 } },
-                        active).Returns("You entered level 2.");
+                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new EnterLevel { LevelNo=1,CurrentMap=new Map{Parent=new Level{Number=1}} } },
+                        active).Returns("You entered level 1.");
 
             }
         }
@@ -118,7 +118,7 @@ namespace GetTheMilkTests.TranslatorTests
                                 ExtraData =
                                     new MovementActionExtraData
                                         {
-                                            ObjectsBlocking =Level.CurrentMap.Cells[1].AllObjects
+                                            ObjectsBlocking =Level.Inventory
                                         }
                             },
                         active).Returns("You tried to walk South but the Red Key, red door, wall and wall are on the way.");
@@ -132,7 +132,7 @@ namespace GetTheMilkTests.TranslatorTests
                             ExtraData =
                                 new MovementActionExtraData
                                 {
-                                    ObjectsBlocking = Level.CurrentMap.Cells[1].AllObjects
+                                    ObjectsBlocking = Level.Inventory
                                 }
                         },
                         active).Returns("You tried to run West but the Red Key, red door, wall and wall are on the way.");
@@ -142,7 +142,7 @@ namespace GetTheMilkTests.TranslatorTests
                             ExtraData =
                                 new MovementActionExtraData
                                 {
-                                    ObjectsBlocking = Level.CurrentMap.Cells[1].AllObjects
+                                    ObjectsBlocking = Level.Inventory
                                 } },
                         active).Returns("You tried to enter level 2 but is impossible, blocked by the Red Key, red door, wall and wall.");
 
@@ -170,7 +170,7 @@ namespace GetTheMilkTests.TranslatorTests
                             ExtraData =
                                 new MovementActionExtraData
                                 {
-                                    CharactersBlocking = Level.CurrentMap.Cells[1].AllCharacters
+                                    CharactersBlocking = Level.Characters
                                 }
                         },
                         active).Returns("You tried to walk South but John the Shop Keeper and the Baddie are on the way.");
@@ -184,7 +184,7 @@ namespace GetTheMilkTests.TranslatorTests
                             ExtraData =
                                 new MovementActionExtraData
                                 {
-                                    CharactersBlocking = Level.CurrentMap.Cells[1].AllCharacters
+                                    CharactersBlocking = Level.Characters
                                 }
                         },
                         active).Returns("You tried to run West but John the Shop Keeper and the Baddie are on the way.");
@@ -197,7 +197,7 @@ namespace GetTheMilkTests.TranslatorTests
                             ExtraData =
                                 new MovementActionExtraData
                                 {
-                                    CharactersBlocking = Level.CurrentMap.Cells[1].AllCharacters
+                                    CharactersBlocking = Level.Characters
                                 }
                         },
                         active).Returns("You tried to enter level 2 but is impossible, blocked by John the Shop Keeper and the Baddie.");
@@ -255,7 +255,7 @@ namespace GetTheMilkTests.TranslatorTests
                             ExtraData =
                                 new MovementActionExtraData
                                 {
-                                    ObjectsInRange = Level.CurrentMap.Cells[2].AllObjects.Union(Level.CurrentMap.Cells[4].AllObjects)
+                                    ObjectsInRange = Level.CurrentMap.Cells[1].AllObjects.Union(Level.CurrentMap.Cells[3].AllObjects)
                                 }
                         },
                         active, Level).Returns("Looking East You see a wall.\r\nLooking South A glint catches your eye..");

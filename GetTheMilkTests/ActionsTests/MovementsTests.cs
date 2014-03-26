@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
-using GetTheMilk.Objects.BaseObjects;
 using NUnit.Framework;
 
 namespace GetTheMilkTests.ActionsTests

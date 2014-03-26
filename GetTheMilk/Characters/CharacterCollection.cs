@@ -32,7 +32,7 @@ namespace GetTheMilk.Characters
         {
             if (Contains(o))
             {
-                Remove(o);
+                base.Remove(o);
             }
         }
 

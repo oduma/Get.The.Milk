@@ -64,7 +64,7 @@ namespace GetTheMilk.Characters
                 level.Player = this;
                 CellNumber = level.StartingCell;
             }
-            return (new EnterLevel { Direction = Direction.None, TargetCell = CellNumber,TargetCharacter=this }).Perform();
+            return (new EnterLevel { Direction = Direction.None, TargetCell = CellNumber,ActiveCharacter=this, CurrentMap=level.CurrentMap }).Perform();
         }
 
         public void SetPlayerName(string name)

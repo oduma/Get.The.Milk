@@ -38,7 +38,7 @@ namespace GetTheMilkTests.ActionsTests
                 return active.Walet.CurrentCapacity;
             active.Walet.PerformTransaction(new TransactionDetails
                                                 {TransactionType = transactionType, Price = amount, Towards = passive});
-            Assert.AreEqual(210,passive.Walet.CurrentCapacity);
+            Assert.AreEqual(110,passive.Walet.CurrentCapacity);
 
             return active.Walet.CurrentCapacity;
         }

@@ -18,31 +18,31 @@ namespace GetTheMilk.Actions.BaseActions
         public override ActionResult Perform()
         {
 
-            if(TargetCharacter.CellNumber<0 || TargetCharacter.CellNumber>=CurrentMap.Cells.Length)
-                return MoveTargetCharacter(this,TargetCharacter.CellNumber,
+            if(ActiveCharacter.CellNumber<0 || ActiveCharacter.CellNumber>=CurrentMap.Cells.Length)
+                return MoveActiveCharacter(this,ActiveCharacter.CellNumber,
                                ActionResultType.OriginNotOnTheMap, new NonCharacterObject[0], new Character[0]);
 
-            var currentCell = CurrentMap.Cells[TargetCharacter.CellNumber];
+            var currentCell = CurrentMap.Cells[ActiveCharacter.CellNumber];
 
             for (int i = 0; i < DefaultDistance; i++)
             {
                 int nextCellId = currentCell.GetNeighbourCellNumber(Direction);
-                var moveTargetCharacter = MoveOneStep(nextCellId, currentCell);
-                if (moveTargetCharacter != null) 
-                    return moveTargetCharacter;
+                var moveActiveCharacter = MoveOneStep(nextCellId, currentCell);
+                if (moveActiveCharacter != null) 
+                    return moveActiveCharacter;
 
                 currentCell = CurrentMap.Cells[nextCellId];
 
             }
 
-            return MoveTargetCharacter(this,currentCell.Number,
+            return MoveActiveCharacter(this,currentCell.Number,
                                            ActionResultType.Ok, new NonCharacterObject[0], new Character[0]);
         }
 
         protected ActionResult MoveOneStep(int nextCellId, Cell currentCell)
         {
             if (nextCellId == -1)
-                return MoveTargetCharacter(this,currentCell.Number,
+                return MoveActiveCharacter(this,currentCell.Number,
                     ActionResultType.OutOfTheMap, new NonCharacterObject[0], new Character[0]);
             var objectsBlocking = (CurrentMap.Cells[nextCellId].AllObjects == null)
                 ? new NonCharacterObject[0]
@@ -53,15 +53,15 @@ namespace GetTheMilk.Actions.BaseActions
                 : CurrentMap.Cells[nextCellId].AllCharacters.Where(o => o.BlockMovement);
 
             if (objectsBlocking.Any() || charactersBlocking.Any())
-                return MoveTargetCharacter(this,currentCell.Number,
+                return MoveActiveCharacter(this,currentCell.Number,
                     ActionResultType.Blocked, objectsBlocking, charactersBlocking);
             if (currentCell.IsObjective)
-                return MoveTargetCharacter(this,currentCell.Number,
+                return MoveActiveCharacter(this,currentCell.Number,
                     ActionResultType.LevelCompleted, new NonCharacterObject[0], new Character[0]);
             return null;
         }
 
-        protected ActionResult MoveTargetCharacter(MovementAction actionPerformed,int targetCellId,
+        protected ActionResult MoveActiveCharacter(MovementAction actionPerformed,int targetCellId,
                                                ActionResultType resultType, 
             IEnumerable<NonCharacterObject> objectsBlocking, 
             IEnumerable<Character> charactersBlocking)
@@ -89,8 +89,8 @@ namespace GetTheMilk.Actions.BaseActions
                 CurrentMap.Cells[targetCellId].AllObjects;
             if (targetCellId != -1)
             {
-                TargetCharacter.CellNumber = targetCellId;
-                TargetCharacter.Inventory.FollowTheLeader();
+                ActiveCharacter.CellNumber = targetCellId;
+                ActiveCharacter.Inventory.FollowTheLeader();
             }
             return movementResult;
         }

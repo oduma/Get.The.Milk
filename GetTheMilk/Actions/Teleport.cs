@@ -27,10 +27,10 @@ namespace GetTheMilk.Actions
         {
             if (Direction != Direction.None)
                 return new ActionResult { ResultType = ActionResultType.UnknownError };
-            var movementResult = MoveOneStep(TargetCell, CurrentMap.Cells[TargetCharacter.CellNumber]);
+            var movementResult = MoveOneStep(TargetCell, CurrentMap.Cells[ActiveCharacter.CellNumber]);
             if (movementResult != null)
                 return null;
-            return MoveTargetCharacter(this,TargetCell,
+            return MoveActiveCharacter(this,TargetCell,
                                ActionResultType.Ok, new NonCharacterObject[0], new Character[0]);
         }
     }

@@ -45,8 +45,9 @@ namespace GetTheMilkTests.SaveLoadTests
             game.Player.SetPlayerName("my own name");
             Walk walk = new Walk();
             walk.Direction = Direction.South;
+            walk.ActiveCharacter = game.Player;
+            walk.CurrentMap = game.CurrentLevel.CurrentMap;
             walk.Perform();
-            //game.Player.TryPerformMove(walk, game.CurrentLevel.CurrentMap[0], game.CurrentLevel.Objects.Objects, game.CurrentLevel.Characters.Characters);
             game.Save("gamesavedtest.gsu");
             Assert.True(File.Exists(@"Saved\gamesavedtest.gsu"));
 
@@ -54,7 +55,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.IsNotNull(gameLoaded);
             Assert.IsNotNull(gameLoaded.Player);
             Assert.IsNotNull(gameLoaded.CurrentLevel);
-            Assert.AreEqual(4,gameLoaded.Player.CellNumber); 
+            Assert.AreEqual(3,gameLoaded.Player.CellNumber); 
             Assert.AreEqual("my own name",gameLoaded.Player.Name.Main);
 
         }
@@ -66,7 +67,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.IsNotNull(gameLoaded);
             Assert.IsNotNull(gameLoaded.Player);
             Assert.IsNotNull(gameLoaded.CurrentLevel);
-            Assert.AreEqual(4, gameLoaded.Player.CellNumber);
+            Assert.AreEqual(3, gameLoaded.Player.CellNumber);
             Assert.AreEqual("my own name", gameLoaded.Player.Name.Main);
 
         }

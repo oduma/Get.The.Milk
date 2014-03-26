@@ -9,7 +9,7 @@ namespace GetTheMilk.Actions.BaseActions
 
         public override bool CanPerform()
         {
-            return (TargetObject.AllowsIndirectAction(this, TargetCharacter)
+            return (TargetObject.AllowsIndirectAction(this, ActiveCharacter)
                     && TargetCharacter.AllowsIndirectAction(this, TargetObject)
                     && ActiveCharacter.Walet.CanPerformTransaction(GetTransactionDetails())
                     && (TargetObject.StorageContainer.Owner.Name == TargetCharacter.Name));
@@ -29,12 +29,22 @@ namespace GetTheMilk.Actions.BaseActions
 
         public override ActionResult Perform()
         {
-            if (TransactionType != TransactionType.None && !ActiveCharacter.Walet.PerformTransaction(GetTransactionDetails()))
-                return new ActionResult
-                {
-                    ForAction = this,
-                    ResultType = ActionResultType.NotOk
-                };
+            if (TransactionType != TransactionType.None)
+            {
+                if(!CanPerform())
+                    return new ActionResult
+                    {
+                        ForAction = this,
+                        ResultType = ActionResultType.NotOk
+                    };
+
+                if (!ActiveCharacter.Walet.PerformTransaction(GetTransactionDetails()))
+                    return new ActionResult
+                    {
+                        ForAction = this,
+                        ResultType = ActionResultType.NotOk
+                    };
+            }
 
             var addedOk = TargetCharacter.Inventory.Add(ActiveObject);
             return new ActionResult

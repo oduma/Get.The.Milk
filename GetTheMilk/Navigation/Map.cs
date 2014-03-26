@@ -7,7 +7,7 @@ namespace GetTheMilk.Navigation
     public class Map
     {
         [JsonIgnore]
-        public Level Parent { get; private set; }
+        public Level Parent { get; set; }
         public Cell[] Cells { get; set; }
         public bool AreInRange(int activeCellNumber, int passiveCellNumber)
         {

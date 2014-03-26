@@ -28,12 +28,12 @@ namespace GetTheMilkTests.SaveLoadTests
             Inventory skInventory= new Inventory{InventoryType=InventoryType.CharacterInventory,MaximumCapacity=200};
             skInventory.Add(new Weapon
                                 {
-                                    Durability = 0000,
+                                    Durability = 1000,
                                     AttackPower = 3,
-                                    DefensePower = 0,
+                                    DefensePower = 1,
                                     BlockMovement = false,
                                     WeaponTypes = new WeaponType[] {WeaponType.Attack, WeaponType.Deffense},
-                                    BuyPrice = 00,
+                                    BuyPrice = 100,
                                     SellPrice = 2,
                                     Name = new Noun {Main = "Knife", Narrator = "the knife"},
                                     ApproachingMessage = "In the distance a knife smiles as you.",
@@ -44,7 +44,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                 {
                                     BlockMovement = false,
                                     BuyPrice = 4,
-                                    SellPrice = 0,
+                                    SellPrice = 2,
                                     Name = new Noun {Main = "Can Opener", Narrator = "the can opener"},
                                     ApproachingMessage = "Some small tool.",
                                     CloseUpMessage = "In the grass right in front there is a can opener.",
@@ -109,7 +109,7 @@ namespace GetTheMilkTests.SaveLoadTests
             var skCharacter = new Character
                                   {
                                       CellNumber = 2,
-                                      Walet = new Walet {MaxCapacity = 0000, CurrentCapacity = 100},
+                                      Walet = new Walet {MaxCapacity = 1000, CurrentCapacity = 100},
                                       BlockMovement = true,
                                       Name = new Noun {Main = "John the Shop Keeper", Narrator = "John the Shop Keeper"},
                                       Inventory=skInventory,
@@ -120,12 +120,12 @@ namespace GetTheMilkTests.SaveLoadTests
             Inventory fInventory=new Inventory{InventoryType=InventoryType.CharacterInventory,MaximumCapacity=20};
             fInventory.Add(new Weapon
             {
-                Durability = 0000,
+                Durability = 1000,
                 AttackPower = 3,
-                DefensePower = 0,
+                DefensePower = 1,
                 BlockMovement = false,
                 WeaponTypes = new WeaponType[] { WeaponType.Attack, WeaponType.Deffense },
-                BuyPrice = 00,
+                BuyPrice = 50,
                 SellPrice = 2,
                 Name = new Noun { Main = "Knife", Narrator = "the knife" },
                 ApproachingMessage = "In the distance a knife smiles as you.",
@@ -165,7 +165,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                  {
                                      CellNumber = 8,
                                      BlockMovement = true,
-                                     Walet = new Walet {MaxCapacity = 0000, CurrentCapacity = 400},
+                                     Walet = new Walet {MaxCapacity = 2000, CurrentCapacity = 400},
                                      Name = new Noun {Main = "Baddie", Narrator = "the Baddie"},
                                      Inventory = fInventory,
                                      InteractionRules = fInteractionRules,

@@ -61,7 +61,7 @@ namespace GetTheMilk.Objects
         {
             if (Contains(o))
             {
-                Remove(o);
+                base.Remove(o);
             }
         }
     }
