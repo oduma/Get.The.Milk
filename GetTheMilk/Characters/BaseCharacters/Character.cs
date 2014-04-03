@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Castle.Core.Internal;
 using GetTheMilk.Accounts;
 using GetTheMilk.Actions;
@@ -8,11 +7,9 @@ using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Fight;
 using GetTheMilk.Actions.Interactions;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.Factories;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Settings;
-using GetTheMilk.UI;
 using GetTheMilk.Utils;
 using Newtonsoft.Json;
 
@@ -27,8 +24,6 @@ namespace GetTheMilk.Characters.BaseCharacters
         public Character()
         {
             Health = GameSettings.GetInstance().FullDefaultHealth;
-            Interactivity = (new ObjectsFactory(new InteractivityProvidersInstaller())).CreateObject<IInteractivity>(
-                "No");
             InteractionRules=new SortedList<string, ActionReaction[]>();
         }
 
@@ -69,9 +64,6 @@ namespace GetTheMilk.Characters.BaseCharacters
             return character;
         }
         public CharacterCollection StorageContainer { get; set; }
-
-        [JsonIgnore]
-        public IInteractivity Interactivity { get; protected set; }
 
         public int Health { get; set; }
 
@@ -125,103 +117,9 @@ namespace GetTheMilk.Characters.BaseCharacters
         }
         public int Range { get; set; }
 
-        public virtual void PrepareForBattle()
-        {
-            Weapon activeAttackWeapon= new Weapon();
-            Weapon activeDefenseWeapon=new Weapon();
-            Interactivity.SelectWeapons(
-                Inventory.Where(w => (w.ObjectCategory == ObjectCategory.Weapon)).Select(w => (Weapon) w),
-                ref activeAttackWeapon, ref activeDefenseWeapon);
-            ActiveAttackWeapon = activeAttackWeapon;
-            ActiveDefenseWeapon = activeDefenseWeapon;
-        }
-
         public Weapon ActiveDefenseWeapon { get; set; }
 
         public Weapon ActiveAttackWeapon { get; set; }
-
-        public GameAction ChooseFromAnotherInventory(ExposeInventoryExtraData extraData)
-        {
-            return Interactivity.SelectAnActionAndAnObject(extraData);
-        }
-
-        public ActionResult StartInteraction(GameAction startingAction)
-        {
-            var interactionSetup = new InteractionSetup { Active = this, Passive = startingAction.TargetCharacter };
-            if (startingAction is Attack)
-            {
-                PrepareForBattle();
-                startingAction.TargetCharacter.PrepareForBattle();
-            }
-            return interactionSetup.Start(startingAction);
-
-        }
-
-        public GameAction TryContinueInteraction(GameAction incomingAction, ICharacter targetCharacter)
-        {
-            Func<ActionReaction, bool> selector = null;
-            if (incomingAction is Communicate)
-            {
-                selector = delegate(ActionReaction r)
-                               {
-                                   if (!(r.Action is Communicate))
-                                       return false;
-                                   return (((Communicate)r.Action).Message ==
-                                           ((Communicate)incomingAction).Message)
-                                          && targetCharacter.AllowsIndirectAction(r.Reaction, this)
-                                          && AllowsAction(r.Reaction);
-                               };
-            }
-            else if (incomingAction is Attack)
-            {
-                selector = delegate(ActionReaction r)
-                               {
-                                   if (!(r.Action is Attack))
-                                       return false;
-                                   return targetCharacter.AllowsIndirectAction(r.Reaction, this) &&
-                                          AllowsAction(r.Reaction);
-                               };
-            }
-            else if (incomingAction is Quit)
-            {
-                selector = delegate(ActionReaction r)
-                {
-                    if (!(r.Action is Quit))
-                        return false;
-                    return targetCharacter.AllowsIndirectAction(r.Reaction, this) &&
-                           AllowsAction(r.Reaction);
-                };
-            }
-            else if (incomingAction is TwoCharactersAction)
-            {
-                selector =
-                    delegate(ActionReaction r)
-                    {
-                        if (!(r.Action is TwoCharactersAction))
-                            return false;
-                        return (r.Action.Name.Infinitive == incomingAction.Name.Infinitive) &&
-                               targetCharacter.AllowsIndirectAction(r.Reaction, this)
-                               && AllowsAction(r.Reaction);
-                    };
-            }
-            return (selector == null) ? null : SelectAppropriateAction(targetCharacter, selector);
-        }
-
-        private GameAction SelectAppropriateAction(ICharacter targetCharacter, Func<ActionReaction, bool> selector)
-        {
-            var options =
-                InteractionRules.GetAllAplicableInteractionRules(targetCharacter.Name.Main).Where(selector).
-                    Select(a => a.Reaction);
-            if (!options.Any())
-                return null;
-            return ChooseAction(options.ToArray(), targetCharacter);
-
-        }
-
-        public GameAction ChooseAction(GameAction[] actions, ICharacter targetCharacter)
-        {
-            return Interactivity.SelectAnAction(actions, targetCharacter);
-        }
 
         public Hit PrepareDefenseHit()
         {
@@ -247,33 +145,6 @@ namespace GetTheMilk.Characters.BaseCharacters
                 Power = CalculationStrategies.CalculateAttackPower(
                     ActiveAttackWeapon.AttackPower, Experience)
             };
-        }
-
-        public ActionResult PileageCharacter(ICharacter targetCharacter, ActionResultType actionResultType)
-        {
-            double experienceTaken = 0;
-            if (actionResultType == ActionResultType.Win)
-            {
-                experienceTaken = 0.5;
-            }
-            else if (actionResultType == ActionResultType.QuitAccepted)
-            {
-                experienceTaken = 0.25;
-            }
-            var exposeLooserInventory = new ExposeInventory
-                                                {
-                                                    AllowedNextActionTypes =
-                                                        new InventorySubActionType[] { new InventorySubActionType{ActionType = ActionType.TakeFrom},  new InventorySubActionType{ActionType=ActionType.TakeMoneyFrom}, new InventorySubActionType{ActionType=ActionType.Kill,FinishInventoryExposure=true} },
-                                                    IncludeWallet = true,
-                                                    ActiveCharacter=this,
-                                                    TargetCharacter=targetCharacter
-                                                };
-
-            return new ActionResult
-                       {
-                           ExtraData = exposeLooserInventory.Perform().ExtraData,
-                           ResultType = actionResultType
-                       };
         }
 
         public CharacterSavedPackages Save()

@@ -15,7 +15,7 @@ namespace GetTheMilk.Characters
 {
     public class Player : Character, IPlayer
     {
-        public Player(IInteractivity interactivity)
+        public Player()
         {
             var gameSettings = GameSettings.GetInstance();
             Inventory = new Inventory
@@ -30,7 +30,6 @@ namespace GetTheMilk.Characters
                 MaxCapacity = GameSettings.GetInstance().DefaultWalletMaxCapacity,
                 CurrentCapacity = gameSettings.MinimumStartingMoney
             };
-            Interactivity = interactivity;
             ObjectTypeId = "Player";
 
             SetPlayerName(gameSettings.DefaultPlayerName);
@@ -39,10 +38,6 @@ namespace GetTheMilk.Characters
 
         }
 
-        public Player():this((new ObjectsFactory(new InteractivityProvidersInstaller())).CreateObject<IInteractivity>(
-                                GameSettings.GetInstance().InteractiveMode))
-        {
-        }
 
         public void LoadInteractionsWithPlayer(ICharacter targetCharacter)
         {

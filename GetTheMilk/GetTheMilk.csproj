@@ -86,7 +86,6 @@
     <Compile Include="Actions\GiveTo.cs" />
     <Compile Include="Actions\InitiateHostilities.cs" />
     <Compile Include="Actions\Interactions\ActionReaction.cs" />
-    <Compile Include="Actions\Interactions\InteractionSetup.cs" />
     <Compile Include="Actions\InventorySubAction.cs" />
     <Compile Include="Actions\InventorySubActionType.cs" />
     <Compile Include="Actions\Keep.cs" />
@@ -121,7 +120,6 @@
     <Compile Include="Characters\PlayerActions.cs" />
     <Compile Include="Factories\ActionsFactory.cs" />
     <Compile Include="Factories\ActionsInstaller.cs" />
-    <Compile Include="Factories\InteractivityProvidersInstaller.cs" />
     <Compile Include="Factories\ObjectActionsFactory.cs" />
     <Compile Include="Factories\ObjectsActionAllowedInstaller.cs" />
     <Compile Include="Factories\ObjectsFactory.cs" />
@@ -154,10 +152,6 @@
     <Compile Include="Settings\GameSettings.cs" />
     <Compile Include="Settings\Paths.cs" />
     <Compile Include="Settings\TemplatesPackage.cs" />
-    <Compile Include="UI\GraphicBasedInteractivityProvider.cs" />
-    <Compile Include="UI\Interactivity.cs" />
-    <Compile Include="UI\NoInteractivityProvider.cs" />
-    <Compile Include="UI\TextBasedInteractivityProvider.cs" />
     <Compile Include="UI\Translators\ActionResultToHuL.cs" />
     <Compile Include="UI\Translators\Common\Message.cs" />
     <Compile Include="UI\Translators\Common\MessagesFor.cs" />

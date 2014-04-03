@@ -65,10 +65,8 @@
     <Compile Include="ActionsTests\OneCharacterOneObjectActionTests.cs" />
     <Compile Include="ActionsTests\OneCharacterTwoObjectsActionTests.cs" />
     <Compile Include="ActionsTests\StubbedContainerOwner.cs" />
-    <Compile Include="ActionsTests\StubedTextBasedInteractivity.cs" />
     <Compile Include="ActionsTests\TwoCharactersOneObjectTests.cs" />
     <Compile Include="IntegrationTests\AutoPlayTestLevel1.cs" />
-    <Compile Include="IntegrationTests\StubTheInteractivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveLoadTests\GameSaveLoadTests.cs" />
     <Compile Include="SaveLoadTests\SaveLoadLevelTests.cs" />

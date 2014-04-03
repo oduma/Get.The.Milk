@@ -340,7 +340,6 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.AreEqual(skCharacter.CellNumber, actual.CellNumber);
             Assert.AreEqual(skCharacter.Experience, actual.Experience);
             Assert.AreEqual(skCharacter.Health, actual.Health);
-            Assert.IsNotNull(actual.Interactivity);
             Assert.AreEqual(skCharacter.Inventory.Owner.Name.Main, actual.Inventory.Owner.Name.Main);
             Assert.AreEqual(skCharacter.Inventory.Count, actual.Inventory.Count);
             Assert.AreEqual(skCharacter.Name.Main, actual.Name.Main);
