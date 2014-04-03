@@ -18,6 +18,8 @@ namespace GetTheMilk.Actions
             Name = new Verb {Infinitive = "To Teleport", Past = "teleported", Present = "teleport"};
             DefaultDistance = 0;
             ActionType = ActionType.Teleport;
+            StartingAction = true;
+
         }
 
 

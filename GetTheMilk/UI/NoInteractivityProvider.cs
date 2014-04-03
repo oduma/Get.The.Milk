@@ -50,7 +50,7 @@ namespace GetTheMilk.UI
             weapons.ForEach(w=>w.IsCurrentDefense=false);
             activeDefenseWeapon = weapons.FirstOrDefault(w => w.WeaponTypes.Contains(WeaponType.Deffense));
             if (activeDefenseWeapon != null)
-                activeDefenseWeapon.IsCurrentAttack = true;
+                activeDefenseWeapon.IsCurrentDefense = true;
         }
 
         public GameAction[] BuildActions(ExposeInventoryExtraData exposeInvetoryActionExtraData)

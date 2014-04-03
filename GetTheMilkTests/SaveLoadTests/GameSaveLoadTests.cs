@@ -41,6 +41,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.IsNotNull(game);
             Assert.IsNotNull(game.Player);
             Assert.IsNotNull(game.CurrentLevel);
+            game.Player.CellNumber = 0;
             game.Player.EnterLevel(game.CurrentLevel);
             game.Player.SetPlayerName("my own name");
             Walk walk = new Walk();

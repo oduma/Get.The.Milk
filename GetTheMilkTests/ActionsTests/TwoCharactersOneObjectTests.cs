@@ -1,12 +1,9 @@
 ﻿using System.Linq;
-using GetTheMilk;
 using GetTheMilk.Accounts;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects;
-using GetTheMilk.Objects.BaseObjects;
 using NUnit.Framework;
 
 namespace GetTheMilkTests.ActionsTests
@@ -15,11 +12,11 @@ namespace GetTheMilkTests.ActionsTests
     public class TwoCharactersOneObjectTests
     {
         [Test,TestCaseSource(typeof(DataGeneratorForActions),"TestCases2C1O")]
-        public Inventory TwoCharactersOneObjectAction(ObjectTransferAction action)
+        public Inventory TwoCharactersOneObjectAction(ObjectTransferToAction action)
         {
             var result = action.Perform();
             if (result.ResultType==ActionResultType.NotOk)
-                return action.ActiveObject.StorageContainer;
+                return action.TargetObject.StorageContainer;
 
             if(action.TargetCharacter.Name.Main=="Player")
             {
@@ -27,7 +24,7 @@ namespace GetTheMilkTests.ActionsTests
                 Assert.True(action.ActiveCharacter.Inventory.All(o => o.Name.Main != action.TargetObject.Name.Main));
                 return action.TargetObject.StorageContainer;
             }
-            return null;
+            return new Inventory();
         }
 
         [Test,TestCaseSource(typeof(DataGeneratorForActions),"TestCases2CC")]
@@ -38,25 +35,43 @@ namespace GetTheMilkTests.ActionsTests
                 return active.Walet.CurrentCapacity;
             active.Walet.PerformTransaction(new TransactionDetails
                                                 {TransactionType = transactionType, Price = amount, Towards = passive});
-            Assert.AreEqual(110,passive.Walet.CurrentCapacity);
+            Assert.AreEqual(50,passive.Walet.CurrentCapacity);
 
             return active.Walet.CurrentCapacity;
         }
 
         [Test, TestCaseSource(typeof(DataGeneratorForActions), "TestCases2C1OC")]
-        public int TwoCharactersCurrencyAction(ObjectTransferAction action)
+        public int TwoCharactersCurrencyAction(ObjectTransferFromAction action)
         {
             var result = action.Perform();
             if (result.ResultType==ActionResultType.NotOk)
             {
-                if(action.Name.Infinitive=="To Buy")
-                    Assert.AreEqual(action.TargetCharacter.Name.Main,action.TargetObject.StorageContainer.Owner.Name.Main);
-                if(action.Name.Infinitive=="To Sell")
-                    Assert.AreEqual(action.ActiveCharacter.Name.Main, action.TargetObject.StorageContainer.Owner.Name.Main);
-
+                Assert.AreEqual(action.TargetCharacter.Name.Main,action.TargetObject.StorageContainer.Owner.Name.Main);
                 return action.ActiveCharacter.Walet.CurrentCapacity;
             }
             if(action.ActiveCharacter.Inventory.MaximumCapacity==0)
+                Assert.AreEqual(action.TargetCharacter.Name.Main, action.TargetObject.StorageContainer.Owner.Name.Main);
+            else if (action.TargetCharacter.Name.Main == "John the Shop Keeper")
+            {
+                Assert.AreEqual(action.ActiveCharacter.Name.Main, action.TargetObject.StorageContainer.Owner.Name.Main);
+            }
+            else
+            {
+                Assert.AreEqual(action.TargetCharacter.Name.Main, action.TargetObject.StorageContainer.Owner.Name.Main);
+            }
+            return action.ActiveCharacter.Walet.CurrentCapacity;
+        }
+
+        [Test, TestCaseSource(typeof(DataGeneratorForActions), "TestCases2C1OC1")]
+        public int TwoCharactersCurrencyActionSell(ObjectTransferToAction action)
+        {
+            var result = action.Perform();
+            if (result.ResultType == ActionResultType.NotOk)
+            {
+                Assert.AreEqual(action.ActiveCharacter.Name.Main, action.TargetObject.StorageContainer.Owner.Name.Main);
+                return action.ActiveCharacter.Walet.CurrentCapacity;
+            }
+            if (action.ActiveCharacter.Inventory.MaximumCapacity == 0)
                 Assert.AreEqual(action.TargetCharacter.Name.Main, action.TargetObject.StorageContainer.Owner.Name.Main);
             else if (action.TargetCharacter.Name.Main == "John the Shop Keeper")
             {

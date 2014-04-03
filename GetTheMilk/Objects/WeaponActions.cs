@@ -18,7 +18,8 @@ namespace GetTheMilk.Objects
 
         public bool AllowsIndirectAction(GameAction a, IPositionable o)
         {
-            return ((a is Buy) || (a is Sell) || (a is GiveTo) || (a is TakeFrom)) && (o is ICharacter);
+            return ((a is Buy) || (a is Sell) || (a is GiveTo) || (a is TakeFrom) || (a is SelectAttackWeapon) ||
+                    (a is SelectDefenseWeapon)) && (o is ICharacter);
         }
 
         public WeaponActions()

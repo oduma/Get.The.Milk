@@ -32,7 +32,7 @@ namespace GetTheMilkTests.ActionsTests
                 var targetObject = _level.CurrentMap.Cells[1].AllObjects.FirstOrDefault(o => o.Name.Main == "Wall");
                 //Kick a wall (nothing happens)
                 yield return
-                    new TestCaseData(new Kick { ActiveCharacter = active, TargetObject =  targetObject})
+                    new TestCaseData(new Kick { ActiveCharacter = active, TargetObject = targetObject })
                         .Returns(_level.Inventory);
 
                 //Pick a key, key in hand
@@ -52,8 +52,13 @@ namespace GetTheMilkTests.ActionsTests
 
                 active.Inventory = new Inventory { InventoryType = InventoryType.CharacterInventory, MaximumCapacity = 0 };
                 yield return
-                    new TestCaseData(new Keep{ ActiveCharacter = active, TargetCharacter = active, TargetObject=
-                                     _level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key")}).Returns(_level.Inventory);
+                    new TestCaseData(new Keep
+                    {
+                        ActiveCharacter = active,
+                        TargetCharacter = active,
+                        TargetObject =
+                            _level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key")
+                    }).Returns(_level.Inventory);
             }
         }
 
@@ -76,7 +81,7 @@ namespace GetTheMilkTests.ActionsTests
                 var action = new GiveTo();
                 action.ActiveCharacter = active;
                 action.TargetCharacter = passive;
-                action.ActiveObject = _level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key");
+                action.TargetObject = _level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key");
                 active.Inventory.Add(_level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key"));
                 yield return
                     new TestCaseData(action).Returns(
@@ -96,7 +101,7 @@ namespace GetTheMilkTests.ActionsTests
                 action = new GiveTo();
                 action.ActiveCharacter = active;
                 action.TargetCharacter = passive;
-                action.ActiveObject = _level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key");
+                action.TargetObject = _level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key");
                 yield return
                     new TestCaseData(action).Returns(
                         _level.Inventory);
@@ -112,7 +117,7 @@ namespace GetTheMilkTests.ActionsTests
 
                 passive = _level.CurrentMap.Cells[2].AllCharacters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
                 action = new GiveTo();
-                action.ActiveObject = _level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key");
+                action.TargetObject = _level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key");
                 active.Inventory.Add(_level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key"));
                 action.ActiveCharacter = active;
                 action.TargetCharacter = passive;
@@ -129,7 +134,7 @@ namespace GetTheMilkTests.ActionsTests
             {
                 Level _level = Level.Create(1);
 
-                //not enough money
+                //enough money
                 var active = new Player();
 
                 var factory = ObjectActionsFactory.GetFactory();
@@ -140,11 +145,21 @@ namespace GetTheMilkTests.ActionsTests
 
                 var passive = _level.CurrentMap.Cells[2].AllCharacters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
 
-                yield return new TestCaseData(active, passive, 100, TransactionType.Debit).Returns(
+                yield return new TestCaseData(active, passive, 100, TransactionType.Payed).Returns(
                     active.Walet.CurrentCapacity);
 
-                yield return new TestCaseData(active, passive, 10, TransactionType.Debit).Returns(
-                    10);
+                _level = Level.Create(1);
+
+                //not enough money
+                active = new Player();
+
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
+                passive = _level.CurrentMap.Cells[2].AllCharacters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
+
+                yield return new TestCaseData(passive, active, 300, TransactionType.Payed).Returns(
+                    100);
 
             }
         }
@@ -172,13 +187,6 @@ namespace GetTheMilkTests.ActionsTests
                 yield return
                     new TestCaseData(buyAction).Returns(
                         1);
-
-                //Try to sell a key to a character not enough money (nothing happens)
-
-                var sellAction = new Sell{ActiveCharacter=passive,TargetCharacter=active,TargetObject= passive.Inventory[0]};
-                yield return
-                    new TestCaseData(sellAction).Returns(
-                        100);
 
                 //Try to buy a key no room in your inventory
 
@@ -214,6 +222,35 @@ namespace GetTheMilkTests.ActionsTests
 
             }
         }
+
+        public static IEnumerable TestCases2C1OC1
+        {
+            get
+            {
+                Level _level = Level.Create(1);
+
+                //Try to buy a key from a character not enough money (nothing happens)
+                var active = new Player();
+
+                var factory = ObjectActionsFactory.GetFactory();
+
+                var objAction = factory.CreateObjectAction("Player");
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
+                active.Walet.CurrentCapacity = 1;
+                var passive = _level.CurrentMap.Cells[2].AllCharacters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
+
+                //Try to sell a key to a character not enough money (nothing happens)
+
+                var sellAction = new Sell { ActiveCharacter = passive, TargetCharacter = active, TargetObject = passive.Inventory[0] };
+                yield return
+                    new TestCaseData(sellAction).Returns(
+                        100);
+
+            }
+        }
+
 
         public static IEnumerable TestCases1C2O
         {
@@ -321,7 +358,8 @@ namespace GetTheMilkTests.ActionsTests
                         Returns(ActionResultType.Blocked);
 
                 //walk Ok
-
+                _level = Level.Create(1);
+                active.CellNumber = 0;
                 var walkSouth = new Walk();
                 walkSouth.Direction = Direction.South;
                 walkSouth.ActiveCharacter = active;

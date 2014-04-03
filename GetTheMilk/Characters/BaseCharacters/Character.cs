@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Castle.Core.Internal;
 using GetTheMilk.Accounts;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
@@ -34,12 +35,37 @@ namespace GetTheMilk.Characters.BaseCharacters
         public static T Load<T>(CharacterSavedPackages  characterPackages) where T:Character
         {
             var character= JsonConvert.DeserializeObject<T>(characterPackages.CharacterCore, new CharacterJsonConverter());
-            character.Inventory = JsonConvert.DeserializeObject<Inventory>(characterPackages.CharacterInventory,
-                                                                           new NonChracterObjectConverter());
+            character.Inventory = Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(characterPackages.CharacterInventory,
+                                                                           new NonChracterObjectConverter()));
             character.Inventory.LinkObjectsToInventory();
             character.InteractionRules =
                 JsonConvert.DeserializeObject<SortedList<string, ActionReaction[]>>(
                     characterPackages.CharacterInteractionRules, new ActionJsonConverter());
+            if (character.InteractionRules.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
+            {
+                character.InteractionRules[GenericInteractionRulesKeys.CharacterSpecific].ForEach(ar =>
+                {
+                    ar.Reaction
+                        .ActiveCharacter =
+                        character;
+                    ar.Action
+                        .TargetCharacter =
+                        character;
+                });
+            }
+            if (character.InteractionRules.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
+            {
+                character.InteractionRules[GenericInteractionRulesKeys.PlayerResponses].ForEach(ar =>
+                {
+                    ar.Action
+                        .ActiveCharacter =
+                        character;
+                    ar.Reaction
+                        .TargetCharacter =
+                        character;
+                });
+                
+            }
             return character;
         }
         public CharacterCollection StorageContainer { get; set; }
@@ -119,13 +145,13 @@ namespace GetTheMilk.Characters.BaseCharacters
             return Interactivity.SelectAnActionAndAnObject(extraData);
         }
 
-        public ActionResult StartInteraction(GameAction startingAction, ICharacter targetCharacter)
+        public ActionResult StartInteraction(GameAction startingAction)
         {
-            var interactionSetup = new InteractionSetup { Active = this, Passive = targetCharacter };
+            var interactionSetup = new InteractionSetup { Active = this, Passive = startingAction.TargetCharacter };
             if (startingAction is Attack)
             {
                 PrepareForBattle();
-                targetCharacter.PrepareForBattle();
+                startingAction.TargetCharacter.PrepareForBattle();
             }
             return interactionSetup.Start(startingAction);
 
@@ -134,14 +160,14 @@ namespace GetTheMilk.Characters.BaseCharacters
         public GameAction TryContinueInteraction(GameAction incomingAction, ICharacter targetCharacter)
         {
             Func<ActionReaction, bool> selector = null;
-            if (incomingAction is CommunicateAction)
+            if (incomingAction is Communicate)
             {
                 selector = delegate(ActionReaction r)
                                {
-                                   if (!(r.Action is CommunicateAction))
+                                   if (!(r.Action is Communicate))
                                        return false;
-                                   return (((CommunicateAction)r.Action).Message ==
-                                           ((CommunicateAction)incomingAction).Message)
+                                   return (((Communicate)r.Action).Message ==
+                                           ((Communicate)incomingAction).Message)
                                           && targetCharacter.AllowsIndirectAction(r.Reaction, this)
                                           && AllowsAction(r.Reaction);
                                };
@@ -236,8 +262,8 @@ namespace GetTheMilk.Characters.BaseCharacters
             }
             var exposeLooserInventory = new ExposeInventory
                                                 {
-                                                    AllowedNextActions =
-                                                        new GameAction[] { new TakeFrom(), new TakeMoneyFrom(), new Kill { ExperienceTaken = experienceTaken } },
+                                                    AllowedNextActionTypes =
+                                                        new InventorySubActionType[] { new InventorySubActionType{ActionType = ActionType.TakeFrom},  new InventorySubActionType{ActionType=ActionType.TakeMoneyFrom}, new InventorySubActionType{ActionType=ActionType.Kill,FinishInventoryExposure=true} },
                                                     IncludeWallet = true,
                                                     ActiveCharacter=this,
                                                     TargetCharacter=targetCharacter
@@ -256,7 +282,7 @@ namespace GetTheMilk.Characters.BaseCharacters
                        {
                            CharacterCore = JsonConvert.SerializeObject(this),
                            CharacterInteractionRules = JsonConvert.SerializeObject(InteractionRules),
-                           CharacterInventory = JsonConvert.SerializeObject(Inventory)
+                           CharacterInventory = JsonConvert.SerializeObject(Inventory.Save())
                        };
         }
 
@@ -269,32 +295,6 @@ namespace GetTheMilk.Characters.BaseCharacters
         [JsonIgnore]
         public Func<GameAction, IPositionable, bool> AllowsIndirectAction { get; set; }
 
-        public IEnumerable<GameAction> DetermineAllPossibleActionsForTargetObject(NonCharacterObject targetObject)
-        {
-            foreach (var templateAction in ActionsFactory.GetFactory().GetActions())
-            {
-                if (templateAction is ObjectUseOnObjectAction)
-                    foreach (var activeObject in Inventory)
-                    {
-                        var action = ActionsFactory.GetFactory().CreateNewActionInstance(templateAction.ActionType);
-
-                        action.ActiveCharacter = this;
-                        action.TargetObject = targetObject;
-                        action.ActiveObject = activeObject;
-                        if (action.CanPerform())
-                            yield return action;
-                    }
-                else if (templateAction is GameAction)
-                {
-                    var action = ActionsFactory.GetFactory().CreateNewActionInstance(templateAction.ActionType);
-
-                    action.ActiveCharacter = this;
-                    action.TargetObject = targetObject;
-                    if (action.CanPerform())
-                        yield return action;
-                }
-            }
-        }
 
     }
 }

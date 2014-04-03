@@ -1,4 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using GetTheMilk.Actions.Interactions;
+using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Utils;
 
 namespace GetTheMilk.Actions.BaseActions
 {
@@ -6,7 +12,9 @@ namespace GetTheMilk.Actions.BaseActions
     {
         public override bool CanPerform()
         {
-            return ActiveCharacter.AllowsAction(this) && TargetCharacter.AllowsIndirectAction(this, ActiveCharacter);
+            return ActiveCharacter.AllowsAction(this) 
+                && ((TargetCharacter!=null) 
+                && TargetCharacter.AllowsIndirectAction(this, ActiveCharacter));
         }
 
         protected void EstablishInteractionRules()
@@ -17,6 +25,42 @@ namespace GetTheMilk.Actions.BaseActions
                 ((IPlayer)TargetCharacter).LoadInteractionsWithPlayer(ActiveCharacter);
 
         }
+
+        protected ActionResult PerformResponseAction(ActionType actionType)
+        {
+            var availableActions = GetAvailableActions();
+            int actionToRespond = CalculationStrategies.SelectAWeightedRandomAction(0, availableActions.Count - 1, actionType);
+            availableActions[actionToRespond].TargetCharacter = ActiveCharacter;
+            availableActions[actionToRespond].ActiveCharacter = TargetCharacter;
+            return availableActions[actionToRespond].Perform();
+        }
+        protected List<GameAction> GetAvailableActions()
+        {
+            if (TargetCharacter is IPlayer)
+            {
+                var availableActions =
+                    TargetCharacter.InteractionRules[ActiveCharacter.Name.Main].Union(
+                        TargetCharacter.InteractionRules[GenericInteractionRulesKeys.All])
+                        .Where(a => IsTheSameAction(a.Action))
+                        .Select(a => a.Reaction).ToList();
+                availableActions.ForEach(a=> { a.ActiveCharacter = TargetCharacter;
+                                                 a.TargetCharacter = ActiveCharacter;
+                });
+                return availableActions;
+            }
+
+            return TargetCharacter.InteractionRules[GenericInteractionRulesKeys.CharacterSpecific].Union(TargetCharacter.InteractionRules[GenericInteractionRulesKeys.All]).Where(
+                a => IsTheSameAction(a.Action)).Select(a => a.Reaction).ToList();
+        }
+
+        private bool IsTheSameAction(GameAction action)
+        {
+            if (action.ActionType == ActionType.Communicate && ActionType == ActionType.Communicate)
+                return ((Communicate) action).Message == ((Communicate) this).Message;
+            return action.ActionType == ActionType;
+
+        }
+
 
         public override GameAction CreateNewInstance()
         {

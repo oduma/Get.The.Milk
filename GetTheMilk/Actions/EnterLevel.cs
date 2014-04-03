@@ -11,6 +11,8 @@ namespace GetTheMilk.Actions
             Name = new Verb {Infinitive = "To Enter", Past = "entered", Present = "enter"};
             DefaultDistance = 0;
             ActionType = ActionType.EnterLevel;
+            StartingAction = true;
+
         }
         public override ActionResult Perform()
         {

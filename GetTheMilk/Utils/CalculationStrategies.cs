@@ -1,8 +1,13 @@
 using System;
+using System.Linq;
+using Castle.Core.Internal;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Fight;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Objects;
+using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Settings;
 
 namespace GetTheMilk.Utils
@@ -76,6 +81,25 @@ namespace GetTheMilk.Utils
         }
 
 
+        public static Weapon SelectAnAttackWeapon(ICharacter character)
+        {
+            return
+                character.Inventory.Where(w => (w.ObjectCategory == ObjectCategory.Weapon))
+                    .Select(w => (Weapon) w).FirstOrDefault(w => w.WeaponTypes.Contains(WeaponType.Attack));
+        }
 
+        public static Weapon SelectADefenseWeapon(ICharacter character)
+        {
+            return
+                character.Inventory.Where(w => (w.ObjectCategory == ObjectCategory.Weapon))
+                    .Select(w => (Weapon)w).FirstOrDefault(w => w.WeaponTypes.Contains(WeaponType.Deffense));
+        }
+
+        public static int SelectAWeightedRandomAction(int start, int stop, ActionType actionType)
+        {
+            if (actionType == ActionType.Quit)
+                return stop;
+            return Randomizer.GetRandom(start, stop);
+        }
     }
 }

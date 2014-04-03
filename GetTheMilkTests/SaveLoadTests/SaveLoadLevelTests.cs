@@ -33,7 +33,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                     DefensePower = 1,
                                     BlockMovement = false,
                                     WeaponTypes = new WeaponType[] {WeaponType.Attack, WeaponType.Deffense},
-                                    BuyPrice = 100,
+                                    BuyPrice = 5,
                                     SellPrice = 2,
                                     Name = new Noun {Main = "Knife", Narrator = "the knife"},
                                     ApproachingMessage = "In the distance a knife smiles as you.",
@@ -58,7 +58,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                {
                                                    Action = new Meet(),
                                                    Reaction =
-                                                       new CommunicateAction
+                                                       new Communicate
                                                            {
                                                                Message =
                                                                    "How are you? Beautifull day out there better buy something!"
@@ -66,16 +66,16 @@ namespace GetTheMilkTests.SaveLoadTests
                                                },
                                            new ActionReaction
                                                {
-                                                   Action = new CommunicateAction {Message = "Yes"},
+                                                   Action = new Communicate {Message = "Yes"},
                                                    Reaction =
                                                        new ExposeInventory
-                                                           {AllowedNextActions = new GameAction[] {new Buy()}}
+                                                           {AllowedNextActionTypes = new InventorySubActionType[] {new InventorySubActionType{ActionType=ActionType.Buy, FinishInventoryExposure=true}}}
                                                },
                                            new ActionReaction
                                                {
-                                                   Action = new CommunicateAction {Message = "No"},
+                                                   Action = new Communicate {Message = "No"},
                                                    Reaction =
-                                                       new CommunicateAction
+                                                       new Communicate
                                                            {Message = "Why oh Why!?"}
                                                }
                                        });
@@ -85,24 +85,24 @@ namespace GetTheMilkTests.SaveLoadTests
                                            new ActionReaction
                                                {
                                                    Action =
-                                                       new CommunicateAction
+                                                       new Communicate
                                                            {
                                                                Message =
                                                                    "How are you? Beautifull day out there better buy something!"
                                                            },
                                                    Reaction =
-                                                       new CommunicateAction {Message = "Yes"}
+                                                       new Communicate {Message = "Yes"}
                                                },
                                            new ActionReaction
                                                {
                                                    Action =
-                                                       new CommunicateAction
+                                                       new Communicate
                                                            {
                                                                Message =
                                                                    "How are you? Beautifull day out there better buy something!"
                                                            },
                                                    Reaction =
-                                                       new CommunicateAction {Message = "No"}
+                                                       new Communicate {Message = "No"}
                                                }
 
                                        });
@@ -148,18 +148,35 @@ namespace GetTheMilkTests.SaveLoadTests
                                                                                          new ActionReaction
                                                                                              {
                                                                                                  Action = new Quit(),
-                                                                                                 Reaction = new Quit()
-                                                                                             }
+                                                                                                 Reaction = new AcceptQuit()
+                                                                                             },
+                                                                                         new ActionReaction
+                                                                                         {
+                                                                                             Action= new InitiateHostilities(),
+                                                                                             Reaction=new InitiateHostilities()
+                                                                                         }
                                                                                      });
             fInteractionRules.Add(GenericInteractionRulesKeys.PlayerResponses,
-                                  new ActionReaction[]
-                                      {
-                                          new ActionReaction
-                                              {
-                                                  Action = new Quit(),
-                                                  Reaction = new Attack()
-                                              }
-                                      });
+                new ActionReaction[]
+                {
+                    new ActionReaction
+                    {
+                        Action = new Quit(),
+                        Reaction = new Attack()
+                    },
+                    new ActionReaction
+                    {
+                        Action = new Quit(),
+                        Reaction = new AcceptQuit()
+                    },
+                    new ActionReaction
+                    {
+                        Action = new InitiateHostilities(),
+                        Reaction = new ExposeInventory
+                            {AllowedNextActionTypes = new InventorySubActionType[] {new InventorySubActionType{ActionType = ActionType.SelectAttackWeapon},new InventorySubActionType{ActionType = ActionType.SelectDefenseWeapon},new InventorySubActionType{ActionType = ActionType.Attack, FinishInventoryExposure=true}},SelfInventory=true}
+
+                    }
+                });
 
             var fCharacter = new Character
                                  {
@@ -205,7 +222,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                    },
                                new NonCharacterObject
                                    {
-                                       CellNumber = 6,
+                                       CellNumber = 7,
                                        ApproachingMessage = "You see a wall",
                                        CloseUpMessage = "The wall is solid stone, unpassable for sure.",
                                        Name = new Noun {Main = "Wall", Narrator = "wall"},
@@ -339,12 +356,14 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.AreEqual(level.Story, actual.Story);
             Assert.AreEqual(level.CurrentMap.Cells.Length, actual.CurrentMap.Cells.Length);
             Assert.IsNotNull(actual.Inventory);
-            Assert.AreEqual(level.Name.Main,actual.Inventory.Owner.Name.Main);
+            Assert.AreEqual(level.Inventory.InventoryType,actual.Inventory.InventoryType);
+            Assert.AreEqual(level.Name.Main, actual.Inventory.Owner.Name.Main);
             Assert.AreEqual(level.Inventory.Count,actual.Inventory.Count);
             Assert.False(actual.Inventory.Any(o=>o.StorageContainer.Owner.Name.Main!=actual.Name.Main));
             Assert.AreEqual(1,actual.CurrentMap.Cells[3].AllObjects.Count());
             Assert.IsNotNull(actual.Characters);
             Assert.AreEqual(level.Characters.Count, actual.Characters.Count);
+            Assert.AreEqual(InventoryType.CharacterInventory,actual.Characters[0].Inventory.InventoryType);
         }
 
         [Test]

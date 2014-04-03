@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects.BaseObjects;
@@ -16,5 +17,6 @@ namespace GetTheMilk.Actions
         public IEnumerable<NonCharacterObject> ObjectsInRange { get; set; }
 
         public IEnumerable<NonCharacterObject> ObjectsInCell { get; set; }
+        public List<GameAction> AvailableActions { get; set; }
     }
 }

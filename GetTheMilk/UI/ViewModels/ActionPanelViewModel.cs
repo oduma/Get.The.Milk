@@ -118,19 +118,19 @@ namespace GetTheMilk.UI.ViewModels
 
         public RelayCommand<ActionWithTargetModel> PerformAction { get; private set; }
 
-        public void DisplayPossibleActions(IEnumerable<NonCharacterObject> targetObjects)
-        {
-            Actions.Clear();
-            foreach(var targetObject in targetObjects)
-            {
-                if(targetObject.StorageContainer.InventoryType==InventoryType.LevelInventory)
-                {
-                    foreach (var possibleAction in _player.DetermineAllPossibleActionsForTargetObject(targetObject))
-                    {
-                        Actions.Add(new ActionWithTargetModel { Action = possibleAction, TargetObject = targetObject });
-                    }
-                }
-            }
-        }
+        //public void DisplayPossibleActions(IEnumerable<NonCharacterObject> targetObjects)
+        //{
+        //    Actions.Clear();
+        //    foreach(var targetObject in targetObjects)
+        //    {
+        //        if(targetObject.StorageContainer.InventoryType==InventoryType.LevelInventory)
+        //        {
+        //            foreach (var possibleAction in _player.DetermineAllPossibleActionsForTargetObject(targetObject))
+        //            {
+        //                Actions.Add(new ActionWithTargetModel { Action = possibleAction, TargetObject = targetObject });
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

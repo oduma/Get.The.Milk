@@ -33,12 +33,10 @@ namespace GetTheMilk.Characters.BaseCharacters
         Weapon ActiveDefenseWeapon { get; set; }
         GameAction ChooseAction(GameAction[] actions, ICharacter targetCharacter);
         GameAction ChooseFromAnotherInventory(ExposeInventoryExtraData extraData);
-        ActionResult StartInteraction(GameAction startingAction, ICharacter targetCharacter);
+        ActionResult StartInteraction(GameAction startingAction);
         GameAction TryContinueInteraction(GameAction incomingAction, ICharacter targetCharacter);
         ActionResult PileageCharacter(ICharacter targetCharacter, ActionResultType actionResultType);
         CharacterSavedPackages Save();
-
-        IEnumerable<GameAction> DetermineAllPossibleActionsForTargetObject(NonCharacterObject targetObject);
 
     }
 }

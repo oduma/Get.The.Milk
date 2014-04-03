@@ -23,23 +23,14 @@ namespace GetTheMilk.Accounts
         [JsonIgnore]
         public ICharacter Owner { get; set; }
 
-
         public bool PerformTransaction(TransactionDetails transactionDetails)
         {
-            //give money
-            if(transactionDetails.TransactionType==TransactionType.Debit)
-            {
-                CurrentCapacity -=transactionDetails.Price;
-                transactionDetails.Towards.Walet.CurrentCapacity += transactionDetails.Price;
-                return true;
-            }
-            //receive money
-            return transactionDetails.Towards.Walet.PerformTransaction(new TransactionDetails
-                                                                           {
-                                                                               Towards = Owner,
-                                                                               TransactionType = TransactionType.Debit,
-                                                                               Price = transactionDetails.Price
-                                                                           });
+            if (transactionDetails.TransactionType == TransactionType.None)
+                return false;
+
+            CurrentCapacity -=transactionDetails.Price;
+            transactionDetails.Towards.Walet.CurrentCapacity += transactionDetails.Price;
+            return true;
         }
 
         public bool CanPerformTransaction(TransactionDetails transactionDetails)
@@ -48,20 +39,13 @@ namespace GetTheMilk.Accounts
             if (transactionDetails.TransactionType == TransactionType.None)
                 return true;
             //give money
-            if(transactionDetails.TransactionType==TransactionType.Debit)
+            if(transactionDetails.TransactionType==TransactionType.Payed)
             {
                 return (CurrentCapacity > transactionDetails.Price) &&
                        (transactionDetails.Towards.Walet.MaxCapacity >=
                         transactionDetails.Towards.Walet.CurrentCapacity + transactionDetails.Price);
             }
-            //receive money
-            return
-                transactionDetails.Towards.Walet.CanPerformTransaction(new TransactionDetails
-                                                                           {
-                                                                               TransactionType = TransactionType.Debit,
-                                                                               Price = transactionDetails.Price,
-                                                                               Towards=Owner
-                                                                           });
+            return false;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace GetTheMilk.Characters
 
         public bool AllowsIndirectAction(GameAction a, IPositionable o)
         {
-            return !(a is Attack);
+            return !(a is Attack || a is Quit || a is Kill || a is InitiateHostilities);
         }
         public NPCFriendlyActions()
         {

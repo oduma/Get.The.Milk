@@ -21,7 +21,7 @@ namespace GetTheMilkTests.ActionsTests
 
             if (action.TargetObject.StorageContainer.InventoryType == InventoryType.CharacterInventory)
             {
-                Assert.Contains(action.TargetObject, action.TargetCharacter.Inventory);
+                Assert.Contains(action.TargetObject, action.ActiveCharacter.Inventory);
             }
             return action.TargetObject.StorageContainer;
         }

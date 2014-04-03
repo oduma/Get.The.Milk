@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Factories;
 using GetTheMilk.Navigation;
+using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using Newtonsoft.Json;
 
@@ -92,8 +94,69 @@ namespace GetTheMilk.Actions.BaseActions
                 ActiveCharacter.CellNumber = targetCellId;
                 ActiveCharacter.Inventory.FollowTheLeader();
             }
+
+            ((MovementActionExtraData) movementResult.ExtraData).AvailableActions = new List<GameAction>();
+            ((MovementActionExtraData) movementResult.ExtraData).AvailableActions.AddRange(
+                GetActionsOnObjects(((MovementActionExtraData) movementResult.ExtraData).ObjectsInCell.Union(
+                    ((MovementActionExtraData) movementResult.ExtraData).ObjectsInRange)));
+            ((MovementActionExtraData)movementResult.ExtraData).AvailableActions.AddRange(
+                GetActionsOnCharacters(((MovementActionExtraData)movementResult.ExtraData).CharactersInRange));
+
+
             return movementResult;
         }
+
+        private IEnumerable<GameAction> GetActionsOnCharacters(IEnumerable<Character> charactersInRange)
+        {
+            foreach (var characterInRange in charactersInRange)
+            {
+                foreach (var templateAction in ActionsFactory.GetFactory().GetActions()
+                    .Where(a => a is TwoCharactersAction && a.StartingAction))
+                {
+                        var action = ActionsFactory.GetFactory().CreateNewActionInstance(templateAction.ActionType);
+
+                        action.ActiveCharacter = ActiveCharacter;
+                        action.TargetCharacter = characterInRange;
+                        if (action.CanPerform())
+                            yield return action;
+                }
+            }
+        }
+
+        private IEnumerable<GameAction> GetActionsOnObjects(IEnumerable<NonCharacterObject> objectsInRange)
+        {
+            foreach (var objectInRange in objectsInRange)
+            {
+                foreach (var templateAction in ActionsFactory.GetFactory().GetActions()
+                    .Where(a => !(a is TwoCharactersAction 
+                        || a is ObjectTransferFromAction 
+                        || a is ObjectTransferToAction 
+                        || a is MovementAction) && a.StartingAction))
+                {
+                    if (templateAction is ObjectUseOnObjectAction)
+                        foreach (var activeObject in ActiveCharacter.Inventory)
+                        {
+                            var action = ActionsFactory.GetFactory().CreateNewActionInstance(templateAction.ActionType);
+
+                            action.ActiveCharacter = ActiveCharacter;
+                            action.TargetObject = objectInRange;
+                            action.ActiveObject = activeObject;
+                            if (action.CanPerform())
+                                yield return action;
+                        }
+                    else if (templateAction is OneObjectAction)
+                    {
+                        var action = ActionsFactory.GetFactory().CreateNewActionInstance(templateAction.ActionType);
+
+                        action.ActiveCharacter = ActiveCharacter;
+                        action.TargetObject = objectInRange;
+                        if (action.CanPerform())
+                            yield return action;
+                    }
+                }
+            }
+        }
+
 
         public override GameAction CreateNewInstance()
         {

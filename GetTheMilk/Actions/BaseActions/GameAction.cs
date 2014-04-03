@@ -2,6 +2,7 @@ using System;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects.BaseObjects;
+using Newtonsoft.Json;
 
 namespace GetTheMilk.Actions.BaseActions
 {
@@ -10,6 +11,8 @@ namespace GetTheMilk.Actions.BaseActions
         public Verb Name { get; protected set; }
 
         public ActionType ActionType { get; protected set; }
+
+        public bool StartingAction { get; protected set; }
 
         public GameAction()
         {
@@ -20,8 +23,10 @@ namespace GetTheMilk.Actions.BaseActions
 
         public NonCharacterObject ActiveObject { get; set; }
 
+        [JsonIgnore]
         public ICharacter TargetCharacter { get; set; }
 
+        [JsonIgnore]
         public ICharacter ActiveCharacter { get; set; }
 
         public virtual ActionResult Perform()

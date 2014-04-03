@@ -29,8 +29,8 @@ namespace GetTheMilkTests.SaveLoadTests
                 Owner = new MockInventoryOwner()
             };
 
-            var result = JsonConvert.SerializeObject(mockInventory);
-            Inventory actual = JsonConvert.DeserializeObject<Inventory>(result);
+            var result = JsonConvert.SerializeObject(mockInventory.Save());
+            Inventory actual = Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(result));
             actual.LinkObjectsToInventory();
             Assert.AreEqual(mockInventory.InventoryType,actual.InventoryType);
             Assert.AreEqual(mockInventory.MaximumCapacity, actual.MaximumCapacity);
@@ -68,8 +68,8 @@ namespace GetTheMilkTests.SaveLoadTests
                 AllowsAction = (a) => false
             };
             mockInventory.Add(decorum);
-            var result = JsonConvert.SerializeObject(mockInventory);
-            Inventory actual = JsonConvert.DeserializeObject<Inventory>(result,new NonChracterObjectConverter());
+            var result = JsonConvert.SerializeObject(mockInventory.Save());
+            Inventory actual = Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(result,new NonChracterObjectConverter()));
             actual.LinkObjectsToInventory();
             Assert.AreEqual(mockInventory.InventoryType, actual.InventoryType);
             Assert.AreEqual(mockInventory.MaximumCapacity, actual.MaximumCapacity);
@@ -116,8 +116,8 @@ namespace GetTheMilkTests.SaveLoadTests
                 SellPrice=100
             };
             mockInventory.Add(decorum);
-            var result = JsonConvert.SerializeObject(mockInventory);
-            Inventory actual = JsonConvert.DeserializeObject<Inventory>(result, new NonChracterObjectConverter());
+            var result = JsonConvert.SerializeObject(mockInventory.Save());
+            Inventory actual = Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(result, new NonChracterObjectConverter()));
             actual.LinkObjectsToInventory();
             Assert.AreEqual(mockInventory.InventoryType, actual.InventoryType);
             Assert.AreEqual(mockInventory.MaximumCapacity, actual.MaximumCapacity);
@@ -184,8 +184,8 @@ namespace GetTheMilkTests.SaveLoadTests
             mockInventory.Add(tdecorum);
 
 
-            var result = JsonConvert.SerializeObject(mockInventory);
-            Inventory actual = JsonConvert.DeserializeObject<Inventory>(result, new NonChracterObjectConverter());
+            var result = JsonConvert.SerializeObject(mockInventory.Save());
+            Inventory actual = Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(result, new NonChracterObjectConverter()));
             actual.LinkObjectsToInventory();
             Assert.AreEqual(mockInventory.InventoryType, actual.InventoryType);
             Assert.AreEqual(mockInventory.MaximumCapacity, actual.MaximumCapacity);
@@ -213,7 +213,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                {
                                                    Action = new Meet(),
                                                    Reaction =
-                                                       new CommunicateAction
+                                                       new Communicate
                                                            {
                                                                Message =
                                                                    "How are you? Beautifull day out there better buy something!"
@@ -221,16 +221,16 @@ namespace GetTheMilkTests.SaveLoadTests
                                                },
                                            new ActionReaction
                                                {
-                                                   Action = new CommunicateAction {Message = "Yes"},
+                                                   Action = new Communicate {Message = "Yes"},
                                                    Reaction =
                                                        new ExposeInventory
-                                                           {AllowedNextActions = new GameAction[] {new Buy()}}
+                                                           {AllowedNextActionTypes = new InventorySubActionType[] {new InventorySubActionType{ActionType = ActionType.Buy,FinishInventoryExposure=true}}}
                                                },
                                            new ActionReaction
                                                {
-                                                   Action = new CommunicateAction {Message = "No"},
+                                                   Action = new Communicate {Message = "No"},
                                                    Reaction =
-                                                       new CommunicateAction
+                                                       new Communicate
                                                            {Message = "Why oh Why!?"}
                                                }
                                        });
@@ -240,24 +240,24 @@ namespace GetTheMilkTests.SaveLoadTests
                                            new ActionReaction
                                                {
                                                    Action =
-                                                       new CommunicateAction
+                                                       new Communicate
                                                            {
                                                                Message =
                                                                    "How are you? Beautifull day out there better buy something!"
                                                            },
                                                    Reaction =
-                                                       new CommunicateAction {Message = "Yes"}
+                                                       new Communicate {Message = "Yes"}
                                                },
                                            new ActionReaction
                                                {
                                                    Action =
-                                                       new CommunicateAction
+                                                       new Communicate
                                                            {
                                                                Message =
                                                                    "How are you? Beautifull day out there better buy something!"
                                                            },
                                                    Reaction =
-                                                       new CommunicateAction {Message = "No"}
+                                                       new Communicate {Message = "No"}
                                                }
 
                                        });
@@ -347,34 +347,6 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.AreEqual(skCharacter.Name.Narrator, actual.Name.Narrator);
             Assert.AreEqual(skCharacter.Range, actual.Range);
             Assert.AreEqual(skCharacter.Walet.MaxCapacity, actual.Walet.MaxCapacity);
-            //                public ShopKeeperCharacter():base()
-            //{
-            //    Walet.MaxCapacity = 1000;
-            //    Walet.CurrentCapacity = 200;
-            //    BlockMovement = true;
-            //    ;
-
-            //}
-
-
-            //public override Personality Personality
-            //{
-            //    get
-            //    {
-            //        base.Personality.Type = PersonalityType.Neutral;
-            //        if (!base.Personality.InteractionRules.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
-            //        {
-            //        }
-            //        return base.Personality;
-            //    }
-            //}
-
-            //public override bool AllowsIndirectAction(GameAction a, IPositionable o)
-            //{
-            //    return (a is Buy && o.StorageContainer.Owner.Name.Main==Name.Main) ||(a is Meet) || (a is CommunicateAction) || (a is Sell);
-            //}
-
-            //}
         }
 
     }

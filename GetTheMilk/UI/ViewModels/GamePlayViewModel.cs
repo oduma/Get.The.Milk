@@ -41,7 +41,7 @@ namespace GetTheMilk.UI.ViewModels
             {
                 var movementExtraData = actionResult.ExtraData as MovementActionExtraData;
                 additionalInformation = actionResultToHuL.TranslateMovementExtraData(movementExtraData, _game.Player, _game.CurrentLevel);
-                _actionPanelViewModel.DisplayPossibleActions(movementExtraData.ObjectsInCell.Union(movementExtraData.ObjectsInRange).ToArray());
+                //_actionPanelViewModel.DisplayPossibleActions(movementExtraData.ObjectsInCell.Union(movementExtraData.ObjectsInRange).ToArray());
             }
             _playerInfoViewModel.PlayerCurrentPosition = _game.Player.CellNumber;
             return string.Format("\r\n{0}\r\n{1}", 
@@ -171,8 +171,8 @@ namespace GetTheMilk.UI.ViewModels
         private string RecordActionResult(ActionResult actionResult, NonCharacterObject targetObject)
         {
             var actionResultToHuL = new ActionResultToHuL();
-            _actionPanelViewModel.DisplayPossibleActions(
-                _game.CurrentLevel.CurrentMap.Cells[_game.Player.CellNumber].AllObjects);
+            //_actionPanelViewModel.DisplayPossibleActions(
+            //    _game.CurrentLevel.CurrentMap.Cells[_game.Player.CellNumber].AllObjects);
             return string.Format("\r\n{0}\r\n",
                                  actionResultToHuL.TranslateActionResult(
                                      actionResult, _game.Player, targetObject));

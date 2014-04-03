@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Castle.Core.Internal;
 using GetTheMilk.Accounts;
 using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Factories;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
-using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Settings;
 using GetTheMilk.UI;
 using GetTheMilk.Utils;
@@ -51,9 +48,14 @@ namespace GetTheMilk.Characters
         {
             if (!InteractionRules.ContainsKey(targetCharacter.Name.Main)
                 && targetCharacter.InteractionRules.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
+            {
                 InteractionRules.Add(targetCharacter.Name.Main,
                                                       targetCharacter.InteractionRules[
                                                           GenericInteractionRulesKeys.PlayerResponses]);
+                InteractionRules[targetCharacter.Name.Main].ForEach(ar=> { ar.Action.TargetCharacter = this;
+                                                                             ar.Reaction.ActiveCharacter = this;
+                });
+            }
 
         }
 
@@ -73,6 +75,5 @@ namespace GetTheMilk.Characters
                 ? new Noun { Main = name, Narrator = GameSettings.GetInstance().DefaultNarratorAddressingForPlayer }
             : new Noun { Main = "Payer 1", Narrator = GameSettings.GetInstance().DefaultNarratorAddressingForPlayer };
         }
-
     }
 }

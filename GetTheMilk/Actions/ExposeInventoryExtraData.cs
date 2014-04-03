@@ -8,7 +8,7 @@ namespace GetTheMilk.Actions
     {
         public IEnumerable<NonCharacterObject> Contents { get; set; }
 
-        public GameAction[] PossibleUses { get; set; }
+        public InventorySubAction[] PossibleUses { get; set; }
 
         public int Money { get; set; }
     }

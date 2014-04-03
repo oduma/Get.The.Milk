@@ -11,6 +11,8 @@ namespace GetTheMilk.Actions
             ActionType = ActionType.Open;
             DestroyActiveObject = true;
             DestroyTargetObject = true;
+            StartingAction = true;
+
         }
 
         public override ActionResult Perform()

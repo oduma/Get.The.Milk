@@ -14,7 +14,11 @@ namespace GetTheMilk.Characters
         public string ObjectTypeId { get; set; }
         public bool AllowsAction(GameAction a)
         {
-            return (a.ActionType==ActionType.Attack || a.ActionType==ActionType.Quit);
+            return (a.ActionType==ActionType.Attack 
+                || a.ActionType==ActionType.Quit 
+                || a.ActionType==ActionType.InitiateHostilities 
+                || a.ActionType==ActionType.AcceptQuit
+                || a.ActionType==ActionType.TakeMoneyFrom);
         }
 
         public bool AllowsIndirectAction(GameAction a, IPositionable o)

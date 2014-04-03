@@ -27,15 +27,12 @@ namespace GetTheMilkTests.ActionsTests
             }
             else
             {
-                Assert.AreEqual(3, movement.ActiveCharacter.CellNumber);
-            }
-            if(movementResult.ResultType==ActionResultType.Ok)
-            {
-                Assert.AreEqual(3, movement.ActiveCharacter.CellNumber);
+                Assert.AreEqual(6, movement.ActiveCharacter.CellNumber);
                 foreach (var followingObject in movement.ActiveCharacter.Inventory)
                 {
-                    Assert.AreEqual(4,followingObject.CellNumber);
+                    Assert.AreEqual(6, followingObject.CellNumber);
                 }
+
             }
             return movementResult.ResultType;
         }

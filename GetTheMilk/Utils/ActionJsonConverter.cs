@@ -23,50 +23,62 @@ namespace GetTheMilk.Utils
             try
             {
                 var item = JObject.Load(reader);
-                var actionCategory = (ActionType)(item["ActionType"].Value<int>());
-                switch(actionCategory)
+                var actionCategory = (ActionType) (item["ActionType"].Value<int>());
+                switch (actionCategory)
                 {
                     case ActionType.Open:
                         return item.ToObject<Open>();
-                        case ActionType.Default:
+                    case ActionType.Default:
                         return item.ToObject<GameAction>();
-                        case ActionType.Attack:
+                    case ActionType.Attack:
                         return item.ToObject<Attack>();
-                        case ActionType.Buy:
+                    case ActionType.Buy:
                         return item.ToObject<Buy>();
-                        case ActionType.EnterLevel:
+                    case ActionType.EnterLevel:
                         return item.ToObject<EnterLevel>();
-                        case ActionType.ExposeInventory:
+                    case ActionType.ExposeInventory:
                         return item.ToObject<ExposeInventory>();
-                        case ActionType.GiveTo:
+                    case ActionType.GiveTo:
                         return item.ToObject<GiveTo>();
-                        case ActionType.Keep:
+                    case ActionType.Keep:
                         return item.ToObject<Keep>();
-                        case ActionType.Kick:
+                    case ActionType.Kick:
                         return item.ToObject<Kick>();
-                        case ActionType.Kill:
+                    case ActionType.Kill:
                         return item.ToObject<Kill>();
-                        case ActionType.Communicate:
-                        return item.ToObject<CommunicateAction>();
-                        case ActionType.Quit:
+                    case ActionType.Communicate:
+                        return item.ToObject<Communicate>();
+                    case ActionType.Quit:
                         return item.ToObject<Quit>();
-                        case ActionType.Meet:
+                    case ActionType.Meet:
                         return item.ToObject<Meet>();
-                        case ActionType.Teleport:
+                    case ActionType.Teleport:
                         return item.ToObject<Teleport>();
-                        case ActionType.TakeMoneyFrom:
+                    case ActionType.TakeMoneyFrom:
                         return item.ToObject<TakeMoneyFrom>();
-                        case ActionType.TakeFrom:
+                    case ActionType.TakeFrom:
                         return item.ToObject<TakeFrom>();
-                        case ActionType.Walk:
+                    case ActionType.Walk:
                         return item.ToObject<Walk>();
-                        case ActionType.Run:
+                    case ActionType.Run:
                         return item.ToObject<Run>();
-                        case ActionType.Sell:
+                    case ActionType.Sell:
                         return item.ToObject<Sell>();
+                    case ActionType.InitiateHostilities:
+                        return item.ToObject<InitiateHostilities>();
+                    case ActionType.SelectAttackWeapon:
+                        return item.ToObject<SelectAttackWeapon>();
+                    case ActionType.SelectDefenseWeapon:
+                        return item.ToObject<SelectDefenseWeapon>();
+                    case ActionType.AcceptQuit:
+                        return item.ToObject<AcceptQuit>();
+
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             return null;
         }
 

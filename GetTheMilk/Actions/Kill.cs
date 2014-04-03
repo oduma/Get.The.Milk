@@ -12,6 +12,8 @@ namespace GetTheMilk.Actions
         {
             Name = new Verb {Infinitive = "To Kill", Past = "killed", Present = "kill"};
             ActionType = ActionType.Kill;
+            StartingAction = false;
+
         }
         public double ExperienceTaken { get; set; }
 

@@ -20,6 +20,10 @@
         TakeMoneyFrom,
         Teleport,
         Walk,
-        Open
+        Open,
+        InitiateHostilities,
+        SelectDefenseWeapon,
+        SelectAttackWeapon,
+        AcceptQuit
     }
 }

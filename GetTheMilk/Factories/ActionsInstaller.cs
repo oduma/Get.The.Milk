@@ -14,7 +14,7 @@ namespace GetTheMilk.Factories
             using (LoggingManager.LogSciendoPerformance())
             {
                 container.Register(
-                    Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn<GameAction>().WithService.Base().LifestyleSingleton()
+                    Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn<GameAction>().Unless(t=>t.Namespace=="GetTheMilk.Actions.BaseActions").WithService.Base().LifestyleSingleton()
                     );
             }
 

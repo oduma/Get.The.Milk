@@ -17,6 +17,8 @@ namespace GetTheMilk.Actions
         {
             Name = new Verb {Infinitive = "To Take Money", Past = "took money", Present = "take money"};
             ActionType = ActionType.TakeMoneyFrom;
+            StartingAction = false;
+
         }
         public int Amount { get; set; }
         public override ActionResult Perform()
@@ -28,7 +30,7 @@ namespace GetTheMilk.Actions
                                                        {
                                                            Price = Amount,
                                                            Towards=ActiveCharacter,
-                                                           TransactionType = TransactionType.Debit
+                                                           TransactionType = TransactionType.Payed
                                                        });
             return new ActionResult {ForAction = this, ResultType = ActionResultType.Ok};
         }

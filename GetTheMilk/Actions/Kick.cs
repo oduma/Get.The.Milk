@@ -3,7 +3,7 @@ using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Actions
 {
-    public class Kick:GameAction
+    public class Kick:OneObjectAction
     {
         public override bool CanPerform()
         {
@@ -14,6 +14,8 @@ namespace GetTheMilk.Actions
         {
             Name = new Verb {Infinitive = "To Kick", Past = "kicked", Present = "kick"};
             ActionType = ActionType.Kick;
+            StartingAction = true;
+
         }
 
         public override ActionResult Perform()

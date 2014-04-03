@@ -64,5 +64,22 @@ namespace GetTheMilk.Objects
                 base.Remove(o);
             }
         }
+
+        public InventoryPackages Save()
+        {
+            return new InventoryPackages
+                   {
+                       Contents = this,
+                       InventoryType = InventoryType,
+                       MaximumCapacity = MaximumCapacity
+                   };
+        }
+
+        public static Inventory Load(InventoryPackages packages)
+        {
+            packages.Contents.MaximumCapacity = packages.MaximumCapacity;
+            packages.Contents.InventoryType = packages.InventoryType;
+            return packages.Contents;
+        }
     }
 }

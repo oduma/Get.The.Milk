@@ -53,7 +53,7 @@ namespace GetTheMilk.Levels
             var levelPackages = new LevelPackages
                        {
                            LevelCore = JsonConvert.SerializeObject(this),
-                           LevelObjects = JsonConvert.SerializeObject(Inventory),
+                           LevelObjects = JsonConvert.SerializeObject(Inventory.Save()),
                            LevelCharacters= new List<CharacterSavedPackages>()
                        };
             foreach (var character in Characters)
@@ -76,8 +76,8 @@ namespace GetTheMilk.Levels
         {
             Level level = JsonConvert.DeserializeObject<Level>(levelPackages.LevelCore);
             level.CurrentMap.LinkToParentLevel(level);
-            level.Inventory = JsonConvert.DeserializeObject<Inventory>(levelPackages.LevelObjects,
-                                                                     new NonChracterObjectConverter());
+            level.Inventory = Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(levelPackages.LevelObjects,
+                                                                     new NonChracterObjectConverter()));
             level.Inventory.LinkObjectsToInventory();
             foreach (var characterPackage in levelPackages.LevelCharacters)
             {

@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="ActionsTests\ActionsFactoryTests.cs" />
     <Compile Include="ActionsTests\DataGeneratorForActions.cs" />
+    <Compile Include="ActionsTests\DetermineActionsTests.cs" />
     <Compile Include="ActionsTests\ExposeInentoryActionTests.cs" />
     <Compile Include="ActionsTests\MovementsTests.cs" />
     <Compile Include="ActionsTests\OneCharacterOneObjectActionTests.cs" />

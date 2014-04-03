@@ -1,5 +1,8 @@
+using System.Linq;
+using Castle.Core.Internal;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
+using GetTheMilk.Factories;
 
 namespace GetTheMilk.Actions
 {
@@ -7,32 +10,54 @@ namespace GetTheMilk.Actions
     {
         public override bool CanPerform()
         {
-            return TargetCharacter.AllowsAction(this);
+            return ActiveCharacter.AllowsAction(this) && TargetCharacter.AllowsIndirectAction(this,ActiveCharacter);
         }
 
         public ExposeInventory()
         {
             Name = new Verb {Infinitive = "To Expose", Past = "exposed", Present = "expose"};
             ActionType = ActionType.ExposeInventory;
+            StartingAction = false;
+
         }
 
-        public GameAction[] AllowedNextActions { get; set; }
+        public InventorySubActionType[] AllowedNextActionTypes { get; set; }
 
         public bool IncludeWallet { get; set; }
+        public bool SelfInventory { get; set; }
 
         public override ActionResult Perform()
         {
             var result = new ActionResult {ResultType = ActionResultType.Ok, ForAction=this};
+            var tempTargetCharacter = TargetCharacter;
+            if (SelfInventory)
+                TargetCharacter = ActiveCharacter;
             if (!CanPerform())
             {
                 result.ResultType = ActionResultType.NotOk;
                 return result;
             }
+            var actionsFactory = ActionsFactory.GetFactory();
             result.ExtraData = new ExposeInventoryExtraData
                                    {
-                                       Contents = TargetCharacter.Inventory,
-                                       PossibleUses = AllowedNextActions,
-                                       Money = (IncludeWallet)?TargetCharacter.Walet.CurrentCapacity:0
+                                       Contents = ActiveCharacter.Inventory,
+                                       PossibleUses = (AllowedNextActionTypes==null)?null:AllowedNextActionTypes.Select(a =>
+                                                                  {
+                                                                      var act = actionsFactory.CreateNewActionInstance(a.ActionType);
+                                                                      act.ActiveCharacter = TargetCharacter;
+                                                                      act.TargetCharacter = (act is TwoCharactersAction) ? tempTargetCharacter : ActiveCharacter; 
+                                                                      return new InventorySubAction
+                                                                             {
+                                                                                 Action = act,
+                                                                                 ActionType =
+                                                                                     a.ActionType,
+                                                                                 FinishInventoryExposure
+                                                                                     =
+                                                                                     a
+                                                                                     .FinishInventoryExposure
+                                                                             };
+                                                                  }).ToArray(),
+                                       Money = (IncludeWallet)?ActiveCharacter.Walet.CurrentCapacity:0
                                    };
 
             return result;

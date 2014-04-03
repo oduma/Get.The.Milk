@@ -4,13 +4,15 @@ using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Actions
 {
-    public class Sell:ObjectTransferAction
+    public class Sell:ObjectTransferToAction
     {
         public Sell()
         {
             Name = new Verb {Infinitive = "To Sell", Past = "sold", Present = "sell"};
-            TransactionType = TransactionType.Credit;
+            TransactionType = TransactionType.Payed;
             ActionType = ActionType.Sell;
+            StartingAction = false;
+
         }
         public override ActionResult Perform()
         {

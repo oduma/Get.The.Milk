@@ -4,13 +4,15 @@ using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Actions
 {
-    public class TakeFrom : ObjectTransferAction
+    public class TakeFrom : ObjectTransferFromAction
     {
         public TakeFrom()
         {
             Name = new Verb { Infinitive = "To Give", Past = "gave", Present = "give" };
             TransactionType = TransactionType.None;
             ActionType = ActionType.TakeFrom;
+            StartingAction = false;
+
         }
         public override ActionResult Perform()
         {

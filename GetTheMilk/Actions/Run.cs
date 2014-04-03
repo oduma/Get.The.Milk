@@ -11,6 +11,7 @@ namespace GetTheMilk.Actions
             Name = new Verb {Infinitive = "To Run", Past = "ran", Present = "run"};
             DefaultDistance = GameSettings.GetInstance().DefaultRunDistance;
             ActionType = ActionType.Run;
+            StartingAction = true;
         }
 
         public override GameAction CreateNewInstance()

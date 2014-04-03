@@ -34,6 +34,7 @@ namespace GetTheMilkTests.ActionsTests
             ExposeInventory exposeInventory = new ExposeInventory();
             exposeInventory.IncludeWallet = false;
             exposeInventory.TargetCharacter = active;
+            exposeInventory.ActiveCharacter = active;
             var result = exposeInventory.Perform();
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.ExtraData);
