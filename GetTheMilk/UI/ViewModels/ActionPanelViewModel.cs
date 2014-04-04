@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
@@ -118,19 +119,24 @@ namespace GetTheMilk.UI.ViewModels
 
         public RelayCommand<ActionWithTargetModel> PerformAction { get; private set; }
 
-        //public void DisplayPossibleActions(IEnumerable<NonCharacterObject> targetObjects)
-        //{
-        //    Actions.Clear();
-        //    foreach(var targetObject in targetObjects)
-        //    {
-        //        if(targetObject.StorageContainer.InventoryType==InventoryType.LevelInventory)
-        //        {
-        //            foreach (var possibleAction in _player.DetermineAllPossibleActionsForTargetObject(targetObject))
-        //            {
-        //                Actions.Add(new ActionWithTargetModel { Action = possibleAction, TargetObject = targetObject });
-        //            }
-        //        }
-        //    }
-        //}
+        public void DisplayPossibleActions(List<GameAction> possibleActions)
+        {
+            Actions.Clear();
+            foreach (var possibleAction in possibleActions)
+            {
+                Actions.Add(new ActionWithTargetModel{Action=possibleAction,TargetObject=possibleAction.TargetObject});
+            }
+            //foreach (var targetObject in targetObjects)
+            //{
+            //    if (targetObject.StorageContainer.InventoryType == InventoryType.LevelInventory)
+            //    {
+            //        foreach (var possibleAction in _player.DetermineAllPossibleActionsForTargetObject(targetObject))
+            //        {
+            //            Actions.Add(new ActionWithTargetModel { Action = possibleAction, TargetObject = targetObject });
+            //        }
+            //    }
+            //}
+        }
+
     }
 }

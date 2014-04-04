@@ -41,7 +41,7 @@ namespace GetTheMilk.UI.ViewModels
             {
                 var movementExtraData = actionResult.ExtraData as MovementActionExtraData;
                 additionalInformation = actionResultToHuL.TranslateMovementExtraData(movementExtraData, _game.Player, _game.CurrentLevel);
-                //_actionPanelViewModel.DisplayPossibleActions(movementExtraData.ObjectsInCell.Union(movementExtraData.ObjectsInRange).ToArray());
+                _actionPanelViewModel.DisplayPossibleActions(movementExtraData.AvailableActions);
             }
             _playerInfoViewModel.PlayerCurrentPosition = _game.Player.CellNumber;
             return string.Format("\r\n{0}\r\n{1}", 
@@ -183,10 +183,10 @@ namespace GetTheMilk.UI.ViewModels
         public GamePlayViewModel(Game game)
         {
             _game=game;
+            ActionPanelViewModel = new ActionPanelViewModel(_game.Player);
+            PlayerInfoViewModel = new PlayerInfoViewModel(_game);
             var actionResult = _game.Player.EnterLevel(_game.CurrentLevel);
             LevelNo = _game.CurrentLevel.Number;
-            PlayerInfoViewModel=new PlayerInfoViewModel(_game);
-            ActionPanelViewModel= new ActionPanelViewModel(_game.Player);
             Story = string.Format("{0}\r\n{1}", _game.CurrentLevel.Story, RecordMovementResult(actionResult));
             StoryVisible = Visibility.Visible;
             InventoryVisible = Visibility.Hidden;
