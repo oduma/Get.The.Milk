@@ -46,7 +46,7 @@ namespace GetTheMilk.UI.ViewModels
         private void PerformActionCommand(ActionWithTargetModel obj)
         {
             if(ActionExecutionRequest!=null)
-                ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(obj.Action,obj.TargetObject));
+                ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(obj.Action));
         }
 
         private void KeyUnPressedCommand(KeyEventArgs obj)
@@ -74,7 +74,7 @@ namespace GetTheMilk.UI.ViewModels
                     ExposeInventory exposeInventory = ToggleInventory();
 
                     if (ActionExecutionRequest != null)
-                        ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(exposeInventory, null, _player, _player));
+                        ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(exposeInventory));
 
                 }
             }
@@ -124,7 +124,7 @@ namespace GetTheMilk.UI.ViewModels
             Actions.Clear();
             foreach (var possibleAction in possibleActions)
             {
-                Actions.Add(new ActionWithTargetModel{Action=possibleAction,TargetObject=possibleAction.TargetObject});
+                Actions.Add(new ActionWithTargetModel{Action=possibleAction});
             }
             //foreach (var targetObject in targetObjects)
             //{

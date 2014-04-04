@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects.BaseObjects;
@@ -43,5 +44,11 @@ namespace GetTheMilk.Actions.BaseActions
         {
             return new GameAction();
         }
+
+        protected virtual List<GameAction> GetAvailableActions()
+        {
+            return new List<GameAction>();
+        }
+
     }
 }

@@ -70,19 +70,17 @@ namespace GetTheMilk.UI.Translators
         public string TranslateMovementExtraData(MovementActionExtraData extraData,IPlayer active,Level level)
         {
             var gameSettings = GameSettings.GetInstance();
-            var objectsInTheCell = string.Empty;
-            if(extraData.ObjectsInCell !=null && extraData.ObjectsInCell.Any())
-                objectsInTheCell=string.Format(gameSettings.MovementExtraDataTemplate.MessageForObjectsInCell +"\r\n",
-                                                 FormatList(extraData.ObjectsInCell, CloseUpMessageNaming));
-            var objectsInRange =string.Empty;
-            if(extraData.ObjectsInRange!=null && extraData.ObjectsInRange.Any())
-                objectsInRange = string.Join("\r\n",
-                        extraData.ObjectsInRange.OrderBy(o => o.CellNumber).Select(
-                            o =>
-                            string.Format(gameSettings.MovementExtraDataTemplate.MessageForObjectsInRange,
-                                          level.CurrentMap
-                                          .Cells[active.CellNumber].GetDirectionToCell(o.CellNumber),
-                                          ((IObjectHumanInterface) o).ApproachingMessage)));
+            var objectsReachable = string.Empty;
+            var allObjectsReachable = extraData.ObjectsInCell.Union(extraData.ObjectsInRange).ToList();
+            if(allObjectsReachable.Any())
+                objectsReachable=string.Join("\r\n",
+	                        allObjectsReachable.OrderBy(o => o.CellNumber).Select(
+	                            o =>
+	                            string.Format(gameSettings.MovementExtraDataTemplate.MessageForObjectsInRange,
+	                                          level.CurrentMap
+	                                          .Cells[active.CellNumber].GetDirectionToCell(o.CellNumber),
+	                                          ((IObjectHumanInterface) o).CloseUpMessage)));
+
             var charactersInRange = string.Empty;
             if (extraData.CharactersInRange != null && extraData.CharactersInRange.Any())
                 charactersInRange = string.Join("\r\n",
@@ -91,12 +89,7 @@ namespace GetTheMilk.UI.Translators
                             string.Format(gameSettings.MovementExtraDataTemplate.MessageForObjectsInRange,
                                           level.CurrentMap.Cells[active.CellNumber].GetDirectionToCell(o.CellNumber),
                                           ((IObjectHumanInterface)o).ApproachingMessage)));
-            return string.Format("{0}{1}{2}", objectsInTheCell, objectsInRange,charactersInRange);
-        }
-
-        private string CloseUpMessageNaming(IPositionable obj)
-        {
-            return obj is IObjectHumanInterface ? ((IObjectHumanInterface) obj).CloseUpMessage : string.Empty;
+            return string.Format("{0}{1}", objectsReachable, charactersInRange);
         }
 
         private string FormatList(IEnumerable<IPositionable> objects,Func<IPositionable,string> namingMethod)

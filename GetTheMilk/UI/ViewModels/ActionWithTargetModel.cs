@@ -6,7 +6,6 @@ namespace GetTheMilk.UI.ViewModels
     public class ActionWithTargetModel
     {
         private GameAction _action;
-        private NonCharacterObject _targetObject;
         private string _displayValue;
 
         public GameAction Action
@@ -15,28 +14,12 @@ namespace GetTheMilk.UI.ViewModels
             set
             {
                 _action = value;
-                if(_action !=null && _targetObject!=null)
+                if(_action !=null)
                 {
-                    _displayValue = _action.Name.Present + " " + _targetObject.Name.Narrator;
+                    _displayValue = _action.Name.Present + " " + _action.TargetObject.Name.Narrator;
                 }
             }
         }
-
-        public NonCharacterObject TargetObject
-        {
-            get { return _targetObject; }
-            set
-            {
-                _targetObject = value;
-
-                if (_action != null && _targetObject != null)
-                {
-                    _displayValue = _action.Name.Present + " " + _targetObject.Name.Narrator;
-                }
-
-            }
-        }
-
         public string DisplayValue
         {
             get { return _displayValue; }

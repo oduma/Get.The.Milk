@@ -157,7 +157,6 @@ namespace GetTheMilk.Actions.BaseActions
             }
         }
 
-
         public override GameAction CreateNewInstance()
         {
             return new MovementAction();

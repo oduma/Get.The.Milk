@@ -21,7 +21,7 @@ namespace GetTheMilk.Actions
                 return new ActionResult
                 {
                     ForAction = this,
-                    ResultType = (addedOk) ? ActionResultType.Ok : ActionResultType.NotOk
+                    ResultType = (addedOk) ? ActionResultType.Ok : ActionResultType.NotOk,
                 };
             }
             return new ActionResult
