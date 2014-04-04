@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Navigation;
-using GetTheMilk.Objects.BaseObjects;
+﻿using GetTheMilk.Characters;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.UI.ViewModels
@@ -97,17 +88,6 @@ namespace GetTheMilk.UI.ViewModels
             PlayerHealth = _player.Health;
             PlayerExperience = _player.Experience;
             PlayerMoney = _player.Walet.CurrentCapacity;
-        }
-
-        public ActionResult PlayerMoves(MovementAction gameAction, Map levelMap)
-        {
-            gameAction.CurrentMap = levelMap;
-            return gameAction.Perform();
-        }
-
-        public ActionResult PlayerDoesAction(GameAction action)
-        {
-            return action.Perform();
         }
     }
 }

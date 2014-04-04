@@ -4,10 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
-using GetTheMilk.Objects;
-using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Characters;
 
@@ -27,6 +24,7 @@ namespace GetTheMilk.UI.ViewModels
                 if (value != _movementType)
                 {
                     _movementType = value;
+                    _movementType.ActiveCharacter = _player;
                     RaisePropertyChanged("MovementType");
                 }
             }
@@ -52,14 +50,20 @@ namespace GetTheMilk.UI.ViewModels
         private void KeyUnPressedCommand(KeyEventArgs obj)
         {
             if (obj.Key == Key.RightCtrl || obj.Key == Key.LeftCtrl)
+            {
                 MovementType = new Walk();
+                MovementType.ActiveCharacter = _player;
+            }
 
         }
 
         private void KeyPressedCommand(KeyEventArgs obj)
         {
-            if(obj.Key==Key.RightCtrl || obj.Key==Key.LeftCtrl)
+            if (obj.Key == Key.RightCtrl || obj.Key == Key.LeftCtrl)
+            {
                 MovementType=new Run();
+                MovementType.ActiveCharacter = _player;
+            }
             var direction = CardinalStar.GetDirectionByShortcut(obj.Key.ToString());
             if (direction != Direction.None)
             {
@@ -123,19 +127,7 @@ namespace GetTheMilk.UI.ViewModels
         {
             Actions.Clear();
             foreach (var possibleAction in possibleActions)
-            {
                 Actions.Add(new ActionWithTargetModel{Action=possibleAction});
-            }
-            //foreach (var targetObject in targetObjects)
-            //{
-            //    if (targetObject.StorageContainer.InventoryType == InventoryType.LevelInventory)
-            //    {
-            //        foreach (var possibleAction in _player.DetermineAllPossibleActionsForTargetObject(targetObject))
-            //        {
-            //            Actions.Add(new ActionWithTargetModel { Action = possibleAction, TargetObject = targetObject });
-            //        }
-            //    }
-            //}
         }
 
     }

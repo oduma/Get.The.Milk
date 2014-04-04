@@ -144,7 +144,10 @@ namespace GetTheMilk.UI.ViewModels
         void ActionPanelViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
         {
             if (e.GameAction is MovementAction)
-                Story += RecordMovementResult(_playerInfoViewModel.PlayerMoves(e.GameAction as MovementAction, _game.CurrentLevel.CurrentMap));
+            {
+                ((MovementAction) e.GameAction).CurrentMap = _game.CurrentLevel.CurrentMap;
+                Story += RecordMovementResult(e.GameAction.Perform());
+            }
             else if(e.GameAction==null)
             {
                 StoryVisible = Visibility.Visible;
@@ -164,18 +167,22 @@ namespace GetTheMilk.UI.ViewModels
             }
             else
 
-                Story += RecordActionResult(e.GameAction.Perform(),
-                                             e.GameAction.TargetObject);
+                Story += RecordActionResult(e.GameAction.Perform());
         }
 
-        private string RecordActionResult(ActionResult actionResult, NonCharacterObject targetObject)
+        private string RecordActionResult(ActionResult actionResult)
         {
             var actionResultToHuL = new ActionResultToHuL();
-            //_actionPanelViewModel.DisplayPossibleActions(
-            //    _game.CurrentLevel.CurrentMap.Cells[_game.Player.CellNumber].AllObjects);
+            var teleport = new Teleport();
+            teleport.ActiveCharacter = _game.Player;
+            teleport.CurrentMap = _game.CurrentLevel.CurrentMap;
+            teleport.TargetCell = _game.Player.CellNumber;
+
+            _actionPanelViewModel.DisplayPossibleActions(
+                ((MovementActionExtraData)teleport.Perform().ExtraData).AvailableActions);
             return string.Format("\r\n{0}\r\n",
                                  actionResultToHuL.TranslateActionResult(
-                                     actionResult, _game.Player, targetObject));
+                                     actionResult, _game.Player, actionResult.ForAction.TargetObject));
 
 
         }
