@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace GetTheMilk.Characters.BaseCharacters
 {
-    public interface ICharacter:IPositionable
+    public interface ICharacter : IPositionable, IObjectHumanInterface
     {
         int Health { get; set; }
         int Experience { get; set; }

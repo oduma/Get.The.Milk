@@ -166,6 +166,6 @@ namespace GetTheMilk.Characters.BaseCharacters
         [JsonIgnore]
         public Func<GameAction, IPositionable, bool> AllowsIndirectAction { get; set; }
 
-
+        public string CloseUpMessage { get; set; }
     }
 }

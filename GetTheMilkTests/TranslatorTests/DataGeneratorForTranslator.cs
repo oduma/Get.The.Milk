@@ -1,14 +1,11 @@
 ﻿using System.Collections;
 using System.Linq;
 using GetTheMilk.Actions;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
-using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Factories;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Settings;
-using GetTheMilkTests.ActionsTests;
 using NUnit.Framework;
 
 namespace GetTheMilkTests.TranslatorTests
@@ -32,20 +29,18 @@ namespace GetTheMilkTests.TranslatorTests
                 yield return
                     new TestCaseData(
                         new ActionResult
-                            {ResultType = ActionResultType.Ok, ForAction = new Walk {Direction = Direction.South}},
-                        active).Returns("You walked South.");
+                            {ResultType = ActionResultType.Ok, ForAction = new Walk {Direction = Direction.South,ActiveCharacter=active}}).Returns("You walked South.");
 
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new Run { Direction = Direction.West } },
-                        active).Returns("You ran West.");
+                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new Run { Direction = Direction.West,ActiveCharacter=active } }).Returns("You ran West.");
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new EnterLevel { LevelNo=1,CurrentMap=new Map{Parent=new Level{Number=1}} } },
-                        active).Returns("You entered level 1.");
+                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new EnterLevel { LevelNo=1,CurrentMap=new Map{Parent=new Level{Number=1}},ActiveCharacter=active } }).Returns("You entered level 1.");
 
             }
         }
+
         public static IEnumerable TestCasesForTranslatorMovementError
         {
             get
@@ -62,13 +57,25 @@ namespace GetTheMilkTests.TranslatorTests
 
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.OriginNotOnTheMap, ForAction = new Walk { Direction = Direction.North } },
-                        active).Returns("Error You cannot walk.");
+                        new ActionResult
+                        {
+                            ResultType = ActionResultType.OriginNotOnTheMap,
+                            ForAction = new Walk
+                                        {
+                                            Direction = Direction.North,
+                                            ActiveCharacter =
+                                                active
+                                        }
+                        }).Returns("Error You cannot walk.");
 
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.OriginNotOnTheMap, ForAction = new Run { Direction = Direction.West } },
-                        active).Returns("Error You cannot run.");
+                        new ActionResult
+                        {
+                            ResultType = ActionResultType.OriginNotOnTheMap,
+                            ForAction = new Run {Direction = Direction.West,ActiveCharacter=active}
+                            }
+        ).Returns("Error You cannot run.");
 
             }
         }
@@ -86,13 +93,11 @@ namespace GetTheMilkTests.TranslatorTests
 
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.OutOfTheMap, ForAction = new Walk { Direction = Direction.South } },
-                        active).Returns("You tried to walk South but the world has limits.");
+                        new ActionResult { ResultType = ActionResultType.OutOfTheMap, ForAction = new Walk { Direction = Direction.South, ActiveCharacter=active} }).Returns("You tried to walk South but the world has limits.");
 
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.OutOfTheMap, ForAction = new Run { Direction = Direction.West } },
-                        active).Returns("You tried to run West but the world has limits.");
+                        new ActionResult { ResultType = ActionResultType.OutOfTheMap, ForAction = new Run { Direction = Direction.West,ActiveCharacter=active } }).Returns("You tried to run West but the world has limits.");
 
             }
         }
@@ -114,37 +119,34 @@ namespace GetTheMilkTests.TranslatorTests
                         new ActionResult
                             {
                                 ResultType = ActionResultType.Blocked,
-                                ForAction = new Walk {Direction = Direction.South},
+                                ForAction = new Walk {Direction = Direction.South,ActiveCharacter=active},
                                 ExtraData =
                                     new MovementActionExtraData
                                         {
                                             ObjectsBlocking =Level.Inventory
                                         }
-                            },
-                        active).Returns("You tried to walk South but the Red Key, red door, wall and wall are on the way.");
+                            }).Returns("You tried to walk South but the Red Key, red door, wall and wall are on the way.");
 
                 yield return
                     new TestCaseData(
                         new ActionResult
                         {
                             ResultType = ActionResultType.Blocked,
-                            ForAction = new Run { Direction = Direction.West },
+                            ForAction = new Run { Direction = Direction.West,ActiveCharacter=active },
                             ExtraData =
                                 new MovementActionExtraData
                                 {
                                     ObjectsBlocking = Level.Inventory
                                 }
-                        },
-                        active).Returns("You tried to run West but the Red Key, red door, wall and wall are on the way.");
+                        }).Returns("You tried to run West but the Red Key, red door, wall and wall are on the way.");
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.Blocked, ForAction = new EnterLevel { LevelNo = 2 },
+                        new ActionResult { ResultType = ActionResultType.Blocked, ForAction = new EnterLevel { LevelNo = 2 ,ActiveCharacter=active,CurrentMap=Level.CurrentMap,TargetCell=Level.StartingCell},
                             ExtraData =
                                 new MovementActionExtraData
                                 {
                                     ObjectsBlocking = Level.Inventory
-                                } },
-                        active).Returns("You tried to enter level 2 but is impossible, blocked by the Red Key, red door, wall and wall.");
+                                } }).Returns("You tried to enter level 0 but is impossible, blocked by the Red Key, red door, wall and wall.");
 
             }
         }
@@ -166,41 +168,39 @@ namespace GetTheMilkTests.TranslatorTests
                         new ActionResult
                         {
                             ResultType = ActionResultType.Blocked,
-                            ForAction = new Walk { Direction = Direction.South },
+                            ForAction = new Walk { Direction = Direction.South ,ActiveCharacter=active},
                             ExtraData =
                                 new MovementActionExtraData
                                 {
                                     CharactersBlocking = Level.Characters
                                 }
-                        },
-                        active).Returns("You tried to walk South but John the Shop Keeper and the Baddie are on the way.");
+                                
+                        }).Returns("You tried to walk South but John the Shop Keeper and the Baddie are on the way.");
 
                 yield return
                     new TestCaseData(
                         new ActionResult
                         {
                             ResultType = ActionResultType.Blocked,
-                            ForAction = new Run { Direction = Direction.West },
+                            ForAction = new Run { Direction = Direction.West ,ActiveCharacter=active},
                             ExtraData =
                                 new MovementActionExtraData
                                 {
                                     CharactersBlocking = Level.Characters
                                 }
-                        },
-                        active).Returns("You tried to run West but John the Shop Keeper and the Baddie are on the way.");
+                        }).Returns("You tried to run West but John the Shop Keeper and the Baddie are on the way.");
                 yield return
                     new TestCaseData(
                         new ActionResult
                         {
                             ResultType = ActionResultType.Blocked,
-                            ForAction = new EnterLevel { LevelNo = 2 },
+                            ForAction = new EnterLevel { LevelNo = 2,ActiveCharacter=active,CurrentMap=Level.CurrentMap,TargetCell=Level.StartingCell },
                             ExtraData =
                                 new MovementActionExtraData
                                 {
                                     CharactersBlocking = Level.Characters
                                 }
-                        },
-                        active).Returns("You tried to enter level 2 but is impossible, blocked by John the Shop Keeper and the Baddie.");
+                        }).Returns("You tried to enter level 0 but is impossible, blocked by John the Shop Keeper and the Baddie.");
 
             }
         }
@@ -230,8 +230,7 @@ namespace GetTheMilkTests.TranslatorTests
 
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new Kill () },
-                        active).Returns(GameSettings.GetInstance().TranslatorErrorMessage);
+                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new Kill () }).Returns(GameSettings.GetInstance().TranslatorErrorMessage);
             }
         }
 
@@ -258,7 +257,7 @@ namespace GetTheMilkTests.TranslatorTests
                                     ObjectsInRange = Level.CurrentMap.Cells[1].AllObjects.Union(Level.CurrentMap.Cells[3].AllObjects)
                                 }
                         },
-                        active, Level).Returns("Looking East You see a wall.\r\nLooking South A glint catches your eye..");
+                        active, Level).Returns("Looking East The wall is solid stone, unpassable for sure..\r\nLooking South the Red Key of Kirna and you wonder how did you knew what it was..");
             }
         }
 

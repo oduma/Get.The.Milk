@@ -14,11 +14,11 @@ namespace GetTheMilk.UI.Translators
 {
     public class ActionResultToHuL
     {
-        public string TranslateMovementResult(ActionResult actionResult,IPlayer active)
+        public string TranslateMovementResult(ActionResult actionResult)
         {
             var gameSettings = GameSettings.GetInstance();
 
-            if(active==null)
+            if(actionResult.ForAction.ActiveCharacter==null)
                 return gameSettings.TranslatorErrorMessage;
             if(!(actionResult.ForAction is MovementAction))
                 return gameSettings.TranslatorErrorMessage;
@@ -29,7 +29,7 @@ namespace GetTheMilk.UI.Translators
             if (message == null)
                 return gameSettings.TranslatorErrorMessage;
             return string.Format(message.Value,
-                          Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(active.Name.Narrator.ToLower()),
+                          Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(actionResult.ForAction.ActiveCharacter.Name.Narrator.ToLower()),
                           actionResult.ForAction.Name.Past,
                           actionResult.ForAction.Name.Present,
                           ((MovementAction) actionResult.ForAction).Direction,
@@ -41,11 +41,11 @@ namespace GetTheMilk.UI.Translators
 
         }
 
-        public string TranslateActionResult(ActionResult actionResult, IPlayer active,IPositionable targetObject)
+        public string TranslateActionResult(ActionResult actionResult)
         {
             var gameSettings = GameSettings.GetInstance();
 
-            if (active == null)
+            if (actionResult.ForAction.ActiveCharacter == null)
                 return gameSettings.TranslatorErrorMessage;
             var messagesFor = gameSettings.MessagesFor.Where(m => m.ResultType == actionResult.ResultType);
             if (!messagesFor.Any())
@@ -54,10 +54,13 @@ namespace GetTheMilk.UI.Translators
             if (message==null)
                 return gameSettings.TranslatorErrorMessage;
             return string.Format(message.Value,
-                          Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(active.Name.Narrator.ToLower()),
+                          Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(
+                          actionResult.ForAction.ActiveCharacter.Name.Narrator.ToLower()),
                           actionResult.ForAction.Name.Past,
                           actionResult.ForAction.Name.Present,
-                          targetObject.Name.Narrator);
+                          (actionResult.ForAction.TargetObject==null)?string.Empty:actionResult.ForAction.TargetObject.Name.Narrator,
+                          (actionResult.ForAction.TargetCharacter == null) ? string.Empty : actionResult.ForAction.TargetCharacter.Name.Narrator,
+                          (actionResult.ForAction.ActiveObject == null) ? string.Empty : actionResult.ForAction.ActiveObject.Name.Narrator);
 
         }
 
@@ -71,7 +74,9 @@ namespace GetTheMilk.UI.Translators
         {
             var gameSettings = GameSettings.GetInstance();
             var objectsReachable = string.Empty;
-            var allObjectsReachable = extraData.ObjectsInCell.Union(extraData.ObjectsInRange).ToList();
+            var allObjectsReachable = (extraData.ObjectsInCell == null)
+                ? (new List<NonCharacterObject> {}).Union(extraData.ObjectsInRange)
+                : extraData.ObjectsInCell.Union(extraData.ObjectsInRange).ToList();
             if(allObjectsReachable.Any())
                 objectsReachable=string.Join("\r\n",
 	                        allObjectsReachable.OrderBy(o => o.CellNumber).Select(
@@ -88,7 +93,7 @@ namespace GetTheMilk.UI.Translators
                             o =>
                             string.Format(gameSettings.MovementExtraDataTemplate.MessageForObjectsInRange,
                                           level.CurrentMap.Cells[active.CellNumber].GetDirectionToCell(o.CellNumber),
-                                          ((IObjectHumanInterface)o).ApproachingMessage)));
+                                          ((IObjectHumanInterface)o).CloseUpMessage)));
             return string.Format("{0}{1}", objectsReachable, charactersInRange);
         }
 

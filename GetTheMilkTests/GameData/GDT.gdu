@@ -1,1 +1,19 @@
-﻿{"MessagesFor":[{"ResultType":0,"Messages":[{"Id":"To Walk","Value":"{0} {1} {3}."},{"Id":"To Run","Value":"{0} {1} {3}."},{"Id":"To Enter","Value":"{0} {1} level {4}."},{"Id":"To Pick","Value":"{0} {1} {3}."},{"Id":"To Kick","Value":"{0} {1} {3}."},{"Id":"To Keep","Value":"{0} decided to {2} {3}."}]},{"ResultType":10,"Messages":[{"Id":"To Walk","Value":"Error {0} cannot {2}."},{"Id":"To Run","Value":"Error {0} cannot {2}."}]},{"ResultType":7,"Messages":[{"Id":"To Walk","Value":"{0} tried to {2} {3} but the world has limits."},{"Id":"To Run","Value":"{0} tried to {2} {3} but the world has limits."}]},{"ResultType":8,"Messages":[{"Id":"To Walk","Value":"{0} tried to {2} {3} but {5}{6} are on the way."},{"Id":"To Run","Value":"{0} tried to {2} {3} but {5}{6} are on the way."},{"Id":"To Enter","Value":"{0} tried to {2} level {4} but is impossible, blocked by {5}{6}."}]},{"ResultType":9,"Messages":[{"Id":"To Walk","Value":"Error {0} cannot {2}."},{"Id":"To Run","Value":"Error {0} cannot {2}."},{"Id":"To Enter","Value":"{0} tried to {2} level {4} but {6} is on the way."}]},{"ResultType":1,"Messages":[{"Id":"To Pick","Value":"{0} tried to {2} {3} but couldn't."},{"Id":"To Kick","Value":"{0} tried to {2} {3} but couldn't."},{"Id":"To Keep","Value":"{0} tried to {2} {3} but couldn't."}]}],"MovementExtraDataTemplate":{"MessageForObjectsInRange":"Looking {0} {1}.","MessageForObjectsInCell":"You see in front of you {0}."}}
+﻿{"MessagesFor":
+[{"ResultType":0,
+	"Messages":[
+		{"Id":"To Walk","Value":"{0} {1} {3}."},
+		{"Id":"To Run","Value":"{0} {1} {3}."},
+		{"Id":"To Enter","Value":"{0} {1} level {4}."},
+		{"Id":"To Kick","Value":"{0} {1} {3}."},
+		{"Id":"To Keep","Value":"{0} decided to {2} {3}."},
+		{"Id":"To Open","Value":"{2} successfull."},
+		]},
+{"ResultType":10,"Messages":[{"Id":"To Walk","Value":"Error {0} cannot {2}."},{"Id":"To Run","Value":"Error {0} cannot {2}."}]},
+{"ResultType":7,"Messages":[{"Id":"To Walk","Value":"{0} tried to {2} {3} but the world has limits."},{"Id":"To Run","Value":"{0} tried to {2} {3} but the world has limits."}]},{"ResultType":8,"Messages":[{"Id":"To Walk","Value":"{0} tried to {2} {3} but {5}{6} are on the way."},{"Id":"To Run","Value":"{0} tried to {2} {3} but {5}{6} are on the way."},{"Id":"To Enter","Value":"{0} tried to {2} level {4} but is impossible, blocked by {5}{6}."}]},
+{"ResultType":9,"Messages":[{"Id":"To Walk","Value":"Error {0} cannot {2}."},{"Id":"To Run","Value":"Error {0} cannot {2}."},{"Id":"To Enter","Value":"{0} tried to {2} level {4} but {6} is on the way."}]},
+{"ResultType":1,
+	"Messages":[
+		{"Id":"To Kick","Value":"{0} tried to {2} {3} but couldn't."},
+		{"Id":"To Keep","Value":"{0} tried to {2} {3} but couldn't."},
+		{"Id":"To Open","Value":"{0} tried to {2} {3} but couldn't."}]}],
+"MovementExtraDataTemplate":{"MessageForObjectsInRange":"Looking {0} {1}.","MessageForObjectsInCell":"You see in front of you {0}."}}

@@ -48,7 +48,6 @@ namespace GetTheMilkTests.SaveLoadTests
             NonCharacterObject decorum = new NonCharacterObject
             {
                 ObjectTypeId = "Decor",
-                ApproachingMessage = "I think I'm massive.",
                 CellNumber = 123,
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
@@ -60,7 +59,7 @@ namespace GetTheMilkTests.SaveLoadTests
             decorum = new NonCharacterObject
             {
                 ObjectTypeId = "Decor",
-                ApproachingMessage = "I think I'm massive.",
+
                 CellNumber = 124,
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
@@ -92,7 +91,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Tool decorum = new Tool
             {
                 ObjectTypeId = "Key",
-                ApproachingMessage = "I think I'm massive.",
+
                 CellNumber = 123,
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
@@ -106,7 +105,7 @@ namespace GetTheMilkTests.SaveLoadTests
             decorum = new Tool
             {
                 ObjectTypeId = "Key",
-                ApproachingMessage = "I think I'm massive.",
+
                 CellNumber = 124,
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
@@ -144,7 +143,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Tool decorum = new Tool
             {
                 ObjectTypeId = "Key",
-                ApproachingMessage = "I think I'm massive.",
+
                 CellNumber = 123,
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
@@ -158,7 +157,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Weapon weaponum = new Weapon
             {
                 ObjectTypeId = "Weapon",
-                ApproachingMessage = "I think I'm massive.",
+
                 CellNumber = 124,
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
@@ -174,7 +173,7 @@ namespace GetTheMilkTests.SaveLoadTests
             NonCharacterObject tdecorum = new NonCharacterObject
             {
                 ObjectTypeId = "Decor",
-                ApproachingMessage = "I think I'm massive.",
+
                 CellNumber = 123,
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
@@ -266,7 +265,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Weapon weaponum = new Weapon
             {
                 ObjectTypeId = "Weapon",
-                ApproachingMessage = "I think I'm massive.",
+
                 CellNumber = 124,
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
@@ -282,7 +281,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Tool decorum = new Tool
             {
                 ObjectTypeId = "Key",
-                ApproachingMessage = "I think I'm massive.",
+
                 CellNumber = 123,
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,

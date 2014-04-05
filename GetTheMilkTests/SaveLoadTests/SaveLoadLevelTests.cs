@@ -36,7 +36,6 @@ namespace GetTheMilkTests.SaveLoadTests
                                     BuyPrice = 5,
                                     SellPrice = 2,
                                     Name = new Noun {Main = "Knife", Narrator = "the knife"},
-                                    ApproachingMessage = "In the distance a knife smiles as you.",
                                     CloseUpMessage = "It is a small but very sharp knife.",
                                     ObjectTypeId = "Weapon"
                                 },
@@ -46,7 +45,6 @@ namespace GetTheMilkTests.SaveLoadTests
                                     BuyPrice = 4,
                                     SellPrice = 2,
                                     Name = new Noun {Main = "Can Opener", Narrator = "the can opener"},
-                                    ApproachingMessage = "Some small tool.",
                                     CloseUpMessage = "In the grass right in front there is a can opener.",
                                     ObjectTypeId = "CanOpener"
                                 });
@@ -128,7 +126,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 BuyPrice = 50,
                 SellPrice = 2,
                 Name = new Noun { Main = "Knife", Narrator = "the knife" },
-                ApproachingMessage = "In the distance a knife smiles as you.",
                 CloseUpMessage = "It is a small but very sharp knife.",
                 ObjectTypeId = "Weapon"
             });
@@ -195,7 +192,6 @@ namespace GetTheMilkTests.SaveLoadTests
             levelInventory.Add(new Tool
                                    {
                                        CellNumber = 3,
-                                       ApproachingMessage = "A glint catches your eye.",
                                        CloseUpMessage =
                                            "the Red Key of Kirna and you wonder how did you knew what it was.",
                                        Name = new Noun {Main = "Red Key", Narrator = "the Red Key"},
@@ -204,7 +200,6 @@ namespace GetTheMilkTests.SaveLoadTests
                                new Tool
                                    {
                                        CellNumber = 4,
-                                       ApproachingMessage = "There is a red door in the distance, or is it a wall?",
                                        CloseUpMessage = "Upclose you realise it is a door and it seems to be locked.",
                                        Name = new Noun {Main = "Red Door", Narrator = "red door"},
                                        BlockMovement=true,
@@ -213,7 +208,6 @@ namespace GetTheMilkTests.SaveLoadTests
                                new NonCharacterObject
                                    {
                                        CellNumber = 1,
-                                       ApproachingMessage = "You see a wall",
                                        CloseUpMessage = "The wall is solid stone, unpassable for sure.",
                                        Name = new Noun {Main = "Wall", Narrator = "wall"},
                                        BlockMovement=true,
@@ -223,7 +217,6 @@ namespace GetTheMilkTests.SaveLoadTests
                                new NonCharacterObject
                                    {
                                        CellNumber = 7,
-                                       ApproachingMessage = "You see a wall",
                                        CloseUpMessage = "The wall is solid stone, unpassable for sure.",
                                        Name = new Noun {Main = "Wall", Narrator = "wall"},
                                        BlockMovement=true,

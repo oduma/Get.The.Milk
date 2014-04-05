@@ -46,7 +46,7 @@ namespace GetTheMilk.UI.ViewModels
             _playerInfoViewModel.PlayerCurrentPosition = _game.Player.CellNumber;
             return string.Format("\r\n{0}\r\n{1}", 
                                  actionResultToHuL.TranslateMovementResult(
-                                     actionResult, _game.Player),additionalInformation);
+                                     actionResult),additionalInformation);
             
         }
 
@@ -182,7 +182,7 @@ namespace GetTheMilk.UI.ViewModels
                 ((MovementActionExtraData)teleport.Perform().ExtraData).AvailableActions);
             return string.Format("\r\n{0}\r\n",
                                  actionResultToHuL.TranslateActionResult(
-                                     actionResult, _game.Player, actionResult.ForAction.TargetObject));
+                                     actionResult));
 
 
         }
