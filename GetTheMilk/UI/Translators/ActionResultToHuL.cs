@@ -22,7 +22,7 @@ namespace GetTheMilk.UI.Translators
                 return gameSettings.TranslatorErrorMessage;
             if(!(actionResult.ForAction is MovementAction))
                 return gameSettings.TranslatorErrorMessage;
-            var messagesFor = gameSettings.MessagesFor.Where(m => m.ResultType == actionResult.ResultType);
+            var messagesFor = gameSettings.MessagesForActionsResult.Where(m => m.ResultType == actionResult.ResultType);
             if (!messagesFor.Any())
                 return gameSettings.TranslatorErrorMessage;
             var message = messagesFor.SelectMany(m => m.Messages, (m, f) => f).FirstOrDefault(o => o.Id == actionResult.ForAction.Name.Infinitive);
@@ -47,7 +47,7 @@ namespace GetTheMilk.UI.Translators
 
             if (actionResult.ForAction.ActiveCharacter == null)
                 return gameSettings.TranslatorErrorMessage;
-            var messagesFor = gameSettings.MessagesFor.Where(m => m.ResultType == actionResult.ResultType);
+            var messagesFor = gameSettings.MessagesForActionsResult.Where(m => m.ResultType == actionResult.ResultType);
             if (!messagesFor.Any())
                 return gameSettings.TranslatorErrorMessage;
             var message = messagesFor.SelectMany(m=>m.Messages,(m,f)=>f).FirstOrDefault(o=>o.Id==actionResult.ForAction.Name.Infinitive);

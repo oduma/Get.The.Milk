@@ -20,7 +20,8 @@ namespace GetTheMilkTests.SaveLoadTests
             var gameSettings = GameSettings.GetInstance();
             Assert.AreEqual(gameSettings.DefaultGameName, "Get the milk");
             Assert.AreEqual(gameSettings.Description,"Some description here.");
-            Assert.AreEqual(gameSettings.MessagesFor.Count,6);
+            Assert.AreEqual(gameSettings.MessagesForActionsResult.Count,6);
+            Assert.AreEqual(gameSettings.ActionTypeMessages.Count,5);
         }
 
 
@@ -78,9 +79,9 @@ namespace GetTheMilkTests.SaveLoadTests
         {
             TemplatesPackage templatesPackage = new TemplatesPackage
                                                     {
-                                                        MessagesFor = new List<MessagesFor>
+                                                        MessagesForActionResult = new List<MessagesForActionResult>
                                                                           {
-                                                                              new MessagesFor
+                                                                              new MessagesForActionResult
                                                                                   {
                                                                                       ResultType = ActionResultType.Ok,
                                                                                       Messages = new List<Message>
@@ -131,7 +132,7 @@ namespace GetTheMilkTests.SaveLoadTests
 
                                                                                                      }
                                                                                   },
-                                                                              new MessagesFor
+                                                                              new MessagesForActionResult
                                                                                   {
                                                                                       ResultType =
                                                                                           ActionResultType.
@@ -154,7 +155,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                                                                              }
                                                                                                      }
                                                                                   },
-                                                                              new MessagesFor
+                                                                              new MessagesForActionResult
                                                                                   {
                                                                                       ResultType =
                                                                                           ActionResultType.OutOfTheMap,
@@ -176,7 +177,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                                                                              }
                                                                                                      }
                                                                                   },
-                                                                              new MessagesFor
+                                                                              new MessagesForActionResult
                                                                                   {
                                                                                       ResultType =
                                                                                           ActionResultType.
@@ -206,7 +207,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                                                                              }
                                                                                                      }
                                                                                   },
-                                                                              new MessagesFor
+                                                                              new MessagesForActionResult
                                                                                   {
                                                                                       ResultType =
                                                                                           ActionResultType.
@@ -236,7 +237,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                                                                              }
                                                                                                      }
                                                                                   },
-                                                                              new MessagesFor
+                                                                              new MessagesForActionResult
                                                                                   {
                                                                                       ResultType =
                                                                                           ActionResultType.NotOk,

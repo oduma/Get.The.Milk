@@ -5,6 +5,7 @@ using GetTheMilk.Characters;
 using GetTheMilk.Factories;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
+using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Settings;
 using NUnit.Framework;
 
@@ -261,6 +262,66 @@ namespace GetTheMilkTests.TranslatorTests
             }
         }
 
+        public static IEnumerable TestCasesForActionTranslator
+        {
+            get
+            {
+                var active = new Player();
+                var factory = ObjectActionsFactory.GetFactory();
+
+                var objAction = factory.CreateObjectAction("Player");
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
+
+                yield return
+                    new TestCaseData(
+                        new Keep
+                        {
+                            TargetObject =
+                                Level.Inventory.FirstOrDefault(o => o.ObjectCategory == ObjectCategory.Tool),
+                            ActiveCharacter = active
+                        }
+                        ).Returns("keep the Red Key");
+                yield return
+                    new TestCaseData(
+                        new Kick
+                        {
+                            TargetObject =
+                                Level.Inventory.FirstOrDefault(o => o.ObjectCategory == ObjectCategory.Tool),
+                            ActiveCharacter = active
+                        }).Returns("kick the Red Key");
+                yield return
+                    new TestCaseData(
+                        new Meet
+                        {
+                            TargetCharacter =
+                                Level.Characters.FirstOrDefault(),
+                            ActiveCharacter = active
+                        }).Returns("meet John the Shop Keeper");
+                yield return
+                    new TestCaseData(
+                        new InitiateHostilities
+                        {
+                            TargetCharacter =
+                                Level.Characters.FirstOrDefault(),
+                            ActiveCharacter = active
+                        }).Returns("attack John the Shop Keeper");
+                yield return
+                    new TestCaseData(
+                        new Open
+                        {
+                            TargetObject =
+                                Level.Inventory.FirstOrDefault(o => o.ObjectCategory != ObjectCategory.Tool),
+                            ActiveObject = Level.Inventory.FirstOrDefault(o => o.ObjectCategory == ObjectCategory.Tool),
+                            ActiveCharacter=active
+                        }).Returns("open wall using the Red Key");
+
+
+
+            }
+            
+        }
 
     }
 }

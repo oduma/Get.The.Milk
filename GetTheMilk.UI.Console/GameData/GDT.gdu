@@ -1,4 +1,4 @@
-﻿{"MessagesFor":
+﻿{"MessagesForActionResult":
 [{"ResultType":0,
 	"Messages":[
 		{"Id":"To Walk","Value":"{0} {1} {3}."},
@@ -16,4 +16,12 @@
 		{"Id":"To Kick","Value":"{0} tried to {2} {3} but couldn't."},
 		{"Id":"To Keep","Value":"{0} tried to {2} {3} but couldn't."},
 		{"Id":"To Open","Value":"{0} tried to {2} {3} but couldn't."}]}],
-"MovementExtraDataTemplate":{"MessageForObjectsInRange":"Looking {0} {1}.","MessageForObjectsInCell":"You see in front of you {0}."}}
+"MovementExtraDataTemplate":{
+	"MessageForObjectsInRange":"Looking {0} {1}.",
+	"MessageForObjectsInCell":"You see in front of you {0}."},
+"ActionTypeMessages":[
+{"Id":"Keep", "Value":"{0} {1}"}, 
+{"Id":"Kick", "Value":"{0} {1}"}, 
+{"Id":"Meet", "Value":"{0} {2}"}, 
+{"Id":"Open", "Value":"{0} {1} using {3}"}, 
+{"Id":"InitiateHostilities", "Value":"{0} {2}"}]}

@@ -153,8 +153,9 @@
     <Compile Include="Settings\Paths.cs" />
     <Compile Include="Settings\TemplatesPackage.cs" />
     <Compile Include="UI\Translators\ActionResultToHuL.cs" />
+    <Compile Include="UI\Translators\ActionToHuL.cs" />
     <Compile Include="UI\Translators\Common\Message.cs" />
-    <Compile Include="UI\Translators\Common\MessagesFor.cs" />
+    <Compile Include="UI\Translators\Common\MessagesForActionResult.cs" />
     <Compile Include="UI\Translators\MovementResultTemplates\MovementExtraDataTemplate.cs" />
     <Compile Include="UI\ViewModels\ActionExecutionRequestEventArgs.cs" />
     <Compile Include="UI\ViewModels\ActionPanelViewModel.cs" />

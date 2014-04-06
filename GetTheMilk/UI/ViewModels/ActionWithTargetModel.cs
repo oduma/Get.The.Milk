@@ -1,5 +1,5 @@
 ﻿using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.UI.Translators;
 
 namespace GetTheMilk.UI.ViewModels
 {
@@ -16,7 +16,8 @@ namespace GetTheMilk.UI.ViewModels
                 _action = value;
                 if(_action !=null)
                 {
-                    _displayValue = _action.Name.Present + " " + _action.TargetObject.Name.Narrator;
+
+                    _displayValue = ActionToHuL.TranslateAction(_action);
                 }
             }
         }

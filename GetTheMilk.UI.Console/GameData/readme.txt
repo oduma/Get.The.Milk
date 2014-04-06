@@ -16,3 +16,9 @@ for other actions:
 3=TargetObject
 4=TargetCharacter
 5=ActiveObject
+
+for action types:
+0=Action.Name.Present
+1=Action.TargetObject.Name
+2=Action.TargetCharacter.Name
+3=Action.ActiveObject

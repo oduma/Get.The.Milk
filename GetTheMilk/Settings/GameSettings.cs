@@ -15,7 +15,7 @@ namespace GetTheMilk.Settings
 
         public static GameSettings GetInstance()
         {
-            if (Instance.MessagesFor == null || Instance.MovementExtraDataTemplate == null)
+            if (Instance.MessagesForActionsResult == null || Instance.MovementExtraDataTemplate == null)
             {
                 using (
                     Stream fs =
@@ -24,19 +24,22 @@ namespace GetTheMilk.Settings
                 {
                     var tPackageContent = (new StreamReader(fs)).ReadToEnd();
                     var templatesPackage = JsonConvert.DeserializeObject<TemplatesPackage>(tPackageContent);
-                    Instance.MessagesFor = templatesPackage.MessagesFor;
+                    Instance.MessagesForActionsResult = templatesPackage.MessagesForActionResult;
                     Instance.MovementExtraDataTemplate = templatesPackage.MovementExtraDataTemplate;
+                    Instance.ActionTypeMessages = templatesPackage.ActionTypeMessages;
                 }
             }
             return Instance;
         }
+
+        public List<Message> ActionTypeMessages  { get; private set; }
 
         public Func<string, Stream> CurrentReadStrategy { get { return ReadWriteStrategies.UncompressedReader; } }
 
 
         public Action<string, string> CurrentWriteStrategy { get { return ReadWriteStrategies.UncompressedWriter; } }
 
-        public List<MessagesFor> MessagesFor { get; private set; }
+        public List<MessagesForActionResult> MessagesForActionsResult { get; private set; }
 
         public MovementExtraDataTemplate MovementExtraDataTemplate { get; private set; }
 

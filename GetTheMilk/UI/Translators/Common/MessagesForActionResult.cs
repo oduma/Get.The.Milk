@@ -3,7 +3,7 @@ using GetTheMilk.Actions;
 
 namespace GetTheMilk.UI.Translators.Common
 {
-    public class MessagesFor
+    public class MessagesForActionResult
     {
         public ActionResultType ResultType { get; set; }
 

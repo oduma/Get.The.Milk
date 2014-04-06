@@ -74,6 +74,7 @@
     <Compile Include="SaveLoadTests\SerializeDeserializeTests.cs" />
     <Compile Include="Stubs\BlueDoorActions.cs" />
     <Compile Include="Stubs\MockInventoryOwner.cs" />
+    <Compile Include="TranslatorTests\ActionTranslatorTests.cs" />
     <Compile Include="TranslatorTests\DataGeneratorForTranslator.cs" />
     <Compile Include="TranslatorTests\MovementResultsTranslationTests.cs" />
   </ItemGroup>

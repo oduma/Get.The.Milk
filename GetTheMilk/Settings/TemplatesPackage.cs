@@ -6,8 +6,10 @@ namespace GetTheMilk.Settings
 {
     public class TemplatesPackage
     {
-        public List<MessagesFor> MessagesFor { get; set; }
+        public List<MessagesForActionResult> MessagesForActionResult { get; set; }
 
         public MovementExtraDataTemplate MovementExtraDataTemplate { get; set; }
+
+        public List<Message> ActionTypeMessages { get; set; } 
     }
 }

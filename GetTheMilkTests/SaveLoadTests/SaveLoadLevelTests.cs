@@ -112,7 +112,8 @@ namespace GetTheMilkTests.SaveLoadTests
                                       Name = new Noun {Main = "John the Shop Keeper", Narrator = "John the Shop Keeper"},
                                       Inventory=skInventory,
                                       InteractionRules=skInteractionRules,
-                                      ObjectTypeId="NPCFriendly"
+                                      ObjectTypeId="NPCFriendly",
+                                      CloseUpMessage="there is a shop keeper"
                                   };
 
             Inventory fInventory=new Inventory{InventoryType=InventoryType.CharacterInventory,MaximumCapacity=20};
@@ -183,7 +184,9 @@ namespace GetTheMilkTests.SaveLoadTests
                                      Name = new Noun {Main = "Baddie", Narrator = "the Baddie"},
                                      Inventory = fInventory,
                                      InteractionRules = fInteractionRules,
-                                     ObjectTypeId="NPCFoe"
+                                     ObjectTypeId="NPCFoe",
+                                     CloseUpMessage = "there is a fierce warrior"
+
                                  };
 
             levelCharacters.Add(skCharacter,fCharacter);
