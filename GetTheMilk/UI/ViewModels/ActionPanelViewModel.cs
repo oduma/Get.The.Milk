@@ -89,7 +89,11 @@ namespace GetTheMilk.UI.ViewModels
             if (InventoryShowHide == "Show Inventory")
             {
                 InventoryShowHide = "Hide Inventory";
-                ExposeInventory exposeInventory = new ExposeInventory();
+                ExposeInventory exposeInventory = new ExposeInventory
+                                                  {
+                                                      ActiveCharacter = _player,
+                                                      TargetCharacter = _player
+                                                  };
                 exposeInventory.IncludeWallet = false;
                 return exposeInventory;
             }

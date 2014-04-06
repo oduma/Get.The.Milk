@@ -26,7 +26,6 @@ namespace GetTheMilkTests.IntegrationTests
 
             //create a mock for the ui interactions
 
-            //var stubedUI = new StubTheInteractivity();
             //create a new player
             var player = new Player();
             var factory = ObjectActionsFactory.GetFactory();
@@ -78,6 +77,34 @@ namespace GetTheMilkTests.IntegrationTests
             Assert.AreEqual(player.Name, level.Player.Inventory[0].StorageContainer.Owner.Name);
             Assert.AreEqual(3, level.Inventory.Count);
 
+            //the user checks his inventory
+
+            var exposeInventory = new ExposeInventory
+                                  {
+                                      ActiveCharacter = level.Player,
+                                      TargetCharacter = level.Player,
+                                      AllowedNextActionTypes =
+                                          new InventorySubActionType[]
+                                          {
+                                              new InventorySubActionType
+                                              {
+                                                  ActionType =
+                                                      ActionType
+                                                      .CloseInventory,
+                                                  FinishInventoryExposure =
+                                                      true
+                                              }
+                                          }
+                                  };
+            actionResult = exposeInventory.Perform();
+
+            Assert.AreEqual(1,((ExposeInventoryExtraData)actionResult.ExtraData).Contents.Count());
+            Assert.AreEqual(1, ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses.Length);
+            Assert.True(((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses[0].FinishInventoryExposure);
+            Assert.AreEqual(ActionType.CloseInventory,((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses[0].Action.ActionType);
+
+            actionResult = ((ExposeInventoryExtraData) actionResult.ExtraData).PossibleUses[0].Action.Perform();
+            Assert.AreEqual(ActionResultType.Ok,actionResult.ResultType);
             //the user runs to the east
             var run = new Run();
             run.Direction = Direction.East;

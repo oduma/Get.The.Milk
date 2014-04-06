@@ -24,6 +24,7 @@
         InitiateHostilities,
         SelectDefenseWeapon,
         SelectAttackWeapon,
-        AcceptQuit
+        AcceptQuit,
+        CloseInventory
     }
 }

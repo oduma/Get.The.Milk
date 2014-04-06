@@ -78,6 +78,7 @@
     <Compile Include="Actions\BaseActions\TwoCharactersAction.cs" />
     <Compile Include="Actions\BaseActions\UseOnCharacter.cs" />
     <Compile Include="Actions\Buy.cs" />
+    <Compile Include="Actions\CloseInventory.cs" />
     <Compile Include="Actions\Communicate.cs" />
     <Compile Include="Actions\EnterLevel.cs" />
     <Compile Include="Actions\ExposeInventory.cs" />
