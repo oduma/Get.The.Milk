@@ -8,6 +8,7 @@ namespace GetTheMilk.UI.ViewModels
         private GameAction _action;
         private string _displayValue;
 
+        public bool ReturnToActionView { get; set; }
         public GameAction Action
         {
             get { return _action; }

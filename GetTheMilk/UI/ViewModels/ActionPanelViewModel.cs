@@ -44,7 +44,7 @@ namespace GetTheMilk.UI.ViewModels
         private void PerformActionCommand(ActionWithTargetModel obj)
         {
             if(ActionExecutionRequest!=null)
-                ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(obj.Action));
+                ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(obj.Action,true));
         }
 
         private void KeyUnPressedCommand(KeyEventArgs obj)
@@ -69,7 +69,7 @@ namespace GetTheMilk.UI.ViewModels
             {
                 MovementType.Direction = direction;
                 if (ActionExecutionRequest != null)
-                    ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(MovementType));
+                    ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(MovementType,true));
             }
             else
             {
@@ -78,7 +78,7 @@ namespace GetTheMilk.UI.ViewModels
                     ExposeInventory exposeInventory = ToggleInventory();
 
                     if (ActionExecutionRequest != null)
-                        ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(exposeInventory));
+                        ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(exposeInventory,true));
 
                 }
             }
@@ -92,7 +92,19 @@ namespace GetTheMilk.UI.ViewModels
                 ExposeInventory exposeInventory = new ExposeInventory
                                                   {
                                                       ActiveCharacter = _player,
-                                                      TargetCharacter = _player
+                                                      TargetCharacter = _player,
+                                                      AllowedNextActionTypes =
+                                                          new[]
+                                                          {
+                                                              new InventorySubActionType
+                                                              {
+                                                                  ActionType =
+                                                                      ActionType
+                                                                      .CloseInventory,
+                                                                  FinishInventoryExposure =
+                                                                      true
+                                                              }
+                                                          }
                                                   };
                 exposeInventory.IncludeWallet = false;
                 return exposeInventory;

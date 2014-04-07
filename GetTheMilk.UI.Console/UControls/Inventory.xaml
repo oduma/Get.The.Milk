@@ -9,7 +9,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions> 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -24,6 +25,26 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
+        <Label Name="WeaponsTitle" Content="Weapons" Grid.Column="1" Grid.Row="1"/>
+        <ListView Grid.Column="1" ItemsSource="{Binding Path=Weapons}" Grid.Row="2">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Path=Name.Main}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Grid.Column="0" ItemsSource="{Binding Path=Actions}" Grid.Row="3" Grid.ColumnSpan="2">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal">
+                    </StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Path=DisplayValue}" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=Grid},Path=DataContext.PerformAction}" CommandParameter="{Binding .}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>

@@ -1,19 +1,16 @@
-﻿using GetTheMilk.Actions;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects;
+﻿using System;
+using GetTheMilk.Actions;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GetTheMilk.UI.ViewModels
 {
     public class InventoryViewModel:ViewModelBase
     {
+        public event EventHandler<ActionExecutionRequestEventArgs> ActionExecutionRequest;
+
         public InventoryViewModel(string ownerName, ExposeInventoryExtraData exposeInventoryExtraData)
         {
             OwnerName = ownerName;
@@ -22,7 +19,29 @@ namespace GetTheMilk.UI.ViewModels
             {
                 Tools.Add(tool);
             }
+            Weapons = new ObservableCollection<Weapon>();
+            foreach (Weapon weapon in exposeInventoryExtraData.Contents.Where(o => o.ObjectCategory == ObjectCategory.Weapon))
+            {
+                Tools.Add(weapon);
+            }
+
+            Actions= new ObservableCollection<ActionWithTargetModel>();
+            foreach (var possibleUse in exposeInventoryExtraData.PossibleUses)
+            {
+                Actions.Add(new ActionWithTargetModel{Action=possibleUse.Action,ReturnToActionView=possibleUse.FinishInventoryExposure});
+            }
+
+            PerformAction = new RelayCommand<ActionWithTargetModel>(PerformActionCommand);
+
         }
+
+        private void PerformActionCommand(ActionWithTargetModel obj)
+        {
+            if (ActionExecutionRequest != null)
+                ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(obj.Action, obj.ReturnToActionView));
+        }
+
+        public RelayCommand<ActionWithTargetModel> PerformAction { get; private set; }
 
         private string _ownerName;
 
@@ -41,6 +60,10 @@ namespace GetTheMilk.UI.ViewModels
         }
 
         public ObservableCollection<Tool> Tools { get; set; }
+
+        public ObservableCollection<Weapon> Weapons { get; set; }
+
+        public ObservableCollection<ActionWithTargetModel> Actions { get; set; }
 
     }
 }

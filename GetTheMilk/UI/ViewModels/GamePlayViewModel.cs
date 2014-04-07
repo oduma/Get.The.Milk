@@ -101,7 +101,10 @@ namespace GetTheMilk.UI.ViewModels
             {
                 if (value != _inventoryViewModel)
                 {
+                    if(_inventoryViewModel!=null)
+                        _inventoryViewModel.ActionExecutionRequest -= InventoryViewModelActionExecutionRequest;
                     _inventoryViewModel = value;
+                    _inventoryViewModel.ActionExecutionRequest += InventoryViewModelActionExecutionRequest;
                     RaisePropertyChanged("InventoryViewModel");
                 }
             }
@@ -139,6 +142,17 @@ namespace GetTheMilk.UI.ViewModels
                     RaisePropertyChanged("ActionPanelViewModel");
                 }
             }
+        }
+
+        void InventoryViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
+        {
+                if (e.ReturnToActionView)
+                {
+                    StoryVisible = Visibility.Visible;
+                    InventoryVisible = Visibility.Hidden;
+                    ActionPanelViewModelActionExecutionRequest(sender,e);
+                    ActionPanelViewModel.InventoryShowHide = "Show Inventory";
+                }
         }
 
         void ActionPanelViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)

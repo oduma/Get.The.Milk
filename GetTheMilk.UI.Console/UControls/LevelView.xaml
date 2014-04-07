@@ -34,9 +34,26 @@
         <ContentControl Grid.Row="0" Name="ActionPanelControl"  Grid.Column ="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Path=PlayerInfoViewModel}"/>
 
         <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3">
-            <TextBlock Text="{Binding Path=Story}" Grid.Row="1" Grid.ColumnSpan="3" Visibility="{Binding Path=StoryVisible}"/>
+            <TextBlock Text="{Binding Path=Story}" Grid.Row="1" Grid.ColumnSpan="3" 
+                       Visibility="{Binding Path=StoryVisible}"/>
         </ScrollViewer>
-        <ContentControl Grid.Row="1" Name="InventoryControl"  Grid.ColumnSpan ="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Path=InventoryViewModel}" Visibility="{Binding Path=InventoryVisible}"/>
-        <ContentControl Grid.Row="2"  TabIndex="-1" Name="ActionPanel" Grid.Column ="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Path=ActionPanelViewModel}" Focusable="True"/>
+        <ContentControl Grid.Row="1" 
+                        Name="InventoryControl"  
+                        Grid.ColumnSpan ="3" 
+                        Grid.RowSpan="2"
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch" 
+                        Content="{Binding Path=InventoryViewModel}" 
+                        Visibility="{Binding Path=InventoryVisible}"/>
+        <ContentControl Grid.Row="2"  
+                        TabIndex="-1" 
+                        Name="ActionPanel" 
+                        Grid.Column ="0" 
+                        Grid.ColumnSpan="3" 
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch" 
+                        Content="{Binding Path=ActionPanelViewModel}" 
+                        Visibility="{Binding Path=StoryVisible}"
+                        Focusable="True"/>
     </Grid>
 </UserControl>
