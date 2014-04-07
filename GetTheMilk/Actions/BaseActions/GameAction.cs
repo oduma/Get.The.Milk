@@ -15,6 +15,8 @@ namespace GetTheMilk.Actions.BaseActions
 
         public bool StartingAction { get; protected set; }
 
+        public bool FinishTheInteractionOnExecution { get; set; }
+
         public GameAction()
         {
             ActionType = ActionType.Default;

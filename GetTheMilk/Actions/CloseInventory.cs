@@ -15,6 +15,7 @@ namespace GetTheMilk.Actions
             Name = new Verb {Infinitive = "To Close Inventory", Past = "inventory closed", Present = "close inventory"};
             ActionType = ActionType.CloseInventory;
             StartingAction = false;
+            FinishTheInteractionOnExecution = true;
 
         }
         public override ActionResult Perform()

@@ -44,7 +44,7 @@ namespace GetTheMilk.UI.ViewModels
         private void PerformActionCommand(ActionWithTargetModel obj)
         {
             if(ActionExecutionRequest!=null)
-                ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(obj.Action,true));
+                ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(obj.Action));
         }
 
         private void KeyUnPressedCommand(KeyEventArgs obj)
@@ -69,7 +69,7 @@ namespace GetTheMilk.UI.ViewModels
             {
                 MovementType.Direction = direction;
                 if (ActionExecutionRequest != null)
-                    ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(MovementType,true));
+                    ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(MovementType));
             }
             else
             {
@@ -78,7 +78,7 @@ namespace GetTheMilk.UI.ViewModels
                     ExposeInventory exposeInventory = ToggleInventory();
 
                     if (ActionExecutionRequest != null)
-                        ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(exposeInventory,true));
+                        ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(exposeInventory));
 
                 }
             }

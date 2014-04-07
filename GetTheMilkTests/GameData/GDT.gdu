@@ -26,4 +26,5 @@
 {"Id":"Meet", "Value":"{0} {2}"}, 
 {"Id":"Open", "Value":"{0} {1} using {3}"},
 {"Id":"CloseInventory", "Value":"{0}"}, 
-{"Id":"InitiateHostilities", "Value":"{0} {2}"}]}
+{"Id":"InitiateHostilities", "Value":"{0} {2}"},
+{"Id":"Communicate", "Value":"{4}"}]}

@@ -17,6 +17,9 @@
         <DataTemplate DataType="{x:Type ViewModels:InventoryViewModel}">
             <UCViews:Inventory/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:TwoCharactersViewModel}">
+            <UCViews:TwoCharacters/>
+        </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -45,6 +48,14 @@
                         VerticalAlignment="Stretch" 
                         Content="{Binding Path=InventoryViewModel}" 
                         Visibility="{Binding Path=InventoryVisible}"/>
+        <ContentControl Grid.Row="1" 
+                        Name="TwoCharactersControl"  
+                        Grid.ColumnSpan ="3" 
+                        Grid.RowSpan="2"
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch" 
+                        Content="{Binding Path=TwoCharactersViewModel}" 
+                        Visibility="{Binding Path=TwoCharactersVisible}"/>
         <ContentControl Grid.Row="2"  
                         TabIndex="-1" 
                         Name="ActionPanel" 

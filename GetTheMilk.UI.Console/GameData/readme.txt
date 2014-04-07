@@ -22,3 +22,4 @@ for action types:
 1=Action.TargetObject.Name
 2=Action.TargetCharacter.Name
 3=Action.ActiveObject
+4=Message

@@ -45,17 +45,10 @@ namespace GetTheMilk.Actions
                                                                   {
                                                                       var act = actionsFactory.CreateNewActionInstance(a.ActionType);
                                                                       act.ActiveCharacter = TargetCharacter;
-                                                                      act.TargetCharacter = (act is TwoCharactersAction) ? tempTargetCharacter : ActiveCharacter; 
-                                                                      return new InventorySubAction
-                                                                             {
-                                                                                 Action = act,
-                                                                                 ActionType =
-                                                                                     a.ActionType,
-                                                                                 FinishInventoryExposure
-                                                                                     =
-                                                                                     a
-                                                                                     .FinishInventoryExposure
-                                                                             };
+                                                                      act.TargetCharacter = (act is TwoCharactersAction) ? tempTargetCharacter : ActiveCharacter;
+                                                                      act.FinishTheInteractionOnExecution =
+                                                                          a.FinishInventoryExposure;
+                                                                      return act;
                                                                   }).ToArray(),
                                        Money = (IncludeWallet)?ActiveCharacter.Walet.CurrentCapacity:0
                                    };

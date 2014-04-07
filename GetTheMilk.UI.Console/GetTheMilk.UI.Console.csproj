@@ -87,6 +87,9 @@
     <Compile Include="UControls\PlayerSetupView.xaml.cs">
       <DependentUpon>PlayerSetupView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UControls\TwoCharacters.xaml.cs">
+      <DependentUpon>TwoCharacters.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainView.xaml.cs">
@@ -157,6 +160,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UControls\PlayerSetupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UControls\TwoCharacters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

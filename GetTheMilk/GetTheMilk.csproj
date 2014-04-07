@@ -87,7 +87,6 @@
     <Compile Include="Actions\GiveTo.cs" />
     <Compile Include="Actions\InitiateHostilities.cs" />
     <Compile Include="Actions\Interactions\ActionReaction.cs" />
-    <Compile Include="Actions\InventorySubAction.cs" />
     <Compile Include="Actions\InventorySubActionType.cs" />
     <Compile Include="Actions\Keep.cs" />
     <Compile Include="Actions\Kick.cs" />
@@ -169,6 +168,7 @@
     <Compile Include="UI\ViewModels\BaseViewModels\RelayCommandOfT.cs" />
     <Compile Include="UI\ViewModels\BaseViewModels\ViewModelBase.cs" />
     <Compile Include="UI\ViewModels\CardinalStar.cs" />
+    <Compile Include="UI\ViewModels\Dialogue.cs" />
     <Compile Include="UI\ViewModels\GamePlayViewModel.cs" />
     <Compile Include="UI\ViewModels\GameViewModel.cs" />
     <Compile Include="UI\ViewModels\InventoryViewModel.cs" />
@@ -177,6 +177,7 @@
     <Compile Include="UI\ViewModels\PlayerInfoViewModel.cs" />
     <Compile Include="UI\ViewModels\PlayerSetupViewModel.cs" />
     <Compile Include="UI\ViewModels\DirectionShortcut.cs" />
+    <Compile Include="UI\ViewModels\TwoCharactersViewModel.cs" />
     <Compile Include="Utils\ActionJsonConverter.cs" />
     <Compile Include="Utils\CalculationStrategies.cs" />
     <Compile Include="Utils\CharacterJsonConverter.cs" />

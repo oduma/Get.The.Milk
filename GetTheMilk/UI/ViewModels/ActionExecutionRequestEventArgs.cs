@@ -6,12 +6,9 @@ namespace GetTheMilk.UI.ViewModels
     public class ActionExecutionRequestEventArgs:EventArgs
     {
         public GameAction GameAction { get; private set; }
-        public ActionExecutionRequestEventArgs(GameAction action,bool returnToActionView)
+        public ActionExecutionRequestEventArgs(GameAction action)
         {
             GameAction = action;
-            ReturnToActionView = returnToActionView;
         }
-
-        public bool ReturnToActionView   { get; private set; }
     }
 }

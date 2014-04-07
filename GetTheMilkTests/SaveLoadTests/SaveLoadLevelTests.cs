@@ -100,7 +100,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                                    "How are you? Beautifull day out there better buy something!"
                                                            },
                                                    Reaction =
-                                                       new Communicate {Message = "No"}
+                                                       new Communicate {Message = "No",FinishTheInteractionOnExecution=true}
                                                }
 
                                        });

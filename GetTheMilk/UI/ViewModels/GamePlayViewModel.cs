@@ -92,6 +92,21 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
+        private Visibility _twoCharactersVisible;
+        public Visibility TwoCharactersVisible
+        {
+            get { return _twoCharactersVisible; }
+            set
+            {
+                if (value != _twoCharactersVisible)
+                {
+                    _twoCharactersVisible = value;
+                    RaisePropertyChanged("TwoCharactersVisible");
+                }
+            }
+        }
+
+
         private InventoryViewModel _inventoryViewModel;
 
         public InventoryViewModel InventoryViewModel
@@ -144,9 +159,27 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
+        private TwoCharactersViewModel _twoCharactersViewModel;
+
+        public TwoCharactersViewModel TwoCharactersViewModel
+        {
+            get { return _twoCharactersViewModel; }
+            set
+            {
+                if (value != _twoCharactersViewModel)
+                {
+                    //if (_twoCharactersViewModel != null)
+                    //    _twoCharactersViewModel.ActionExecutionRequest -= ActionPanelViewModelActionExecutionRequest;
+                    _twoCharactersViewModel = value;
+                    //_twoCharactersViewModel.ActionExecutionRequest += ActionPanelViewModelActionExecutionRequest;
+                    RaisePropertyChanged("TwoCharactersViewModel");
+                }
+            }
+        }
+
         void InventoryViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
         {
-                if (e.ReturnToActionView)
+                if (e.GameAction.FinishTheInteractionOnExecution)
                 {
                     StoryVisible = Visibility.Visible;
                     InventoryVisible = Visibility.Hidden;
@@ -178,6 +211,14 @@ namespace GetTheMilk.UI.ViewModels
                     InventoryViewModel = new InventoryViewModel(_game.Player.Name.Main,actionResult.ExtraData as ExposeInventoryExtraData);
 
                 }
+            }
+            else if (e.GameAction is TwoCharactersAction)
+            {
+                StoryVisible = Visibility.Hidden;
+                InventoryVisible = Visibility.Hidden;
+                TwoCharactersVisible=Visibility.Visible;
+                TwoCharactersViewModel = new TwoCharactersViewModel(e.GameAction);
+
             }
             else
 

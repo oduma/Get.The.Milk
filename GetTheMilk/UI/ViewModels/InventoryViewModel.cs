@@ -28,7 +28,7 @@ namespace GetTheMilk.UI.ViewModels
             Actions= new ObservableCollection<ActionWithTargetModel>();
             foreach (var possibleUse in exposeInventoryExtraData.PossibleUses)
             {
-                Actions.Add(new ActionWithTargetModel{Action=possibleUse.Action,ReturnToActionView=possibleUse.FinishInventoryExposure});
+                Actions.Add(new ActionWithTargetModel{Action=possibleUse});
             }
 
             PerformAction = new RelayCommand<ActionWithTargetModel>(PerformActionCommand);
@@ -38,7 +38,7 @@ namespace GetTheMilk.UI.ViewModels
         private void PerformActionCommand(ActionWithTargetModel obj)
         {
             if (ActionExecutionRequest != null)
-                ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(obj.Action, obj.ReturnToActionView));
+                ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(obj.Action));
         }
 
         public RelayCommand<ActionWithTargetModel> PerformAction { get; private set; }
