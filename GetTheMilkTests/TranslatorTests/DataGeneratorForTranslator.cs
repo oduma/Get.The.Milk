@@ -15,6 +15,24 @@ namespace GetTheMilkTests.TranslatorTests
     {
         private static readonly Level Level = Level.Create(1);
 
+        public static IEnumerable TestCasesForTranslatorCommunicate
+        {
+            get
+            {
+                var active = new Player();
+                var factory = ObjectActionsFactory.GetFactory();
+
+                var objAction = factory.CreateObjectAction("Player");
+                active.AllowsAction = objAction.AllowsAction;
+                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+
+
+                yield return
+                    new TestCaseData(
+                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new Communicate { ActiveCharacter = active, TargetCharacter = Level.Characters.First(), Message = "Yes, of course" } }).Returns("As John the Shop Keeper left you heard You saying 'Yes, of course'.");
+            }
+        }
+
         public static IEnumerable TestCasesForTranslatorMovement
         {
             get

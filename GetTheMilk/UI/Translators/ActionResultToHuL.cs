@@ -60,7 +60,8 @@ namespace GetTheMilk.UI.Translators
                           actionResult.ForAction.Name.Present,
                           (actionResult.ForAction.TargetObject==null)?string.Empty:actionResult.ForAction.TargetObject.Name.Narrator,
                           (actionResult.ForAction.TargetCharacter == null) ? string.Empty : actionResult.ForAction.TargetCharacter.Name.Narrator,
-                          (actionResult.ForAction.ActiveObject == null) ? string.Empty : actionResult.ForAction.ActiveObject.Name.Narrator);
+                          (actionResult.ForAction.ActiveObject == null) ? string.Empty : actionResult.ForAction.ActiveObject.Name.Narrator,
+                          (actionResult.ForAction.ActionType!=ActionType.Communicate) ? string.Empty : ((Communicate)actionResult.ForAction).Message);
 
         }
 

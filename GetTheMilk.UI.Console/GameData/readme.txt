@@ -16,6 +16,7 @@ for other actions:
 3=TargetObject
 4=TargetCharacter
 5=ActiveObject
+6=Message
 
 for action types:
 0=Action.Name.Present

@@ -77,6 +77,7 @@
     <Compile Include="TranslatorTests\ActionTranslatorTests.cs" />
     <Compile Include="TranslatorTests\DataGeneratorForTranslator.cs" />
     <Compile Include="TranslatorTests\MovementResultsTranslationTests.cs" />
+    <Compile Include="TranslatorTests\OtherActionResultsTranslatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameData\GDES.gdu">

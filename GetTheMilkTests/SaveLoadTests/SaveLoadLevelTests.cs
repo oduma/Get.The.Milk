@@ -71,7 +71,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                },
                                            new ActionReaction
                                                {
-                                                   Action = new Communicate {Message = "No"},
+                                                   Action = new Communicate {Message = "No",FinishTheInteractionOnExecution=true},
                                                    Reaction =
                                                        new Communicate
                                                            {Message = "Why oh Why!?"}

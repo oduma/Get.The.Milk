@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
@@ -8,6 +9,8 @@ namespace GetTheMilk.UI.ViewModels
 {
     public class TwoCharactersViewModel : ViewModelBase
     {
+        public event EventHandler<ActionExecutionRequestEventArgs> ActionExecutionRequest;
+
         private GameAction _action;
 
         public RelayCommand<ActionWithTargetModel> PerformAction { get; private set; }
@@ -32,7 +35,9 @@ namespace GetTheMilk.UI.ViewModels
             {
                 Dialogues.Add(new Dialogue { Who = obj.Action.ActiveCharacter.Name.Narrator, What = ((Communicate)obj.Action).Message });
             }
-            var actionResult = obj.Action.Perform();
+            if(obj.Action.FinishTheInteractionOnExecution)
+                if(ActionExecutionRequest!=null)
+                    ActionExecutionRequest(this,new ActionExecutionRequestEventArgs(obj.Action));
         }
 
         private void RecordActionResult(ActionResult actionResult)
