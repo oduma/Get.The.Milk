@@ -67,7 +67,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                    Action = new Communicate {Message = "Yes"},
                                                    Reaction =
                                                        new ExposeInventory
-                                                           {AllowedNextActionTypes = new InventorySubActionType[] {new InventorySubActionType{ActionType=ActionType.Buy, FinishInventoryExposure=true}}}
+                                                           {FinishTheInteractionOnExecution=true,AllowedNextActionTypes = new InventorySubActionType[] {new InventorySubActionType{ActionType=ActionType.Buy, FinishInventoryExposure=true}}}
                                                },
                                            new ActionReaction
                                                {

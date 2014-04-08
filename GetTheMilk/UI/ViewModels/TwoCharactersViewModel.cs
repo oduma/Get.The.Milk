@@ -36,22 +36,39 @@ namespace GetTheMilk.UI.ViewModels
                 Dialogues.Add(new Dialogue { Who = obj.Action.ActiveCharacter.Name.Narrator, What = ((Communicate)obj.Action).Message });
             }
             if(obj.Action.FinishTheInteractionOnExecution)
+            {
                 if(ActionExecutionRequest!=null)
                     ActionExecutionRequest(this,new ActionExecutionRequestEventArgs(obj.Action));
+            }
+            else
+                RecordActionResult(obj.Action.Perform());
+
         }
 
         private void RecordActionResult(ActionResult actionResult)
         {
             if (actionResult.ForAction.ActionType == ActionType.Communicate)
             {
-                Dialogues.Add(new Dialogue{Who=actionResult.ForAction.ActiveCharacter.Name.Main,What=((Communicate)actionResult.ForAction).Message});
+                Dialogues.Add(new Dialogue
+                              {
+                                  Who = actionResult.ForAction.ActiveCharacter.Name.Main,
+                                  What = ((Communicate) actionResult.ForAction).Message
+                              });
             }
-            Actions= new ObservableCollection<ActionWithTargetModel>();
+            if (actionResult.ForAction.ActionType == ActionType.ExposeInventory)
+            {
+                if (ActionExecutionRequest != null)
+                    ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(actionResult.ForAction));
+            }
+            else
+            {
+                Actions = new ObservableCollection<ActionWithTargetModel>();
             foreach (var availableAction in (List<GameAction>) actionResult.ExtraData)
             {
-                Actions.Add(new ActionWithTargetModel{Action=availableAction});
+                Actions.Add(new ActionWithTargetModel {Action = availableAction});
             }
         }
+    }
 
         public ObservableCollection<Dialogue> Dialogues { get; set; }
 
