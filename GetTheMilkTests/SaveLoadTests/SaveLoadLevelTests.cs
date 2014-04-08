@@ -64,10 +64,10 @@ namespace GetTheMilkTests.SaveLoadTests
                                                },
                                            new ActionReaction
                                                {
-                                                   Action = new Communicate {Message = "Yes"},
+                                                   Action = new Communicate {Message = "Yes",FinishTheInteractionOnExecution=true},
                                                    Reaction =
                                                        new ExposeInventory
-                                                           {FinishTheInteractionOnExecution=true,AllowedNextActionTypes = new InventorySubActionType[] {new InventorySubActionType{ActionType=ActionType.Buy, FinishInventoryExposure=true}}}
+                                                           {AllowedNextActionTypes = new InventorySubActionType[] {new InventorySubActionType{ActionType=ActionType.Buy, FinishInventoryExposure=true}}}
                                                },
                                            new ActionReaction
                                                {
@@ -89,7 +89,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                                    "How are you? Beautifull day out there better buy something!"
                                                            },
                                                    Reaction =
-                                                       new Communicate {Message = "Yes"}
+                                                       new Communicate {Message = "Yes",FinishTheInteractionOnExecution=true}
                                                },
                                            new ActionReaction
                                                {

@@ -22,7 +22,7 @@ namespace GetTheMilk.UI.ViewModels
             Weapons = new ObservableCollection<Weapon>();
             foreach (Weapon weapon in exposeInventoryExtraData.Contents.Where(o => o.ObjectCategory == ObjectCategory.Weapon))
             {
-                Tools.Add(weapon);
+                Weapons.Add(weapon);
             }
 
             Actions= new ObservableCollection<ActionWithTargetModel>();

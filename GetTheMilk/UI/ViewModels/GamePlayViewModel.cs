@@ -1,13 +1,6 @@
 using System;
-using System.Linq;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Factories;
-using GetTheMilk.Levels;
-using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.Translators;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using System.Windows;
@@ -219,7 +212,7 @@ namespace GetTheMilk.UI.ViewModels
                 {
                     StoryVisible = Visibility.Hidden;
                     InventoryVisible = Visibility.Visible;
-                    InventoryViewModel = new InventoryViewModel(_game.Player.Name.Main,actionResult.ExtraData as ExposeInventoryExtraData);
+                    InventoryViewModel = new InventoryViewModel(actionResult.ForAction.ActiveCharacter.Name.Main,actionResult.ExtraData as ExposeInventoryExtraData);
 
                 }
             }
@@ -248,6 +241,10 @@ namespace GetTheMilk.UI.ViewModels
 
         private string RecordActionResult(ActionResult actionResult)
         {
+            if (actionResult.ForAction.ActionType == ActionType.ExposeInventory)
+            {
+                ActionPanelViewModelActionExecutionRequest(this,new ActionExecutionRequestEventArgs(actionResult.ForAction));
+            }
             var actionResultToHuL = new ActionResultToHuL();
             var teleport = new Teleport();
             teleport.ActiveCharacter = _game.Player;
