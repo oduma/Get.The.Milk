@@ -14,22 +14,19 @@ namespace GetTheMilk.UI.ViewModels
         public InventoryViewModel(string ownerName, ExposeInventoryExtraData exposeInventoryExtraData)
         {
             OwnerName = ownerName;
-            Tools = new ObservableCollection<Tool>();
-            foreach (Tool tool in exposeInventoryExtraData.Contents.Where(o => o.ObjectCategory == ObjectCategory.Tool))
+            Tools = new ObservableCollection<ObjectWithPossibleActions>();
+            foreach (ObjectWithPossibleActions tool in exposeInventoryExtraData.Contents.Where(o => o.Object.ObjectCategory == ObjectCategory.Tool))
             {
                 Tools.Add(tool);
             }
-            Weapons = new ObservableCollection<Weapon>();
-            foreach (Weapon weapon in exposeInventoryExtraData.Contents.Where(o => o.ObjectCategory == ObjectCategory.Weapon))
+            Weapons = new ObservableCollection<ObjectWithPossibleActions>();
+            foreach (ObjectWithPossibleActions weapon in exposeInventoryExtraData.Contents.Where(o => o.Object.ObjectCategory == ObjectCategory.Weapon))
             {
                 Weapons.Add(weapon);
             }
 
             Actions= new ObservableCollection<ActionWithTargetModel>();
-            foreach (var possibleUse in exposeInventoryExtraData.PossibleUses)
-            {
-                Actions.Add(new ActionWithTargetModel{Action=possibleUse});
-            }
+            Actions.Add(new ActionWithTargetModel{Action=new CloseInventory()});
 
             PerformAction = new RelayCommand<ActionWithTargetModel>(PerformActionCommand);
 
@@ -59,9 +56,9 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
-        public ObservableCollection<Tool> Tools { get; set; }
+        public ObservableCollection<ObjectWithPossibleActions> Tools { get; set; }
 
-        public ObservableCollection<Weapon> Weapons { get; set; }
+        public ObservableCollection<ObjectWithPossibleActions> Weapons { get; set; }
 
         public ObservableCollection<ActionWithTargetModel> Actions { get; set; }
 

@@ -67,7 +67,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                    Action = new Communicate {Message = "Yes",FinishTheInteractionOnExecution=true},
                                                    Reaction =
                                                        new ExposeInventory
-                                                           {AllowedNextActionTypes = new InventorySubActionType[] {new InventorySubActionType{ActionType=ActionType.Buy, FinishInventoryExposure=true}}}
+                                                           {FinishActionType = ActionType.CloseInventory}
                                                },
                                            new ActionReaction
                                                {
@@ -171,7 +171,7 @@ namespace GetTheMilkTests.SaveLoadTests
                     {
                         Action = new InitiateHostilities(),
                         Reaction = new ExposeInventory
-                            {AllowedNextActionTypes = new InventorySubActionType[] {new InventorySubActionType{ActionType = ActionType.SelectAttackWeapon},new InventorySubActionType{ActionType = ActionType.SelectDefenseWeapon},new InventorySubActionType{ActionType = ActionType.Attack, FinishInventoryExposure=true}},SelfInventory=true}
+                            {FinishActionType = ActionType.Attack,SelfInventory=true}
 
                     }
                 });

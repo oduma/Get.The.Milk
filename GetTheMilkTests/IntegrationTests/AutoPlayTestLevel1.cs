@@ -83,27 +83,16 @@ namespace GetTheMilkTests.IntegrationTests
                                   {
                                       ActiveCharacter = level.Player,
                                       TargetCharacter = level.Player,
-                                      AllowedNextActionTypes =
-                                          new InventorySubActionType[]
-                                          {
-                                              new InventorySubActionType
-                                              {
-                                                  ActionType =
+                                      FinishActionType =
                                                       ActionType
-                                                      .CloseInventory,
-                                                  FinishInventoryExposure =
-                                                      true
-                                              }
-                                          }
+                                                      .CloseInventory
                                   };
             actionResult = exposeInventory.Perform();
 
             Assert.AreEqual(1,((ExposeInventoryExtraData)actionResult.ExtraData).Contents.Count());
-            Assert.AreEqual(1, ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses.Length);
-            Assert.True(((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses[0].FinishTheInteractionOnExecution);
-            Assert.AreEqual(ActionType.CloseInventory,((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses[0].ActionType);
+            Assert.IsNull(((ExposeInventoryExtraData)actionResult.ExtraData).Contents[0].PossibleUsses);
 
-            actionResult = ((ExposeInventoryExtraData) actionResult.ExtraData).PossibleUses[0].Perform();
+            actionResult = new CloseInventory().Perform();
             Assert.AreEqual(ActionResultType.Ok,actionResult.ResultType);
             //the user runs to the east
             var run = new Run();
@@ -150,17 +139,18 @@ namespace GetTheMilkTests.IntegrationTests
             Assert.AreEqual(2, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents.Count());
             Assert.AreEqual(
                 level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly").Inventory[0].Name.Main,
-                ((ExposeInventoryExtraData) actionResult.ExtraData).Contents.ToList()[0].Name.Main);
+                ((ExposeInventoryExtraData) actionResult.ExtraData).Contents[0].Object.Name.Main);
+            Assert.AreEqual(2, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[0].PossibleUsses.Count());
+            Assert.AreEqual(ActionType.Buy, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[0].PossibleUsses.First().ActionType);
             Assert.AreEqual(
                 level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly").Inventory[1].Name.Main,
-                ((ExposeInventoryExtraData)actionResult.ExtraData).Contents.ToList()[1].Name.Main);
-            Assert.AreEqual(1, ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses.Length);
-            Assert.AreEqual(ActionType.Buy, ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses[0].ActionType);
+                ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[1].Object.Name.Main);
+            Assert.AreEqual(1, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[1].PossibleUsses.Count());
+            Assert.AreEqual(ActionType.Buy, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[1].PossibleUsses.First().ActionType);
 
             //the player buys the knife from the shopkeeper
-            ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses[0].TargetObject = ((ExposeInventoryExtraData)actionResult.ExtraData).Contents.ToList()[0];
 
-            var transferresult = ((ExposeInventoryExtraData) actionResult.ExtraData).PossibleUses[0].Perform();
+            var transferresult = ((ExposeInventoryExtraData) actionResult.ExtraData).Contents[0].PossibleUsses.First().Perform();
             Assert.AreEqual(1,player.Inventory.Count());
             Assert.AreEqual(1, level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly").Inventory.Count());
             Assert.AreEqual(15, player.Walet.CurrentCapacity);
@@ -193,18 +183,16 @@ namespace GetTheMilkTests.IntegrationTests
             //simulated the UI for selecting weapons
             actionResult = ((List<GameAction>) actionResult.ExtraData)[0].Perform();
             Assert.AreEqual(1, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents.Count());
-            Assert.AreEqual(3, ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses.Length);
+            Assert.AreEqual(2, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[0].PossibleUsses.Count());
 
             //select the knife for the attack
-                ((ExposeInventoryExtraData) actionResult.ExtraData).PossibleUses[0].TargetObject =
-                    level.Player.Inventory.FirstOrDefault(w => w.ObjectCategory == ObjectCategory.Weapon);
             var inventoryActionResult =
-                ((ExposeInventoryExtraData) actionResult.ExtraData).PossibleUses[0].Perform();
+                ((ExposeInventoryExtraData) actionResult.ExtraData).Contents[0].PossibleUsses.First().Perform();
             Assert.AreEqual(ActionResultType.Ok,inventoryActionResult.ResultType);
             Assert.IsNotNull(level.Player.ActiveAttackWeapon);
 
             //attack the character
-            actionResult = ((ExposeInventoryExtraData) actionResult.ExtraData).PossibleUses[2].Perform();
+            actionResult = ((ExposeInventoryExtraData) actionResult.ExtraData).FinishingAction.Perform();
 
             Assert.AreEqual(ActionResultType.Ok, inventoryActionResult.ResultType);
             Assert.AreEqual(2,((List<GameAction>)actionResult.ExtraData).Count);
@@ -236,7 +224,6 @@ namespace GetTheMilkTests.IntegrationTests
 
             //create a mock for the ui interactions
 
-            //var stubedUI = new StubTheInteractivity();
             //create a new player
             var player = new Player();
             var factory = ObjectActionsFactory.GetFactory();
@@ -289,6 +276,23 @@ namespace GetTheMilkTests.IntegrationTests
             Assert.AreEqual(player.Name, level.Player.Inventory[0].StorageContainer.Owner.Name);
             Assert.AreEqual(3, level.Inventory.Count);
 
+            //the user checks his inventory
+
+            var exposeInventory = new ExposeInventory
+            {
+                ActiveCharacter = level.Player,
+                TargetCharacter = level.Player,
+                FinishActionType =
+                                ActionType
+                                .CloseInventory
+            };
+            actionResult = exposeInventory.Perform();
+
+            Assert.AreEqual(1, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents.Count());
+            Assert.IsNull(((ExposeInventoryExtraData)actionResult.ExtraData).Contents[0].PossibleUsses);
+
+            actionResult = new CloseInventory().Perform();
+            Assert.AreEqual(ActionResultType.Ok, actionResult.ResultType);
             //the user runs to the east
             var run = new Run();
             run.Direction = Direction.East;
@@ -334,17 +338,18 @@ namespace GetTheMilkTests.IntegrationTests
             Assert.AreEqual(2, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents.Count());
             Assert.AreEqual(
                 level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly").Inventory[0].Name.Main,
-                ((ExposeInventoryExtraData)actionResult.ExtraData).Contents.ToList()[0].Name.Main);
+                ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[0].Object.Name.Main);
+            Assert.AreEqual(2, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[0].PossibleUsses.Count());
+            Assert.AreEqual(ActionType.Buy, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[0].PossibleUsses.First().ActionType);
             Assert.AreEqual(
                 level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly").Inventory[1].Name.Main,
-                ((ExposeInventoryExtraData)actionResult.ExtraData).Contents.ToList()[1].Name.Main);
-            Assert.AreEqual(1, ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses.Length);
-            Assert.AreEqual(ActionType.Buy, ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses[0].ActionType);
+                ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[1].Object.Name.Main);
+            Assert.AreEqual(1, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[1].PossibleUsses.Count());
+            Assert.AreEqual(ActionType.Buy, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[1].PossibleUsses.First().ActionType);
 
             //the player buys the knife from the shopkeeper
-            ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses[0].TargetObject = ((ExposeInventoryExtraData)actionResult.ExtraData).Contents.ToList()[0];
 
-            var transferresult = ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses[0].Perform();
+            var transferresult = ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[0].PossibleUsses.First().Perform();
             Assert.AreEqual(1, player.Inventory.Count());
             Assert.AreEqual(1, level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly").Inventory.Count());
             Assert.AreEqual(15, player.Walet.CurrentCapacity);
@@ -377,18 +382,16 @@ namespace GetTheMilkTests.IntegrationTests
             //simulated the UI for selecting weapons
             actionResult = ((List<GameAction>)actionResult.ExtraData)[0].Perform();
             Assert.AreEqual(1, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents.Count());
-            Assert.AreEqual(3, ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses.Length);
+            Assert.AreEqual(2, ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[0].PossibleUsses.Count());
 
             //select the knife for the attack
-            ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses[0].TargetObject =
-                level.Player.Inventory.FirstOrDefault(w => w.ObjectCategory == ObjectCategory.Weapon);
             var inventoryActionResult =
-                ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses[0].Perform();
+                ((ExposeInventoryExtraData)actionResult.ExtraData).Contents[0].PossibleUsses.First().Perform();
             Assert.AreEqual(ActionResultType.Ok, inventoryActionResult.ResultType);
             Assert.IsNotNull(level.Player.ActiveAttackWeapon);
 
             //attack the character
-            actionResult = ((ExposeInventoryExtraData)actionResult.ExtraData).PossibleUses[2].Perform();
+            actionResult = ((ExposeInventoryExtraData)actionResult.ExtraData).FinishingAction.Perform();
 
             Assert.AreEqual(ActionResultType.Ok, inventoryActionResult.ResultType);
             Assert.AreEqual(2, ((List<GameAction>)actionResult.ExtraData).Count);

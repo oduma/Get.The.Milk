@@ -3,12 +3,10 @@ using GetTheMilk.Accounts;
 using GetTheMilk.Actions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Factories;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
 using GetTheMilk.Settings;
-using GetTheMilk.UI;
 using GetTheMilk.Utils;
 
 namespace GetTheMilk.Characters

@@ -87,12 +87,12 @@
     <Compile Include="Actions\GiveTo.cs" />
     <Compile Include="Actions\InitiateHostilities.cs" />
     <Compile Include="Actions\Interactions\ActionReaction.cs" />
-    <Compile Include="Actions\InventorySubActionType.cs" />
     <Compile Include="Actions\Keep.cs" />
     <Compile Include="Actions\Kick.cs" />
     <Compile Include="Actions\Kill.cs" />
     <Compile Include="Actions\Meet.cs" />
     <Compile Include="Actions\MovementActionExtraData.cs" />
+    <Compile Include="Actions\ObjectWithPossibleActions.cs" />
     <Compile Include="Actions\Open.cs" />
     <Compile Include="Actions\Quit.cs" />
     <Compile Include="Actions\Run.cs" />

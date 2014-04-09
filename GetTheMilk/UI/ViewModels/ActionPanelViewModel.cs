@@ -93,18 +93,9 @@ namespace GetTheMilk.UI.ViewModels
                                                   {
                                                       ActiveCharacter = _player,
                                                       TargetCharacter = _player,
-                                                      AllowedNextActionTypes =
-                                                          new[]
-                                                          {
-                                                              new InventorySubActionType
-                                                              {
-                                                                  ActionType =
+                                                      FinishActionType =
                                                                       ActionType
-                                                                      .CloseInventory,
-                                                                  FinishInventoryExposure =
-                                                                      true
-                                                              }
-                                                          }
+                                                                      .CloseInventory
                                                   };
                 exposeInventory.IncludeWallet = false;
                 return exposeInventory;
