@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.Translators;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using System.Windows;
@@ -190,6 +192,10 @@ namespace GetTheMilk.UI.ViewModels
                     ActionPanelViewModelActionExecutionRequest(sender,e);
                     ActionPanelViewModel.InventoryShowHide = "Show Inventory";
                 }
+                else
+                {
+                    ActionPanelViewModelActionExecutionRequest(sender, e);
+                }
         }
 
         void ActionPanelViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
@@ -244,6 +250,21 @@ namespace GetTheMilk.UI.ViewModels
             if (actionResult.ForAction.ActionType == ActionType.ExposeInventory)
             {
                 ActionPanelViewModelActionExecutionRequest(this,new ActionExecutionRequestEventArgs(actionResult.ForAction));
+            }
+            if (actionResult.ForAction.ActionType == ActionType.Buy)
+            {
+                _playerInfoViewModel.PlayerMoney = _game.Player.Walet.CurrentCapacity;
+                var objectBought =
+                    _inventoryViewModel.Weapons.First(
+                        o => o.ObjectName == actionResult.ForAction.TargetObject.Name.Main);
+                if (actionResult.ForAction.TargetObject.ObjectCategory == ObjectCategory.Weapon)
+                {
+                    _inventoryViewModel.Weapons.Remove(objectBought);
+                }
+                else if (actionResult.ForAction.TargetObject.ObjectCategory == ObjectCategory.Tool)
+                {
+                    _inventoryViewModel.Tools.Remove(objectBought);
+                }
             }
             var actionResultToHuL = new ActionResultToHuL();
             var teleport = new Teleport();

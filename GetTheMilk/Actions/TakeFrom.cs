@@ -8,7 +8,7 @@ namespace GetTheMilk.Actions
     {
         public TakeFrom()
         {
-            Name = new Verb { Infinitive = "To Give", Past = "gave", Present = "give" };
+            Name = new Verb { Infinitive = "To Take", Past = "took", Present = "take" };
             TransactionType = TransactionType.None;
             ActionType = ActionType.TakeFrom;
             StartingAction = false;

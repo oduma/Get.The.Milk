@@ -24,3 +24,5 @@ for action types:
 2=Action.TargetCharacter.Name
 3=Action.ActiveObject
 4=Message
+5=BuyPrice
+

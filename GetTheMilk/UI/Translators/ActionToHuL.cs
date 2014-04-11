@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Settings;
 
 namespace GetTheMilk.UI.Translators
@@ -21,7 +22,8 @@ namespace GetTheMilk.UI.Translators
                           (action.TargetObject == null) ? string.Empty : action.TargetObject.Name.Narrator,
                           (action.TargetCharacter == null) ? string.Empty : action.TargetCharacter.Name.Narrator,
                           (action.ActiveObject == null) ? string.Empty : action.ActiveObject.Name.Narrator,
-                          (action.ActionType==ActionType.Communicate)?((Communicate)action).Message:string.Empty);
+                          (action.ActionType==ActionType.Communicate)?((Communicate)action).Message:string.Empty,
+                          (action.TargetObject is ITransactionalObject)?((ITransactionalObject)action.TargetObject).BuyPrice.ToString():string.Empty);
 
 
         }

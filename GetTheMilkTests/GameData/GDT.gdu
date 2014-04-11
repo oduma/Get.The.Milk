@@ -8,7 +8,8 @@
 		{"Id":"To Keep","Value":"{0} decided to {2} {3}."},
 		{"Id":"To Open","Value":"{2} successfull."},
 		{"Id":"To Close Inventory","Value":"{2} successfull."},
-		{"Id":"To Communicate","Value":"As {4} left you heard {0} saying '{6}'."}
+		{"Id":"To Communicate","Value":"As {4} left you heard {0} saying '{6}'."},
+		{"Id":"To Buy","Value":"{0} {1} a {3} from {4}."}
 		]},
 {"ResultType":10,"Messages":[{"Id":"To Walk","Value":"Error {0} cannot {2}."},{"Id":"To Run","Value":"Error {0} cannot {2}."}]},
 {"ResultType":7,"Messages":[{"Id":"To Walk","Value":"{0} tried to {2} {3} but the world has limits."},{"Id":"To Run","Value":"{0} tried to {2} {3} but the world has limits."}]},{"ResultType":8,"Messages":[{"Id":"To Walk","Value":"{0} tried to {2} {3} but {5}{6} are on the way."},{"Id":"To Run","Value":"{0} tried to {2} {3} but {5}{6} are on the way."},{"Id":"To Enter","Value":"{0} tried to {2} level {4} but is impossible, blocked by {5}{6}."}]},
@@ -17,7 +18,8 @@
 	"Messages":[
 		{"Id":"To Kick","Value":"{0} tried to {2} {3} but couldn't."},
 		{"Id":"To Keep","Value":"{0} tried to {2} {3} but couldn't."},
-		{"Id":"To Open","Value":"{0} tried to {2} {3} but couldn't."}]}],
+		{"Id":"To Open","Value":"{0} tried to {2} {3} but couldn't."},
+		{"Id":"To Buy","Value":"{0} tried to {2} a {3} from {4} but couldn't."}]}],
 "MovementExtraDataTemplate":{
 	"MessageForObjectsInRange":"Looking {0} {1}.",
 	"MessageForObjectsInCell":"You see in front of you {0}."},
@@ -28,4 +30,6 @@
 {"Id":"Open", "Value":"{0} {1} using {3}"},
 {"Id":"CloseInventory", "Value":"{0}"}, 
 {"Id":"InitiateHostilities", "Value":"{0} {2}"},
-{"Id":"Communicate", "Value":"{4}"}]}
+{"Id":"Communicate", "Value":"{4}"},
+{"Id":"Buy", "Value":"{0} ({5})"},
+{"Id":"TakeFrom", "Value":"{0}"}]}

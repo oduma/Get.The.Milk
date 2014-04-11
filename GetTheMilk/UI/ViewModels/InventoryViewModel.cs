@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GetTheMilk.Actions;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
@@ -9,24 +10,16 @@ namespace GetTheMilk.UI.ViewModels
 {
     public class InventoryViewModel:ViewModelBase
     {
+        private readonly ExposeInventoryExtraData _exposeInventoryExtraData;
         public event EventHandler<ActionExecutionRequestEventArgs> ActionExecutionRequest;
 
         public InventoryViewModel(string ownerName, ExposeInventoryExtraData exposeInventoryExtraData)
         {
+            _exposeInventoryExtraData = exposeInventoryExtraData;
             OwnerName = ownerName;
-            Tools = new ObservableCollection<ObjectWithPossibleActions>();
-            foreach (ObjectWithPossibleActions tool in exposeInventoryExtraData.Contents.Where(o => o.Object.ObjectCategory == ObjectCategory.Tool))
-            {
-                Tools.Add(tool);
-            }
-            Weapons = new ObservableCollection<ObjectWithPossibleActions>();
-            foreach (ObjectWithPossibleActions weapon in exposeInventoryExtraData.Contents.Where(o => o.Object.ObjectCategory == ObjectCategory.Weapon))
-            {
-                Weapons.Add(weapon);
-            }
-
+            RefreshInventory();
             Actions= new ObservableCollection<ActionWithTargetModel>();
-            Actions.Add(new ActionWithTargetModel{Action=new CloseInventory()});
+            Actions.Add(new ActionWithTargetModel{Action=_exposeInventoryExtraData.FinishingAction});
 
             PerformAction = new RelayCommand<ActionWithTargetModel>(PerformActionCommand);
 
@@ -56,11 +49,26 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
-        public ObservableCollection<ObjectWithPossibleActions> Tools { get; set; }
+        public ObservableCollection<InventoryObjectModel> Tools { get; set; }
 
-        public ObservableCollection<ObjectWithPossibleActions> Weapons { get; set; }
+        public ObservableCollection<InventoryObjectModel> Weapons { get; set; }
 
         public ObservableCollection<ActionWithTargetModel> Actions { get; set; }
 
+        private void RefreshInventory()
+        {
+            Tools = new ObservableCollection<InventoryObjectModel>();
+            foreach (ObjectWithPossibleActions tool in _exposeInventoryExtraData.Contents.Where(o => o.Object.ObjectCategory == ObjectCategory.Tool))
+            {
+                Tools.Add(new InventoryObjectModel(tool, PerformActionCommand));
+            }
+
+            Weapons = new ObservableCollection<InventoryObjectModel>();
+            foreach (ObjectWithPossibleActions weapon in _exposeInventoryExtraData.Contents.Where(o => o.Object.ObjectCategory == ObjectCategory.Weapon))
+            {
+                Weapons.Add(new InventoryObjectModel(weapon, PerformActionCommand));
+            }
+
+        }
     }
 }
