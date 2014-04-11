@@ -179,8 +179,8 @@ namespace GetTheMilk.UI.ViewModels
                 StoryVisible = Visibility.Visible;
                 InventoryVisible = Visibility.Hidden;
                 TwoCharactersVisible = Visibility.Hidden;
-                ActionPanelViewModelActionExecutionRequest(sender, e);
             }
+            ActionPanelViewModelActionExecutionRequest(sender, e);
         }
 
         void InventoryViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
@@ -218,6 +218,7 @@ namespace GetTheMilk.UI.ViewModels
                 {
                     StoryVisible = Visibility.Hidden;
                     InventoryVisible = Visibility.Visible;
+                    TwoCharactersVisible=Visibility.Hidden;
                     InventoryViewModel = new InventoryViewModel(actionResult.ForAction.ActiveCharacter.Name.Main,actionResult.ExtraData as ExposeInventoryExtraData);
 
                 }

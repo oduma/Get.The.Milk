@@ -25,4 +25,5 @@ for action types:
 3=Action.ActiveObject
 4=Message
 5=BuyPrice
+6=CustomMessage
 

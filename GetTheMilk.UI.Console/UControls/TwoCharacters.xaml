@@ -15,7 +15,7 @@
         <ListView ItemsSource="{Binding Path=Dialogues}" Grid.Row="1">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Who's saying">
+                    <GridViewColumn Header="Who">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding Path=Who}"></Label>

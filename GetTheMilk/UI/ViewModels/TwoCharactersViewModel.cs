@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.UI.ViewModels
@@ -40,6 +41,11 @@ namespace GetTheMilk.UI.ViewModels
                 if(ActionExecutionRequest!=null)
                     ActionExecutionRequest(this,new ActionExecutionRequestEventArgs(obj.Action));
             }
+            if (obj.Action.ActionType == ActionType.ExposeInventory)
+            {
+                if (ActionExecutionRequest != null)
+                    ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(obj.Action));
+            }
             else
                 RecordActionResult(obj.Action.Perform());
 
@@ -53,6 +59,14 @@ namespace GetTheMilk.UI.ViewModels
                               {
                                   Who = actionResult.ForAction.ActiveCharacter.Name.Main,
                                   What = ((Communicate) actionResult.ForAction).Message
+                              });
+            }
+            if (actionResult.ForAction.ActionType == ActionType.InitiateHostilities)
+            {
+                Dialogues.Add(new Dialogue
+                              {
+                                  Who = actionResult.ForAction.ActiveCharacter.Name.Main,
+                                  What = GetOpponentActiveWeapons(actionResult.ForAction.ActiveCharacter)
                               });
             }
             if (actionResult.ForAction.ActionType == ActionType.ExposeInventory)
@@ -69,6 +83,18 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
     }
+
+        private string GetOpponentActiveWeapons(ICharacter targetCharacter)
+        {
+            var attackWeaponMessage = (targetCharacter.ActiveAttackWeapon != null)
+                ? string.Format("chose {0} for attack", targetCharacter.ActiveAttackWeapon.Name.Main)
+                : "bare nuckle attack";
+            var defenseWeaponMessage = (targetCharacter.ActiveDefenseWeapon != null)
+                ? string.Format("chose {0} for defense", targetCharacter.ActiveDefenseWeapon.Name.Main)
+                : "bare nuckle defense";
+            return string.Format("{0} {1}", attackWeaponMessage, defenseWeaponMessage);
+
+        }
 
         public ObservableCollection<Dialogue> Dialogues { get; set; }
 

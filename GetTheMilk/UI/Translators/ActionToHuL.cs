@@ -18,12 +18,16 @@ namespace GetTheMilk.UI.Translators
             if (message == null)
                 return gameSettings.TranslatorErrorMessage;
             return string.Format(message.Value,
-                          action.Name.Present,
-                          (action.TargetObject == null) ? string.Empty : action.TargetObject.Name.Narrator,
-                          (action.TargetCharacter == null) ? string.Empty : action.TargetCharacter.Name.Narrator,
-                          (action.ActiveObject == null) ? string.Empty : action.ActiveObject.Name.Narrator,
-                          (action.ActionType==ActionType.Communicate)?((Communicate)action).Message:string.Empty,
-                          (action.TargetObject is ITransactionalObject)?((ITransactionalObject)action.TargetObject).BuyPrice.ToString():string.Empty);
+                action.Name.Present,
+                (action.TargetObject == null) ? string.Empty : action.TargetObject.Name.Narrator,
+                (action.TargetCharacter == null) ? string.Empty : action.TargetCharacter.Name.Narrator,
+                (action.ActiveObject == null) ? string.Empty : action.ActiveObject.Name.Narrator,
+                (action.ActionType == ActionType.Communicate) ? ((Communicate) action).Message : string.Empty,
+                (action.TargetObject is ITransactionalObject)
+                    ? ((ITransactionalObject) action.TargetObject).BuyPrice.ToString()
+                    : string.Empty,
+                (action.ActionType == ActionType.ExposeInventory)
+                ? ((((ExposeInventory) action).SelfInventory) ? "Prepare for Battle" : "Expose Inventory"):string.Empty);
 
 
         }

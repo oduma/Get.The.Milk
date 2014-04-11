@@ -32,4 +32,9 @@
 {"Id":"InitiateHostilities", "Value":"{0} {2}"},
 {"Id":"Communicate", "Value":"{4}"},
 {"Id":"Buy", "Value":"{0} ({5})"},
-{"Id":"TakeFrom", "Value":"{0}"}]}
+{"Id":"TakeFrom", "Value":"{0}"},
+{"Id":"ExposeInventory", "Value":"{6}"},
+{"Id":"Attack", "Value":"{0}"},
+{"Id":"Quit", "Value":"{0}"},
+{"Id":"SelectAttackWeapon", "Value":"{0}"},
+{"Id":"SelectDefenseWeapon", "Value":"{0}"}]}
