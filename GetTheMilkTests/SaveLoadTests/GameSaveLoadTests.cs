@@ -21,7 +21,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.AreEqual(gameSettings.DefaultGameName, "Get the milk");
             Assert.AreEqual(gameSettings.Description,"Some description here.");
             Assert.AreEqual(gameSettings.MessagesForActionsResult.Count,6);
-            Assert.AreEqual(gameSettings.ActionTypeMessages.Count,7);
+            Assert.AreEqual(gameSettings.ActionTypeMessages.Count,9);
         }
 
 
