@@ -25,7 +25,7 @@ namespace GetTheMilk.UI.Translators
             var messagesFor = gameSettings.MessagesForActionsResult.Where(m => m.ResultType == actionResult.ResultType);
             if (!messagesFor.Any())
                 return gameSettings.TranslatorErrorMessage;
-            var message = messagesFor.SelectMany(m => m.Messages, (m, f) => f).FirstOrDefault(o => o.Id == actionResult.ForAction.Name.Infinitive);
+            var message = messagesFor.SelectMany(m => m.Messages, (m, f) => f).FirstOrDefault(o => o.Id == actionResult.ForAction.ActionType.ToString());
             if (message == null)
                 return gameSettings.TranslatorErrorMessage;
             return string.Format(message.Value,
@@ -50,7 +50,7 @@ namespace GetTheMilk.UI.Translators
             var messagesFor = gameSettings.MessagesForActionsResult.Where(m => m.ResultType == actionResult.ResultType);
             if (!messagesFor.Any())
                 return gameSettings.TranslatorErrorMessage;
-            var message = messagesFor.SelectMany(m=>m.Messages,(m,f)=>f).FirstOrDefault(o=>o.Id==actionResult.ForAction.Name.Infinitive);
+            var message = messagesFor.SelectMany(m=>m.Messages,(m,f)=>f).FirstOrDefault(o=>o.Id==actionResult.ForAction.ActionType.ToString());
             if (message==null)
                 return gameSettings.TranslatorErrorMessage;
             return string.Format(message.Value,
@@ -61,7 +61,9 @@ namespace GetTheMilk.UI.Translators
                           (actionResult.ForAction.TargetObject==null)?string.Empty:actionResult.ForAction.TargetObject.Name.Narrator,
                           (actionResult.ForAction.TargetCharacter == null) ? string.Empty : actionResult.ForAction.TargetCharacter.Name.Narrator,
                           (actionResult.ForAction.ActiveObject == null) ? string.Empty : actionResult.ForAction.ActiveObject.Name.Narrator,
-                          (actionResult.ForAction.ActionType!=ActionType.Communicate) ? string.Empty : ((Communicate)actionResult.ForAction).Message);
+                          (actionResult.ForAction.ActionType!=ActionType.Communicate) ? string.Empty : ((Communicate)actionResult.ForAction).Message,
+                          (actionResult.ForAction.ActionType==ActionType.Attack)?((Attack)actionResult.ForAction).ActiveCharacter.ActiveAttackWeapon.Name.Narrator:string.Empty,
+                          (actionResult.ForAction.ActionType == ActionType.Attack) ? ((Attack)actionResult.ForAction).TargetCharacter.ActiveDefenseWeapon.Name.Narrator : string.Empty);
 
         }
 

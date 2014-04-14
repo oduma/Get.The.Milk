@@ -17,6 +17,8 @@ for other actions:
 4=TargetCharacter
 5=ActiveObject
 6=Message
+7=Active.AttackWeapon
+8=Passive.DefenseWeapon
 
 for action types:
 0=Action.Name.Present

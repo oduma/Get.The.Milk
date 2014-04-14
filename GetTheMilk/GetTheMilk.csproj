@@ -70,6 +70,7 @@
     <Compile Include="Actions\Attack.cs" />
     <Compile Include="Actions\BaseActions\ActionsHelper.cs" />
     <Compile Include="Actions\BaseActions\ActionType.cs" />
+    <Compile Include="Actions\BaseActions\FeedbackEventArgs.cs" />
     <Compile Include="Actions\BaseActions\GameAction.cs" />
     <Compile Include="Actions\BaseActions\MovementAction.cs" />
     <Compile Include="Actions\BaseActions\ObjectTransferFromAction.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="UI\ViewModels\InventoryViewModel.cs" />
     <Compile Include="UI\ViewModels\LoadGameViewModel.cs" />
     <Compile Include="UI\ViewModels\MainViewModel.cs" />
+    <Compile Include="UI\ViewModels\PlayerHealthUpdateRequestEventArgs.cs" />
     <Compile Include="UI\ViewModels\PlayerInfoViewModel.cs" />
     <Compile Include="UI\ViewModels\PlayerSetupViewModel.cs" />
     <Compile Include="UI\ViewModels\DirectionShortcut.cs" />

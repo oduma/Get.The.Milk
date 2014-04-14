@@ -22,11 +22,6 @@ namespace GetTheMilk.UI.ViewModels
 
         }
 
-        //private void PerformActionCommand(ActionWithTargetModel obj)
-        //{
-        //    _performActionCommand(obj);
-        //}
-
         public RelayCommand<ActionWithTargetModel> PerformAction { get; private set; }
 
 

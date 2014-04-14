@@ -30,7 +30,9 @@ namespace GetTheMilk.Actions
             if (ActiveCharacter.Health <= 0)
                 return new ActionResult {ResultType = ActionResultType.Lost,ForAction=this};
             if (ActiveCharacter is IPlayer)
+            {
                 return PerformResponseAction(ActionType);
+            }
             return new ActionResult {ResultType = ActionResultType.Ok,ForAction=this,ExtraData=GetAvailableActions()};
         }
 

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.UI.Translators;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.UI.ViewModels
@@ -12,26 +13,76 @@ namespace GetTheMilk.UI.ViewModels
     {
         public event EventHandler<ActionExecutionRequestEventArgs> ActionExecutionRequest;
 
-        private GameAction _action;
+        public event EventHandler<PlayerHealthUpdateRequestEventArgs> PlayerHealthUpdateRequest;
+
+        private TwoCharactersAction _action;
+        private int _passiveHealth;
+        private ObservableCollection<ActionWithTargetModel> _actions;
+        private ObservableCollection<Dialogue> _dialogues;
+
+
+        public TwoCharactersAction Action
+        {
+            get { return _action; }
+            set
+            {
+                if (value != _action)
+                {
+                    if (_action != null)
+                        _action.FeedbackFromOriginalAction -= ActionFeedbackFromOriginalAction;
+                    _action = value;
+                    _action.FeedbackFromOriginalAction += ActionFeedbackFromOriginalAction;
+                }
+            }
+        }
+
+        private void ActionFeedbackFromOriginalAction(object sender, FeedbackEventArgs e)
+        {
+            Dialogues.Add(new Dialogue
+                              {
+                                  Who = e.ActionResult.ForAction.ActiveCharacter.Name.Narrator,
+                                  What = (new ActionResultToHuL()).TranslateActionResult(e.ActionResult)
+                              });
+            PassiveHealth = e.ActionResult.ForAction.TargetCharacter.Health;
+            if(PlayerHealthUpdateRequest!=null)
+                PlayerHealthUpdateRequest(this, new PlayerHealthUpdateRequestEventArgs(e.ActionResult.ForAction.ActiveCharacter.Health));
+        }
 
         public RelayCommand<ActionWithTargetModel> PerformAction { get; private set; }
 
-        public string ActiveVPassive
+        public string Active { get; private set; }
+
+        public string Passive { get; private set; }
+        
+        public int PassiveHealth
         {
-            get { return _action.ActiveCharacter.Name.Main + " - " + _action.TargetCharacter.Name.Main; }
+            get { return _passiveHealth; }
+            set
+            {
+                if (value != _passiveHealth)
+                {
+                    _passiveHealth = value;
+                    RaisePropertyChanged("PassiveHealth");
+                }
+            }
         }
 
-        public TwoCharactersViewModel(GameAction action)
+        public TwoCharactersViewModel(ICharacter activeCharacter, ICharacter targetCharacter)
         {
-            _action = action;
+            Active = activeCharacter.Name.Main;
+            Passive = targetCharacter.Name.Main;
+            PassiveHealth = targetCharacter.Health;
             Dialogues = new ObservableCollection<Dialogue>();
             PerformAction = new RelayCommand<ActionWithTargetModel>(PerformActionCommand);
-
-            RecordActionResult(_action.Perform());
         }
 
         private void PerformActionCommand(ActionWithTargetModel obj)
         {
+            if(obj.Action is TwoCharactersAction)
+            {
+                ((TwoCharactersAction) obj.Action).FeedbackFromOriginalAction -= ActionFeedbackFromOriginalAction;
+                ((TwoCharactersAction)obj.Action).FeedbackFromOriginalAction += ActionFeedbackFromOriginalAction;
+            }
             if (obj.Action.ActionType == ActionType.Communicate)
             {
                 Dialogues.Add(new Dialogue { Who = obj.Action.ActiveCharacter.Name.Narrator, What = ((Communicate)obj.Action).Message });
@@ -47,7 +98,9 @@ namespace GetTheMilk.UI.ViewModels
                     ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(obj.Action));
             }
             else
+            {
                 RecordActionResult(obj.Action.Perform());
+            }
 
         }
 
@@ -69,6 +122,23 @@ namespace GetTheMilk.UI.ViewModels
                                   What = GetOpponentActiveWeapons(actionResult.ForAction.ActiveCharacter)
                               });
             }
+            if(actionResult.ForAction.ActionType==ActionType.Attack)
+            {
+                Dialogues.Add(new Dialogue
+                                  {
+                                      Who = actionResult.ForAction.ActiveCharacter.Name.Narrator,
+                                      What = (new ActionResultToHuL()).TranslateActionResult(actionResult)
+                                  });
+                if(!(actionResult.ForAction.ActiveCharacter is IPlayer))
+                {
+                    PassiveHealth = actionResult.ForAction.ActiveCharacter.Health;
+                    if (PlayerHealthUpdateRequest != null)
+                        PlayerHealthUpdateRequest(this,
+                                                  new PlayerHealthUpdateRequestEventArgs(
+                                                      actionResult.ForAction.TargetCharacter.Health));
+                }
+
+            }
             if (actionResult.ForAction.ActionType == ActionType.ExposeInventory)
             {
                 if (ActionExecutionRequest != null)
@@ -76,7 +146,8 @@ namespace GetTheMilk.UI.ViewModels
             }
             else
             {
-                Actions = new ObservableCollection<ActionWithTargetModel>();
+            
+            Actions = new ObservableCollection<ActionWithTargetModel>();
             foreach (var availableAction in (List<GameAction>) actionResult.ExtraData)
             {
                 Actions.Add(new ActionWithTargetModel {Action = availableAction});
@@ -96,10 +167,37 @@ namespace GetTheMilk.UI.ViewModels
 
         }
 
-        public ObservableCollection<Dialogue> Dialogues { get; set; }
+        public ObservableCollection<Dialogue> Dialogues
+        {
+            get { return _dialogues; }
+            set
+            {
+                if(value!=_dialogues)
+                {
+                    _dialogues = value;
+                    RaisePropertyChanged("Dialogues");
+                }
+            }
+        }
 
 
-        public ObservableCollection<ActionWithTargetModel> Actions { get; set; }
+        public ObservableCollection<ActionWithTargetModel> Actions
+        {
+            get { return _actions; }
+            set
+            {
+                if(value!=_actions)
+                {
+                    _actions = value;
+                    RaisePropertyChanged("Actions");                    
+                }
+            }
+        }
 
+        public void ExecuteAction(TwoCharactersAction twoCharactersAction)
+        {
+            Action = twoCharactersAction;
+            RecordActionResult(Action.Perform());
+        }
     }
 }

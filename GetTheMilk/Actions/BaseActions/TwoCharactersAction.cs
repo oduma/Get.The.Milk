@@ -1,8 +1,6 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using GetTheMilk.Actions.Interactions;
-using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Utils;
 
@@ -10,6 +8,8 @@ namespace GetTheMilk.Actions.BaseActions
 {
     public class TwoCharactersAction : GameAction
     {
+        public event EventHandler<FeedbackEventArgs> FeedbackFromOriginalAction;
+
         public override bool CanPerform()
         {
             return ActiveCharacter.AllowsAction(this) 
@@ -28,6 +28,8 @@ namespace GetTheMilk.Actions.BaseActions
 
         protected ActionResult PerformResponseAction(ActionType actionType)
         {
+            if (FeedbackFromOriginalAction != null)
+                FeedbackFromOriginalAction(this, new FeedbackEventArgs(new ActionResult { ForAction = this, ResultType = ActionResultType.Ok }));
             var availableActions = GetAvailableActions();
             int actionToRespond = CalculationStrategies.SelectAWeightedRandomAction(0, availableActions.Count - 1, actionType);
             availableActions[actionToRespond].TargetCharacter = ActiveCharacter;
