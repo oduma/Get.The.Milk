@@ -71,5 +71,19 @@ namespace GetTheMilk.UI.ViewModels
             }
 
         }
+
+        public void Remove(NonCharacterObject targetObject)
+        {
+            if (targetObject.ObjectCategory == ObjectCategory.Weapon)
+            {
+                Weapons.Remove(Weapons.First(
+                        o => o.ObjectName == targetObject.Name.Main));
+            }
+            else if (targetObject.ObjectCategory == ObjectCategory.Tool)
+            {
+                Tools.Remove(Tools.First(
+                        o => o.ObjectName == targetObject.Name.Main));
+            }
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace GetTheMilk.Actions
 
         public TakeMoneyFrom()
         {
-            Name = new Verb {Infinitive = "To Take Money", Past = "took money", Present = "take money"};
+            Name = new Verb {Infinitive = "To Take Money", Past = "took", Present = "take money"};
             ActionType = ActionType.TakeMoneyFrom;
             StartingAction = false;
 

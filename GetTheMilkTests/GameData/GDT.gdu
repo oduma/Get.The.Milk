@@ -14,7 +14,10 @@
 		{"Id":"SelectAttackWeapon","Value":"{0} {1} as attack weapon {3}."},
 		{"Id":"SelectDefenseWeapon","Value":"{0} {1} as defense weapon {3}."},
 		{"Id":"Attack","Value":"{0} {1} {4} with {7}. {4} defended with {8}."},
-		{"Id":"Quit","Value":"{0} decided to {2}."}
+		{"Id":"Quit","Value":"{0} decided to {2}."},
+		{"Id":"TakeFrom","Value":"{0} {1} {3} from {4}."},
+		{"Id":"TakeMoneyFrom","Value":"{0} {1} {9} money from {4}."},
+		{"Id":"Kill","Value":"{0} won the battle."}
 ]},
 {"ResultType":10,"Messages":[{"Id":"Walk","Value":"Error {0} cannot {2}."},{"Id":"Run","Value":"Error {0} cannot {2}."}]},
 {"ResultType":7,"Messages":[{"Id":"Walk","Value":"{0} tried to {2} {3} but the world has limits."},{"Id":"Run","Value":"{0} tried to {2} {3} but the world has limits."}]},

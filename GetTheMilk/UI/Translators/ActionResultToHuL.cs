@@ -63,7 +63,8 @@ namespace GetTheMilk.UI.Translators
                           (actionResult.ForAction.ActiveObject == null) ? string.Empty : actionResult.ForAction.ActiveObject.Name.Narrator,
                           (actionResult.ForAction.ActionType!=ActionType.Communicate) ? string.Empty : ((Communicate)actionResult.ForAction).Message,
                           (actionResult.ForAction.ActionType==ActionType.Attack)?((Attack)actionResult.ForAction).ActiveCharacter.ActiveAttackWeapon.Name.Narrator:string.Empty,
-                          (actionResult.ForAction.ActionType == ActionType.Attack) ? ((Attack)actionResult.ForAction).TargetCharacter.ActiveDefenseWeapon.Name.Narrator : string.Empty);
+                          (actionResult.ForAction.ActionType == ActionType.Attack) ? ((Attack)actionResult.ForAction).TargetCharacter.ActiveDefenseWeapon.Name.Narrator : string.Empty,
+                          (actionResult.ForAction.ActionType==ActionType.TakeMoneyFrom)?((TakeMoneyFrom)actionResult.ForAction).Amount:0);
 
         }
 

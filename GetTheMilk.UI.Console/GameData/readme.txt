@@ -19,6 +19,7 @@ for other actions:
 6=Message
 7=Active.AttackWeapon
 8=Passive.DefenseWeapon
+9=MoneyTaken
 
 for action types:
 0=Action.Name.Present

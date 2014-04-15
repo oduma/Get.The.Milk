@@ -1,8 +1,6 @@
 using System;
-using System.Linq;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.Translators;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using System.Windows;
@@ -239,7 +237,10 @@ namespace GetTheMilk.UI.ViewModels
                     StoryVisible = Visibility.Visible;
                     InventoryVisible = Visibility.Hidden;
                     TwoCharactersVisible = Visibility.Hidden;
-                    Story += RecordActionResult(e.GameAction.Perform());
+                    ((TwoCharactersAction)e.GameAction).FeedbackFromSubAction -= GamePlayViewModel_FeedbackFromSubAction;
+                    ((TwoCharactersAction)e.GameAction).FeedbackFromSubAction += GamePlayViewModel_FeedbackFromSubAction;
+                    var actionResult = e.GameAction.Perform();
+                    Story += RecordActionResult(actionResult);
                 }
                 else
                 {
@@ -256,25 +257,24 @@ namespace GetTheMilk.UI.ViewModels
                 Story += RecordActionResult(e.GameAction.Perform());
         }
 
+        void GamePlayViewModel_FeedbackFromSubAction(object sender, FeedbackEventArgs e)
+        {
+            Story+=RecordActionResult(e.ActionResult);
+        }
+
         private string RecordActionResult(ActionResult actionResult)
         {
             if (actionResult.ForAction.ActionType == ActionType.ExposeInventory)
             {
                 ActionPanelViewModelActionExecutionRequest(this,new ActionExecutionRequestEventArgs(actionResult.ForAction));
             }
-            if (actionResult.ForAction.ActionType == ActionType.Buy)
+            if (actionResult.ForAction is ObjectTransferFromAction 
+                || actionResult.ForAction.ActionType==ActionType.TakeMoneyFrom)
             {
                 _playerInfoViewModel.PlayerMoney = _game.Player.Walet.CurrentCapacity;
-                var objectBought =
-                    _inventoryViewModel.Weapons.First(
-                        o => o.ObjectName == actionResult.ForAction.TargetObject.Name.Main);
-                if (actionResult.ForAction.TargetObject.ObjectCategory == ObjectCategory.Weapon)
+                if(InventoryVisible==Visibility.Visible)
                 {
-                    _inventoryViewModel.Weapons.Remove(objectBought);
-                }
-                else if (actionResult.ForAction.TargetObject.ObjectCategory == ObjectCategory.Tool)
-                {
-                    _inventoryViewModel.Tools.Remove(objectBought);
+                    InventoryViewModel.Remove(actionResult.ForAction.TargetObject);
                 }
             }
             var actionResultToHuL = new ActionResultToHuL();
