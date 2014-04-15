@@ -35,7 +35,7 @@ namespace GetTheMilk.Levels
         [JsonIgnore]
         public CharacterCollection Characters
         {
-            get { return _characters=(_characters)??new CharacterCollection(); }
+            get { return _characters=(_characters)??new CharacterCollection{Owner=this}; }
             set
             {
                 _characters = value;
@@ -83,6 +83,7 @@ namespace GetTheMilk.Levels
             {
                 level.Characters.Add(Character.Load<Character>(characterPackage));
             }
+            level.Characters.LinkCharactersToInventory();
             return level;
         }
         public  int StartingCell { get; set; }

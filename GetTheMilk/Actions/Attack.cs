@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Fight;
 using GetTheMilk.BaseCommon;
@@ -25,15 +26,57 @@ namespace GetTheMilk.Actions
             var hit = ActiveCharacter.PrepareAttackHit();
             var counterHit = TargetCharacter.PrepareDefenseHit();
             CalculationStrategies.CalculateDamages(hit, counterHit,ActiveCharacter,TargetCharacter);
-            if (TargetCharacter.Health <= 0)
-                return new ActionResult {ResultType = ActionResultType.Win,ForAction=this};
-            if (ActiveCharacter.Health <= 0)
-                return new ActionResult {ResultType = ActionResultType.Lost,ForAction=this};
+            var result = DetermineWinLoseSituations();
+            if (result != null)
+                return result;
             if (ActiveCharacter is IPlayer)
             {
                 return PerformResponseAction(ActionType);
             }
             return new ActionResult {ResultType = ActionResultType.Ok,ForAction=this,ExtraData=GetAvailableActions()};
+        }
+
+        private ActionResult DetermineWinLoseSituations()
+        {
+            if ((ActiveCharacter.Health <= 0 && ActiveCharacter is IPlayer)
+                ||(TargetCharacter.Health <= 0 && TargetCharacter is IPlayer))
+            {
+                return new ActionResult
+                           {
+                               ResultType = ActionResultType.Lost,
+                               ForAction = this,
+                               ExtraData =
+                                   new List<GameAction>
+                                       {
+                                           new Kill
+                                               {
+                                                   ActiveCharacter =
+                                                       (ActiveCharacter is IPlayer) ?TargetCharacter:ActiveCharacter,
+                                                    TargetCharacter=(ActiveCharacter is IPlayer) ?ActiveCharacter:TargetCharacter
+                                               }
+                                       }
+                           };
+            }
+            if ((ActiveCharacter.Health <= 0 && !(ActiveCharacter is IPlayer))
+                || (TargetCharacter.Health <= 0 && !(TargetCharacter is IPlayer)))
+            {
+                return new ActionResult
+                {
+                    ResultType = ActionResultType.Win,
+                    ForAction = this,
+                    ExtraData =
+                        new List<GameAction>
+                                       {
+                                           new Kill
+                                               {
+                                                   ActiveCharacter =
+                                                       (ActiveCharacter is IPlayer) ?ActiveCharacter:TargetCharacter,
+                                                    TargetCharacter=(ActiveCharacter is IPlayer) ?TargetCharacter:ActiveCharacter
+                                               }
+                                       }
+                };
+            }
+            return null;
         }
 
         public override GameAction CreateNewInstance()

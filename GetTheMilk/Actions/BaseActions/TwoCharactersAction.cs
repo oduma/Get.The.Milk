@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Utils;
 
 namespace GetTheMilk.Actions.BaseActions
@@ -9,6 +10,8 @@ namespace GetTheMilk.Actions.BaseActions
     public class TwoCharactersAction : GameAction
     {
         public event EventHandler<FeedbackEventArgs> FeedbackFromOriginalAction;
+
+        public event EventHandler<FeedbackEventArgs> FeedbackFromSubAction;
 
         public override bool CanPerform()
         {
@@ -36,6 +39,7 @@ namespace GetTheMilk.Actions.BaseActions
             availableActions[actionToRespond].ActiveCharacter = TargetCharacter;
             return availableActions[actionToRespond].Perform();
         }
+
         protected List<GameAction> GetAvailableActions()
         {
             if (TargetCharacter is IPlayer)
@@ -63,6 +67,46 @@ namespace GetTheMilk.Actions.BaseActions
 
         }
 
+        protected void PileageCharacter(ICharacter pileager, ICharacter pileagee)
+        {
+            TakeFrom takeFrom = new TakeFrom();
+            TakeMoneyFrom takeMoneyFrom = new TakeMoneyFrom();
+            var pileageeInventory = pileagee.Inventory.ToList();
+            ActionResult actionResult;
+            foreach (var o in pileageeInventory)
+            {
+                if (pileager.Inventory.MaximumCapacity >= pileager.Inventory.Count)
+                {
+                    takeFrom.ActiveCharacter = pileager;
+                    takeFrom.TargetCharacter = pileagee;
+                    if (o.ObjectCategory == ObjectCategory.Weapon)
+                    {
+                        if (((Weapon)o).IsCurrentAttack)
+                            pileagee.ActiveAttackWeapon = null;
+                        if (((Weapon)o).IsCurrentDefense)
+                            pileagee.ActiveDefenseWeapon = null;
+                    }
+
+                    takeFrom.TargetObject = o;
+                    actionResult = takeFrom.Perform();
+                    if(FeedbackFromSubAction!=null)
+                        FeedbackFromSubAction(this,new FeedbackEventArgs(actionResult));
+                }
+                else
+                {
+                    break;
+                }
+            }
+            takeMoneyFrom.ActiveCharacter = pileager;
+            takeMoneyFrom.TargetCharacter = pileagee;
+            takeMoneyFrom.Amount = (pileager.Walet.MaxCapacity - pileager.Walet.CurrentCapacity >
+                                    pileagee.Walet.CurrentCapacity)
+                ? pileagee.Walet.CurrentCapacity
+                : (pileager.Walet.MaxCapacity - pileager.Walet.CurrentCapacity);
+            actionResult = takeMoneyFrom.Perform();
+            if(FeedbackFromSubAction!=null)
+                FeedbackFromSubAction(this,new FeedbackEventArgs(actionResult));
+        }
 
         public override GameAction CreateNewInstance()
         {

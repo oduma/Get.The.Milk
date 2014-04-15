@@ -360,6 +360,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.IsNotNull(actual.Characters);
             Assert.AreEqual(level.Characters.Count, actual.Characters.Count);
             Assert.AreEqual(InventoryType.CharacterInventory,actual.Characters[0].Inventory.InventoryType);
+            Assert.AreEqual(2,actual.Characters.Count(c => c.StorageContainer.Owner != null));
         }
 
         [Test]

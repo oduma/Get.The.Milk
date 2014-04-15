@@ -87,15 +87,10 @@ namespace GetTheMilk.UI.ViewModels
             {
                 Dialogues.Add(new Dialogue { Who = obj.Action.ActiveCharacter.Name.Narrator, What = ((Communicate)obj.Action).Message });
             }
-            if(obj.Action.FinishTheInteractionOnExecution)
+            if (obj.Action.FinishTheInteractionOnExecution || obj.Action.ActionType == ActionType.ExposeInventory)
             {
                 if(ActionExecutionRequest!=null)
                     ActionExecutionRequest(this,new ActionExecutionRequestEventArgs(obj.Action));
-            }
-            if (obj.Action.ActionType == ActionType.ExposeInventory)
-            {
-                if (ActionExecutionRequest != null)
-                    ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(obj.Action));
             }
             else
             {
@@ -124,6 +119,12 @@ namespace GetTheMilk.UI.ViewModels
             }
             if(actionResult.ForAction.ActionType==ActionType.Attack)
             {
+                if(actionResult.ResultType==ActionResultType.Win || actionResult.ResultType== ActionResultType.Lost)
+                {
+                    PerformActionCommand(new ActionWithTargetModel {Action = ((List<GameAction>) actionResult.ExtraData)[0]});
+                    return;
+                }
+
                 Dialogues.Add(new Dialogue
                                   {
                                       Who = actionResult.ForAction.ActiveCharacter.Name.Narrator,

@@ -1,10 +1,7 @@
 using System;
 using System.Linq;
-using Castle.Core.Internal;
-using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Fight;
-using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
@@ -21,22 +18,24 @@ namespace GetTheMilk.Utils
         //Expert = 3/4+1 ~ maximum experince =coefficient 2
         public static int CalculateAttackPower(int weaponPower, int currentExperience)
         {
-            return (int)Math.Ceiling((double) weaponPower*CalculateExperienceCoefficient(((double) GameSettings.GetInstance().MaximumExperience/
-                                                ((double) ((currentExperience == 0) ? 1.0 : currentExperience)))));
+            return (int)Math.Ceiling((double) weaponPower*CalculateExperienceCoefficient(
+                                                ((double) ((currentExperience == 0) ? 1.0 : currentExperience))/(double) GameSettings.GetInstance().MaximumExperience));
 
         }
 
         private static double CalculateExperienceCoefficient(double relativeExperience)
         {
-            if (relativeExperience > 4.0)
-                return 0.5;
-            if(relativeExperience>2.0)
-                return 1.0;
-            if(relativeExperience>1.33)
-                return 1.5;
-            if (relativeExperience > 1.0)
+            if (relativeExperience == 1.0d) //maximum experience has been reached
+                return 4.0;
+            if(relativeExperience>0.5) //half of experience or more have been reached
+                return 3.0;
+            if(relativeExperience>0.25) //quarter of experience or more have been reached 
                 return 2.0;
-            return 0.0;
+            if (relativeExperience > 0.1)//ten percent of experience have been reached
+                return 1;
+            if (relativeExperience > 0.001)//some experience
+                return 0.5;
+            return 0.25;
         }
 
         //1/2weaponPower * by relativeExperience where relativeExperince is:
@@ -46,12 +45,10 @@ namespace GetTheMilk.Utils
         //Expert = 3/4+1 ~ maximum experince =coefficient 2
         public static int CalculateDefensePower(int weaponPower, int currentExperience)
         {
-            return (int)Math.Ceiling(((double)weaponPower/2.0) * CalculateExperienceCoefficient(((double)GameSettings.GetInstance().MaximumExperience /
-                                                ((double)((currentExperience == 0) ? 1.0 : currentExperience)))));
+            return (int)Math.Ceiling(((double)weaponPower/2.0) * CalculateExperienceCoefficient(
+                                                ((double)((currentExperience == 0) ? 1.0 : currentExperience))/(double)GameSettings.GetInstance().MaximumExperience));
 
         }
-
-
 
         public static void CalculateDamages(Hit hit, Hit counterHit, ICharacter attacker, ICharacter defender)
         {
@@ -100,6 +97,18 @@ namespace GetTheMilk.Utils
             if (actionType == ActionType.Quit)
                 return stop;
             return Randomizer.GetRandom(start, stop);
+        }
+
+        //take all the experience if the fromCharacter is at least as experienced as the toCharacter
+        //take half of the experience if the fromCharacter is least than toCharacter but not lesser than 1/2
+        //take a quater of the experience if from Character is least than half the toCharacter
+        public static int CalculateWinExperience(ICharacter toCharacter, ICharacter fromCharacter)
+        {
+            if(fromCharacter.Experience>=toCharacter.Experience)
+                return fromCharacter.Experience;
+            if (fromCharacter.Experience <= toCharacter.Experience / 2)
+                return fromCharacter.Experience/4;
+            return fromCharacter.Experience/2;
         }
     }
 }

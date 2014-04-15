@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Actions.Fight;
+﻿using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Utils;
 
 namespace GetTheMilk.Actions
 {
@@ -28,7 +21,7 @@ namespace GetTheMilk.Actions
             TargetCharacter.Experience -= (int) (TargetCharacter.Experience*0.25);
             if (ActiveCharacter is IPlayer)
                 return PerformResponseAction(ActionType);
-            ActionsHelper.PileageCharacter(ActiveCharacter, TargetCharacter);
+            PileageCharacter(ActiveCharacter, TargetCharacter);
             return new ActionResult {ResultType = ActionResultType.Ok,ForAction=this,ExtraData=GetAvailableActions()};
         }
 

@@ -2,6 +2,7 @@
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Utils;
 
 namespace GetTheMilk.Actions
 {
@@ -13,16 +14,17 @@ namespace GetTheMilk.Actions
             Name = new Verb {Infinitive = "To Kill", Past = "killed", Present = "kill"};
             ActionType = ActionType.Kill;
             StartingAction = false;
-
+            FinishTheInteractionOnExecution = true;
         }
-        public double ExperienceTaken { get; set; }
 
         public override ActionResult Perform()
         {
             if(!CanPerform())
                 return new ActionResult { ForAction = this, ResultType = ActionResultType.NotOk };
 
-            ActiveCharacter.Experience += (int)Math.Ceiling(TargetCharacter.Experience*ExperienceTaken);
+            ActiveCharacter.Experience += CalculationStrategies.CalculateWinExperience(ActiveCharacter, TargetCharacter);
+
+            PileageCharacter(ActiveCharacter,TargetCharacter);
             if(TargetCharacter.StorageContainer!=null && TargetCharacter.StorageContainer.Owner!=null)
                 TargetCharacter.StorageContainer.Remove(TargetCharacter as Character);
             TargetCharacter = null;

@@ -234,7 +234,7 @@ namespace GetTheMilk.UI.ViewModels
             else if (e.GameAction is TwoCharactersAction)
             {
                 if (e.GameAction.FinishTheInteractionOnExecution 
-                    && e.GameAction.ActionType==ActionType.Communicate) //the last words
+                    && (e.GameAction.ActionType==ActionType.Communicate || e.GameAction.ActionType==ActionType.Kill)) //the last words
                 {
                     StoryVisible = Visibility.Visible;
                     InventoryVisible = Visibility.Hidden;
