@@ -62,9 +62,9 @@ namespace GetTheMilk.UI.Translators
                           (actionResult.ForAction.TargetCharacter == null) ? string.Empty : actionResult.ForAction.TargetCharacter.Name.Narrator,
                           (actionResult.ForAction.ActiveObject == null) ? string.Empty : actionResult.ForAction.ActiveObject.Name.Narrator,
                           (actionResult.ForAction.ActionType!=ActionType.Communicate) ? string.Empty : ((Communicate)actionResult.ForAction).Message,
-                          (actionResult.ForAction.ActionType==ActionType.Attack)?((Attack)actionResult.ForAction).ActiveCharacter.ActiveAttackWeapon.Name.Narrator:string.Empty,
-                          (actionResult.ForAction.ActionType == ActionType.Attack) ? ((Attack)actionResult.ForAction).TargetCharacter.ActiveDefenseWeapon.Name.Narrator : string.Empty,
-                          (actionResult.ForAction.ActionType==ActionType.TakeMoneyFrom)?((TakeMoneyFrom)actionResult.ForAction).Amount:0);
+                          (actionResult.ForAction.ActionType == ActionType.Attack) ? ((((Attack)actionResult.ForAction).ActiveCharacter.ActiveAttackWeapon!=null)?((Attack)actionResult.ForAction).ActiveCharacter.ActiveAttackWeapon.Name.Narrator:string.Empty) : string.Empty,
+                          (actionResult.ForAction.ActionType == ActionType.Attack) ? ((((Attack)actionResult.ForAction).ActiveCharacter.ActiveDefenseWeapon != null) ? ((Attack)actionResult.ForAction).ActiveCharacter.ActiveDefenseWeapon.Name.Narrator : string.Empty) : string.Empty,
+                          (actionResult.ForAction.ActionType == ActionType.TakeMoneyFrom) ? ((TakeMoneyFrom)actionResult.ForAction).Amount : 0);
 
         }
 

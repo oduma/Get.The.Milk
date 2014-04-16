@@ -6,12 +6,14 @@ namespace GetTheMilk.Actions
 {
     public class AcceptQuit:TwoCharactersAction
     {
-                public AcceptQuit()
+        public AcceptQuit()
         {
-            Name = new Verb { Infinitive = "To Accept Quit", Past = "accepted quit", Present = "accept quit" };
+            Name = new Verb {Infinitive = "To Accept Quit", Past = "accepted quit", Present = "accept quit"};
             ActionType = ActionType.AcceptQuit;
-                    StartingAction = false;
+            StartingAction = false;
+            FinishTheInteractionOnExecution = true;
         }
+
         public override ActionResult Perform()
         {
             if (!CanPerform())
@@ -21,8 +23,7 @@ namespace GetTheMilk.Actions
             TargetCharacter.Experience -= (int) (TargetCharacter.Experience*0.25);
             if (ActiveCharacter is IPlayer)
                 return PerformResponseAction(ActionType);
-            PileageCharacter(ActiveCharacter, TargetCharacter);
-            return new ActionResult {ResultType = ActionResultType.Ok,ForAction=this,ExtraData=GetAvailableActions()};
+            return new ActionResult {ResultType = ActionResultType.Ok,ForAction=this};
         }
 
         public override GameAction CreateNewInstance()

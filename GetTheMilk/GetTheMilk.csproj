@@ -177,7 +177,7 @@
     <Compile Include="UI\ViewModels\InventoryViewModel.cs" />
     <Compile Include="UI\ViewModels\LoadGameViewModel.cs" />
     <Compile Include="UI\ViewModels\MainViewModel.cs" />
-    <Compile Include="UI\ViewModels\PlayerHealthUpdateRequestEventArgs.cs" />
+    <Compile Include="UI\ViewModels\PlayerStatsUpdateRequestEventArgs.cs" />
     <Compile Include="UI\ViewModels\PlayerInfoViewModel.cs" />
     <Compile Include="UI\ViewModels\PlayerSetupViewModel.cs" />
     <Compile Include="UI\ViewModels\DirectionShortcut.cs" />

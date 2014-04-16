@@ -13,7 +13,7 @@ namespace GetTheMilk.UI.ViewModels
     {
         public event EventHandler<ActionExecutionRequestEventArgs> ActionExecutionRequest;
 
-        public event EventHandler<PlayerHealthUpdateRequestEventArgs> PlayerHealthUpdateRequest;
+        public event EventHandler<PlayerStatsUpdateRequestEventArgs> PlayerStatsUpdateRequest;
 
         private TwoCharactersAction _action;
         private int _passiveHealth;
@@ -44,8 +44,9 @@ namespace GetTheMilk.UI.ViewModels
                                   What = (new ActionResultToHuL()).TranslateActionResult(e.ActionResult)
                               });
             PassiveHealth = e.ActionResult.ForAction.TargetCharacter.Health;
-            if(PlayerHealthUpdateRequest!=null)
-                PlayerHealthUpdateRequest(this, new PlayerHealthUpdateRequestEventArgs(e.ActionResult.ForAction.ActiveCharacter.Health));
+            if (PlayerStatsUpdateRequest != null)
+                PlayerStatsUpdateRequest(this,
+                                         new PlayerStatsUpdateRequestEventArgs(e.ActionResult));
         }
 
         public RelayCommand<ActionWithTargetModel> PerformAction { get; private set; }
@@ -133,10 +134,9 @@ namespace GetTheMilk.UI.ViewModels
                 if(!(actionResult.ForAction.ActiveCharacter is IPlayer))
                 {
                     PassiveHealth = actionResult.ForAction.ActiveCharacter.Health;
-                    if (PlayerHealthUpdateRequest != null)
-                        PlayerHealthUpdateRequest(this,
-                                                  new PlayerHealthUpdateRequestEventArgs(
-                                                      actionResult.ForAction.TargetCharacter.Health));
+                    if (PlayerStatsUpdateRequest != null)
+                        PlayerStatsUpdateRequest(this,
+                                                 new PlayerStatsUpdateRequestEventArgs(actionResult));
                 }
 
             }
@@ -144,6 +144,12 @@ namespace GetTheMilk.UI.ViewModels
             {
                 if (ActionExecutionRequest != null)
                     ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(actionResult.ForAction));
+            }
+            else if(actionResult.ForAction.ActionType==ActionType.AcceptQuit)
+            {
+                if (PlayerStatsUpdateRequest != null)
+                    PlayerStatsUpdateRequest(this,
+                                             new PlayerStatsUpdateRequestEventArgs(actionResult));
             }
             else
             {

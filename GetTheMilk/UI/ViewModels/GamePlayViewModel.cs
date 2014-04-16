@@ -1,6 +1,7 @@
 using System;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.UI.Translators;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using System.Windows;
@@ -164,19 +165,30 @@ namespace GetTheMilk.UI.ViewModels
                     if (_twoCharactersViewModel != null)
                     {
                         _twoCharactersViewModel.ActionExecutionRequest -= TwoCharactersViewModelActionExecutionRequest;
-                        _twoCharactersViewModel.PlayerHealthUpdateRequest -= TwoCharactersViewModelPlayerHealthUpdateRequest;
+                        _twoCharactersViewModel.PlayerStatsUpdateRequest -= TwoCharactersViewModelPlayerStatsUpdateRequest;
                     }
                     _twoCharactersViewModel = value;
                     _twoCharactersViewModel.ActionExecutionRequest += TwoCharactersViewModelActionExecutionRequest;
-                    _twoCharactersViewModel.PlayerHealthUpdateRequest +=TwoCharactersViewModelPlayerHealthUpdateRequest;
+                    _twoCharactersViewModel.PlayerStatsUpdateRequest +=TwoCharactersViewModelPlayerStatsUpdateRequest;
                     RaisePropertyChanged("TwoCharactersViewModel");
                 }
             }
         }
 
-        private void TwoCharactersViewModelPlayerHealthUpdateRequest(object sender, PlayerHealthUpdateRequestEventArgs e)
+        private void TwoCharactersViewModelPlayerStatsUpdateRequest(object sender, PlayerStatsUpdateRequestEventArgs e)
         {
-            _playerInfoViewModel.PlayerHealth = e.Health;
+            var playerCharacter = (e.ActionResult.ForAction.ActiveCharacter is IPlayer)
+                                      ? e.ActionResult.ForAction.ActiveCharacter
+                                      : e.ActionResult.ForAction.TargetCharacter;
+            PlayerInfoViewModel.PlayerHealth = playerCharacter.Health;
+            PlayerInfoViewModel.PlayerExperience = playerCharacter.Experience;
+            PlayerInfoViewModel.PlayerMoney = playerCharacter.Walet.CurrentCapacity;
+            if(e.ActionResult.ForAction.ActionType==ActionType.AcceptQuit)
+            {
+                StoryVisible = Visibility.Visible;
+                TwoCharactersVisible = Visibility.Hidden;
+                Story += RecordActionResult(e.ActionResult);
+            }
         }
 
         void TwoCharactersViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
@@ -232,7 +244,9 @@ namespace GetTheMilk.UI.ViewModels
             else if (e.GameAction is TwoCharactersAction)
             {
                 if (e.GameAction.FinishTheInteractionOnExecution 
-                    && (e.GameAction.ActionType==ActionType.Communicate || e.GameAction.ActionType==ActionType.Kill)) //the last words
+                    && (e.GameAction.ActionType==ActionType.Communicate 
+                    || e.GameAction.ActionType==ActionType.Kill 
+                    || e.GameAction.ActionType==ActionType.AcceptQuit)) //the last words
                 {
                     StoryVisible = Visibility.Visible;
                     InventoryVisible = Visibility.Hidden;

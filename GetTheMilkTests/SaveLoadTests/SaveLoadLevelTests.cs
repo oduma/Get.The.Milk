@@ -146,7 +146,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                                                          new ActionReaction
                                                                                              {
                                                                                                  Action = new Quit(),
-                                                                                                 Reaction = new AcceptQuit()
+                                                                                                 Reaction = new AcceptQuit{FinishTheInteractionOnExecution=true}
                                                                                              },
                                                                                          new ActionReaction
                                                                                          {
@@ -165,7 +165,7 @@ namespace GetTheMilkTests.SaveLoadTests
                     new ActionReaction
                     {
                         Action = new Quit(),
-                        Reaction = new AcceptQuit()
+                        Reaction = new AcceptQuit{FinishTheInteractionOnExecution=true}
                     },
                     new ActionReaction
                     {
