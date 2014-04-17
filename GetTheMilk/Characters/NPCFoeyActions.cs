@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GetTheMilk.Actions.BaseActions;
+﻿using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.UI.Translators.Common;
 
 namespace GetTheMilk.Characters
 {
@@ -18,7 +12,8 @@ namespace GetTheMilk.Characters
                 || a.ActionType==ActionType.Quit 
                 || a.ActionType==ActionType.InitiateHostilities 
                 || a.ActionType==ActionType.AcceptQuit
-                || a.ActionType==ActionType.TakeMoneyFrom);
+                || a.ActionType==ActionType.TakeMoneyFrom
+                || a.ActionType==ActionType.Kill);
         }
 
         public bool AllowsIndirectAction(GameAction a, IPositionable o)

@@ -40,6 +40,15 @@ namespace GetTheMilk.Actions.BaseActions
             return availableActions[actionToRespond].Perform();
         }
 
+        protected ActionResult PerformWinLoseResponseAction(ActionResult result)
+        {
+            if (FeedbackFromOriginalAction != null)
+                FeedbackFromOriginalAction(this, new FeedbackEventArgs(result));
+            var availableAction = ((List<GameAction>) result.ExtraData)[0];
+            return availableAction.Perform();
+        }
+
+
         protected List<GameAction> GetAvailableActions()
         {
             if (TargetCharacter is IPlayer)

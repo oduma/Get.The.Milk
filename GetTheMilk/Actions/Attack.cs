@@ -28,7 +28,7 @@ namespace GetTheMilk.Actions
             CalculationStrategies.CalculateDamages(hit, counterHit,ActiveCharacter,TargetCharacter);
             var result = DetermineWinLoseSituations();
             if (result != null)
-                return result;
+                return PerformWinLoseResponseAction(result);
             if (ActiveCharacter is IPlayer)
             {
                 return PerformResponseAction(ActionType);

@@ -209,7 +209,19 @@ namespace GetTheMilkTests.IntegrationTests
 
             //and again
             actionResult = ((List<GameAction>)actionResult.ExtraData)[0].Perform();
-            Assert.AreEqual(ActionResultType.Lost, actionResult.ResultType);
+            Assert.AreEqual(ActionResultType.Ok, inventoryActionResult.ResultType);
+
+            //and again
+            actionResult = ((List<GameAction>)actionResult.ExtraData)[0].Perform();
+            Assert.AreEqual(ActionResultType.Ok, actionResult.ResultType);
+            Assert.IsNull(actionResult.ExtraData);
+            Assert.AreEqual(ActionType.Kill, actionResult.ForAction.ActionType);
+            Assert.IsNull(level.Player);
+            Assert.AreEqual(2, level.Characters.Count);
+            
+            
+            
+
         }
 
         [Test]
@@ -411,10 +423,7 @@ namespace GetTheMilkTests.IntegrationTests
             Assert.AreEqual(ActionResultType.Ok, actionResult.ResultType);
             Assert.AreEqual(8,player.Experience);
             Assert.AreEqual(2,level.Characters.FirstOrDefault(c=>c.ObjectTypeId=="NPCFoe").Experience);
-            Assert.AreEqual(0,player.Inventory.Count);
-            Assert.AreEqual(2, level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFoe").Inventory.Count);
-            Assert.AreEqual(0,player.Walet.CurrentCapacity);
-            Assert.AreEqual(415, level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFoe").Walet.CurrentCapacity);
+            Assert.AreEqual(1,player.Inventory.Count);
         }
 
         [Test]
@@ -618,15 +627,9 @@ namespace GetTheMilkTests.IntegrationTests
 
             //and again
             actionResult = ((List<GameAction>)actionResult.ExtraData)[0].Perform();
-            Assert.AreEqual(ActionResultType.Win, actionResult.ResultType);
-
-            Assert.AreEqual(1, ((List<GameAction>) actionResult.ExtraData).Count);
-            Assert.AreEqual(level.Characters[1].Name.Main,
-                            ((List<GameAction>) actionResult.ExtraData)[0].TargetCharacter.Name.Main);
-            Assert.AreEqual(level.Player.Name.Main,
-                            ((List<GameAction>)actionResult.ExtraData)[0].ActiveCharacter.Name.Main);
-            //Finissh him
-            actionResult = ((List<GameAction>) actionResult.ExtraData)[0].Perform();
+            Assert.AreEqual(ActionResultType.Ok, inventoryActionResult.ResultType);
+            //and again
+            actionResult = ((List<GameAction>)actionResult.ExtraData)[0].Perform();
             Assert.AreEqual(ActionResultType.Ok, actionResult.ResultType);
             Assert.AreEqual(1, level.Characters.Count);
 
