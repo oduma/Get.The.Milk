@@ -64,9 +64,13 @@ namespace GetTheMilk.Levels
         public static Level Create(int levelNo)
         {
             var gameSettings = GameSettings.GetInstance();
-            using(TextReader tr = new StreamReader(gameSettings.CurrentReadStrategy(Path.Combine(
+            var levelDefFileName = Path.Combine(
                 gameSettings.DefaultPaths.GameData,
-                string.Format(gameSettings.DefaultPaths.LevelsFileNameTemplate, levelNo)))))
+                string.Format(gameSettings.DefaultPaths.LevelsFileNameTemplate, levelNo));
+            
+            if(!File.Exists(levelDefFileName))
+                return null;
+            using(TextReader tr = new StreamReader(gameSettings.CurrentReadStrategy(levelDefFileName)))
             {
                 return Create(JsonConvert.DeserializeObject<LevelPackages>(tr.ReadToEnd()));
             }
@@ -76,13 +80,16 @@ namespace GetTheMilk.Levels
         {
             Level level = JsonConvert.DeserializeObject<Level>(levelPackages.LevelCore);
             level.CurrentMap.LinkToParentLevel(level);
-            level.Inventory = Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(levelPackages.LevelObjects,
-                                                                     new NonChracterObjectConverter()));
+            level.Inventory = (levelPackages.LevelObjects!=null)?Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(levelPackages.LevelObjects,
+                new NonChracterObjectConverter())):new Inventory();
             level.Inventory.LinkObjectsToInventory();
-            foreach (var characterPackage in levelPackages.LevelCharacters)
-            {
-                level.Characters.Add(Character.Load<Character>(characterPackage));
-            }
+            if(levelPackages.LevelCharacters==null)
+                level.Characters=new CharacterCollection();
+            else
+                foreach (var characterPackage in levelPackages.LevelCharacters)
+                {
+                    level.Characters.Add(Character.Load<Character>(characterPackage));
+                }
             level.Characters.LinkCharactersToInventory();
             return level;
         }

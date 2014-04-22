@@ -68,7 +68,13 @@ namespace GetTheMilk.Actions.BaseActions
             IEnumerable<NonCharacterObject> objectsBlocking, 
             IEnumerable<Character> charactersBlocking)
         {
-
+            if (resultType == ActionResultType.Ok 
+                && actionPerformed.ActiveCharacter is IPlayer 
+                && CurrentMap.Cells[targetCellId].IsObjective)
+                return new ActionResult {ForAction = actionPerformed, ResultType = ActionResultType.LevelCompleted};
+            if (resultType == ActionResultType.LevelCompleted
+                && actionPerformed.ActiveCharacter is IPlayer)
+                return new ActionResult { ForAction = actionPerformed, ResultType = ActionResultType.LevelCompleted };
             var movementResult = new ActionResult
             {
                 ForAction=actionPerformed,

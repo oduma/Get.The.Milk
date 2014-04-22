@@ -20,7 +20,7 @@ namespace GetTheMilkTests.ActionsTests
         {
             get
             {
-                Level _level = Level.Create(1);
+                Level _level = Level.Create(0);
 
                 var active = new Player();
                 var factory = ObjectActionsFactory.GetFactory();
@@ -44,7 +44,7 @@ namespace GetTheMilkTests.ActionsTests
                     new TestCaseData(new Keep { ActiveCharacter = active, TargetCharacter = active, TargetObject=
                                      _level.CurrentMap.Cells[3].AllObjects.FirstOrDefault(o => o.Name.Main == "Red Key")}).Returns(active.Inventory);
 
-                _level = Level.Create(1);
+                _level = Level.Create(0);
 
                 active = new Player();
                 active.AllowsAction = objAction.AllowsAction;
@@ -66,7 +66,7 @@ namespace GetTheMilkTests.ActionsTests
         {
             get
             {
-                Level _level = Level.Create(1);
+                Level _level = Level.Create(0);
 
                 //Give a key to a character that doesn't want it (nothing happens)
                 var active = new Player();
@@ -88,7 +88,7 @@ namespace GetTheMilkTests.ActionsTests
                         active.Inventory);
 
                 //Give a key that the active character doesn have it. Nothing happens
-                _level = Level.Create(1);
+                _level = Level.Create(0);
 
                 active = new Player();
 
@@ -107,7 +107,7 @@ namespace GetTheMilkTests.ActionsTests
                         _level.Inventory);
 
                 //Give a key to a character that wants it (key changes owners)
-                _level = Level.Create(1);
+                _level = Level.Create(0);
 
                 active = new Player();
 
@@ -132,7 +132,7 @@ namespace GetTheMilkTests.ActionsTests
         {
             get
             {
-                Level _level = Level.Create(1);
+                Level _level = Level.Create(0);
 
                 //enough money
                 var active = new Player();
@@ -148,7 +148,7 @@ namespace GetTheMilkTests.ActionsTests
                 yield return new TestCaseData(active, passive, 100, TransactionType.Payed).Returns(
                     active.Walet.CurrentCapacity);
 
-                _level = Level.Create(1);
+                _level = Level.Create(0);
 
                 //not enough money
                 active = new Player();
@@ -168,7 +168,7 @@ namespace GetTheMilkTests.ActionsTests
         {
             get
             {
-                Level _level = Level.Create(1);
+                Level _level = Level.Create(0);
 
                 //Try to buy a key from a character not enough money (nothing happens)
                 var active = new Player();
@@ -227,7 +227,7 @@ namespace GetTheMilkTests.ActionsTests
         {
             get
             {
-                Level _level = Level.Create(1);
+                Level _level = Level.Create(0);
 
                 //Try to buy a key from a character not enough money (nothing happens)
                 var active = new Player();
@@ -256,7 +256,7 @@ namespace GetTheMilkTests.ActionsTests
         {
             get
             {
-                Level _level = Level.Create(1);
+                Level _level = Level.Create(0);
 
                 //Try to open a door with wrong key
                 //var active = new Player(new StubedTextBasedInteractivity());
@@ -306,7 +306,7 @@ namespace GetTheMilkTests.ActionsTests
         {
             get
             {
-                Level _level = Level.Create(1);
+                Level _level = Level.Create(0);
 
                 //walk off the margin of the map
                 var active = new Player();
@@ -358,7 +358,7 @@ namespace GetTheMilkTests.ActionsTests
                         Returns(ActionResultType.Blocked);
 
                 //walk Ok
-                _level = Level.Create(1);
+                _level = Level.Create(0);
                 active.CellNumber = 0;
                 var walkSouth = new Walk();
                 walkSouth.Direction = Direction.South;

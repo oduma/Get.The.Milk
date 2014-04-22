@@ -15,7 +15,7 @@ namespace GetTheMilkTests.ActionsTests
         [Test]
         public void ExposeOwnInventory_JustShow()
         {
-            Level _level = Level.Create(1);
+            Level _level = Level.Create(0);
 
             var active = new Player();
             var factory = ObjectActionsFactory.GetFactory();
@@ -43,7 +43,7 @@ namespace GetTheMilkTests.ActionsTests
         [Test]
         public void ExposeAnotherCharacterInventory()
         {
-            Level _level = Level.Create(1);
+            Level _level = Level.Create(0);
 
             var active = new Player();
             var factory = ObjectActionsFactory.GetFactory();
@@ -70,7 +70,7 @@ namespace GetTheMilkTests.ActionsTests
         [Test]
         public void ExposeOwnInventory_ToUseAgainstAnother()
         {
-            Level _level = Level.Create(1);
+            Level _level = Level.Create(0);
 
             var active = new Player();
             var factory = ObjectActionsFactory.GetFactory();

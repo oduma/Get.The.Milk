@@ -19,7 +19,7 @@ namespace GetTheMilkTests.ActionsTests
         [Test]
         public void DetermineActionsOnObjects()
         {
-            var level = Level.Create(1);
+            var level = Level.Create(0);
             var player = new Player();
 
             var factory = ObjectActionsFactory.GetFactory();
@@ -38,7 +38,7 @@ namespace GetTheMilkTests.ActionsTests
         [Test]
         public void DetermineActionsOnCharacters()
         {
-            var level = Level.Create(1);
+            var level = Level.Create(0);
             var player = new Player();
 
             var factory = ObjectActionsFactory.GetFactory();
@@ -61,7 +61,7 @@ namespace GetTheMilkTests.ActionsTests
         [Test]
         public void DetermineFollowUpActionsOnCharacters()
         {
-            var level = Level.Create(1);
+            var level = Level.Create(0);
             var player = new Player();
 
             var factory = ObjectActionsFactory.GetFactory();

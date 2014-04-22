@@ -16,7 +16,7 @@ namespace GetTheMilkTests.IntegrationTests
         [Test]
         public void PlayTestLevel1_PlayerLoses()
         {
-            var level = Level.Create(1);
+            var level = Level.Create(0);
 
             Assert.IsNotNull(level);
             Assert.AreEqual(0, level.Number);
@@ -225,7 +225,7 @@ namespace GetTheMilkTests.IntegrationTests
         [Test]
         public void PlayTestLevel1_PlayerQuits()
         {
-            var level = Level.Create(1);
+            var level = Level.Create(0);
 
             Assert.IsNotNull(level);
             Assert.AreEqual(0, level.Number);
@@ -427,7 +427,7 @@ namespace GetTheMilkTests.IntegrationTests
         [Test]
         public void PlayTestLevel1_PlayerWins()
         {
-            var level = Level.Create(1);
+            var level = Level.Create(0);
 
             Assert.IsNotNull(level);
             Assert.AreEqual(0, level.Number);
@@ -630,6 +630,17 @@ namespace GetTheMilkTests.IntegrationTests
             actionResult = ((List<GameAction>)actionResult.ExtraData)[0].Perform();
             Assert.AreEqual(ActionResultType.Win, actionResult.ResultType);
             Assert.AreEqual(1, level.Characters.Count);
+
+            //player walks south
+            walk.Direction=Direction.South;
+
+            movementResult = walk.Perform();
+
+            Assert.IsNotNull(movementResult);
+
+            Assert.AreEqual(ActionResultType.LevelCompleted,movementResult.ResultType);
+            Assert.IsNull(movementResult.ExtraData);
+            
 
         }
 

@@ -67,6 +67,7 @@
     <Compile Include="ActionsTests\StubbedContainerOwner.cs" />
     <Compile Include="ActionsTests\TwoCharactersOneObjectTests.cs" />
     <Compile Include="IntegrationTests\AutoPlayTestLevel1.cs" />
+    <Compile Include="IntegrationTests\LevelCompletionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveLoadTests\GameSaveLoadTests.cs" />
     <Compile Include="SaveLoadTests\SaveLoadLevelTests.cs" />
@@ -84,6 +85,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="GameData\GDT.gdu">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GameData\GL0.gdu">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="GameData\GL1.gdu">

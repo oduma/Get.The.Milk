@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using GetTheMilk.Actions;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Levels;
@@ -52,15 +53,21 @@ namespace GetTheMilk
             }
             if(Instance.CurrentLevel==null)
             {
-                Instance.CurrentLevel = Level.Create(1);
+                Instance.CurrentLevel = Level.Create(0);
             }
             return Instance;
         }
 
 
-        public void ProceedToNextLevel()
+        public bool ProceedToNextLevel()
         {
             CurrentLevel = Level.Create(CurrentLevel.Number + 1);
+            if (CurrentLevel == null)
+                return false;
+            if (Player.EnterLevel(CurrentLevel).ResultType != ActionResultType.Ok)
+                return false;
+            Save(string.Format("StartOfLevel{0}.gsu",CurrentLevel.Number));
+            return true;
         }
 
         public void Save(string fileName)

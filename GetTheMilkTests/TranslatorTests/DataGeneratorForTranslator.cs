@@ -13,7 +13,7 @@ namespace GetTheMilkTests.TranslatorTests
 {
     public class DataGeneratorForTranslator
     {
-        private static readonly Level Level = Level.Create(1);
+        private static readonly Level Level = Level.Create(0);
 
         public static IEnumerable TestCasesForTranslatorCommunicate
         {

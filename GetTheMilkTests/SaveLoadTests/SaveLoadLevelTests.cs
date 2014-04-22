@@ -328,7 +328,8 @@ namespace GetTheMilkTests.SaveLoadTests
                                                                            Number = 8,
                                                                            SouthCell = -1,
                                                                            TopCell = -1,
-                                                                           EastCell = -1
+                                                                           EastCell = -1,
+                                                                           IsObjective = true
                                                                        }
                                                                }
                                                    },
@@ -366,7 +367,7 @@ namespace GetTheMilkTests.SaveLoadTests
         [Test]
         public void LoadALevelAndCheckObjects()
         {
-            Level level = Level.Create(1);
+            Level level = Level.Create(0);
             Assert.IsNotNull(level);
         }
     }
