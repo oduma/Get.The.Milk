@@ -235,23 +235,6 @@ namespace GetTheMilkTests.TranslatorTests
             }
         }
 
-        public static IEnumerable TestCasesForTranslatorMovementWrongAction
-        {
-            get
-            {
-                var active = new Player();
-                var factory = ObjectActionsFactory.GetFactory();
-
-                var objAction = factory.CreateObjectAction("Player");
-                active.AllowsAction = objAction.AllowsAction;
-                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
-
-
-                yield return
-                    new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new Kill () }).Returns(GameSettings.GetInstance().TranslatorErrorMessage);
-            }
-        }
 
         public static IEnumerable TestCasesForTranslatorMovementExtraData
         {

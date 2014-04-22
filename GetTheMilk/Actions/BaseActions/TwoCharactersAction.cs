@@ -37,7 +37,18 @@ namespace GetTheMilk.Actions.BaseActions
             int actionToRespond = CalculationStrategies.SelectAWeightedRandomAction(0, availableActions.Count - 1, actionType);
             availableActions[actionToRespond].TargetCharacter = ActiveCharacter;
             availableActions[actionToRespond].ActiveCharacter = TargetCharacter;
+            if(availableActions[actionToRespond] is TwoCharactersAction)
+            {
+                ((TwoCharactersAction)availableActions[actionToRespond]).FeedbackFromSubAction -= TwoCharactersActionFeedbackFromSubAction;
+                ((TwoCharactersAction)availableActions[actionToRespond]).FeedbackFromSubAction += TwoCharactersActionFeedbackFromSubAction;
+            }
             return availableActions[actionToRespond].Perform();
+        }
+
+        void TwoCharactersActionFeedbackFromSubAction(object sender, FeedbackEventArgs e)
+        {
+            if (FeedbackFromSubAction != null)
+                FeedbackFromSubAction(this, e);
         }
 
         protected ActionResult PerformWinLoseResponseAction(ActionResult result)

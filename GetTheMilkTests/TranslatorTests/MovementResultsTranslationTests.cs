@@ -51,13 +51,6 @@ namespace GetTheMilkTests.TranslatorTests
             return actionResultToHuL.TranslateMovementResult(actionResult);
         }
 
-        [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementWrongAction")]
-        public string NotMovementAction(ActionResult actionResult)
-        {
-            ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
-            return actionResultToHuL.TranslateMovementResult(actionResult);
-        }
-
         [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementExtraData")]
         public string MovementExtraDataTest(ActionResult actionResult, IPlayer active, Level level)
         {

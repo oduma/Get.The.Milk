@@ -15,6 +15,8 @@ namespace GetTheMilk.UI.ViewModels
 
         public event EventHandler<PlayerStatsUpdateRequestEventArgs> PlayerStatsUpdateRequest;
 
+        public event EventHandler<FeedbackEventArgs> FeedbackFromSubAction;
+
         private TwoCharactersAction _action;
         private int _passiveHealth;
         private ObservableCollection<ActionWithTargetModel> _actions;
@@ -83,6 +85,9 @@ namespace GetTheMilk.UI.ViewModels
             {
                 ((TwoCharactersAction) obj.Action).FeedbackFromOriginalAction -= ActionFeedbackFromOriginalAction;
                 ((TwoCharactersAction)obj.Action).FeedbackFromOriginalAction += ActionFeedbackFromOriginalAction;
+                ((TwoCharactersAction)obj.Action).FeedbackFromSubAction -= TwoCharactersViewModel_FeedbackFromSubAction;
+                ((TwoCharactersAction)obj.Action).FeedbackFromSubAction += TwoCharactersViewModel_FeedbackFromSubAction;
+
             }
             if (obj.Action.ActionType == ActionType.Communicate)
             {
@@ -98,6 +103,12 @@ namespace GetTheMilk.UI.ViewModels
                 RecordActionResult(obj.Action.Perform());
             }
 
+        }
+
+        void TwoCharactersViewModel_FeedbackFromSubAction(object sender, FeedbackEventArgs e)
+        {
+            if (FeedbackFromSubAction != null)
+                FeedbackFromSubAction(this, e);
         }
 
         private void RecordActionResult(ActionResult actionResult)
@@ -122,7 +133,8 @@ namespace GetTheMilk.UI.ViewModels
             {
                 if(actionResult.ResultType==ActionResultType.Win || actionResult.ResultType== ActionResultType.Lost)
                 {
-                    PerformActionCommand(new ActionWithTargetModel {Action = ((List<GameAction>) actionResult.ExtraData)[0]});
+                    if(PlayerStatsUpdateRequest!=null)
+                        PlayerStatsUpdateRequest(this,new PlayerStatsUpdateRequestEventArgs(actionResult));
                     return;
                 }
 

@@ -44,8 +44,6 @@ namespace GetTheMilk.Utils
                         return item.ToObject<Keep>();
                     case ActionType.Kick:
                         return item.ToObject<Kick>();
-                    case ActionType.Kill:
-                        return item.ToObject<Kill>();
                     case ActionType.Communicate:
                         return item.ToObject<Communicate>();
                     case ActionType.Quit:

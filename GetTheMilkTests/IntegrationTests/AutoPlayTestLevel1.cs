@@ -6,7 +6,6 @@ using GetTheMilk.Characters;
 using GetTheMilk.Factories;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
-using GetTheMilk.Objects.BaseObjects;
 using NUnit.Framework;
 
 namespace GetTheMilkTests.IntegrationTests
@@ -213,9 +212,8 @@ namespace GetTheMilkTests.IntegrationTests
 
             //and again
             actionResult = ((List<GameAction>)actionResult.ExtraData)[0].Perform();
-            Assert.AreEqual(ActionResultType.Ok, actionResult.ResultType);
+            Assert.AreEqual(ActionResultType.Lost, actionResult.ResultType);
             Assert.IsNull(actionResult.ExtraData);
-            Assert.AreEqual(ActionType.Kill, actionResult.ForAction.ActionType);
             Assert.IsNull(level.Player);
             Assert.AreEqual(2, level.Characters.Count);
             
@@ -630,7 +628,7 @@ namespace GetTheMilkTests.IntegrationTests
             Assert.AreEqual(ActionResultType.Ok, inventoryActionResult.ResultType);
             //and again
             actionResult = ((List<GameAction>)actionResult.ExtraData)[0].Perform();
-            Assert.AreEqual(ActionResultType.Ok, actionResult.ResultType);
+            Assert.AreEqual(ActionResultType.Win, actionResult.ResultType);
             Assert.AreEqual(1, level.Characters.Count);
 
         }

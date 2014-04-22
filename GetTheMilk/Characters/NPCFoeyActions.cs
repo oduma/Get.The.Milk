@@ -12,8 +12,7 @@ namespace GetTheMilk.Characters
                 || a.ActionType==ActionType.Quit 
                 || a.ActionType==ActionType.InitiateHostilities 
                 || a.ActionType==ActionType.AcceptQuit
-                || a.ActionType==ActionType.TakeMoneyFrom
-                || a.ActionType==ActionType.Kill);
+                || a.ActionType==ActionType.TakeMoneyFrom);
         }
 
         public bool AllowsIndirectAction(GameAction a, IPositionable o)

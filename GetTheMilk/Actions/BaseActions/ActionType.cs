@@ -11,7 +11,6 @@
         GiveTo,
         Keep,
         Kick,
-        Kill,
         Meet,
         Quit,
         Run,

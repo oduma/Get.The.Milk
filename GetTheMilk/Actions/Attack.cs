@@ -3,6 +3,7 @@ using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Fight;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Levels;
 using GetTheMilk.Utils;
 
 namespace GetTheMilk.Actions
@@ -28,7 +29,7 @@ namespace GetTheMilk.Actions
             CalculationStrategies.CalculateDamages(hit, counterHit,ActiveCharacter,TargetCharacter);
             var result = DetermineWinLoseSituations();
             if (result != null)
-                return PerformWinLoseResponseAction(result);
+                return result;
             if (ActiveCharacter is IPlayer)
             {
                 return PerformResponseAction(ActionType);
@@ -38,42 +39,34 @@ namespace GetTheMilk.Actions
 
         private ActionResult DetermineWinLoseSituations()
         {
-            if ((ActiveCharacter.Health <= 0 && ActiveCharacter is IPlayer)
-                ||(TargetCharacter.Health <= 0 && TargetCharacter is IPlayer))
+            var characterPlayer = (ActiveCharacter is IPlayer) ? ActiveCharacter : TargetCharacter;
+            var oponentCharacter = (ActiveCharacter is IPlayer) ? TargetCharacter : ActiveCharacter;
+
+            if (characterPlayer.Health<=0)
             {
+                ((Level)oponentCharacter.StorageContainer.Owner).Player = null;
+                characterPlayer = null;
+
+                //player has lost
                 return new ActionResult
                            {
                                ResultType = ActionResultType.Lost,
-                               ForAction = this,
-                               ExtraData =
-                                   new List<GameAction>
-                                       {
-                                           new Kill
-                                               {
-                                                   ActiveCharacter =
-                                                       (ActiveCharacter is IPlayer) ?TargetCharacter:ActiveCharacter,
-                                                    TargetCharacter=(ActiveCharacter is IPlayer) ?ActiveCharacter:TargetCharacter
-                                               }
-                                       }
+                               ForAction = this
                            };
             }
-            if ((ActiveCharacter.Health <= 0 && !(ActiveCharacter is IPlayer))
-                || (TargetCharacter.Health <= 0 && !(TargetCharacter is IPlayer)))
+            if (oponentCharacter.Health<=0)
             {
+                characterPlayer.Experience += CalculationStrategies.CalculateWinExperience(characterPlayer, oponentCharacter);
+                PileageCharacter(characterPlayer, oponentCharacter);
+                if (oponentCharacter.StorageContainer != null && oponentCharacter.StorageContainer.Owner != null)
+                    oponentCharacter.StorageContainer.Remove(oponentCharacter as Character);
+
+                oponentCharacter = null;
+                //player won
                 return new ActionResult
                 {
                     ResultType = ActionResultType.Win,
-                    ForAction = this,
-                    ExtraData =
-                        new List<GameAction>
-                                       {
-                                           new Kill
-                                               {
-                                                   ActiveCharacter =
-                                                       (ActiveCharacter is IPlayer) ?ActiveCharacter:TargetCharacter,
-                                                    TargetCharacter=(ActiveCharacter is IPlayer) ?TargetCharacter:ActiveCharacter
-                                               }
-                                       }
+                    ForAction = this
                 };
             }
             return null;

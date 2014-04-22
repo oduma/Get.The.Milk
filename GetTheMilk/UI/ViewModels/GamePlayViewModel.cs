@@ -58,6 +58,22 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
+
+        private Visibility _gameOverVisible;
+                    public Visibility GameOverVisible
+        {
+            get { return _gameOverVisible; }
+            set
+            {
+                if (value != _gameOverVisible)
+                {
+                    _gameOverVisible = value;
+                    RaisePropertyChanged("GameOverVisible");
+                }
+            }
+        }
+
+
         private Visibility _storyVisible;
         public Visibility StoryVisible
         {
@@ -166,10 +182,12 @@ namespace GetTheMilk.UI.ViewModels
                     {
                         _twoCharactersViewModel.ActionExecutionRequest -= TwoCharactersViewModelActionExecutionRequest;
                         _twoCharactersViewModel.PlayerStatsUpdateRequest -= TwoCharactersViewModelPlayerStatsUpdateRequest;
+                        _twoCharactersViewModel.FeedbackFromSubAction -= GamePlayViewModelFeedbackFromSubAction;
                     }
                     _twoCharactersViewModel = value;
                     _twoCharactersViewModel.ActionExecutionRequest += TwoCharactersViewModelActionExecutionRequest;
                     _twoCharactersViewModel.PlayerStatsUpdateRequest +=TwoCharactersViewModelPlayerStatsUpdateRequest;
+                    _twoCharactersViewModel.FeedbackFromSubAction += GamePlayViewModelFeedbackFromSubAction;
                     RaisePropertyChanged("TwoCharactersViewModel");
                 }
             }
@@ -183,11 +201,19 @@ namespace GetTheMilk.UI.ViewModels
             PlayerInfoViewModel.PlayerHealth = playerCharacter.Health;
             PlayerInfoViewModel.PlayerExperience = playerCharacter.Experience;
             PlayerInfoViewModel.PlayerMoney = playerCharacter.Walet.CurrentCapacity;
-            if(e.ActionResult.ForAction.ActionType==ActionType.AcceptQuit)
+            if(e.ActionResult.ForAction.ActionType==ActionType.AcceptQuit 
+                || e.ActionResult.ResultType==ActionResultType.Win)
             {
                 StoryVisible = Visibility.Visible;
                 TwoCharactersVisible = Visibility.Hidden;
                 Story += RecordActionResult(e.ActionResult);
+            }
+            else if(e.ActionResult.ResultType==ActionResultType.Lost)
+            {
+                StoryVisible=Visibility.Hidden;
+                TwoCharactersVisible = Visibility.Hidden;
+                InventoryVisible = Visibility.Hidden;
+                GameOverVisible=Visibility.Visible;
             }
         }
 
@@ -245,14 +271,13 @@ namespace GetTheMilk.UI.ViewModels
             {
                 if (e.GameAction.FinishTheInteractionOnExecution 
                     && (e.GameAction.ActionType==ActionType.Communicate 
-                    || e.GameAction.ActionType==ActionType.Kill 
                     || e.GameAction.ActionType==ActionType.AcceptQuit)) //the last words
                 {
                     StoryVisible = Visibility.Visible;
                     InventoryVisible = Visibility.Hidden;
                     TwoCharactersVisible = Visibility.Hidden;
-                    ((TwoCharactersAction)e.GameAction).FeedbackFromSubAction -= GamePlayViewModel_FeedbackFromSubAction;
-                    ((TwoCharactersAction)e.GameAction).FeedbackFromSubAction += GamePlayViewModel_FeedbackFromSubAction;
+                    ((TwoCharactersAction)e.GameAction).FeedbackFromSubAction -= GamePlayViewModelFeedbackFromSubAction;
+                    ((TwoCharactersAction)e.GameAction).FeedbackFromSubAction += GamePlayViewModelFeedbackFromSubAction;
                     var actionResult = e.GameAction.Perform();
                     Story += RecordActionResult(actionResult);
                 }
@@ -271,7 +296,7 @@ namespace GetTheMilk.UI.ViewModels
                 Story += RecordActionResult(e.GameAction.Perform());
         }
 
-        void GamePlayViewModel_FeedbackFromSubAction(object sender, FeedbackEventArgs e)
+        void GamePlayViewModelFeedbackFromSubAction(object sender, FeedbackEventArgs e)
         {
             Story+=RecordActionResult(e.ActionResult);
         }
@@ -316,6 +341,7 @@ namespace GetTheMilk.UI.ViewModels
             Story = string.Format("{0}\r\n{1}", _game.CurrentLevel.Story, RecordMovementResult(actionResult));
             StoryVisible = Visibility.Visible;
             InventoryVisible = Visibility.Hidden;
+            GameOverVisible = Visibility.Hidden;
         }
 
         public override event EventHandler<GameStartRequestEventArgs> GameStartRequest;
