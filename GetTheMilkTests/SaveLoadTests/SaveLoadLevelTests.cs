@@ -338,7 +338,8 @@ namespace GetTheMilkTests.SaveLoadTests
                                 StartingCell = 0,
                                 Story = "Some story",
                                 Inventory= levelInventory,
-                                Characters=levelCharacters
+                                Characters=levelCharacters,
+                                FinishMessage="Now that you have finished the light side, go to the wild side"
                             };
             level.CurrentMap.LinkToParentLevel(level);
             var result = level.Save();

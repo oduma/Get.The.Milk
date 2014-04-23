@@ -31,8 +31,6 @@ namespace GetTheMilkTests.IntegrationTests
 
             Assert.IsNotNull(game.CurrentLevel);
 
-            Assert.IsNotNull(game.CurrentLevel.Player);
-
             
         }
         [Test]

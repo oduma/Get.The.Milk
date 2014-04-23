@@ -135,6 +135,11 @@ namespace GetTheMilk.Settings
             get { return 20; }
         }
 
+        public string GameFinishingMessage
+        {
+            get { return "The Game has finished."; }
+        }
+
         public  int GetRandomMoneyBoost()
         {
             return Randomizer.GetRandom(5, 20);

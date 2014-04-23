@@ -2,6 +2,7 @@ using System;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Settings;
 using GetTheMilk.UI.Translators;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using System.Windows;
@@ -29,19 +30,35 @@ namespace GetTheMilk.UI.ViewModels
 
         private string RecordMovementResult(ActionResult actionResult)
         {
-            var actionResultToHuL = new ActionResultToHuL();
-            var additionalInformation = string.Empty;
-            if(actionResult.ExtraData is MovementActionExtraData )
+            if(actionResult.ResultType==ActionResultType.LevelCompleted)
             {
-                var movementExtraData = actionResult.ExtraData as MovementActionExtraData;
-                additionalInformation = actionResultToHuL.TranslateMovementExtraData(movementExtraData, _game.Player, _game.CurrentLevel);
-                _actionPanelViewModel.DisplayPossibleActions(movementExtraData.AvailableActions);
+                var levelFinishedMessage = _game.CurrentLevel.FinishMessage;
+                if(GameAdvanceRequest!=null)
+                {
+                    if (_game.ProceedToNextLevel())
+                        GameAdvanceRequest(this,new GameAdvanceRequestEventArgs(_game,levelFinishedMessage,"Go to Next Level"));
+                    else
+                    {
+                        GameAdvanceRequest(this,new GameAdvanceRequestEventArgs(_game,levelFinishedMessage + "\r\n" + GameSettings.GetInstance().GameFinishingMessage,string.Empty));
+                    }
+                }
+                return string.Empty;
             }
-            _playerInfoViewModel.PlayerCurrentPosition = _game.Player.CellNumber;
-            return string.Format("\r\n{0}\r\n{1}", 
-                                 actionResultToHuL.TranslateMovementResult(
-                                     actionResult),additionalInformation);
-            
+            else
+            {
+                var actionResultToHuL = new ActionResultToHuL();
+                var additionalInformation = string.Empty;
+                if (actionResult.ExtraData is MovementActionExtraData)
+                {
+                    var movementExtraData = actionResult.ExtraData as MovementActionExtraData;
+                    additionalInformation = actionResultToHuL.TranslateMovementExtraData(movementExtraData, _game.Player, _game.CurrentLevel);
+                    ActionPanelViewModel.DisplayPossibleActions(movementExtraData.AvailableActions);
+                }
+                PlayerInfoViewModel.PlayerCurrentPosition = _game.Player.CellNumber;
+                return string.Format("\r\n{0}\r\n{1}",
+                                     actionResultToHuL.TranslateMovementResult(
+                                         actionResult), additionalInformation);
+            }
         }
 
         private string _story;
@@ -57,22 +74,6 @@ namespace GetTheMilk.UI.ViewModels
                 }
             }
         }
-
-
-        private Visibility _gameOverVisible;
-                    public Visibility GameOverVisible
-        {
-            get { return _gameOverVisible; }
-            set
-            {
-                if (value != _gameOverVisible)
-                {
-                    _gameOverVisible = value;
-                    RaisePropertyChanged("GameOverVisible");
-                }
-            }
-        }
-
 
         private Visibility _storyVisible;
         public Visibility StoryVisible
@@ -160,10 +161,12 @@ namespace GetTheMilk.UI.ViewModels
             {
                 if (value != _actionPanelViewModel)
                 {
-                    if (_actionPanelViewModel != null)
-                        _actionPanelViewModel.ActionExecutionRequest -= ActionPanelViewModelActionExecutionRequest;
                     _actionPanelViewModel = value;
-                    _actionPanelViewModel.ActionExecutionRequest += ActionPanelViewModelActionExecutionRequest;
+                    if (_actionPanelViewModel != null)
+                    {
+                        _actionPanelViewModel.ActionExecutionRequest -= ActionPanelViewModelActionExecutionRequest;
+                        _actionPanelViewModel.ActionExecutionRequest += ActionPanelViewModelActionExecutionRequest;
+                    }
                     RaisePropertyChanged("ActionPanelViewModel");
                 }
             }
@@ -210,10 +213,8 @@ namespace GetTheMilk.UI.ViewModels
             }
             else if(e.ActionResult.ResultType==ActionResultType.Lost)
             {
-                StoryVisible=Visibility.Hidden;
-                TwoCharactersVisible = Visibility.Hidden;
-                InventoryVisible = Visibility.Hidden;
-                GameOverVisible=Visibility.Visible;
+                if(GameAdvanceRequest!=null)
+                    GameAdvanceRequest(this, new GameAdvanceRequestEventArgs(_game, (new ActionResultToHuL()).TranslateActionResult(e.ActionResult),string.Empty));
             }
         }
 
@@ -310,7 +311,7 @@ namespace GetTheMilk.UI.ViewModels
             if (actionResult.ForAction is ObjectTransferFromAction 
                 || actionResult.ForAction.ActionType==ActionType.TakeMoneyFrom)
             {
-                _playerInfoViewModel.PlayerMoney = _game.Player.Walet.CurrentCapacity;
+                PlayerInfoViewModel.PlayerMoney = _game.Player.Walet.CurrentCapacity;
                 if(InventoryVisible==Visibility.Visible)
                 {
                     InventoryViewModel.Remove(actionResult.ForAction.TargetObject);
@@ -322,7 +323,7 @@ namespace GetTheMilk.UI.ViewModels
             teleport.CurrentMap = _game.CurrentLevel.CurrentMap;
             teleport.TargetCell = _game.Player.CellNumber;
 
-            _actionPanelViewModel.DisplayPossibleActions(
+            ActionPanelViewModel.DisplayPossibleActions(
                 ((MovementActionExtraData)teleport.Perform().ExtraData).AvailableActions);
             return string.Format("\r\n{0}\r\n",
                                  actionResultToHuL.TranslateActionResult(
@@ -341,10 +342,9 @@ namespace GetTheMilk.UI.ViewModels
             Story = string.Format("{0}\r\n{1}", _game.CurrentLevel.Story, RecordMovementResult(actionResult));
             StoryVisible = Visibility.Visible;
             InventoryVisible = Visibility.Hidden;
-            GameOverVisible = Visibility.Hidden;
         }
 
         public override event EventHandler<GameStartRequestEventArgs> GameStartRequest;
-
+        public override event EventHandler<GameAdvanceRequestEventArgs> GameAdvanceRequest;
     }
 }

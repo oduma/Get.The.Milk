@@ -9,6 +9,7 @@ namespace GetTheMilk.UI.ViewModels
     public class LoadGameViewModel:GameBaseViewModel
     {
         public override event EventHandler<GameStartRequestEventArgs> GameStartRequest;
+        public override event EventHandler<GameAdvanceRequestEventArgs> GameAdvanceRequest;
         public RelayCommand Load { get; private set; }
 
         public LoadGameViewModel()

@@ -1,4 +1,5 @@
 using System;
+using System.Windows;
 using GetTheMilk.Settings;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
@@ -26,14 +27,32 @@ namespace GetTheMilk.UI.ViewModels
                     if (_currentGameViewModel != null)
                     {
                         _currentGameViewModel.GameStartRequest -= CurrentGameViewModelGameStartRequest;
+                        _currentGameViewModel.GameAdvanceRequest -= _currentGameViewModel_GameAdvanceRequest;
+
                     }
                     _currentGameViewModel = value;
                     _currentGameViewModel.GameStartRequest += CurrentGameViewModelGameStartRequest;
+                    _currentGameViewModel.GameAdvanceRequest += _currentGameViewModel_GameAdvanceRequest;
                     RaisePropertyChanged("CurrentGameViewModel");
                 }
             }
 
         }
+
+        void _currentGameViewModel_GameAdvanceRequest(object sender, GameAdvanceRequestEventArgs e)
+        {
+            CurrentGameViewModel = new GameAdvanceViewModel
+            {
+                ActionName = e.ActionName,
+                ActionVisible = (string.IsNullOrEmpty(e.ActionName))?Visibility.Hidden:Visibility.Visible,
+                Message = e.Message,
+                Game=e.Game
+            };
+            CurrentGameViewModel.GameStartRequest -= CurrentGameViewModelGameStartRequest;
+            CurrentGameViewModel.GameStartRequest += CurrentGameViewModelGameStartRequest;
+        }
+
+
 
         void CurrentGameViewModelGameStartRequest(object source, GameStartRequestEventArgs eventArgs)
         {

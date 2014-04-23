@@ -69,6 +69,9 @@
     <Compile Include="UControls\ActionPanel.xaml.cs">
       <DependentUpon>ActionPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UControls\GameAdvance.xaml.cs">
+      <DependentUpon>GameAdvance.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UControls\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
@@ -118,6 +121,9 @@
     <None Include="GameData\GDT.gdu">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="GameData\GL0.gdu">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="GameData\GL1.gdu">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -136,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UControls\ActionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UControls\GameAdvance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

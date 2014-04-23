@@ -64,8 +64,6 @@ namespace GetTheMilk
             CurrentLevel = Level.Create(CurrentLevel.Number + 1);
             if (CurrentLevel == null)
                 return false;
-            if (Player.EnterLevel(CurrentLevel).ResultType != ActionResultType.Ok)
-                return false;
             Save(string.Format("StartOfLevel{0}.gsu",CurrentLevel.Number));
             return true;
         }

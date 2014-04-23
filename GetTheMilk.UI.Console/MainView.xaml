@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:UCViews="clr-namespace:GetTheMilk.UI.Console.UControls"
         xmlns:vm="clr-namespace:GetTheMilk.UI.ViewModels;assembly=GetTheMilk"
-        xmlns:Behaviors="clr-namespace:GetTheMilk.UI.Console.Behaviors" Title="{Binding Path=Title}" Height="680" Width="840"
+        xmlns:Behaviors="clr-namespace:GetTheMilk.UI.Console.Behaviors" 
+        Title="{Binding Path=Title}" Height="680" Width="840"
         Behaviors:FocusBehavior.FocusFirst="true">
     <Window.DataContext>
         <vm:MainViewModel/>
@@ -20,6 +21,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:LoadGameViewModel}">
             <UCViews:LoadGameView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:GameAdvanceViewModel}">
+            <UCViews:GameAdvance/>
         </DataTemplate>
     </Window.Resources>
     <Grid>

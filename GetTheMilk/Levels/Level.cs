@@ -96,5 +96,6 @@ namespace GetTheMilk.Levels
         public  int StartingCell { get; set; }
         public  Noun Name { get; set; }
 
+        public string FinishMessage { get; set; }
     }
 }

@@ -113,5 +113,6 @@ namespace GetTheMilk.UI.ViewModels
         }
 
         public override event EventHandler<GameStartRequestEventArgs> GameStartRequest;
+        public override event EventHandler<GameAdvanceRequestEventArgs> GameAdvanceRequest;
     }
 }
