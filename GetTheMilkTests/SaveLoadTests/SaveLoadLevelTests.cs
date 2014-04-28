@@ -342,7 +342,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                 FinishMessage="Now that you have finished the light side, go to the wild side"
                             };
             level.CurrentMap.LinkToParentLevel(level);
-            var result = level.Save();
+            var result = level.PackageForSave();
             var r1 = JsonConvert.SerializeObject(result);
             Assert.IsNotNull(result);
             var actual = Level.Create(result);

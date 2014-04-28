@@ -127,6 +127,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="GamePackaages.cs" />
     <Compile Include="GamePreferences.cs" />
+    <Compile Include="Levels\SizeOfLevel.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelPackages.cs" />
     <Compile Include="Navigation\Cell.cs" />

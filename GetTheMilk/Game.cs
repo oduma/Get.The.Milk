@@ -70,7 +70,7 @@ namespace GetTheMilk
 
         public void Save(string fileName)
         {
-            LevelPackages levelPackages = CurrentLevel.Save();
+            LevelPackages levelPackages = CurrentLevel.PackageForSave();
 
             CharacterSavedPackages characterPackages=Player.Save();
 

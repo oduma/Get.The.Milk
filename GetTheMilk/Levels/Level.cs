@@ -48,7 +48,7 @@ namespace GetTheMilk.Levels
         public IPlayer Player { get; set; }
         public  string Story { get; set; }
 
-        public LevelPackages Save()
+        public LevelPackages PackageForSave()
         {
             var levelPackages = new LevelPackages
                        {
@@ -79,7 +79,8 @@ namespace GetTheMilk.Levels
         public static Level Create(LevelPackages levelPackages)
         {
             Level level = JsonConvert.DeserializeObject<Level>(levelPackages.LevelCore);
-            level.CurrentMap.LinkToParentLevel(level);
+            if(level.CurrentMap!=null)
+                level.CurrentMap.LinkToParentLevel(level);
             level.Inventory = (levelPackages.LevelObjects!=null)?Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(levelPackages.LevelObjects,
                 new NonChracterObjectConverter())):new Inventory();
             level.Inventory.LinkObjectsToInventory();
@@ -97,5 +98,12 @@ namespace GetTheMilk.Levels
         public  Noun Name { get; set; }
 
         public string FinishMessage { get; set; }
+
+        public SizeOfLevel SizeOfLevel { get; set; }
+
+        public Level()
+        {
+            SizeOfLevel = SizeOfLevel.VerySmall;
+        }
     }
 }

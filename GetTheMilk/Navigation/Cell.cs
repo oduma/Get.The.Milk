@@ -38,6 +38,8 @@ namespace GetTheMilk.Navigation
 
         public int BottomCell { get; set; }
 
+        public int Floor { get; set; }
+
         public int GetNeighbourCellNumber(Direction direction)
         {
             switch(direction)
@@ -81,6 +83,7 @@ namespace GetTheMilk.Navigation
                 return Direction.Top;
             return Direction.None;
         }
+
         public bool IsObjective { get; set; }
 
         public void LinkToParent(Map map)
