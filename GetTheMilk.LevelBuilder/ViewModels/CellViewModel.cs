@@ -5,6 +5,24 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 {
     public class CellViewModel:ViewModelBase
     {
+        public RelayCommand<CellViewModel> MarkAsObjective { get; set; }
+        public RelayCommand<CellViewModel> MarkAsStart { get; set; }
+
+
+        private string _startCellMarking;
+        public string StartCellMarking
+        {
+            get { return _startCellMarking; }
+            set
+            {
+                if (value != _startCellMarking)
+                {
+                    _startCellMarking = value;
+                    RaisePropertyChanged("StartCellMarking");
+                }
+            }
+        }
+
         private int _rowIndex;
         public int RowIndex
         {
@@ -47,6 +65,18 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-
+        private string _objectiveCellMarking;
+        public string ObjectiveCellMarking
+        {
+            get { return _objectiveCellMarking; }
+            set
+            {
+                if (value != _objectiveCellMarking)
+                {
+                    _objectiveCellMarking = value;
+                    RaisePropertyChanged("ObjectiveCellMarking");
+                }
+            }
+        }
     }
 }

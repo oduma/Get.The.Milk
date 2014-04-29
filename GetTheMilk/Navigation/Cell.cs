@@ -84,8 +84,6 @@ namespace GetTheMilk.Navigation
             return Direction.None;
         }
 
-        public bool IsObjective { get; set; }
-
         public void LinkToParent(Map map)
         {
             Parent = map;

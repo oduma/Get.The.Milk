@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using GetTheMilk.Levels;
-using GetTheMilk.Navigation;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
     public class FloorPlanViewModel:ViewModelBase
     {
-        public FloorPlanViewModel(IEnumerable<CellViewModel> cells, SizeOfLevel sizeOfMap)
+
+        public FloorPlanViewModel(IEnumerable<CellViewModel> cells, SizeOfLevel sizeOfMap,int floorNumber)
         {
-            Cells = cells;
+            Cells= new ObservableCollection<CellViewModel>();
+            foreach(var cell in cells)
+                Cells.Add(cell);
+            FloorNumber = floorNumber;
             SizeOfMap = (int)sizeOfMap;
         }
 
@@ -28,8 +32,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-        private IEnumerable<CellViewModel> _cells;
-        public IEnumerable<CellViewModel> Cells
+        private ObservableCollection<CellViewModel> _cells;
+        public ObservableCollection<CellViewModel> Cells
         {
             get { return _cells; }
             set
@@ -39,6 +43,26 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                     _cells = value;
                     RaisePropertyChanged("Cells");
                 }
+            }
+        }
+
+        public int FloorNumber { get; set; }
+
+        public void ResetStartCell()
+        {
+            var prevStartCell = Cells.FirstOrDefault(c => !string.IsNullOrEmpty(c.StartCellMarking));
+            if(prevStartCell!=null)
+            {
+                prevStartCell.StartCellMarking = "";
+            }
+        }
+
+        public void ResetObjectiveCell()
+        {
+            var prevObjCell = Cells.FirstOrDefault(c => !string.IsNullOrEmpty(c.ObjectiveCellMarking));
+            if (prevObjCell != null)
+            {
+                prevObjCell.ObjectiveCellMarking = "";
             }
         }
     }

@@ -328,8 +328,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                                            Number = 8,
                                                                            SouthCell = -1,
                                                                            TopCell = -1,
-                                                                           EastCell = -1,
-                                                                           IsObjective = true
+                                                                           EastCell = -1
                                                                        }
                                                                }
                                                    },
@@ -339,7 +338,8 @@ namespace GetTheMilkTests.SaveLoadTests
                                 Story = "Some story",
                                 Inventory= levelInventory,
                                 Characters=levelCharacters,
-                                FinishMessage="Now that you have finished the light side, go to the wild side"
+                                FinishMessage="Now that you have finished the light side, go to the wild side",
+                                ObjectiveCell=8
                             };
             level.CurrentMap.LinkToParentLevel(level);
             var result = level.PackageForSave();

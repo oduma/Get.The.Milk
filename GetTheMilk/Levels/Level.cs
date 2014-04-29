@@ -101,6 +101,8 @@ namespace GetTheMilk.Levels
 
         public SizeOfLevel SizeOfLevel { get; set; }
 
+        public int ObjectiveCell { get; set; }
+
         public Level()
         {
             SizeOfLevel = SizeOfLevel.VerySmall;

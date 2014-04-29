@@ -33,8 +33,14 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                     _level.CurrentMap.Cells.Where(c => c.Floor == SelectedFloor).Select(
                         c =>
                         new CellViewModel
-                            {Value = c, RowIndex = c.Number/(int) SizeOfMap, ColumnIndex = c.Number%(int) SizeOfMap}),
-                    SizeOfMap);
+                            {
+                                Value = c, 
+                                RowIndex = c.Number/(int) SizeOfMap, 
+                                ColumnIndex = c.Number%(int) SizeOfMap,
+                                MarkAsObjective = new RelayCommand<CellViewModel>(MarkAsObjectiveCommand),
+                                MarkAsStart = new RelayCommand<CellViewModel>(MarkAsStartCommand)
+                            }),
+                    SizeOfMap,SelectedFloor);
         }
 
         private void AddNewFloorCommand()
@@ -103,20 +109,37 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-        private FloorPlanViewModel _floorPlanViewModel;
+        private List<FloorPlanViewModel> _floorPlanViewModels;
 
         public FloorPlanViewModel FloorPlanViewModel
         {
-            get { return _floorPlanViewModel; }
+            get { return _floorPlanViewModels.FirstOrDefault(f=>f.FloorNumber==SelectedFloor); }
             set
             {
-                if (_floorPlanViewModel != value)
+                if(_floorPlanViewModels==null)
+                    _floorPlanViewModels= new List<FloorPlanViewModel>();
+                if (!_floorPlanViewModels.Any(f=>f.FloorNumber==value.FloorNumber))
                 {
-                    _floorPlanViewModel = value;
+                    _floorPlanViewModels.Add(value);
                     RaisePropertyChanged("FloorPlanViewModel");
                 }
             }
         }
+
+        private void MarkAsStartCommand(CellViewModel obj)
+        {
+            _level.StartingCell = obj.Value.Number;
+            FloorPlanViewModel.ResetStartCell();
+            obj.StartCellMarking = ">>";
+        }
+
+        private void MarkAsObjectiveCommand(CellViewModel obj)
+        {
+            _level.ObjectiveCell = obj.Value.Number;
+            FloorPlanViewModel.ResetObjectiveCell();
+            obj.ObjectiveCellMarking = "x";
+        }
+
 
         private int _selectedFloor;
         private ObservableCollection<int> _floors;
@@ -129,7 +152,25 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 if (_selectedFloor != value)
                 {
                     _selectedFloor = value;
+                    if (_floorPlanViewModels.All(f => f.FloorNumber != value))
+                    {
+                        FloorPlanViewModel = new FloorPlanViewModel(
+                            _level.CurrentMap.Cells.Where(c => c.Floor == SelectedFloor).Select(
+                                c =>
+                                new CellViewModel
+                                    {
+                                        Value = c,
+                                        RowIndex = (c.Number-SelectedFloor*((int) SizeOfMap*(int) SizeOfMap))/(int) SizeOfMap,
+                                        ColumnIndex = (c.Number - SelectedFloor * ((int)SizeOfMap * (int)SizeOfMap)) % (int)SizeOfMap,
+                                        MarkAsObjective=new RelayCommand<CellViewModel>(MarkAsObjectiveCommand),
+                                        MarkAsStart=new RelayCommand<CellViewModel>(MarkAsStartCommand)
+
+                                    }),
+                            SizeOfMap, SelectedFloor);
+                    }
                     RaisePropertyChanged("SelectedFloor");
+                    RaisePropertyChanged("FloorPlanViewModel");
+
                 }
             }
         }

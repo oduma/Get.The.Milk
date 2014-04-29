@@ -57,7 +57,7 @@ namespace GetTheMilk.Actions.BaseActions
             if (objectsBlocking.Any() || charactersBlocking.Any())
                 return MoveActiveCharacter(this,currentCell.Number,
                     ActionResultType.Blocked, objectsBlocking, charactersBlocking);
-            if (currentCell.IsObjective)
+            if (currentCell.Parent.Parent.ObjectiveCell==currentCell.Number)
                 return MoveActiveCharacter(this,currentCell.Number,
                     ActionResultType.LevelCompleted, new NonCharacterObject[0], new Character[0]);
             return null;
@@ -70,7 +70,7 @@ namespace GetTheMilk.Actions.BaseActions
         {
             if (resultType == ActionResultType.Ok 
                 && actionPerformed.ActiveCharacter is IPlayer 
-                && CurrentMap.Cells[targetCellId].IsObjective)
+                && CurrentMap.Parent.ObjectiveCell==targetCellId)
                 return new ActionResult {ForAction = actionPerformed, ResultType = ActionResultType.LevelCompleted};
             if (resultType == ActionResultType.LevelCompleted
                 && actionPerformed.ActiveCharacter is IPlayer)
