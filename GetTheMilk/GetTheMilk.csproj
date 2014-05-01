@@ -135,7 +135,6 @@
     <Compile Include="Navigation\Map.cs" />
     <Compile Include="Objects\BaseObjects\INonCharacterObject.cs" />
     <Compile Include="Objects\BaseObjects\ITransactionalObject.cs" />
-    <Compile Include="Objects\BaseObjects\IWeapon.cs" />
     <Compile Include="Objects\BaseObjects\NonCharacterObject.cs" />
     <Compile Include="Objects\BaseObjects\ObjectCategory.cs" />
     <Compile Include="Objects\BaseObjects\Tool.cs" />

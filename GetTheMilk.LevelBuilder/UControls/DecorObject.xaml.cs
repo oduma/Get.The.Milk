@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace GetTheMilk.LevelBuilder.UControls
 {
     /// <summary>
-    /// Interaction logic for WelcomeScreen.xaml
+    /// Interaction logic for DecorObject.xaml
     /// </summary>
-    public partial class WelcomeScreen : UserControl
+    public partial class DecorObject : UserControl
     {
-        public WelcomeScreen()
+        public DecorObject()
         {
             InitializeComponent();
         }

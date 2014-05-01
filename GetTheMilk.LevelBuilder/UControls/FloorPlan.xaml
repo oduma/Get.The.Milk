@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Utils="clr-namespace:GetTheMilk.LevelBuilder.Utils"
-             mc:Ignorable="d" 
+             xmlns:UControls="clr-namespace:GetTheMilk.LevelBuilder.UControls" mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Name="topgrid">
     <ItemsControl ItemsSource="{Binding Path=Cells}">
@@ -24,23 +24,33 @@
             <DataTemplate>
                     <Border Height="50" 
                            Width="50" 
-                           Background="Green" 
+                           Background="{Binding Path=OcupancyMarker}" 
                            Margin="2,2,2,2"
-                            Name="border"
+                           Name="border"
                            >
                         <Border.ContextMenu>
                             <ContextMenu Name="contextmenu">
                                 <MenuItem Header="Mark As Objective" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.MarkAsObjective}" CommandParameter="{Binding .}"/>
                                 <MenuItem Header="Mark as Start" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.MarkAsStart}" CommandParameter="{Binding .}"/>
+                                <MenuItem Header="Place an Object" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.AllObjectsAvailable}">
+                                    <MenuItem.ItemTemplate>
+                                        <DataTemplate>
+                                            <MenuItem Header="{Binding Path=Name.Main}" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl,AncestorLevel=2},Path=DataContext.PlaceAnObject}" CommandParameter="{Binding .}"/>
+                                        </DataTemplate>
+                                    </MenuItem.ItemTemplate>
+                                </MenuItem>
+                                <MenuItem Header="Place a Character"/>
                             </ContextMenu>
                         </Border.ContextMenu>
+                        <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
                             
-                            <TextBlock Text="{Binding Path=Value.Number}" 
-                           Background="Green" 
+                            <TextBlock Text="{Binding Path=Value.Number}"  
                            />
                             <TextBlock Text="{Binding Path=StartCellMarking}"/>
                             <TextBlock Text="{Binding Path=ObjectiveCellMarking}"/>
+                        </StackPanel>
+                            <TextBlock Text="{Binding Path=OccupantName}"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>

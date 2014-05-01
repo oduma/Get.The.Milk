@@ -14,11 +14,11 @@
         <DataTemplate DataType="{x:Type ViewModels:LevelMapViewModel}">
             <UCViews:LevelMap />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type ViewModels:WelcomeScreenViewModel}">
-            <UCViews:WelcomeScreen />
-        </DataTemplate>
         <DataTemplate DataType="{x:Type ViewModels:LoadLevelViewModel}">
             <UCViews:LoadLevel />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:ObjectManagerViewModel}">
+            <UCViews:ObjectManager />
         </DataTemplate>
     </Window.Resources>
 
@@ -44,6 +44,7 @@
             <MenuItem Header="Tools">
                 <MenuItem Header="Level Properties" Command="{Binding Path=GetLevelProperties}"/>
                 <MenuItem Header="Level Map" Command="{Binding Path=GetLevelMap}"/>
+                <MenuItem Header="Objects" Command="{Binding Path=ManageObjects}"/>
             </MenuItem>
         </Menu>
         <ContentControl  TabIndex="-1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Path=CurrentViewModel}" Focusable="True"/>

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using GetTheMilk.Levels;
+using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
@@ -9,7 +10,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
     public class FloorPlanViewModel:ViewModelBase
     {
 
-        public FloorPlanViewModel(IEnumerable<CellViewModel> cells, SizeOfLevel sizeOfMap,int floorNumber)
+        public FloorPlanViewModel(IEnumerable<CellViewModel> cells, 
+            SizeOfLevel sizeOfMap, 
+            int floorNumber)
         {
             Cells= new ObservableCollection<CellViewModel>();
             foreach(var cell in cells)

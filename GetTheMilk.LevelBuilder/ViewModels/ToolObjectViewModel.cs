@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
-    public class WelcomeScreenViewModel:ViewModelBase
+    public class ToolObjectViewModel:ObjectViewModelBase
     {
+        public override NonCharacterObject Value { get; set; }
     }
 }

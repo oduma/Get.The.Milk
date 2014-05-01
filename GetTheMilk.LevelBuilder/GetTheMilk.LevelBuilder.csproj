@@ -54,6 +54,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UControls\DecorObject.xaml.cs">
+      <DependentUpon>DecorObject.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UControls\FloorPlan.xaml.cs">
       <DependentUpon>FloorPlan.xaml</DependentUpon>
     </Compile>
@@ -66,17 +69,28 @@
     <Compile Include="UControls\LoadLevel.xaml.cs">
       <DependentUpon>LoadLevel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UControls\WelcomeScreen.xaml.cs">
-      <DependentUpon>WelcomeScreen.xaml</DependentUpon>
+    <Compile Include="UControls\ObjectManager.xaml.cs">
+      <DependentUpon>ObjectManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UControls\ToolObject.xaml.cs">
+      <DependentUpon>ToolObject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UControls\WeaponObject.xaml.cs">
+      <DependentUpon>WeaponObject.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\CellsGridHelper.cs" />
     <Compile Include="ViewModels\CellViewModel.cs" />
+    <Compile Include="ViewModels\DecorObjectViewModel.cs" />
     <Compile Include="ViewModels\FloorPlanViewModel.cs" />
     <Compile Include="ViewModels\LevelMapViewModel.cs" />
     <Compile Include="ViewModels\LevelPropertiesViewModel.cs" />
     <Compile Include="ViewModels\LoadLevelViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\WelcomeScreenViewModel.cs" />
+    <Compile Include="ViewModels\ObjectHierarchyViewModel.cs" />
+    <Compile Include="ViewModels\ObjectManagerViewModel.cs" />
+    <Compile Include="ViewModels\ObjectViewModelBase.cs" />
+    <Compile Include="ViewModels\ToolObjectViewModel.cs" />
+    <Compile Include="ViewModels\WeaponObjectViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -89,6 +103,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UControls\DecorObject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UControls\FloorPlan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -105,7 +123,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UControls\WelcomeScreen.xaml">
+    <Page Include="UControls\ObjectManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UControls\ToolObject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UControls\WeaponObject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

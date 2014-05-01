@@ -1,6 +1,6 @@
 namespace GetTheMilk.Objects.BaseObjects
 {
-    public class Weapon : Tool, IWeapon
+    public class Weapon : Tool
     {
         public int Durability { get; set; }
         public WeaponType[] WeaponTypes { get; set; }

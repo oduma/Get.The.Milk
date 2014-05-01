@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using GetTheMilk.Characters;
 using GetTheMilk.Levels;
-using GetTheMilk.Settings;
+using GetTheMilk.Objects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Utils.IO;
 using Newtonsoft.Json;
@@ -13,6 +13,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
     public class MainViewModel:ViewModelBase
     {
         private LevelPropertiesViewModel _levelPropertiesViewModel;
+        private ObjectManagerViewModel _objectManagerViewModel;
 
         private ViewModelBase _currentViewModel;
 
@@ -51,13 +52,23 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
             GetLevelMap = new RelayCommand(DisplayLevelMap);
 
+            ManageObjects=new RelayCommand(DisplayObjectManager);
+
+        }
+
+        private void DisplayObjectManager()
+        {
+            if(_objectManagerViewModel==null)
+                _objectManagerViewModel=new ObjectManagerViewModel();
+
+            CurrentViewModel = _objectManagerViewModel;
         }
 
         private void DisplayLevelMap()
         {
             if (_level == null)
                 CreateANewLevel(SizeOfLevel.VerySmall);
-            CurrentViewModel = _levelMapViewModel ?? new LevelMapViewModel(_level);
+            CurrentViewModel = _levelMapViewModel ?? new LevelMapViewModel(_level,(_objectManagerViewModel==null)?null:_objectManagerViewModel.AllExistingObjects);
         }
 
         private void DisplayLevelProperties()
@@ -100,6 +111,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             _level = new Level();
             _level.SizeOfLevel = sizeOfLevel;
             _levelPropertiesViewModel = new LevelPropertiesViewModel(_level);
+            _level.Inventory = new Inventory {MaximumCapacity = (int) sizeOfLevel*(int) sizeOfLevel};
+            _level.Characters = new CharacterCollection();
+
             CurrentViewModel = _levelPropertiesViewModel;
 
         }
@@ -115,6 +129,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         public RelayCommand GetLevelProperties { get; private set; }
 
         public RelayCommand GetLevelMap { get; private set; }
+
+        public RelayCommand ManageObjects { get; private set; }
 
         public ObservableCollection<SizeOfLevel> AllSizes 
         {

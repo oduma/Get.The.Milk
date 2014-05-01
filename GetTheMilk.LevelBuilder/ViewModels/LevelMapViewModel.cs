@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Media;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
+using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
@@ -12,10 +14,12 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         public RelayCommand AddNewFloor { get; private set; }
 
         private readonly Level _level;
+        private readonly ObservableCollection<NonCharacterObject> _allObjectsAvailable;
 
-        public LevelMapViewModel(Level level)
+        public LevelMapViewModel(Level level, ObservableCollection<NonCharacterObject> allObjectsAvailable)
         {
             _level = level;
+            _allObjectsAvailable = allObjectsAvailable;
             SizeOfMap = level.SizeOfLevel;
             if (_level.CurrentMap == null)
                 _level.CurrentMap=GenerateNewEmptyMap();
@@ -38,7 +42,12 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                                 RowIndex = c.Number/(int) SizeOfMap, 
                                 ColumnIndex = c.Number%(int) SizeOfMap,
                                 MarkAsObjective = new RelayCommand<CellViewModel>(MarkAsObjectiveCommand),
-                                MarkAsStart = new RelayCommand<CellViewModel>(MarkAsStartCommand)
+                                MarkAsStart = new RelayCommand<CellViewModel>(MarkAsStartCommand),
+                                StartCellMarking=(_level.StartingCell==c.Number)?">>":"",
+                                ObjectiveCellMarking = (_level.ObjectiveCell == c.Number) ? "x" : "",
+                                AllObjectsAvailable=_allObjectsAvailable,
+                                OcupancyMarker = (!c.AllObjects.Any()) ? new SolidColorBrush(Color.FromRgb(0, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 50, 50)),
+                                OccupantName = (c.AllObjects.Any()) ? c.AllObjects.FirstOrDefault().Name.Main : string.Empty
                             }),
                     SizeOfMap,SelectedFloor);
         }
@@ -67,11 +76,12 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private Map GenerateNewEmptyMap()
         {
-            Map newMap = new Map {Parent = _level};
+            Map newMap = new Map();
 
             var allCells = new List<Cell>();
             AddAFloor(allCells,0);
             newMap.Cells = allCells.ToArray();
+            newMap.LinkToParentLevel(_level);
             return newMap;
         }
 
@@ -118,7 +128,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             {
                 if(_floorPlanViewModels==null)
                     _floorPlanViewModels= new List<FloorPlanViewModel>();
-                if (!_floorPlanViewModels.Any(f=>f.FloorNumber==value.FloorNumber))
+                if (_floorPlanViewModels.All(f => f.FloorNumber != value.FloorNumber))
                 {
                     _floorPlanViewModels.Add(value);
                     RaisePropertyChanged("FloorPlanViewModel");
@@ -129,14 +139,14 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         private void MarkAsStartCommand(CellViewModel obj)
         {
             _level.StartingCell = obj.Value.Number;
-            FloorPlanViewModel.ResetStartCell();
+            _floorPlanViewModels.ForEach(f=>f.ResetStartCell());
             obj.StartCellMarking = ">>";
         }
 
         private void MarkAsObjectiveCommand(CellViewModel obj)
         {
             _level.ObjectiveCell = obj.Value.Number;
-            FloorPlanViewModel.ResetObjectiveCell();
+            _floorPlanViewModels.ForEach(f => f.ResetObjectiveCell());
             obj.ObjectiveCellMarking = "x";
         }
 
@@ -163,7 +173,11 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                                         RowIndex = (c.Number-SelectedFloor*((int) SizeOfMap*(int) SizeOfMap))/(int) SizeOfMap,
                                         ColumnIndex = (c.Number - SelectedFloor * ((int)SizeOfMap * (int)SizeOfMap)) % (int)SizeOfMap,
                                         MarkAsObjective=new RelayCommand<CellViewModel>(MarkAsObjectiveCommand),
-                                        MarkAsStart=new RelayCommand<CellViewModel>(MarkAsStartCommand)
+                                        MarkAsStart = new RelayCommand<CellViewModel>(MarkAsStartCommand),
+                                        AllObjectsAvailable = _allObjectsAvailable,
+                                        OcupancyMarker = (!c.AllObjects.Any()) ? new SolidColorBrush(Color.FromRgb(0, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 50,50)),
+                                        OccupantName = (c.AllObjects.Any()) ? c.AllObjects.FirstOrDefault().Name.Main:string.Empty 
+
 
                                     }),
                             SizeOfMap, SelectedFloor);
