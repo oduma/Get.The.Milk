@@ -7,6 +7,8 @@ namespace Get.The.Milk.L1.ObjectActions
     public class RedDoorActions:IActionAllowed
     {
         public string ObjectTypeId { get; set; }
+        public ObjectCategory ObjectCategory { get; set; }
+
         public bool AllowsAction(GameAction a)
         {
             return false;
@@ -19,6 +21,7 @@ namespace Get.The.Milk.L1.ObjectActions
         public RedDoorActions()
         {
             ObjectTypeId = "RedDoor";
+            ObjectCategory = ObjectCategory.Decor;
         }
     }
 }

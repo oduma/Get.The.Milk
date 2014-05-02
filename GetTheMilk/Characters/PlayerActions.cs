@@ -12,6 +12,8 @@ namespace GetTheMilk.Characters
     public class PlayerActions:IActionAllowed
     {
         public string ObjectTypeId { get; set; }
+        public ObjectCategory ObjectCategory { get; set; }
+
         public bool AllowsAction(GameAction a)
         {
             return true;
@@ -25,6 +27,7 @@ namespace GetTheMilk.Characters
         public PlayerActions()
         {
             ObjectTypeId = "Player";
+            ObjectCategory = ObjectCategory.Player;
         }
     }
 }

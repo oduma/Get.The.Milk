@@ -8,6 +8,8 @@ namespace Get.The.Milk.L1.ObjectActions
     public class CanOpenerActions:IActionAllowed
     {
         public string ObjectTypeId { get; set; }
+        public ObjectCategory ObjectCategory { get; set; }
+
         public bool AllowsAction(GameAction a)
         {
             return false;
@@ -21,6 +23,7 @@ namespace Get.The.Milk.L1.ObjectActions
         public CanOpenerActions()
         {
             ObjectTypeId = "CanOpener";
+            ObjectCategory = ObjectCategory.Tool;
         }
     }
 }

@@ -1,6 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.UI.Translators.Common;
+using GetTheMilk.Objects.BaseObjects;
 using Sciendo.Common.IOC;
 
 namespace GetTheMilk.Factories
@@ -21,6 +22,10 @@ namespace GetTheMilk.Factories
             return Instance;
         }
 
+        public IEnumerable<string> ListAllRegisterNames(ObjectCategory objectCategory)
+        {
+            return _componentResolver.ResolveAll<IActionAllowed>().Where(c=>c.ObjectCategory==objectCategory).Select(c => c.ObjectTypeId);
+        }
         public IActionAllowed CreateObjectAction(string name)
         {
             return _componentResolver.ResolveAll<IActionAllowed>().First(o => o.ObjectTypeId == name);

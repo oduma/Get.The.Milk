@@ -2,14 +2,14 @@
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.UI.Translators.Common;
 
 namespace GetTheMilk.Objects
 {
     public class WeaponActions:IActionAllowed
     {
         public string ObjectTypeId { get; set; }
+        public ObjectCategory ObjectCategory { get; set; }
+
         public bool AllowsAction(GameAction a)
         {
             return (a.ActionType==ActionType.Attack);
@@ -25,6 +25,7 @@ namespace GetTheMilk.Objects
         public WeaponActions()
         {
             ObjectTypeId = "Weapon";
+            ObjectCategory = ObjectCategory.Weapon;
         }
     }
 }

@@ -6,6 +6,8 @@ namespace GetTheMilk.Characters
     public class NPCFoeyActions:IActionAllowed
     {
         public string ObjectTypeId { get; set; }
+        public ObjectCategory ObjectCategory { get; set; }
+
         public bool AllowsAction(GameAction a)
         {
             return (a.ActionType==ActionType.Attack 
@@ -23,6 +25,7 @@ namespace GetTheMilk.Characters
         public NPCFoeyActions()
         {
             ObjectTypeId = "NPCFoe";
+            ObjectCategory = ObjectCategory.Character;
         }
     }
 }

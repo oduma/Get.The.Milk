@@ -2,14 +2,14 @@
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.UI.Translators.Common;
 
 namespace GetTheMilk.Objects
 {
     public class KeyActions:IActionAllowed
     {
         public string ObjectTypeId { get; set; }
+        public ObjectCategory ObjectCategory { get; set; }
+
         public bool AllowsAction(GameAction a)
         {
             return (a is Open);
@@ -23,6 +23,7 @@ namespace GetTheMilk.Objects
         public KeyActions()
         {
             ObjectTypeId = "Key";
+            ObjectCategory = ObjectCategory.Tool;
         }
     }
 }

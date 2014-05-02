@@ -109,6 +109,7 @@
     <Compile Include="BaseCommon\IObjectHumanInterface.cs" />
     <Compile Include="BaseCommon\IPositionable.cs" />
     <Compile Include="BaseCommon\Noun.cs" />
+    <Compile Include="BaseCommon\ObjectCategory.cs" />
     <Compile Include="BaseCommon\Verb.cs" />
     <Compile Include="Characters\BaseCharacters\Character.cs" />
     <Compile Include="Characters\BaseCharacters\CharacterSavedPackages.cs" />
@@ -136,7 +137,6 @@
     <Compile Include="Objects\BaseObjects\INonCharacterObject.cs" />
     <Compile Include="Objects\BaseObjects\ITransactionalObject.cs" />
     <Compile Include="Objects\BaseObjects\NonCharacterObject.cs" />
-    <Compile Include="Objects\BaseObjects\ObjectCategory.cs" />
     <Compile Include="Objects\BaseObjects\Tool.cs" />
     <Compile Include="Objects\BaseObjects\Weapon.cs" />
     <Compile Include="Objects\DecorActions.cs" />
@@ -197,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\" />
+    <Folder Include="Generators\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

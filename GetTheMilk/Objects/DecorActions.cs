@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GetTheMilk.Actions.BaseActions;
+﻿using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.UI.Translators.Common;
 
 namespace GetTheMilk.Objects
 {
     public class DecorActions:IActionAllowed
     {
         public string ObjectTypeId { get; set; }
+        public ObjectCategory ObjectCategory { get; set; }
+
         public bool AllowsAction(GameAction a)
         {
             return false;
@@ -25,6 +20,7 @@ namespace GetTheMilk.Objects
         public DecorActions()
         {
             ObjectTypeId = "Decor";
+            ObjectCategory = ObjectCategory.Decor;
         }
     }
 }

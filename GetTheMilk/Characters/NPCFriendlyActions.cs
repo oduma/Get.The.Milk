@@ -8,6 +8,8 @@ namespace GetTheMilk.Characters
     public class NPCFriendlyActions: IActionAllowed
     {
         public string ObjectTypeId { get; set; }
+        public ObjectCategory ObjectCategory { get; set; }
+
         public bool AllowsAction(GameAction a)
         {
             return true;
@@ -20,6 +22,7 @@ namespace GetTheMilk.Characters
         public NPCFriendlyActions()
         {
             ObjectTypeId = "NPCFriendly";
+            ObjectCategory=ObjectCategory.Character;
         }
     }
 }

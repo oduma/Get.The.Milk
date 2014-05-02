@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Fight;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;

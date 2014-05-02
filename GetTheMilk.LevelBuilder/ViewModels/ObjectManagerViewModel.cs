@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
@@ -57,6 +58,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             if(AllExistingObjects==null)
                 AllExistingObjects=new ObservableCollection<NonCharacterObject>();
             AllExistingObjects.Add(CurrentObjectViewModel.Value);
+            DisplayNewObjectEditor(CurrentObjectViewModel.Value.ObjectCategory);
         }
 
         private void DisplayNewObjectEditor(ObjectCategory obj)

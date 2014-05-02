@@ -3,8 +3,6 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.UI.Translators.Common;
 using Sciendo.Common.Logging;
 
 namespace GetTheMilk.Factories

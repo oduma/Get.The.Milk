@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 

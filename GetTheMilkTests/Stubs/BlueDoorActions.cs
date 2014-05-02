@@ -8,8 +8,11 @@ namespace GetTheMilkTests.Stubs
         public BlueDoorActions()
         {
             ObjectTypeId = "BlueDoor";
+            ObjectCategory = ObjectCategory.Decor;
         }
         public string ObjectTypeId { get; set; }
+        public ObjectCategory ObjectCategory { get; set; }
+
         public bool AllowsAction(GameAction a)
         {
             return true;

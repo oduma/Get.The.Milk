@@ -1,3 +1,5 @@
+using GetTheMilk.BaseCommon;
+
 namespace GetTheMilk.Objects.BaseObjects
 {
     public class Tool : NonCharacterObject, ITransactionalObject

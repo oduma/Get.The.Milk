@@ -1,4 +1,6 @@
-﻿using GetTheMilk.BaseCommon;
+﻿using System.Collections.ObjectModel;
+using GetTheMilk.BaseCommon;
+using GetTheMilk.Factories;
 using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
@@ -10,6 +12,11 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             if(nonCharacter.Name==null)
                 nonCharacter.Name=new Noun();
             Value = nonCharacter;
+            var objectTypes = ObjectActionsFactory.GetFactory().ListAllRegisterNames(ObjectCategory.Decor);
+            if(AllObjectTypes==null)
+                AllObjectTypes= new ObservableCollection<string>();
+            foreach (var objectType in objectTypes)
+                AllObjectTypes.Add(objectType);
         }
         private NonCharacterObject _value;
         public override NonCharacterObject Value
@@ -25,6 +32,19 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
+        private ObservableCollection<string> _allObjectTypes;
+        public ObservableCollection<string> AllObjectTypes
+        {
+            get { return _allObjectTypes; }
+            set
+            {
+                if (value != _allObjectTypes)
+                {
+                    _allObjectTypes = value;
+                    RaisePropertyChanged("AllObjectTypes");
+                }
+            }
+        }
 
     }
 }

@@ -6,6 +6,8 @@ namespace GetTheMilk.BaseCommon
     {
         string ObjectTypeId { get; set; }
 
+        ObjectCategory ObjectCategory { get; set; }
+
         bool AllowsAction(GameAction a);
 
         bool AllowsIndirectAction(GameAction a, IPositionable o);
