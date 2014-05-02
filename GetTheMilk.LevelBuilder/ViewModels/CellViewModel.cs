@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Media;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
@@ -32,13 +33,35 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private void MarkTheOccupancy(NonCharacterObject nonCharacterObject)
         {
-            var color = ColorConverter.ConvertFromString("Maroon");
-            
+            OcupancyMarker = GetColorForObject(nonCharacterObject);
+
+            OccupantName = nonCharacterObject.Name.Main;
+        }
+
+        public static Brush GetColorForObject(NonCharacterObject nonCharacterObject)
+        {
+            object color;
+            switch(nonCharacterObject.ObjectCategory)
+            {
+                case ObjectCategory.Decor:
+                    color = ColorConverter.ConvertFromString("Maroon");
+                    break;
+                case ObjectCategory.Tool:
+                    color = ColorConverter.ConvertFromString("Yellow");
+                    break;
+                default:
+                    color = ColorConverter.ConvertFromString("Green");
+                    break;
+            }
             if(color!=null)
             {
                 var convColor = (Color) color;
-                OcupancyMarker=new SolidColorBrush(convColor);
-                OccupantName = nonCharacterObject.Name.Main;
+                return new SolidColorBrush(convColor);
+            }
+            else
+            {
+                var convColor = (Color) ColorConverter.ConvertFromString("Green");
+                return new SolidColorBrush(convColor);
             }
         }
 

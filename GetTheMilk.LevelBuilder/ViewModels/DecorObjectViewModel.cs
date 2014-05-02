@@ -18,6 +18,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             foreach (var objectType in objectTypes)
                 AllObjectTypes.Add(objectType);
         }
+
         private NonCharacterObject _value;
         public override NonCharacterObject Value
         {
@@ -28,20 +29,6 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 {
                     _value = value;
                     RaisePropertyChanged("Value");
-                }
-            }
-        }
-
-        private ObservableCollection<string> _allObjectTypes;
-        public ObservableCollection<string> AllObjectTypes
-        {
-            get { return _allObjectTypes; }
-            set
-            {
-                if (value != _allObjectTypes)
-                {
-                    _allObjectTypes = value;
-                    RaisePropertyChanged("AllObjectTypes");
                 }
             }
         }

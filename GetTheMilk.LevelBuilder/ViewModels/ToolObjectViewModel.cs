@@ -1,14 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.ObjectModel;
+using GetTheMilk.BaseCommon;
+using GetTheMilk.Factories;
 using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
     public class ToolObjectViewModel:ObjectViewModelBase
     {
-        public override NonCharacterObject Value { get; set; }
-    }
+        public ToolObjectViewModel(Tool tool)
+        {
+            if(tool.Name==null)
+                tool.Name=new Noun();
+            Value = tool;
+            var objectTypes = ObjectActionsFactory.GetFactory().ListAllRegisterNames(ObjectCategory.Tool);
+            if(AllObjectTypes==null)
+                AllObjectTypes= new ObservableCollection<string>();
+            foreach (var objectType in objectTypes)
+                AllObjectTypes.Add(objectType);
+        }
+
+        private NonCharacterObject _value;
+        public override NonCharacterObject Value
+        {
+            get { return _value; }
+            set
+            {
+                if (value != _value)
+                {
+                    _value = value;
+                    RaisePropertyChanged("Value");
+                }
+            }
+        }    }
 }

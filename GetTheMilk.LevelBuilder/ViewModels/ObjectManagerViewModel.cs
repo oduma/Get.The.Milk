@@ -44,7 +44,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                     CurrentObjectViewModel = new DecorObjectViewModel(SelectedObject);
                     break;
                 case ObjectCategory.Tool:
-                    CurrentObjectViewModel = new ToolObjectViewModel();
+                    CurrentObjectViewModel = new ToolObjectViewModel(SelectedObject as Tool);
                     break;
                 case ObjectCategory.Weapon:
                     CurrentObjectViewModel = new WeaponObjectViewModel();
@@ -70,7 +70,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                     CurrentObjectViewModel = new DecorObjectViewModel(new NonCharacterObject());
                     break;
                     case ObjectCategory.Tool:
-                    CurrentObjectViewModel = new ToolObjectViewModel();
+                    CurrentObjectViewModel = new ToolObjectViewModel(new Tool());
                     break;
                     case ObjectCategory.Weapon:
                     CurrentObjectViewModel = new WeaponObjectViewModel();
