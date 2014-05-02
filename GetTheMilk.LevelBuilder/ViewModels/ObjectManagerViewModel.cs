@@ -47,7 +47,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                     CurrentObjectViewModel = new ToolObjectViewModel(SelectedObject as Tool);
                     break;
                 case ObjectCategory.Weapon:
-                    CurrentObjectViewModel = new WeaponObjectViewModel();
+                    CurrentObjectViewModel = new WeaponObjectViewModel(SelectedObject as Weapon);
                     break;
             }
 
@@ -73,7 +73,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                     CurrentObjectViewModel = new ToolObjectViewModel(new Tool());
                     break;
                     case ObjectCategory.Weapon:
-                    CurrentObjectViewModel = new WeaponObjectViewModel();
+                    CurrentObjectViewModel = new WeaponObjectViewModel(new Weapon());
                     break;
             }
         }

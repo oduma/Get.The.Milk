@@ -49,6 +49,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 case ObjectCategory.Tool:
                     color = ColorConverter.ConvertFromString("Yellow");
                     break;
+                case ObjectCategory.Weapon:
+                    color = ColorConverter.ConvertFromString("Pink");
+                    break;
                 default:
                     color = ColorConverter.ConvertFromString("Green");
                     break;
