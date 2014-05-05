@@ -23,7 +23,6 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         public Character()
         {
-            Health = GameSettings.GetInstance().FullDefaultHealth;
             InteractionRules=new SortedList<string, ActionReaction[]>();
         }
 
@@ -71,7 +70,7 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         public Inventory Inventory
         {
-            get { return _inventory; }
+            get { return _inventory=(_inventory)??new Inventory(); }
             set
             {
                 _inventory = value;
@@ -82,7 +81,7 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         public Walet Walet
         {
-            get { return _walet; }
+            get { return _walet=(_walet)??new Walet(); }
             set
             {
                 _walet = value;

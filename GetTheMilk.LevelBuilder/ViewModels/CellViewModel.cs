@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Controls;
 using System.Windows.Media;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Navigation;

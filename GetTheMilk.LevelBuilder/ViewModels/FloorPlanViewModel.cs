@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using GetTheMilk.Levels;
-using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.LevelBuilder.ViewModels

@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="GetTheMilk.LevelBuilder.UControls.Character"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <TabItem Header="Character Properties">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Object Type:"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=AllObjectTypes}" SelectedItem="{Binding Path=Value.ObjectTypeId}"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Main Name"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Value.Name.Main}"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Narrator Name"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Value.Name.Narrator}"/>
+                <Label Grid.Row="3" Grid.Column="0" Content="Blocks Movement"/>
+                <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding Path=Value.BlockMovement}"/>
+                <Label Grid.Row="4" Grid.Column="0" Content="CloseUp Message"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=Value.CloseUpMessage}"/>
+                <Label Grid.Row="5" Grid.Column="0" Content="Health"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=Value.Health}"/>
+                <Label Grid.Row="6" Grid.Column="0" Content="Experience"/>
+                <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path=Value.Experience}"/>
+                <Label Grid.Row="7" Grid.Column="0" Content="Wallet Max Capacity"/>
+                <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Path=Value.Walet.MaxCapacity}"/>
+                <Label Grid.Row="8" Grid.Column="0" Content="Wallet Current Capacity"/>
+                <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Path=Value.Walet.CurrentCapacity}"/>
+                <Label Grid.Row="9" Grid.Column="0" Content="Inventory Max Capacity"/>
+                <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Path=Value.Inventory.MaximumCapacity}"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Character Inventory">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Objects Available"/>
+                <Label Grid.Row="0" Grid.Column="2" Content="Inventory"/>
+                <ListBox Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" 
+                         ItemsSource="{Binding Path=AllObjectsAvailable}" 
+                         SelectionMode="Single" 
+                         SelectedItem="{Binding Path=SelectedAvailableObject}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Path=Name.Main}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ListBox Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" 
+                         ItemsSource="{Binding Path=CharacterInventory}"
+                         SelectionMode="Single"
+                         SelectedItem="{Binding Path=SelectedObject}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Path=Name.Main}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button Grid.Row="1" Grid.Column="1" Content="-&gt;" 
+                        Command="{Binding Path=MoveToInventory}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Grid.Row="2" Grid.Column="1" Content="&lt;-" HorizontalAlignment="Center" 
+                        Command="{Binding Path=RemoveFromInventory}"
+                        VerticalAlignment="Center"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Character Interactions">
+            <Grid Background="#FFE5E5E5"/>
+        </TabItem>
+    </TabControl>
+</UserControl>

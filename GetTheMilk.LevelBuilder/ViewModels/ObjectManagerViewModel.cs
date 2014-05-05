@@ -7,9 +7,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 {
     public class ObjectManagerViewModel:ViewModelBase
     {
-        private ObjectViewModelBase _currentObjectViewModel;
+        private ObjectViewModelBase<NonCharacterObject> _currentObjectViewModel;
 
-        public ObjectViewModelBase CurrentObjectViewModel
+        public ObjectViewModelBase<NonCharacterObject> CurrentObjectViewModel
         {
             get { return _currentObjectViewModel; }
             set

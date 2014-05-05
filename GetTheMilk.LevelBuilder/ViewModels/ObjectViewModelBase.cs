@@ -1,12 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
-    public abstract class ObjectViewModelBase:ViewModelBase
+    public abstract class ObjectViewModelBase<T>:ViewModelBase
     {
-        public abstract NonCharacterObject Value { get; set; }
+        public abstract T Value { get; set; }
 
         private ObservableCollection<string> _allObjectTypes;
         public ObservableCollection<string> AllObjectTypes

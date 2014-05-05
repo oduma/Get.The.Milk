@@ -20,6 +20,9 @@
         <DataTemplate DataType="{x:Type ViewModels:ObjectManagerViewModel}">
             <UCViews:ObjectManager />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:CharacterManagerViewModel}">
+            <UCViews:CharacterManager />
+        </DataTemplate>
     </Window.Resources>
 
     <Grid>
@@ -45,6 +48,7 @@
                 <MenuItem Header="Level Properties" Command="{Binding Path=GetLevelProperties}"/>
                 <MenuItem Header="Level Map" Command="{Binding Path=GetLevelMap}"/>
                 <MenuItem Header="Objects" Command="{Binding Path=ManageObjects}"/>
+                <MenuItem Header="Characters" Command="{Binding Path=ManageCharacters}"/>
             </MenuItem>
         </Menu>
         <ContentControl  TabIndex="-1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Path=CurrentViewModel}" Focusable="True"/>

@@ -12,7 +12,6 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -26,9 +25,7 @@
         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Value.Name.Narrator}"/>
         <Label Grid.Row="3" Grid.Column="0" Content="Blocks Movement"/>
         <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding Path=Value.BlockMovement}"/>
-        <Label Grid.Row="4" Grid.Column="0" Content="Approaching Message"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=Value.ApproachingMessage}"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="CloseUp Message"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=Value.CloseUpMessage}"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="CloseUp Message"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=Value.CloseUpMessage}"/>
     </Grid>
 </UserControl>

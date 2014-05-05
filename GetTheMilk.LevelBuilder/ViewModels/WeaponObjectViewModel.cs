@@ -7,7 +7,7 @@ using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
-    public class WeaponObjectViewModel:ObjectViewModelBase
+    public class WeaponObjectViewModel:ObjectViewModelBase<NonCharacterObject>
     {
         public WeaponObjectViewModel(Weapon weapon)
         {

@@ -19,7 +19,6 @@ namespace GetTheMilk.Objects.BaseObjects
 
         public ObjectCategory ObjectCategory { get; protected set; }
 
-        public string ApproachingMessage { get; set; }
         public string CloseUpMessage { get; set; }
         public Inventory StorageContainer { get; set; }
 

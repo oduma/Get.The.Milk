@@ -5,7 +5,7 @@ using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
-    public class ToolObjectViewModel:ObjectViewModelBase
+    public class ToolObjectViewModel:ObjectViewModelBase<NonCharacterObject>
     {
         public ToolObjectViewModel(Tool tool)
         {

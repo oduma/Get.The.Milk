@@ -14,6 +14,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
     {
         private LevelPropertiesViewModel _levelPropertiesViewModel;
         private ObjectManagerViewModel _objectManagerViewModel;
+        private CharacterManagerViewModel _characterManagerViewModel;
 
         private ViewModelBase _currentViewModel;
 
@@ -54,6 +55,22 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
             ManageObjects=new RelayCommand(DisplayObjectManager);
 
+            ManageCharacters=new RelayCommand(DisplayCharacterManager);
+
+        }
+
+        private void DisplayCharacterManager()
+        {
+
+            if (_characterManagerViewModel == null)
+                _characterManagerViewModel = new CharacterManagerViewModel((_objectManagerViewModel == null) ? null : _objectManagerViewModel.AllExistingObjects);
+            else
+            {
+                _characterManagerViewModel.AllAvailableObjects = (_objectManagerViewModel == null)
+                                                                     ? null
+                                                                     : _objectManagerViewModel.AllExistingObjects;
+            }
+            CurrentViewModel = _characterManagerViewModel;
         }
 
         private void DisplayObjectManager()
@@ -131,6 +148,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         public RelayCommand GetLevelMap { get; private set; }
 
         public RelayCommand ManageObjects { get; private set; }
+
+        public RelayCommand ManageCharacters { get; private set; }
 
         public ObservableCollection<SizeOfLevel> AllSizes 
         {

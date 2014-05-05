@@ -5,7 +5,7 @@ using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
-    public class DecorObjectViewModel:ObjectViewModelBase
+    public class DecorObjectViewModel:ObjectViewModelBase<NonCharacterObject>
     {
         public DecorObjectViewModel(NonCharacterObject nonCharacter)
         {
