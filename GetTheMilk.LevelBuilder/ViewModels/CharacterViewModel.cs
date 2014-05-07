@@ -40,6 +40,21 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 CharacterInventory=new ObservableCollection<NonCharacterObject>();
             foreach(var obj in Value.Inventory)
                 CharacterInventory.Add(obj);
+            if(CharacterSpecificInteractions==null)
+                CharacterSpecificInteractions= new ObservableCollection<ActionReaction>();
+            if(Value.InteractionRules.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
+            {
+                foreach( var car in Value.InteractionRules[GenericInteractionRulesKeys.CharacterSpecific])
+                    CharacterSpecificInteractions.Add(car);
+            }
+            if (PlayerInteractions == null)
+                PlayerInteractions = new ObservableCollection<ActionReaction>();
+            if(Value.InteractionRules.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
+            {
+                foreach (var car in Value.InteractionRules[GenericInteractionRulesKeys.PlayerResponses])
+                    PlayerInteractions.Add(car);
+            }
+
             MoveToInventory=new RelayCommand(MoveToInventoryCommand);
             RemoveFromInventory= new RelayCommand(RemoveFromInventoryCommand);
             MoveToCharacterSpecificInteractions=new RelayCommand(MoveToCharacterSpecificInteractionsCommand);
@@ -50,10 +65,11 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private void RemoveFromPlayerResponseInteractionsCommand()
         {
-            RemoveInteractionFromCharacter(GenericInteractionRulesKeys.PlayerResponses, SelectedPlayerInteraction);
+            AllAvailableInteractions.Add(SelectedPlayerInteraction);
+            PlayerInteractions.Remove(SelectedPlayerInteraction);
         }
 
-        protected ActionReaction SelectedPlayerInteraction
+        public ActionReaction SelectedPlayerInteraction
         {
             get { return _selectedPlayerInteraction; }
             set
@@ -68,11 +84,11 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private void MoveToPlayerResponseInteractionsCommand()
         {
-            AddInteractionToCharacter(GenericInteractionRulesKeys.PlayerResponses, SelectedAvailablePlayerInteraction);
-
+            PlayerInteractions.Add(SelectedAvailablePlayerInteraction);
+            AllAvailableInteractions.Remove(SelectedAvailablePlayerInteraction);
         }
 
-        protected ActionReaction SelectedAvailablePlayerInteraction
+        public ActionReaction SelectedAvailablePlayerInteraction
         {
             get { return _selectedAvailablePlayerInteraction; }
             set
@@ -87,10 +103,11 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private void RemoveFromCharacterSpecificInteractionsCommand()
         {
-            RemoveInteractionFromCharacter(GenericInteractionRulesKeys.CharacterSpecific,SelectedCharacterInteraction);
+            AllAvailableInteractions.Add(SelectedCharacterInteraction);
+            CharacterSpecificInteractions.Remove(SelectedCharacterInteraction);
         }
 
-        protected ActionReaction SelectedCharacterInteraction
+        public ActionReaction SelectedCharacterInteraction
         {
             get { return _selectedCharacterInteraction; }
             set
@@ -105,26 +122,11 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private void MoveToCharacterSpecificInteractionsCommand()
         {
-            AddInteractionToCharacter(GenericInteractionRulesKeys.CharacterSpecific,SelectedAvailableCharacterInteraction);
+            CharacterSpecificInteractions.Add(SelectedAvailableCharacterInteraction);
+            AllAvailableInteractions.Remove(SelectedAvailableCharacterInteraction);
         }
 
-        private void AddInteractionToCharacter(string interactionType,ActionReaction interaction)
-        {
-            if (!Value.InteractionRules.ContainsKey(interactionType))
-                Value.InteractionRules.Add(interactionType, new ActionReaction[0]);
-            var existingInteractions = Value.InteractionRules[interactionType].ToList();
-            existingInteractions.Add(interaction);
-            Value.InteractionRules[interactionType] = existingInteractions.ToArray();
-        }
-
-        private void RemoveInteractionFromCharacter(string interactionType, ActionReaction interaction)
-        {
-            var existingInteractions = Value.InteractionRules[interactionType].ToList();
-            existingInteractions.Remove(interaction);
-            Value.InteractionRules[interactionType] = existingInteractions.ToArray();
-        }
-
-        protected ActionReaction SelectedAvailableCharacterInteraction
+        public ActionReaction SelectedAvailableCharacterInteraction
         {
             get { return _selectedAvailableCharacterInteraction; }
             set
@@ -137,7 +139,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-        protected ObservableCollection<ActionReaction> AllAvailableInteractions
+        public ObservableCollection<ActionReaction> AllAvailableInteractions
         {
             get { return _allAvailableInteractions; }
             set
@@ -203,6 +205,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         private ActionReaction _selectedAvailablePlayerInteraction;
         private ActionReaction _selectedCharacterInteraction;
         private ActionReaction _selectedPlayerInteraction;
+        private ObservableCollection<ActionReaction> _characterSpecificInteractions;
+        private ObservableCollection<ActionReaction> _playerInteractions;
 
         public override Character Value
         {
@@ -246,5 +250,35 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 }
             }
         }
+
+
+        public ObservableCollection<ActionReaction> CharacterSpecificInteractions
+        {
+            get { return _characterSpecificInteractions; }
+
+            set
+            {
+                if (_characterSpecificInteractions != value)
+                {
+                    _characterSpecificInteractions = value;
+                    RaisePropertyChanged("CharacterSpecificInteractions");
+                }
+            }
+        }
+
+        public ObservableCollection<ActionReaction> PlayerInteractions
+        {
+            get { return _playerInteractions; }
+
+            set
+            {
+                if (_playerInteractions != value)
+                {
+                    _playerInteractions = value;
+                    RaisePropertyChanged("PlayerInteractions");
+                }
+            }
+        }
+
     }
 }

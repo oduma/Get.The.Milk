@@ -1,8 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using GetTheMilk.Actions.Interactions;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
+using GetTheMilk.Utils;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
@@ -50,9 +52,21 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 AllExistingCharacters=new ObservableCollection<Character>();
             foreach (var obj in CurrentCharacterViewModel.CharacterInventory)
                 CurrentCharacterViewModel.Value.Inventory.Add(obj);
+            RePopulateInteractions(GenericInteractionRulesKeys.CharacterSpecific,
+                                   CurrentCharacterViewModel.CharacterSpecificInteractions);
+            RePopulateInteractions(GenericInteractionRulesKeys.PlayerResponses,
+                                   CurrentCharacterViewModel.PlayerInteractions);
             CurrentCharacterViewModel.Value.Inventory.LinkObjectsToInventory();
             AllExistingCharacters.Add(CurrentCharacterViewModel.Value);
             DisplayNewCharacterEditor();
+        }
+
+
+        private void RePopulateInteractions(string interactionType,ObservableCollection<ActionReaction> newInteractions)
+        {
+            if (CurrentCharacterViewModel.Value.InteractionRules.ContainsKey(interactionType))
+                CurrentCharacterViewModel.Value.InteractionRules.Remove(interactionType);
+            CurrentCharacterViewModel.Value.InteractionRules.Add(interactionType, newInteractions.ToArray());
         }
 
         private void DisplayNewCharacterEditor()
