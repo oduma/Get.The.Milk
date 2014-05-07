@@ -73,7 +73,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         {
 
             if (_characterManagerViewModel == null)
-                _characterManagerViewModel = new CharacterManagerViewModel((_objectManagerViewModel == null) ? null : _objectManagerViewModel.AllExistingObjects);
+                _characterManagerViewModel = new CharacterManagerViewModel((_objectManagerViewModel == null) ? null : _objectManagerViewModel.AllExistingObjects, (_interactionManagerViewModel == null) ? null : _interactionManagerViewModel.AllExistingInteractions);
             else
             {
                 _characterManagerViewModel.AllAvailableObjects = (_objectManagerViewModel == null)

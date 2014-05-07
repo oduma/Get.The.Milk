@@ -89,6 +89,61 @@
             </Grid>
         </TabItem>
         <TabItem Header="Character Interactions">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Character Specific" Grid.Row="0" Grid.ColumnSpan="3"/>
+                <Label Content="Player Responses" Grid.Row="3" Grid.ColumnSpan="3"/>
+                <ListBox ItemsSource="{Binding Path=AllAvailableInteractions}" 
+                         SelectedItem="{Binding Path=SelectedAvailableCharacterInteraction}" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding .}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ListBox ItemsSource="{Binding Path=CharacterSpecificInteractions}" 
+                         SelectedItem="{Binding Path=SelectedCharacterInteraction}" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding .}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button Content="-&gt;" Grid.Row="1" Grid.Column="1" Command="{Binding Path=MoveToCharacterSpecificInteractions}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Content="&lt;-" Grid.Row="2" Grid.Column="1" Command="{Binding Path=ReMoveFromCharacterSpecificInteractions}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <ListBox ItemsSource="{Binding Path=AllAvailableInteractions}" 
+                         SelectedItem="{Binding Path=SelectedAvailablePlayerInteraction}" 
+                         Grid.Row="4" Grid.Column="0" Grid.RowSpan="2">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding .}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ListBox ItemsSource="{Binding Path=PlayerInteractions}" 
+                         SelectedItem="{Binding Path=SelectedPlayerInteraction}" Grid.Row="4" Grid.Column="2" Grid.RowSpan="2">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding .}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Button Content="-&gt;" Grid.Row="4" Grid.Column="1" Command="{Binding Path=MoveToPlayerResponsesInteractions}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Content="&lt;-" Grid.Row="5" Grid.Column="1" Command="{Binding Path=ReMoveFromPlayerResponsesInteractions}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
         </TabItem>
     </TabControl>
 </UserControl>

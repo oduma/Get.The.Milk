@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using GetTheMilk.Actions.Interactions;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
@@ -27,18 +28,21 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         public RelayCommand CreateNewCharacter { get; private set; }
         public RelayCommand Done { get; private set; }
 
-        public CharacterManagerViewModel(ObservableCollection<NonCharacterObject> allAvailableObjects)
+        public CharacterManagerViewModel(ObservableCollection<NonCharacterObject> allAvailableObjects, ObservableCollection<ActionReaction> allAvailableInteractions)
         {
             AllAvailableObjects = allAvailableObjects;
+            AllAvailableInteractions = allAvailableInteractions;
             CreateNewCharacter= new RelayCommand(DisplayNewCharacterEditor);
             Done= new RelayCommand(DoneCommand);
         }
 
         private void DispalyCharacterEditor()
         {
-                    CurrentCharacterViewModel = new CharacterViewModel(SelectedCharacter,AllAvailableObjects);
+                    CurrentCharacterViewModel = new CharacterViewModel(SelectedCharacter,AllAvailableObjects,AllAvailableInteractions);
 
         }
+
+        public ObservableCollection<ActionReaction> AllAvailableInteractions { get; set; }
 
         private void DoneCommand()
         {
@@ -53,7 +57,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private void DisplayNewCharacterEditor()
         {
-            CurrentCharacterViewModel = new CharacterViewModel(new Character(),AllAvailableObjects);
+            CurrentCharacterViewModel = new CharacterViewModel(new Character(),AllAvailableObjects,AllAvailableInteractions);
         }
 
         private Character _selectedCharacter;
