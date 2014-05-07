@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Media;
 using GetTheMilk.BaseCommon;
+using GetTheMilk.Characters;
+using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
@@ -15,9 +17,22 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         public RelayCommand<NonCharacterObject> PlaceAnObject { get; set; }
 
+        public RelayCommand<Character> PlaceACharacter { get; set; }
+
         public CellViewModel()
         {
             PlaceAnObject=new RelayCommand<NonCharacterObject>(PlaceAnObjectCommand);
+            PlaceACharacter=new RelayCommand<Character>(PlaceACharacterCommand);
+        }
+
+        private void PlaceACharacterCommand(Character obj)
+        {
+            obj.CellNumber = Value.Number;
+            if (Value.Parent.Parent.Characters == null)
+                Value.Parent.Parent.Characters = new CharacterCollection();
+            MarkTheOccupancy(null,obj);
+            Value.Parent.Parent.Characters.Add(obj);
+            AllCharactersAvailable.Remove(obj);
         }
 
         private void PlaceAnObjectCommand(NonCharacterObject obj)
@@ -25,35 +40,61 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             obj.CellNumber = Value.Number;
             if(Value.Parent.Parent.Inventory==null)
                 Value.Parent.Parent.Inventory= new Inventory();
-            MarkTheOccupancy(obj);
+            MarkTheOccupancy(obj,null);
             Value.Parent.Parent.Inventory.Add(obj);
             AllObjectsAvailable.Remove(obj);
         }
 
-        private void MarkTheOccupancy(NonCharacterObject nonCharacterObject)
+        private void MarkTheOccupancy(NonCharacterObject nonCharacterObject,Character character)
         {
-            OcupancyMarker = GetColorForObject(nonCharacterObject);
+            OcupancyMarker = GetColorForCell(nonCharacterObject,character);
 
-            OccupantName = nonCharacterObject.Name.Main;
+            OccupantName = GetOccupantName(nonCharacterObject, character);
         }
 
-        public static Brush GetColorForObject(NonCharacterObject nonCharacterObject)
+        public static string GetOccupantName(NonCharacterObject nonCharacterObject, Character character)
         {
-            object color;
-            switch(nonCharacterObject.ObjectCategory)
+            if (nonCharacterObject != null)
             {
-                case ObjectCategory.Decor:
-                    color = ColorConverter.ConvertFromString("Maroon");
-                    break;
-                case ObjectCategory.Tool:
-                    color = ColorConverter.ConvertFromString("Yellow");
-                    break;
-                case ObjectCategory.Weapon:
-                    color = ColorConverter.ConvertFromString("Pink");
-                    break;
-                default:
-                    color = ColorConverter.ConvertFromString("Green");
-                    break;
+                return nonCharacterObject.Name.Main;
+            }
+            if (character != null)
+                return character.Name.Main;
+            return string.Empty;
+        }
+
+        public static Brush GetColorForCell(NonCharacterObject nonCharacterObject,Character character)
+        {
+            object color=null;
+            if (nonCharacterObject != null)
+            {
+                switch (nonCharacterObject.ObjectCategory)
+                {
+                    case ObjectCategory.Decor:
+                        color = ColorConverter.ConvertFromString("Maroon");
+                        break;
+                    case ObjectCategory.Tool:
+                        color = ColorConverter.ConvertFromString("Yellow");
+                        break;
+                    case ObjectCategory.Weapon:
+                        color = ColorConverter.ConvertFromString("Pink");
+                        break;
+                    default:
+                        color = ColorConverter.ConvertFromString("Green");
+                        break;
+                }
+            }
+            if(character!=null)
+            {
+                switch (character.ObjectTypeId)
+                {
+                    case "NPCFoe":
+                        color = ColorConverter.ConvertFromString("Red");
+                        break;
+                    case "NPCFriendly":
+                        color = ColorConverter.ConvertFromString("Cadetblue");
+                        break;
+                }
             }
             if(color!=null)
             {
@@ -73,7 +114,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             get { return _ocupancyMarker; }
             set
             {
-                if (value != _ocupancyMarker)
+                if (!Equals(value, _ocupancyMarker))
                 {
                     _ocupancyMarker = value;
                     RaisePropertyChanged("OcupancyMarker");
@@ -167,5 +208,6 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         public ObservableCollection<NonCharacterObject> AllObjectsAvailable { get; set; }
 
+        public ObservableCollection<Character> AllCharactersAvailable { get; set; }
     }
 }

@@ -95,7 +95,14 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         {
             if (_level == null)
                 CreateANewLevel(SizeOfLevel.VerySmall);
-            CurrentViewModel = _levelMapViewModel ?? new LevelMapViewModel(_level,(_objectManagerViewModel==null)?null:_objectManagerViewModel.AllExistingObjects);
+            CurrentViewModel = _levelMapViewModel ??
+                               new LevelMapViewModel(_level,
+                                                     (_objectManagerViewModel == null)
+                                                         ? null
+                                                         : _objectManagerViewModel.AllExistingObjects,
+                                                     (_characterManagerViewModel == null)
+                                                         ? null
+                                                         : _characterManagerViewModel.AllExistingCharacters);
         }
 
         private void DisplayLevelProperties()

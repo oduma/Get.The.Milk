@@ -39,7 +39,14 @@
                                         </DataTemplate>
                                     </MenuItem.ItemTemplate>
                                 </MenuItem>
-                                <MenuItem Header="Place a Character"/>
+                                <MenuItem Header="Place a Character" 
+                                          ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.AllCharactersAvailable}">
+                                    <MenuItem.ItemTemplate>
+                                        <DataTemplate>
+                                            <MenuItem Header="{Binding Path=Name.Main}" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl,AncestorLevel=2},Path=DataContext.PlaceACharacter}" CommandParameter="{Binding .}"/>
+                                        </DataTemplate>
+                                    </MenuItem.ItemTemplate>
+                                </MenuItem>
                             </ContextMenu>
                         </Border.ContextMenu>
                         <StackPanel Orientation="Vertical">

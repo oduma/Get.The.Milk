@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Media;
+using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects.BaseObjects;
@@ -15,11 +15,15 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private readonly Level _level;
         private readonly ObservableCollection<NonCharacterObject> _allObjectsAvailable;
+        private readonly ObservableCollection<Character> _allCharactersAvailable;
 
-        public LevelMapViewModel(Level level, ObservableCollection<NonCharacterObject> allObjectsAvailable)
+        public LevelMapViewModel(Level level, 
+            ObservableCollection<NonCharacterObject> allObjectsAvailable, 
+            ObservableCollection<Character> allCharactersAvailable)
         {
             _level = level;
             _allObjectsAvailable = allObjectsAvailable;
+            _allCharactersAvailable = allCharactersAvailable;
             SizeOfMap = level.SizeOfLevel;
             if (_level.CurrentMap == null)
                 _level.CurrentMap=GenerateNewEmptyMap();
@@ -46,8 +50,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                                 StartCellMarking=(_level.StartingCell==c.Number)?">>":"",
                                 ObjectiveCellMarking = (_level.ObjectiveCell == c.Number) ? "x" : "",
                                 AllObjectsAvailable=_allObjectsAvailable,
-                                OcupancyMarker = (!c.AllObjects.Any()) ? new SolidColorBrush(Color.FromRgb(0, 255, 0)) : CellViewModel.GetColorForObject(c.AllObjects.First()),
-                                OccupantName = (c.AllObjects.Any()) ? c.AllObjects.FirstOrDefault().Name.Main : string.Empty
+                                AllCharactersAvailable =_allCharactersAvailable,
+                                OcupancyMarker = CellViewModel.GetColorForCell(c.AllObjects.FirstOrDefault(), c.AllCharacters.FirstOrDefault()),
+                                OccupantName = CellViewModel.GetOccupantName(c.AllObjects.FirstOrDefault(), c.AllCharacters.FirstOrDefault())
                             }),
                     SizeOfMap,SelectedFloor);
         }
@@ -175,8 +180,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                                         MarkAsObjective=new RelayCommand<CellViewModel>(MarkAsObjectiveCommand),
                                         MarkAsStart = new RelayCommand<CellViewModel>(MarkAsStartCommand),
                                         AllObjectsAvailable = _allObjectsAvailable,
-                                        OcupancyMarker = (!c.AllObjects.Any()) ? new SolidColorBrush(Color.FromRgb(0, 255, 0)) : CellViewModel.GetColorForObject(c.AllObjects.First()),
-                                        OccupantName = (c.AllObjects.Any()) ? c.AllObjects.FirstOrDefault().Name.Main:string.Empty 
+                                        AllCharactersAvailable=_allCharactersAvailable,
+                                        OcupancyMarker = CellViewModel.GetColorForCell(c.AllObjects.FirstOrDefault(),c.AllCharacters.FirstOrDefault()),
+                                        OccupantName = CellViewModel.GetOccupantName(c.AllObjects.FirstOrDefault(), c.AllCharacters.FirstOrDefault()) 
 
 
                                     }),
