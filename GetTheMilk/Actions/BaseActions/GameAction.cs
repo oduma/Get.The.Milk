@@ -15,6 +15,7 @@ namespace GetTheMilk.Actions.BaseActions
 
         public bool StartingAction { get; protected set; }
 
+        [LevelBuilderAccesibleProperty(typeof(bool))]
         public bool FinishTheInteractionOnExecution { get; set; }
 
         public GameAction()

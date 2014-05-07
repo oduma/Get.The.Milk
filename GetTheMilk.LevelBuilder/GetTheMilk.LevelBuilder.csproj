@@ -66,6 +66,12 @@
     <Compile Include="UControls\FloorPlan.xaml.cs">
       <DependentUpon>FloorPlan.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UControls\Interaction.xaml.cs">
+      <DependentUpon>Interaction.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UControls\InteractionManager.xaml.cs">
+      <DependentUpon>InteractionManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UControls\LevelMap.xaml.cs">
       <DependentUpon>LevelMap.xaml</DependentUpon>
     </Compile>
@@ -85,11 +91,14 @@
       <DependentUpon>WeaponObject.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\CellsGridHelper.cs" />
+    <Compile Include="ViewModels\ActionPropertyViewModel.cs" />
     <Compile Include="ViewModels\CellViewModel.cs" />
     <Compile Include="ViewModels\CharacterManagerViewModel.cs" />
     <Compile Include="ViewModels\CharacterViewModel.cs" />
     <Compile Include="ViewModels\DecorObjectViewModel.cs" />
     <Compile Include="ViewModels\FloorPlanViewModel.cs" />
+    <Compile Include="ViewModels\InteractionManagerViewModel.cs" />
+    <Compile Include="ViewModels\InteractionViewModel.cs" />
     <Compile Include="ViewModels\LevelMapViewModel.cs" />
     <Compile Include="ViewModels\LevelPropertiesViewModel.cs" />
     <Compile Include="ViewModels\LoadLevelViewModel.cs" />
@@ -124,6 +133,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UControls\FloorPlan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UControls\Interaction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UControls\InteractionManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

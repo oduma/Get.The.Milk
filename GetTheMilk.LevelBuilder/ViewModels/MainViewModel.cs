@@ -35,6 +35,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         private Level _level;
         private ObservableCollection<SizeOfLevel> _allSizes;
         private LevelMapViewModel _levelMapViewModel;
+        private InteractionManagerViewModel _interactionManagerViewModel;
 
         public MainViewModel()
         {
@@ -57,6 +58,15 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
             ManageCharacters=new RelayCommand(DisplayCharacterManager);
 
+            ManageInteractions= new RelayCommand(DisplayInteractionManager);
+
+        }
+
+        private void DisplayInteractionManager()
+        {
+            if (_interactionManagerViewModel == null)
+                _interactionManagerViewModel = new InteractionManagerViewModel();
+            CurrentViewModel = _interactionManagerViewModel;
         }
 
         private void DisplayCharacterManager()
@@ -150,6 +160,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         public RelayCommand ManageObjects { get; private set; }
 
         public RelayCommand ManageCharacters { get; private set; }
+
+        public RelayCommand ManageInteractions { get; private set; }
 
         public ObservableCollection<SizeOfLevel> AllSizes 
         {

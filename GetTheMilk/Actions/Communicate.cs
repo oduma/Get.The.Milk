@@ -29,6 +29,8 @@ namespace GetTheMilk.Actions
                 return PerformResponseAction(ActionType);
             return new ActionResult {ForAction = this, ExtraData=GetAvailableActions(), ResultType = ActionResultType.Ok};
         }
+
+        [LevelBuilderAccesibleProperty(typeof(string))]
         public string Message { get; set; }
 
         public override GameAction CreateNewInstance()

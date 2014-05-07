@@ -35,6 +35,7 @@ namespace GetTheMilk.Characters.BaseCharacters
             character.InteractionRules =
                 JsonConvert.DeserializeObject<SortedList<string, ActionReaction[]>>(
                     characterPackages.CharacterInteractionRules, new ActionJsonConverter());
+
             if (character.InteractionRules.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
             {
                 character.InteractionRules[GenericInteractionRulesKeys.CharacterSpecific].ForEach(ar =>
@@ -114,6 +115,7 @@ namespace GetTheMilk.Characters.BaseCharacters
                 }
             }
         }
+
         public int Range { get; set; }
 
         public Weapon ActiveDefenseWeapon { get; set; }

@@ -14,7 +14,11 @@ namespace GetTheMilk.Actions
         public Walk()
         {
             Name = new Verb {Infinitive = "To Walk", Past = "walked", Present = "walk"};
-            DefaultDistance = GameSettings.GetInstance().DefaultWalkDistance;
+            try
+            {
+                DefaultDistance = GameSettings.GetInstance().DefaultWalkDistance;
+            }
+            catch{}
             ActionType = ActionType.Walk;
             StartingAction = true;
 

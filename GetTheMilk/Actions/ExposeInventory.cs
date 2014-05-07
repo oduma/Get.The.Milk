@@ -24,6 +24,7 @@ namespace GetTheMilk.Actions
 
         }
 
+        [LevelBuilderAccesibleProperty(typeof(ActionType))]
         public ActionType FinishActionType { get; set; }
 
         public bool IncludeWallet { get; set; }

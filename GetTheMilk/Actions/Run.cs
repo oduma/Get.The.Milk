@@ -1,4 +1,5 @@
-﻿using GetTheMilk.Actions.BaseActions;
+﻿using System;
+using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Settings;
 
@@ -9,7 +10,11 @@ namespace GetTheMilk.Actions
         public Run()
         {
             Name = new Verb {Infinitive = "To Run", Past = "ran", Present = "run"};
-            DefaultDistance = GameSettings.GetInstance().DefaultRunDistance;
+            try
+            {
+                DefaultDistance = GameSettings.GetInstance().DefaultRunDistance;
+            }
+            catch {}
             ActionType = ActionType.Run;
             StartingAction = true;
         }

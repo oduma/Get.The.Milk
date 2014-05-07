@@ -91,6 +91,7 @@
     <Compile Include="Actions\Interactions\ActionReaction.cs" />
     <Compile Include="Actions\Keep.cs" />
     <Compile Include="Actions\Kick.cs" />
+    <Compile Include="Actions\LevelBuilderAccesiblePropertyAttribute.cs" />
     <Compile Include="Actions\Meet.cs" />
     <Compile Include="Actions\MovementActionExtraData.cs" />
     <Compile Include="Actions\ObjectWithPossibleActions.cs" />

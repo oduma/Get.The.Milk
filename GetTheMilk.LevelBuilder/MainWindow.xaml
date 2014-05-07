@@ -23,6 +23,9 @@
         <DataTemplate DataType="{x:Type ViewModels:CharacterManagerViewModel}">
             <UCViews:CharacterManager />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:InteractionManagerViewModel}">
+            <UCViews:InteractionManager />
+        </DataTemplate>
     </Window.Resources>
 
     <Grid>
@@ -49,6 +52,7 @@
                 <MenuItem Header="Level Map" Command="{Binding Path=GetLevelMap}"/>
                 <MenuItem Header="Objects" Command="{Binding Path=ManageObjects}"/>
                 <MenuItem Header="Characters" Command="{Binding Path=ManageCharacters}"/>
+                <MenuItem Header="Interactions" Command="{Binding Path=ManageInteractions}"/>
             </MenuItem>
         </Menu>
         <ContentControl  TabIndex="-1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Path=CurrentViewModel}" Focusable="True"/>
