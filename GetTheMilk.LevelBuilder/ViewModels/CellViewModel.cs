@@ -72,7 +72,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         {
             obj.CellNumber = Value.Number;
             if(Value.Parent.Parent.Inventory==null)
-                Value.Parent.Parent.Inventory= new Inventory();
+                Value.Parent.Parent.Inventory= new Inventory{InventoryType=InventoryType.LevelInventory};
             MarkTheOccupancy(obj,null);
             Value.Parent.Parent.Inventory.Add(obj);
             AllObjectsAvailable.Remove(obj);

@@ -32,7 +32,8 @@ namespace GetTheMilkTests.IntegrationTests
             var objAction = factory.CreateObjectAction("Player");
             player.AllowsAction = objAction.AllowsAction;
             player.AllowsIndirectAction = objAction.AllowsIndirectAction;
-
+            player.Health = 10;
+            player.Experience = 50;
 
             player.SetPlayerName("Me");
             player.Walet.CurrentCapacity = 20;
@@ -241,6 +242,7 @@ namespace GetTheMilkTests.IntegrationTests
             var objAction = factory.CreateObjectAction("Player");
             player.AllowsAction = objAction.AllowsAction;
             player.AllowsIndirectAction = objAction.AllowsIndirectAction;
+            player.Health = 10;
 
 
             player.SetPlayerName("Me");
@@ -443,6 +445,8 @@ namespace GetTheMilkTests.IntegrationTests
             var objAction = factory.CreateObjectAction("Player");
             player.AllowsAction = objAction.AllowsAction;
             player.AllowsIndirectAction = objAction.AllowsIndirectAction;
+            player.Health = 10;
+            player.Experience = 50;
 
 
             player.SetPlayerName("Me");
@@ -617,17 +621,12 @@ namespace GetTheMilkTests.IntegrationTests
 
             //attack again
             actionResult = ((List<GameAction>)actionResult.ExtraData)[0].Perform();
-            Assert.AreEqual(ActionResultType.Ok, inventoryActionResult.ResultType);
+            Assert.AreEqual(ActionResultType.Ok, actionResult.ResultType);
 
-            //and again
-            actionResult = ((List<GameAction>)actionResult.ExtraData)[0].Perform();
-            Assert.AreEqual(ActionResultType.Ok, inventoryActionResult.ResultType);
-
-            //and again
-            actionResult = ((List<GameAction>)actionResult.ExtraData)[0].Perform();
-            Assert.AreEqual(ActionResultType.Ok, inventoryActionResult.ResultType);
-            //and again
-            actionResult = ((List<GameAction>)actionResult.ExtraData)[0].Perform();
+            while(actionResult.ResultType==ActionResultType.Ok)
+            {
+                actionResult = ((List<GameAction>)actionResult.ExtraData)[0].Perform();
+            }
             Assert.AreEqual(ActionResultType.Win, actionResult.ResultType);
             Assert.AreEqual(1, level.Characters.Count);
 

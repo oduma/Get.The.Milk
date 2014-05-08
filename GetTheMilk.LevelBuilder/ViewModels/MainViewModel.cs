@@ -161,7 +161,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             _level = new Level();
             _level.SizeOfLevel = sizeOfLevel;
             _levelPropertiesViewModel = new LevelPropertiesViewModel(_level);
-            _level.Inventory = new Inventory {MaximumCapacity = (int) sizeOfLevel*(int) sizeOfLevel};
+            _level.Inventory = new Inventory {MaximumCapacity = (int) sizeOfLevel*(int) sizeOfLevel,InventoryType=InventoryType.LevelInventory};
             _level.Characters = new CharacterCollection();
 
             CurrentViewModel = _levelPropertiesViewModel;

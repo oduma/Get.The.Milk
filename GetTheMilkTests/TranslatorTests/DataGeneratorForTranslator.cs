@@ -308,7 +308,7 @@ namespace GetTheMilkTests.TranslatorTests
                             TargetCharacter =
                                 Level.Characters.FirstOrDefault(),
                             ActiveCharacter = active
-                        }).Returns("attack John the Shop Keeper");
+                        }).Returns("initiate hostilities John the Shop Keeper");
                 yield return
                     new TestCaseData(
                         new Open

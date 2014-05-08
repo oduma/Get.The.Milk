@@ -71,7 +71,7 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         public Inventory Inventory
         {
-            get { return _inventory=(_inventory)??new Inventory(); }
+            get { return _inventory=(_inventory)??new Inventory{InventoryType=InventoryType.CharacterInventory}; }
             set
             {
                 _inventory = value;

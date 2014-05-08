@@ -41,7 +41,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private void DispalyCharacterEditor()
         {
-                    CurrentCharacterViewModel = new CharacterViewModel(SelectedCharacter,AllAvailableObjects,AllAvailableInteractions);
+             CurrentCharacterViewModel = new CharacterViewModel(SelectedCharacter,AllAvailableObjects,AllAvailableInteractions);
 
         }
 
