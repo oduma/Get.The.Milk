@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
@@ -19,10 +21,41 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         public RelayCommand<Character> PlaceACharacter { get; set; }
 
+        public RelayCommand UnPlaceAnObject { get; private set; }
+
+        public RelayCommand UnPlaceACharacter { get; private set; }
+
         public CellViewModel()
         {
             PlaceAnObject=new RelayCommand<NonCharacterObject>(PlaceAnObjectCommand);
             PlaceACharacter=new RelayCommand<Character>(PlaceACharacterCommand);
+            UnPlaceAnObject= new RelayCommand(UnPlaceAnObjectCommand,CanUnPlaceAnObject);
+            UnPlaceACharacter=new RelayCommand(UnPlaceACharacterCommand,CanUnPlaceACharacter);
+        }
+
+        private bool CanUnPlaceACharacter()
+        {
+            return Value.AllCharacters.Any();
+        }
+
+        private void UnPlaceACharacterCommand()
+        {
+            AllCharactersAvailable.Add(Value.AllCharacters.First());
+            Value.Parent.Parent.Characters.Remove(Value.AllCharacters.First());
+            MarkTheOccupancy(Value.AllObjects.FirstOrDefault(), Value.AllCharacters.FirstOrDefault());
+        }
+
+        private bool CanUnPlaceAnObject()
+        {
+            return Value.AllObjects.Any();
+        }
+
+        private void UnPlaceAnObjectCommand()
+        {
+            AllObjectsAvailable.Add(Value.AllObjects.First());
+            Value.Parent.Parent.Inventory.Remove(Value.AllObjects.First());
+            MarkTheOccupancy(Value.AllObjects.FirstOrDefault(),Value.AllCharacters.FirstOrDefault());
+            
         }
 
         private void PlaceACharacterCommand(Character obj)
@@ -193,6 +226,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         }
 
         private string _objectiveCellMarking;
+
         public string ObjectiveCellMarking
         {
             get { return _objectiveCellMarking; }
