@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using GetTheMilk.Actions.Interactions;
 using GetTheMilk.Characters;
+using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Levels;
 using GetTheMilk.Objects;
+using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Utils.IO;
 using Newtonsoft.Json;
@@ -59,6 +62,19 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             ManageCharacters=new RelayCommand(DisplayCharacterManager);
 
             ManageInteractions= new RelayCommand(DisplayInteractionManager);
+
+            _objectManagerViewModel=new ObjectManagerViewModel();
+
+            _objectManagerViewModel.AllExistingObjects = new ObservableCollection<NonCharacterObject>();
+
+            _interactionManagerViewModel= new InteractionManagerViewModel();
+
+            _interactionManagerViewModel.AllExistingInteractions= new ObservableCollection<ActionReaction>();
+
+            _characterManagerViewModel = new CharacterManagerViewModel(_objectManagerViewModel.AllExistingObjects,
+                                                                       _interactionManagerViewModel.
+                                                                           AllExistingInteractions);
+            _characterManagerViewModel.AllExistingCharacters= new ObservableCollection<Character>();
 
         }
 

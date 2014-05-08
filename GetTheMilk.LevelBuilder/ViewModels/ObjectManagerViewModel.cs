@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
@@ -57,6 +58,10 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         {
             if(AllExistingObjects==null)
                 AllExistingObjects=new ObservableCollection<NonCharacterObject>();
+            if (AllExistingObjects.Any(c => c.Name.Main == CurrentObjectViewModel.Value.Name.Main))
+                AllExistingObjects.Remove(
+                    AllExistingObjects.First(c => c.Name.Main == CurrentObjectViewModel.Value.Name.Main));
+
             AllExistingObjects.Add(CurrentObjectViewModel.Value);
             DisplayNewObjectEditor(CurrentObjectViewModel.Value.ObjectCategory);
         }
@@ -88,7 +93,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 {
                     _selectedObject = value;
                     RaisePropertyChanged("SelectedObject");
-                    DispalyObjectEditor();
+                    if(_selectedObject!=null)
+                        DispalyObjectEditor();
                 }
             }
         }

@@ -28,6 +28,7 @@ namespace GetTheMilk.Actions
         public ActionType FinishActionType { get; set; }
 
         public bool IncludeWallet { get; set; }
+        [LevelBuilderAccesibleProperty(typeof(bool))]
         public bool SelfInventory { get; set; }
 
         public override ActionResult Perform()

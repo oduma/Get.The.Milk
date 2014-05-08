@@ -30,7 +30,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         public RelayCommand CreateNewCharacter { get; private set; }
         public RelayCommand Done { get; private set; }
 
-        public CharacterManagerViewModel(ObservableCollection<NonCharacterObject> allAvailableObjects, ObservableCollection<ActionReaction> allAvailableInteractions)
+        public CharacterManagerViewModel(ObservableCollection<NonCharacterObject> allAvailableObjects, 
+            ObservableCollection<ActionReaction> allAvailableInteractions)
         {
             AllAvailableObjects = allAvailableObjects;
             AllAvailableInteractions = allAvailableInteractions;
@@ -57,6 +58,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             RePopulateInteractions(GenericInteractionRulesKeys.PlayerResponses,
                                    CurrentCharacterViewModel.PlayerInteractions);
             CurrentCharacterViewModel.Value.Inventory.LinkObjectsToInventory();
+            if (AllExistingCharacters.Any(c => c.Name.Main == CurrentCharacterViewModel.Value.Name.Main))
+                AllExistingCharacters.Remove(
+                    AllExistingCharacters.First(c => c.Name.Main == CurrentCharacterViewModel.Value.Name.Main));
             AllExistingCharacters.Add(CurrentCharacterViewModel.Value);
             DisplayNewCharacterEditor();
         }
@@ -84,7 +88,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 {
                     _selectedCharacter = value;
                     RaisePropertyChanged("SelectedCharacter");
-                    DispalyCharacterEditor();
+                    if(_selectedCharacter!=null)
+                        DispalyCharacterEditor();
                 }
             }
         }

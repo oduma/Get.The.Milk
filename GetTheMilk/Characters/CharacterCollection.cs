@@ -33,6 +33,7 @@ namespace GetTheMilk.Characters
             if (Contains(o))
             {
                 base.Remove(o);
+                o.StorageContainer = null;
             }
         }
 

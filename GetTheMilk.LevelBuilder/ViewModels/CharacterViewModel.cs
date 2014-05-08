@@ -55,12 +55,17 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                     PlayerInteractions.Add(car);
             }
 
-            MoveToInventory=new RelayCommand(MoveToInventoryCommand);
+            MoveToInventory=new RelayCommand(MoveToInventoryCommand,CanMoveToInventory);
             RemoveFromInventory= new RelayCommand(RemoveFromInventoryCommand);
             MoveToCharacterSpecificInteractions=new RelayCommand(MoveToCharacterSpecificInteractionsCommand);
             RemoveFromCharacterSpecificInteractions=new RelayCommand(RemoveFromCharacterSpecificInteractionsCommand);
             MoveToPlayerResponseInteractions=new RelayCommand(MoveToPlayerResponseInteractionsCommand);
             RemoveFromPlayerResponseInteractions=new RelayCommand(RemoveFromPlayerResponseInteractionsCommand);
+        }
+
+        private bool CanMoveToInventory()
+        {
+            return Value.Inventory.MaximumCapacity > Value.Inventory.Count+1;
         }
 
         private void RemoveFromPlayerResponseInteractionsCommand()

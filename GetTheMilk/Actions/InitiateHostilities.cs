@@ -10,7 +10,7 @@ namespace GetTheMilk.Actions
     {
         public InitiateHostilities()
         {
-            Name = new Verb { Infinitive = "To Attack", Past = "attacked", Present = "attack" };
+            Name = new Verb { Infinitive = "To Initiate Hostilities", Past = "initiated hostilities", Present = "initiate hostilities" };
             ActionType = ActionType.InitiateHostilities;
             StartingAction = true;
 
