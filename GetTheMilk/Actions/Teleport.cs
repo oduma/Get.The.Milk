@@ -28,12 +28,14 @@ namespace GetTheMilk.Actions
         public override ActionResult Perform()
         {
             if (Direction != Direction.None)
-                return new ActionResult { ResultType = ActionResultType.UnknownError };
+                return new ActionResult { ResultType = ActionResultType.UnknownError ,ForAction=this};
             var movementResult = MoveOneStep(TargetCell, CurrentMap.Cells[ActiveCharacter.CellNumber]);
-            if (movementResult != null)
-                return null;
-            return MoveActiveCharacter(this,TargetCell,
+            if (movementResult == null)
+                return MoveActiveCharacter(this, TargetCell,
                                ActionResultType.Ok, new NonCharacterObject[0], new Character[0]);
+            if (movementResult.ResultType == ActionResultType.LevelCompleted)
+                return movementResult;
+            return null;
         }
     }
 }

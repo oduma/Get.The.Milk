@@ -66,6 +66,7 @@
     <Compile Include="ActionsTests\OneCharacterTwoObjectsActionTests.cs" />
     <Compile Include="ActionsTests\StubbedContainerOwner.cs" />
     <Compile Include="ActionsTests\TwoCharactersOneObjectTests.cs" />
+    <Compile Include="IntegrationTests\AutoPlayLevel1Generated.cs" />
     <Compile Include="IntegrationTests\AutoPlayTestLevel1.cs" />
     <Compile Include="IntegrationTests\LevelCompletionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
