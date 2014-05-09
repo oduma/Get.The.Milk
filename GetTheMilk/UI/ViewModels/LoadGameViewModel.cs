@@ -30,7 +30,7 @@ namespace GetTheMilk.UI.ViewModels
         private ObservableCollection<string> _savedGames;
         private string _selectedFileName;
 
-        public ObservableCollection<string> SavedGames
+        public ObservableCollection<string> AllFiles
         {
             get
             {

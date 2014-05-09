@@ -62,6 +62,8 @@ namespace GetTheMilk
         public bool ProceedToNextLevel()
         {
             CurrentLevel = Level.Create(CurrentLevel.Number + 1);
+            Player.CellNumber = 0;
+            Player.EnterLevel(CurrentLevel);
             if (CurrentLevel == null)
                 return false;
             Save(string.Format("StartOfLevel{0}.gsu",CurrentLevel.Number));
