@@ -226,6 +226,11 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
+        public override ObjectViewModelBase<Character> Clone()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public ObservableCollection<NonCharacterObject> AllObjectsAvailable
         {
             get

@@ -22,5 +22,6 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         }
 
 
+        public abstract ObjectViewModelBase<T> Clone();
     }
 }

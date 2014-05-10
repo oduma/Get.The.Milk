@@ -70,6 +70,7 @@
     <Compile Include="Actions\Attack.cs" />
     <Compile Include="Actions\BaseActions\ActionsHelper.cs" />
     <Compile Include="Actions\BaseActions\ActionType.cs" />
+    <Compile Include="Actions\BaseActions\ChanceOfSuccess.cs" />
     <Compile Include="Actions\BaseActions\FeedbackEventArgs.cs" />
     <Compile Include="Actions\BaseActions\GameAction.cs" />
     <Compile Include="Actions\BaseActions\MovementAction.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Actions\Buy.cs" />
     <Compile Include="Actions\CloseInventory.cs" />
     <Compile Include="Actions\Communicate.cs" />
+    <Compile Include="Actions\Defuse.cs" />
     <Compile Include="Actions\EnterLevel.cs" />
     <Compile Include="Actions\ExposeInventory.cs" />
     <Compile Include="Actions\ExposeInventoryExtraData.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="Objects\InventoryPackages.cs" />
     <Compile Include="Objects\InventoryType.cs" />
     <Compile Include="Objects\KeyActions.cs" />
+    <Compile Include="Objects\ToolActions.cs" />
     <Compile Include="Objects\WeaponActions.cs" />
     <Compile Include="Objects\WeaponType.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />

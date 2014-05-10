@@ -9,5 +9,6 @@ namespace GetTheMilk.Objects.BaseObjects
         Inventory StorageContainer { get; set; }
 
         ObjectCategory ObjectCategory { get; }
+
     }
 }

@@ -33,5 +33,23 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
+        public override ObjectViewModelBase<NonCharacterObject> Clone()
+        {
+            return
+                new DecorObjectViewModel(new NonCharacterObject
+                {
+                    AllowsAction = Value.AllowsAction,
+                    AllowsIndirectAction = Value.AllowsIndirectAction,
+                    BlockMovement = Value.BlockMovement,
+                    CloseUpMessage = Value.CloseUpMessage,
+                    Name =
+                        new Noun
+                        {
+                            Main = Value.Name.Main,
+                            Narrator = Value.Name.Narrator
+                        },
+                    ObjectTypeId = Value.ObjectTypeId,
+                });
+        }
     }
 }

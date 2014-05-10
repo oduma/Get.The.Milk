@@ -24,16 +24,53 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         }
 
+        private int _noOfInstances;
+
+        public int NoOfInstances
+        {
+            get { return _noOfInstances; }
+            set
+            {
+                if (value != _noOfInstances)
+                {
+                    _noOfInstances = value;
+                    RaisePropertyChanged("NoOfInstances");
+                }
+            }
+
+        }
+
 
         public RelayCommand<ObjectCategory> CreateNewObject { get; private set; }
         public RelayCommand Done { get; private set; }
+        public RelayCommand CreateInstances { get; private set; }
 
         public ObjectManagerViewModel()
         {
             ObjectCategories = 
                 new ObservableCollection<ObjectCategory> { ObjectCategory.Decor, ObjectCategory.Tool, ObjectCategory.Weapon };
             CreateNewObject= new RelayCommand<ObjectCategory>(DisplayNewObjectEditor);
+            NoOfInstances = 1;
             Done= new RelayCommand(DoneCommand);
+            CreateInstances= new RelayCommand(CreateInstancesCommand);
+        }
+
+        private void CreateInstancesCommand()
+        {
+            if (AllExistingObjects == null)
+                AllExistingObjects = new ObservableCollection<NonCharacterObject>();
+            for (int i = 1; i < NoOfInstances + 1;i++ )
+            {
+                var newObjectViewModel = CurrentObjectViewModel.Clone();
+                newObjectViewModel.Value.Name.Main = string.Format("{0} {1}", CurrentObjectViewModel.Value.Name.Main,
+                                                                       i);
+                if (AllExistingObjects.Any(c => c.Name.Main == newObjectViewModel.Value.Name.Main))
+                    AllExistingObjects.Remove(
+                        AllExistingObjects.First(c => c.Name.Main == newObjectViewModel.Value.Name.Main));
+
+                AllExistingObjects.Add(newObjectViewModel.Value);
+            }
+            DisplayNewObjectEditor(CurrentObjectViewModel.Value.ObjectCategory);
         }
 
         private void DispalyObjectEditor()

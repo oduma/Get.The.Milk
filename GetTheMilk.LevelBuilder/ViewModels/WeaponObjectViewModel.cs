@@ -36,9 +36,35 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                     RaisePropertyChanged("Value");
                 }
             }
-        }    
-    
-        
+        }
+
+        public override ObjectViewModelBase<NonCharacterObject> Clone()
+        {
+
+            return
+                new WeaponObjectViewModel(new Weapon
+                                              {
+                                                  AllowsAction = Value.AllowsAction,
+                                                  AllowsIndirectAction = Value.AllowsIndirectAction,
+                                                  AttackPower = ((Weapon) Value).AttackPower,
+                                                  BlockMovement = ((Weapon) Value).BlockMovement,
+                                                  BuyPrice = ((Weapon) Value).BuyPrice,
+                                                  CloseUpMessage = ((Weapon) Value).CloseUpMessage,
+                                                  DefensePower = ((Weapon) Value).DefensePower,
+                                                  Durability = ((Weapon) Value).Durability,
+                                                  Name =
+                                                      new Noun
+                                                          {
+                                                              Main = ((Weapon) Value).Name.Main,
+                                                              Narrator = ((Weapon) Value).Name.Narrator
+                                                          },
+                                                  ObjectTypeId = ((Weapon) Value).ObjectTypeId,
+                                                  SellPrice = ((Weapon) Value).SellPrice,
+                                                  WeaponTypes = ((Weapon) Value).WeaponTypes
+                                              });
+        }
+
+
         public bool IsAttackEnabled
         {
             get { return ((Weapon) Value).WeaponTypes.Any(w=>w==WeaponType.Attack); }

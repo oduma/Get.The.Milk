@@ -31,5 +31,27 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                     RaisePropertyChanged("Value");
                 }
             }
-        }    }
+        }
+
+        public override ObjectViewModelBase<NonCharacterObject> Clone()
+        {
+            return
+                new ToolObjectViewModel(new Tool
+                {
+                    AllowsAction = Value.AllowsAction,
+                    AllowsIndirectAction = Value.AllowsIndirectAction,
+                    BlockMovement = ((Tool)Value).BlockMovement,
+                    BuyPrice = ((Tool)Value).BuyPrice,
+                    CloseUpMessage = ((Tool)Value).CloseUpMessage,
+                    Name =
+                        new Noun
+                        {
+                            Main = ((Tool)Value).Name.Main,
+                            Narrator = ((Tool)Value).Name.Narrator
+                        },
+                    ObjectTypeId = ((Tool)Value).ObjectTypeId,
+                    SellPrice = ((Tool)Value).SellPrice
+                });
+        }
+    }
 }

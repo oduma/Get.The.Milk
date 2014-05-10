@@ -1,10 +1,16 @@
+using GetTheMilk.Utils;
+
 namespace GetTheMilk.Actions.BaseActions
 {
     public class ObjectUseOnObjectAction : GameAction
     {
-        public bool DestroyActiveObject { get; set; }
+        protected bool DestroyActiveObject { get; set; }
 
-        public bool DestroyTargetObject { get; set; }
+        protected bool DestroyTargetObject { get; set; }
+
+        protected ChanceOfSuccess ChanceOfSuccess { get; set; }
+
+        protected int PercentOfHealthFailurePenalty { get; set; }
 
         public override bool CanPerform()
         {
@@ -13,17 +19,30 @@ namespace GetTheMilk.Actions.BaseActions
 
         public override ActionResult Perform()
         {
-            if (DestroyActiveObject)
+            bool success = (ChanceOfSuccess == ChanceOfSuccess.Full) || CalculationStrategies.CalculateSuccessOrFailure(ChanceOfSuccess,
+                                                                                                     ActiveCharacter.Experience);
+            if (DestroyActiveObject && !success)
             {
-                ActiveObject.StorageContainer.Remove(ActiveObject);
+                if(ActiveObject.StorageContainer!=null)
+                    ActiveObject.StorageContainer.Remove(ActiveObject);
                 ActiveObject = null;
             }
-            if (DestroyTargetObject)
+            if (DestroyTargetObject && !success)
             {
-                TargetObject.StorageContainer.Remove(TargetObject);
+                if(TargetObject.StorageContainer!=null)
+                    TargetObject.StorageContainer.Remove(TargetObject);
                 TargetObject = null;
             }
-            return new ActionResult {ForAction = this, ResultType = ActionResultType.Ok};
+            if(!success)
+            {
+                ActiveCharacter.Health -= (ActiveCharacter.Health*PercentOfHealthFailurePenalty/100);
+            }
+            return new ActionResult {ForAction = this, ResultType = (success)?ActionResultType.Ok:ActionResultType.NotOk};
+        }
+
+        public ObjectUseOnObjectAction()
+        {
+            ChanceOfSuccess = ChanceOfSuccess.Full;
         }
 
         public override GameAction CreateNewInstance()

@@ -24,6 +24,7 @@
         SelectDefenseWeapon,
         SelectAttackWeapon,
         AcceptQuit,
-        CloseInventory
+        CloseInventory,
+        Defuse
     }
 }

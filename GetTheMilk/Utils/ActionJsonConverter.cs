@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using Newtonsoft.Json;
@@ -70,6 +66,8 @@ namespace GetTheMilk.Utils
                         return item.ToObject<SelectDefenseWeapon>();
                     case ActionType.AcceptQuit:
                         return item.ToObject<AcceptQuit>();
+                    case ActionType.Defuse:
+                        return item.ToObject<Defuse>();
 
                 }
             }

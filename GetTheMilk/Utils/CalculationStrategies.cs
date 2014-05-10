@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Fight;
@@ -110,6 +111,102 @@ namespace GetTheMilk.Utils
             if (fromCharacter.Experience <= toCharacter.Experience / 2)
                 return fromCharacter.Experience/4;
             return fromCharacter.Experience/2;
+        }
+
+        public static bool CalculateSuccessOrFailure(ChanceOfSuccess chanceOfSuccess, int experience)
+        {
+            int idx = Randomizer.GetRandom(0, 99);
+
+            return AllChances[chanceOfSuccess][idx];
+        }
+
+        private static Dictionary<ChanceOfSuccess, bool[]> _allChances;
+ 
+        public static Dictionary<ChanceOfSuccess,bool[]>  AllChances
+        {
+            get
+            {
+                if(_allChances==null)
+                {
+                    bool[] vsChances = new bool[100];
+                    vsChances[37] = true;
+                    vsChances[42] = true;
+                    vsChances[3] = true;
+                    vsChances[53] = true;
+                    vsChances[61] = true;
+                    vsChances[79] = true;
+                    vsChances[93] = true;
+                    vsChances[88] = true;
+                    vsChances[49] = true;
+                    vsChances[17] = true;
+
+                    bool[] sChances = new bool[100];
+                    sChances[32] = true;
+                    sChances[51] = true;
+                    sChances[7] = true;
+                    sChances[13] = true;
+                    sChances[25] = true;
+                    sChances[58] = true;
+                    sChances[69] = true;
+                    sChances[83] = true;
+                    sChances[99] = true;
+                    sChances[0] = true;
+                    sChances[9] = true;
+                    sChances[24] = true;
+                    sChances[45] = true;
+                    sChances[62] = true;
+                    sChances[75] = true;
+                    sChances[80] = true;
+                    sChances[40] = true;
+                    sChances[39] = true;
+                    sChances[13] = true;
+                    sChances[52] = true;
+                    sChances[2] = true;
+                    sChances[6] = true;
+                    sChances[17] = true;
+                    sChances[36] = true;
+                    sChances[92] = true;
+
+                    bool[] hChances = new bool[100];
+
+                    for (int i = 0; i < 100; i++)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            hChances[i] = true;
+                        }
+                    }
+
+                    bool[] bChances = new bool[100];
+                    for (int i = 0; i < 100; i++)
+                    {
+                        bChances[i] = !sChances[i];
+                    }
+
+                    bool[] vbChances = new bool[100];
+                    for (int i = 0; i < 100; i++)
+                    {
+                        vbChances[i] = !vsChances[i];
+                    }
+
+                    bool[] fChances = new bool[100];
+                    for (int i = 0; i < 100; i++)
+                        fChances[i] = true;
+
+                    _allChances = new Dictionary<ChanceOfSuccess, bool[]>
+                                      {
+                                          {ChanceOfSuccess.None, new bool[100]},
+                                          {ChanceOfSuccess.VerySmall, vsChances},
+                                          {ChanceOfSuccess.Small, sChances},
+                                          {ChanceOfSuccess.Half, hChances},
+                                          {ChanceOfSuccess.Big, bChances},
+                                          {ChanceOfSuccess.VeryBig, vbChances},
+                                          {ChanceOfSuccess.Full, fChances}
+                                      };
+                }
+
+                return _allChances;
+            }
         }
     }
 }
