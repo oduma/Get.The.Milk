@@ -63,10 +63,10 @@ namespace GetTheMilk
         {
             CurrentLevel = Level.Create(CurrentLevel.Number + 1);
             Player.CellNumber = 0;
-            Player.EnterLevel(CurrentLevel);
             if (CurrentLevel == null)
                 return false;
-            Save(string.Format("StartOfLevel{0}.gsu",CurrentLevel.Number));
+            Player.EnterLevel(CurrentLevel);
+            Save(string.Format("StartOfLevel{0}.gsu", CurrentLevel.Number));
             return true;
         }
 

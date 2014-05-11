@@ -21,13 +21,13 @@ namespace GetTheMilk.Actions.BaseActions
         {
             bool success = (ChanceOfSuccess == ChanceOfSuccess.Full) || CalculationStrategies.CalculateSuccessOrFailure(ChanceOfSuccess,
                                                                                                      ActiveCharacter.Experience);
-            if (DestroyActiveObject && !success)
+            if (DestroyActiveObject || !success)
             {
                 if(ActiveObject.StorageContainer!=null)
                     ActiveObject.StorageContainer.Remove(ActiveObject);
                 ActiveObject = null;
             }
-            if (DestroyTargetObject && !success)
+            if (DestroyTargetObject || !success)
             {
                 if(TargetObject.StorageContainer!=null)
                     TargetObject.StorageContainer.Remove(TargetObject);
