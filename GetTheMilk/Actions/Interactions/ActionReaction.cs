@@ -10,7 +10,28 @@ namespace GetTheMilk.Actions.Interactions
 
         public override string ToString()
         {
-            return Action.Name.Present + " - " + Reaction.Name.Present;
+            string actionName= GetActionName(Action);
+            string reactionName = GetActionName(Reaction);
+
+            return actionName + " - " + reactionName;
+        }
+
+        private string GetActionName(GameAction action)
+        {
+            string actionName;
+            switch (action.ActionType)
+            {
+                case ActionType.Communicate:
+                    actionName = ((Communicate) action).Message;
+                    break;
+                case ActionType.Attack:
+                    actionName = action.Name.Present + " " + action.TargetCharacter.Name.Main;
+                    break;
+                default:
+                    actionName = action.Name.Present;
+                    break;
+            }
+            return actionName;
         }
     }
 }

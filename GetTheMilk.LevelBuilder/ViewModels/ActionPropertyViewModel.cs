@@ -32,18 +32,18 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         public object PropertyValue
         {
-            get { return ActionPropertyInfo.GetValue(ParentAction); }
+            get { return _actionPropertyInfo.GetValue(_parentAction); }
             set
             {
-                if (value != ActionPropertyInfo.GetValue(ParentAction))
+                if (value != _actionPropertyInfo.GetValue(_parentAction))
                 {
-                    ActionPropertyInfo.SetValue(ParentAction,value);
+                    _actionPropertyInfo.SetValue(_parentAction,value);
                     RaisePropertyChanged("PropertyValue");
                 }
             }
         }
 
-        public PropertyInfo ActionPropertyInfo { get; set; }
+        private PropertyInfo _actionPropertyInfo;
 
         public Type PropertyType
         {
@@ -151,6 +151,13 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-        public GameAction ParentAction { get; set; }
+        private GameAction _parentAction;
+
+        public ActionPropertyViewModel(PropertyInfo actionPropertyInfo, GameAction parentAction, GameAction sourceAction)
+        {
+            _actionPropertyInfo = actionPropertyInfo;
+            _parentAction = parentAction;
+            PropertyValue = _actionPropertyInfo.GetValue(sourceAction);
+        }
     }
 }

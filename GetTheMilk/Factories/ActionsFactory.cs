@@ -27,7 +27,10 @@ namespace GetTheMilk.Factories
 
         public GameAction CreateNewActionInstance(ActionType actionType)
         {
-            return _componentResolver.ResolveAll<GameAction>().FirstOrDefault(a => a.ActionType == actionType).CreateNewInstance();
+            var firstOrDefault = _componentResolver.ResolveAll<GameAction>().FirstOrDefault(a => a.ActionType == actionType);
+            if (firstOrDefault != null)
+                return firstOrDefault.CreateNewInstance();
+            return null;
         }
     }
 }

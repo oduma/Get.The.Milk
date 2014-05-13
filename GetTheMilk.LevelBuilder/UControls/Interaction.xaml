@@ -18,13 +18,10 @@
         </Grid.ColumnDefinitions>
         <Label Content="Action" Grid.Row="0" Grid.Column="0"/>
         <ComboBox Grid.Column="1" Grid.Row="0" 
-                  ItemsSource="{Binding Path=AllAvailableActions}" 
-                  SelectedItem="{Binding Path=SelectedAction,Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <Label Content="{Binding Path=Name.Present}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
+                  ItemsSource="{Binding Path=AllAvailableActionTypes}" 
+                  SelectedItem="{Binding Path=SelectedActionType,Mode=TwoWay}" 
+                  HorizontalAlignment="Stretch" 
+                  VerticalAlignment="Top">
         </ComboBox>
         <ListBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" 
                   ItemsSource="{Binding Path=ActionProperties}" VerticalAlignment="Stretch">
@@ -54,13 +51,8 @@
         </ListBox>
         <Label Content="Reaction" Grid.Row="2" Grid.Column="0"/>
         <ComboBox Grid.Column="1" Grid.Row="2" 
-                  ItemsSource="{Binding Path=AllAvailableActions}" 
-                  SelectedItem="{Binding Path=SelectedReaction}"  HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <Label Content="{Binding Path=Name.Present}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
+                  ItemsSource="{Binding Path=AllAvailableActionTypes}" 
+                  SelectedItem="{Binding Path=SelectedReactionType}"  HorizontalAlignment="Stretch" VerticalAlignment="Top">
         </ComboBox>
         <ListBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding Path=ReactionProperties}">
             <ListBox.ItemTemplate>

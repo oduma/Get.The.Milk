@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using GetTheMilk.Actions.Interactions;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
@@ -29,18 +30,32 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         public InteractionManagerViewModel()
         {
             CreateNewInteraction= new RelayCommand(DisplayNewInteractionEditor);
-            Done= new RelayCommand(DoneCommand);
+            Done= new RelayCommand(DoneCommand,CanBeDone);
+        }
+
+        private bool CanBeDone()
+        {
+            return CurrentInteractionViewModel!=null && (CurrentInteractionViewModel.CurrentAction != null &&
+                    CurrentInteractionViewModel.CurrentReaction != null);
         }
 
         private void DispalyInteractionEditor()
         {
-            CurrentInteractionViewModel = new InteractionViewModel(SelectedInteraction);
+            if(SelectedInteraction!=null)
+                CurrentInteractionViewModel = new InteractionViewModel(SelectedInteraction);
         }
 
         private void DoneCommand()
         {
             if(AllExistingInteractions==null)
                 AllExistingInteractions=new ObservableCollection<ActionReaction>();
+
+            CurrentInteractionViewModel.Value.Action = CurrentInteractionViewModel.CurrentAction;
+            CurrentInteractionViewModel.Value.Reaction = CurrentInteractionViewModel.CurrentReaction;
+            var existingInteraction =
+                AllExistingInteractions.FirstOrDefault(i => i.ToString() == CurrentInteractionViewModel.Value.ToString());
+            if (existingInteraction != null)
+                AllExistingInteractions.Remove(existingInteraction);
             AllExistingInteractions.Add(CurrentInteractionViewModel.Value);
             DisplayNewInteractionEditor();
         }

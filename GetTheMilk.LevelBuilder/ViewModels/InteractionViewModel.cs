@@ -12,7 +12,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
     public class InteractionViewModel:ViewModelBase
     {
         private ActionReaction _value;
-        private ObservableCollection<GameAction> _allAvailableActions;
+        private ObservableCollection<ActionType> _allAvailableActionTypes;
         private ObservableCollection<ActionPropertyViewModel> _actionProperties;
 
         public ObservableCollection<ActionPropertyViewModel> ActionProperties
@@ -52,41 +52,66 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 {
                     _value = value;
                     RaisePropertyChanged("Value");
-                    SelectedAction = value.Action;
-                    SelectedReaction = value.Reaction;
                 }
             }
         }
 
-        public GameAction SelectedAction
+        public GameAction CurrentAction
         {
-            get { return Value.Action; }
+            get { return _currentAction; }
             set
             {
-                if (value != Value.Action)
-                {
-                    Value.Action = value.CreateNewInstance();
-                    RaisePropertyChanged("SelectedAction");
-                    ActionProperties = DisplayActionProperties(value.GetType(),Value.Action);
-                }
+                _currentAction = value;
+                ActionProperties = DisplayActionProperties(_currentAction.GetType(), _currentAction, _currentAction);
             }
         }
 
-        public GameAction SelectedReaction
+        public GameAction CurrentReaction
         {
-            get { return Value.Reaction; }
+            get { return _currentReaction; }
             set
             {
-                if (value != Value.Reaction)
+                _currentReaction = value;
+                ReactionProperties = DisplayActionProperties(_currentReaction.GetType(), _currentReaction, _currentReaction);
+            }
+        }
+
+        private ActionType _selectedActionType;
+        public ActionType SelectedActionType
+        {
+            get { return _selectedActionType; }
+            set
+            {
+                if (value != _selectedActionType)
                 {
-                    Value.Reaction = value.CreateNewInstance();
-                    RaisePropertyChanged("SelectedReaction");
-                    ReactionProperties = DisplayActionProperties(value.GetType(),Value.Reaction);
+                    _selectedActionType = value;
+                    RaisePropertyChanged("SelectedActionType");
+                    CurrentAction = ActionsFactory.GetFactory().CreateNewActionInstance(_selectedActionType);
                 }
             }
         }
 
-        private ObservableCollection<ActionPropertyViewModel> DisplayActionProperties(Type actionType,GameAction action)
+        private ActionType _selectedReactionType;
+        private GameAction _currentAction;
+        private GameAction _currentReaction;
+
+        public ActionType SelectedReactionType
+        {
+            get { return _selectedReactionType; }
+            set
+            {
+                if (value != _selectedReactionType)
+                {
+                    _selectedReactionType = value;
+                    RaisePropertyChanged("SelectedReactionType");
+                    CurrentReaction = ActionsFactory.GetFactory().CreateNewActionInstance(_selectedReactionType);
+
+                }
+            }
+        }
+
+        private ObservableCollection<ActionPropertyViewModel> DisplayActionProperties(Type actionType,
+            GameAction action, GameAction sourceAction)
         {
             var displayProperties =
                 actionType.GetProperties().Where(
@@ -94,15 +119,13 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             var props=new ObservableCollection<ActionPropertyViewModel>();
             foreach (var displayProperty in displayProperties)
             {
-                props.Add(new ActionPropertyViewModel
+                props.Add(new ActionPropertyViewModel(displayProperty,action,sourceAction)
                               {
                                   PropertyName = displayProperty.Name,
                                   PropertyType =
                                       ((LevelBuilderAccesiblePropertyAttribute)
                                        displayProperty.GetCustomAttributes(
-                                           typeof (LevelBuilderAccesiblePropertyAttribute), false).First()).SourceType,
-                                  ParentAction=action,
-                                  ActionPropertyInfo=displayProperty
+                                           typeof (LevelBuilderAccesiblePropertyAttribute), false).First()).SourceType
                               });
             }
             return props;
@@ -111,31 +134,37 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         public InteractionViewModel(ActionReaction selectedInteraction)
         {
-            Value = selectedInteraction;
-            var actions = ActionsFactory.GetFactory().GetActions().Where(a => a is TwoCharactersAction || a is ExposeInventory);
-            if (AllAvailableActions == null)
-                AllAvailableActions = new ObservableCollection<GameAction>();
-            foreach (var gameAction in actions)
+            var actionTypes = ActionsFactory.GetFactory().GetActions().Where(a => a is TwoCharactersAction || a is ExposeInventory).Select(a=>a.ActionType);
+            if (AllAvailableActionTypes == null)
+                AllAvailableActionTypes = new ObservableCollection<ActionType>();
+            foreach (var actionType in actionTypes)
             {
-                AllAvailableActions.Add(gameAction);
+                AllAvailableActionTypes.Add(actionType);
             }
-            RaisePropertyChanged("SelectedAction");
-            RaisePropertyChanged("SelectedReaction");
-            if (selectedInteraction != null && selectedInteraction.Action != null)
-                ActionProperties=DisplayActionProperties(selectedInteraction.Action.GetType(), selectedInteraction.Action);
+            Value = selectedInteraction;
+            if (selectedInteraction !=null && selectedInteraction.Action != null)
+            {
+                _selectedActionType =selectedInteraction.Action.ActionType;
+                RaisePropertyChanged("SelectedActionType");
+                CurrentAction = selectedInteraction.Action;
+            }
             if (selectedInteraction != null && selectedInteraction.Reaction != null)
-                ReactionProperties = DisplayActionProperties(selectedInteraction.Reaction.GetType(), selectedInteraction.Reaction);
+            {
+                _selectedReactionType =selectedInteraction.Reaction.ActionType;
+                RaisePropertyChanged("SelectedReactionType");
+                CurrentReaction = selectedInteraction.Reaction;
+            }
         }
 
-        public ObservableCollection<GameAction> AllAvailableActions
+        public ObservableCollection<ActionType> AllAvailableActionTypes
         {
-            get { return _allAvailableActions; }
+            get { return _allAvailableActionTypes; }
             set
             {
-                if(value!=_allAvailableActions)
+                if(value!=_allAvailableActionTypes)
                 {
-                    _allAvailableActions = value;
-                    RaisePropertyChanged("AllAvailableActions");
+                    _allAvailableActionTypes = value;
+                    RaisePropertyChanged("AllAvailableActionTypes");
                 }
             }
         }
