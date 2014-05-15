@@ -47,14 +47,88 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                                 ColumnIndex = c.Number%(int) SizeOfMap,
                                 MarkAsObjective = new RelayCommand<CellViewModel>(MarkAsObjectiveCommand),
                                 MarkAsStart = new RelayCommand<CellViewModel>(MarkAsStartCommand),
+                                LinkToUpperFloor=new RelayCommand<CellViewModel>(LinkToUpperFloorCommand,CanLinkToUpperFloor),
+                                LinkToLowerFloor = new RelayCommand<CellViewModel>(LinkToLowerFloorCommand, CanLinkToLowerFloor),
                                 StartCellMarking=(_level.StartingCell==c.Number)?">>":"",
                                 ObjectiveCellMarking = (_level.ObjectiveCell == c.Number) ? "x" : "",
                                 AllObjectsAvailable=_allObjectsAvailable,
                                 AllCharactersAvailable =_allCharactersAvailable,
                                 OcupancyMarker = CellViewModel.GetColorForCell(c.AllObjects.FirstOrDefault(), c.AllCharacters.FirstOrDefault()),
-                                OccupantName = CellViewModel.GetOccupantName(c.AllObjects.FirstOrDefault(), c.AllCharacters.FirstOrDefault())
+                                OccupantName = CellViewModel.GetOccupantName(c.AllObjects.FirstOrDefault(), c.AllCharacters.FirstOrDefault()),
+                                LinkToUpperText = "Link to Upper Floor",
+                                LinkToLowerText = "Link to Lower Floor",
+                                LinkToUpperMarking=(c.TopCell==-1)?"":"^",
+                                LinkToUpperCell=((c.TopCell==-1)?"":c.TopCell.ToString()),
+                                LinkToLowerMarking=(c.BottomCell==-1)?"":"V",
+                                LinkToLowerCell = ((c.BottomCell == -1) ? "" : c.BottomCell.ToString())
                             }),
                     SizeOfMap,SelectedFloor);
+        }
+
+        private bool CanLinkToLowerFloor(CellViewModel obj)
+        {
+            return Floors.Contains(SelectedFloor - 1);
+        }
+
+        private void LinkToLowerFloorCommand(CellViewModel obj)
+        {
+            var calculationReady = false;
+            var pairCellNumber = -1;
+            if (FloorPlanViewModel.LinkToLowerRequest != null)
+            {
+                pairCellNumber = FloorPlanViewModel.LinkToLowerRequest.Value.Number;
+                FloorPlanViewModel.LinkToLowerRequest = null;
+                calculationReady = true;
+            }
+            if(calculationReady)
+            {
+                var targetCellId = obj.Value.Number;
+                var targetCell = FloorPlanViewModel.Cells.First(c => c.Value.Number == targetCellId);
+                targetCell.Value.BottomCell = pairCellNumber;
+                targetCell.MarkFloorCrossings();
+                SelectedFloor = SelectedFloor - 1;
+
+                var pairCell = FloorPlanViewModel.Cells.First(c => c.Value.Number == pairCellNumber);
+                pairCell.Value.TopCell = targetCellId;
+                pairCell.MarkFloorCrossings();
+                return;
+            }
+            SelectedFloor = SelectedFloor - 1;
+            FloorPlanViewModel.LinkToUpperRequest = obj;
+        }
+
+        private bool CanLinkToUpperFloor(CellViewModel obj)
+        {
+            return Floors.Contains(SelectedFloor + 1);
+        }
+
+        private void LinkToUpperFloorCommand(CellViewModel obj)
+        {
+            var calculationReady = false;
+            var pairCellNumber = -1;
+
+            if (FloorPlanViewModel.LinkToUpperRequest != null)
+            {
+                pairCellNumber = FloorPlanViewModel.LinkToUpperRequest.Value.Number;
+                FloorPlanViewModel.LinkToUpperRequest = null;
+                calculationReady = true;
+
+            }
+            if (calculationReady)
+            {
+                var targetCellId = obj.Value.Number;
+                var targetCell = FloorPlanViewModel.Cells.First(c => c.Value.Number == targetCellId);
+                targetCell.Value.TopCell = pairCellNumber;
+                targetCell.MarkFloorCrossings();
+                SelectedFloor = SelectedFloor + 1;
+
+                var pairCell = FloorPlanViewModel.Cells.First(c => c.Value.Number == pairCellNumber);
+                pairCell.Value.BottomCell = targetCellId;
+                pairCell.MarkFloorCrossings();
+                return;
+            }
+            SelectedFloor = SelectedFloor + 1;
+            FloorPlanViewModel.LinkToLowerRequest = obj;
         }
 
         private void AddNewFloorCommand()
@@ -64,6 +138,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             var allExistingCells = _level.CurrentMap.Cells.ToList();
             AddAFloor(allExistingCells,newFloor);
             _level.CurrentMap.Cells = allExistingCells.ToArray();
+            _level.CurrentMap.LinkToParentLevel(_level);
         }
 
         public ObservableCollection<int> Floors
@@ -124,6 +199,28 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
+        public IEnumerable<int> CurrentFloorPlanCellNumbers { get { return FloorPlanViewModel.Cells.Select(c => c.Value.Number); } }
+        public IEnumerable<int> UpperLevelFloorPlanCellNumbers { get
+        {
+            if(Floors.Contains(SelectedFloor-1))
+                return _level.CurrentMap.Cells.Where(c => c.Floor == SelectedFloor - 1).Select(c => c.Number).Union(new[]
+                                                                                                                     {
+                                                                                                                         -1
+                                                                                                                     });
+            return null;
+        }
+        }
+        public IEnumerable<int> LowerLevelFloorPlanCellNumbers { get
+        {
+            if (Floors.Contains(SelectedFloor + 1))
+                return
+                    _level.CurrentMap.Cells.Where(c => c.Floor == SelectedFloor + 1).Select(c => c.Number).Union(new[]
+                                                                                                                     {
+                                                                                                                         -1
+                                                                                                                     });
+            return null;
+        }
+        }
         private List<FloorPlanViewModel> _floorPlanViewModels;
 
         public FloorPlanViewModel FloorPlanViewModel
@@ -179,17 +276,26 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                                         ColumnIndex = (c.Number - SelectedFloor * ((int)SizeOfMap * (int)SizeOfMap)) % (int)SizeOfMap,
                                         MarkAsObjective=new RelayCommand<CellViewModel>(MarkAsObjectiveCommand),
                                         MarkAsStart = new RelayCommand<CellViewModel>(MarkAsStartCommand),
+                                        LinkToUpperFloor = new RelayCommand<CellViewModel>(LinkToUpperFloorCommand, CanLinkToUpperFloor),
+                                        LinkToLowerFloor = new RelayCommand<CellViewModel>(LinkToLowerFloorCommand, CanLinkToLowerFloor),
                                         AllObjectsAvailable = _allObjectsAvailable,
                                         AllCharactersAvailable=_allCharactersAvailable,
                                         OcupancyMarker = CellViewModel.GetColorForCell(c.AllObjects.FirstOrDefault(),c.AllCharacters.FirstOrDefault()),
-                                        OccupantName = CellViewModel.GetOccupantName(c.AllObjects.FirstOrDefault(), c.AllCharacters.FirstOrDefault()) 
-
-
+                                        OccupantName = CellViewModel.GetOccupantName(c.AllObjects.FirstOrDefault(), c.AllCharacters.FirstOrDefault()),
+                                        LinkToUpperText = "Link to Upper Floor",
+                                        LinkToLowerText = "Link to Lower Floor",
+                                        LinkToUpperMarking = (c.TopCell == -1) ? "" : "^",
+                                        LinkToUpperCell = ((c.TopCell == -1) ? "" : c.TopCell.ToString()),
+                                        LinkToLowerMarking = (c.BottomCell == -1) ? "" : "V",
+                                        LinkToLowerCell = ((c.BottomCell == -1) ? "" : c.BottomCell.ToString())
                                     }),
-                            SizeOfMap, SelectedFloor);
+                            SizeOfMap, SelectedFloor) ;
                     }
                     RaisePropertyChanged("SelectedFloor");
                     RaisePropertyChanged("FloorPlanViewModel");
+                    RaisePropertyChanged("CurrentFloorPlanCellNumbers");
+                    RaisePropertyChanged("UpperFloorPlanCellNumbers");
+                    RaisePropertyChanged("LowerFloorPlanCellNumbers");
 
                 }
             }

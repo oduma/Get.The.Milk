@@ -159,8 +159,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private void RemoveFromInventoryCommand()
         {
-            CharacterInventory.Remove(SelectedObject);
             AllObjectsAvailable.Add(SelectedObject);
+            CharacterInventory.Remove(SelectedObject);
         }
 
         private void MoveToInventoryCommand()

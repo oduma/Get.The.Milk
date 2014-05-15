@@ -35,6 +35,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         }
 
         private ObservableCollection<CellViewModel> _cells;
+        private CellViewModel _linkToUpperRequest;
+        private CellViewModel _linkToLowerRequest;
+
         public ObservableCollection<CellViewModel> Cells
         {
             get { return _cells; }
@@ -49,6 +52,52 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         }
 
         public int FloorNumber { get; set; }
+
+        public CellViewModel LinkToUpperRequest
+        {
+            get { return _linkToUpperRequest; }
+            set
+            {
+                if(value!=_linkToUpperRequest)
+                {
+                    _linkToUpperRequest = value;
+                    if(value==null)
+                        foreach (var cellViewModel in Cells)
+                        {
+                            cellViewModel.LinkToUpperText = "Link to upper floor";
+                        }
+                    else
+                        foreach (var cellViewModel in Cells)
+                        {
+                            cellViewModel.LinkToUpperText = "Link to upper floor cell(" + value.Value.Number + ")";
+                        }
+                    RaisePropertyChanged("LinkToUpperRequest");
+                }
+            }
+        }
+
+        public CellViewModel LinkToLowerRequest
+        {
+            get { return _linkToLowerRequest; }
+            set
+            {
+                if(value!=_linkToLowerRequest)
+                {
+                    _linkToLowerRequest = value;
+                    if(value==null)
+                        foreach(var cellViewModel in Cells)
+                        {
+                            cellViewModel.LinkToLowerText = "Link to lower floor";
+                        }
+                    else
+                        foreach (var cellViewModel in Cells)
+                        {
+                            cellViewModel.LinkToLowerText = "Link to lower floor cell(" + value.Value.Number + ")";
+                        }
+                    RaisePropertyChanged("LinkToLowerRequest");
+                }
+            }
+        }
 
         public void ResetStartCell()
         {

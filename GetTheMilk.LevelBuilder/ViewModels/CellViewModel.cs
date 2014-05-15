@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -16,6 +18,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
     {
         public RelayCommand<CellViewModel> MarkAsObjective { get; set; }
         public RelayCommand<CellViewModel> MarkAsStart { get; set; }
+
+        public RelayCommand<CellViewModel> LinkToUpperFloor { get; set; }
+        public RelayCommand<CellViewModel> LinkToLowerFloor { get; set; }
 
         public RelayCommand<NonCharacterObject> PlaceAnObject { get; set; }
 
@@ -240,8 +245,98 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
+        private string _linkToUpperText;
+        private string _linkToLowerText;
+        private string _linkToUpperMarking;
+        private string _linkToUpperCell;
+        private string _linkToLowerMarking;
+        private string _linkToLowerCell;
+
+        public string LinkToUpperText
+        {
+            get { return _linkToUpperText; }
+            set
+            {
+                if (value != _linkToUpperText)
+                {
+                    _linkToUpperText = value;
+                    RaisePropertyChanged("LinkToUpperText");
+                }
+            }
+        }
+
         public ObservableCollection<NonCharacterObject> AllObjectsAvailable { get; set; }
 
         public ObservableCollection<Character> AllCharactersAvailable { get; set; }
+
+        public string LinkToLowerText
+        {
+            get { return _linkToLowerText; }
+            set
+            {
+                if(value!=_linkToLowerText)
+                {
+                    _linkToLowerText = value;
+                    RaisePropertyChanged("LinkToLowerText");
+                }
+            }
+        }
+
+        public string LinkToUpperMarking
+        {
+            get { return _linkToUpperMarking; }
+            set
+            {
+                if(value!=_linkToUpperMarking)
+                {
+                    _linkToUpperMarking = value;
+                    RaisePropertyChanged("LinkToUpperMarking");
+                }
+            }
+        }
+
+        public string LinkToUpperCell
+        {
+            get { return _linkToUpperCell; }
+            set { if(value!=_linkToUpperCell)
+            {
+                _linkToUpperCell = value;
+                RaisePropertyChanged("LinkToUpperCell");
+            } }
+        }
+
+        public string LinkToLowerMarking
+        {
+            get { return _linkToLowerMarking; }
+            set
+            {
+                if(value!=_linkToLowerMarking)
+                {
+                    _linkToLowerMarking = value;
+                    RaisePropertyChanged("LinkToLowerMarking");
+                }
+            }
+        }
+
+        public string LinkToLowerCell
+        {
+            get { return _linkToLowerCell; }
+            set
+            {
+                if(value!=_linkToLowerCell)
+                {
+                    _linkToLowerCell = value;
+                    RaisePropertyChanged("LinkToLowerCell");
+                }
+            }
+        }
+
+        public void MarkFloorCrossings()
+        {
+            LinkToUpperMarking = (Value.TopCell == -1) ? "" : "^";
+            LinkToUpperCell = ((Value.TopCell == -1) ? "" : Value.TopCell.ToString());
+            LinkToLowerMarking = (Value.BottomCell == -1) ? "" : "V";
+            LinkToLowerCell = ((Value.BottomCell == -1) ? "" : Value.BottomCell.ToString());
+        }
     }
 }

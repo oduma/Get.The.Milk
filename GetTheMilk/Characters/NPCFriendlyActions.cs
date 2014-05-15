@@ -1,7 +1,6 @@
 ﻿using GetTheMilk.Actions;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.UI.Translators.Common;
 
 namespace GetTheMilk.Characters
 {
@@ -17,7 +16,7 @@ namespace GetTheMilk.Characters
 
         public bool AllowsIndirectAction(GameAction a, IPositionable o)
         {
-            return !(a is Attack || a is Quit || a is InitiateHostilities);
+            return (!(a is Attack || a is Quit || a is InitiateHostilities || a is TakeFrom || a is TakeMoneyFrom));
         }
         public NPCFriendlyActions()
         {

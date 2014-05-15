@@ -32,6 +32,8 @@
                             <ContextMenu Name="contextmenu">
                                 <MenuItem Header="Mark As Objective" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.MarkAsObjective}" CommandParameter="{Binding .}"/>
                                 <MenuItem Header="Mark as Start" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.MarkAsStart}" CommandParameter="{Binding .}"/>
+                                <MenuItem Header="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.LinkToUpperText}" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.LinkToUpperFloor}" CommandParameter="{Binding .}"/>
+                                <MenuItem Header="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.LinkToLowerText}" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.LinkToLowerFloor}" CommandParameter="{Binding .}"/>
                                 <MenuItem Header="Place an Object" 
                                           ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.AllObjectsAvailable}">
                                     <MenuItem.ItemTemplate>
@@ -61,7 +63,13 @@
                             <TextBlock Text="{Binding Path=ObjectiveCellMarking}"/>
                         </StackPanel>
                             <TextBlock Text="{Binding Path=OccupantName}"/>
-                        </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=LinkToUpperMarking}"/>
+                                <TextBlock Text="{Binding Path=LinkToUpperCell}"/>
+                                <TextBlock Text="{Binding Path=LinkToLowerMarking}"/>
+                                <TextBlock Text="{Binding Path=LinkToLowerCell}"/>
+                            </StackPanel>
+                            </StackPanel>
                     </Border>
                 </DataTemplate>
         </ItemsControl.ItemTemplate>

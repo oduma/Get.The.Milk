@@ -40,6 +40,8 @@ namespace GetTheMilk.UI.ViewModels
 
         private void ActionFeedbackFromOriginalAction(object sender, FeedbackEventArgs e)
         {
+            if (e.ActionResult.ForAction.ActionType == ActionType.Communicate && e.ActionResult.ForAction.ActiveCharacter.ObjectTypeId == "Player")
+                return;
             Dialogues.Add(new Dialogue
                               {
                                   Who = e.ActionResult.ForAction.ActiveCharacter.Name.Narrator,
