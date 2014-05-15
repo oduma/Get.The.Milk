@@ -49,6 +49,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                                 MarkAsStart = new RelayCommand<CellViewModel>(MarkAsStartCommand),
                                 LinkToUpperFloor=new RelayCommand<CellViewModel>(LinkToUpperFloorCommand,CanLinkToUpperFloor),
                                 LinkToLowerFloor = new RelayCommand<CellViewModel>(LinkToLowerFloorCommand, CanLinkToLowerFloor),
+                                ClearUp = new RelayCommand<CellViewModel>(ClearUpCommand, CanClearUp),
+                                ClearDown = new RelayCommand<CellViewModel>(ClearDownCommand, CanClearDown),
                                 StartCellMarking=(_level.StartingCell==c.Number)?">>":"",
                                 ObjectiveCellMarking = (_level.ObjectiveCell == c.Number) ? "x" : "",
                                 AllObjectsAvailable=_allObjectsAvailable,
@@ -278,6 +280,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                                         MarkAsStart = new RelayCommand<CellViewModel>(MarkAsStartCommand),
                                         LinkToUpperFloor = new RelayCommand<CellViewModel>(LinkToUpperFloorCommand, CanLinkToUpperFloor),
                                         LinkToLowerFloor = new RelayCommand<CellViewModel>(LinkToLowerFloorCommand, CanLinkToLowerFloor),
+                                        ClearUp = new RelayCommand<CellViewModel>(ClearUpCommand, CanClearUp),
+                                        ClearDown = new RelayCommand<CellViewModel>(ClearDownCommand, CanClearDown),
                                         AllObjectsAvailable = _allObjectsAvailable,
                                         AllCharactersAvailable=_allCharactersAvailable,
                                         OcupancyMarker = CellViewModel.GetColorForCell(c.AllObjects.FirstOrDefault(),c.AllCharacters.FirstOrDefault()),
@@ -301,5 +305,36 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
+        private bool CanClearDown(CellViewModel obj)
+        {
+            return obj!=null && obj.Value.BottomCell != -1;
+        }
+
+        private void ClearDownCommand(CellViewModel obj)
+        {
+            SelectedFloor -= 1;
+            var pairCell=FloorPlanViewModel.Cells.First(c => c.Value.Number == obj.Value.BottomCell);
+            pairCell.Value.TopCell = -1;
+            pairCell.MarkFloorCrossings();
+            SelectedFloor += 1;
+            FloorPlanViewModel.Cells.First(c => c.Value.Number == obj.Value.Number).Value.BottomCell = -1;
+            obj.MarkFloorCrossings();
+        }
+
+        private bool CanClearUp(CellViewModel obj)
+        {
+            return obj!=null && obj.Value.TopCell != -1;
+        }
+
+        private void ClearUpCommand(CellViewModel obj)
+        {
+            SelectedFloor += 1;
+            var pairCell = FloorPlanViewModel.Cells.First(c => c.Value.Number == obj.Value.TopCell);
+            pairCell.Value.BottomCell = -1;
+            pairCell.MarkFloorCrossings();
+            SelectedFloor -= 1;
+            FloorPlanViewModel.Cells.First(c => c.Value.Number == obj.Value.Number).Value.TopCell = -1;
+            obj.MarkFloorCrossings();
+        }
     }
 }

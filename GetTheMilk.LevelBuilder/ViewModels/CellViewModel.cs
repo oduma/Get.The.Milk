@@ -22,6 +22,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         public RelayCommand<CellViewModel> LinkToUpperFloor { get; set; }
         public RelayCommand<CellViewModel> LinkToLowerFloor { get; set; }
 
+        public RelayCommand<CellViewModel> ClearUp { get; set; }
+        public RelayCommand<CellViewModel> ClearDown { get; set; }
+
         public RelayCommand<NonCharacterObject> PlaceAnObject { get; set; }
 
         public RelayCommand<Character> PlaceACharacter { get; set; }

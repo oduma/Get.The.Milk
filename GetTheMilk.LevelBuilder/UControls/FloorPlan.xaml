@@ -34,6 +34,8 @@
                                 <MenuItem Header="Mark as Start" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.MarkAsStart}" CommandParameter="{Binding .}"/>
                                 <MenuItem Header="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.LinkToUpperText}" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.LinkToUpperFloor}" CommandParameter="{Binding .}"/>
                                 <MenuItem Header="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.LinkToLowerText}" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.LinkToLowerFloor}" CommandParameter="{Binding .}"/>
+                                <MenuItem Header="Clear up floor links" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.ClearUp}" CommandParameter="{Binding .}"/>
+                                <MenuItem Header="Clear down floor links" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.ClearDown}" CommandParameter="{Binding .}"/>
                                 <MenuItem Header="Place an Object" 
                                           ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.AllObjectsAvailable}">
                                     <MenuItem.ItemTemplate>
