@@ -67,6 +67,7 @@
     <Compile Include="Actions\AcceptQuit.cs" />
     <Compile Include="Actions\ActionResult.cs" />
     <Compile Include="Actions\ActionResultType.cs" />
+    <Compile Include="Actions\AllowPass.cs" />
     <Compile Include="Actions\Attack.cs" />
     <Compile Include="Actions\BaseActions\ActionsHelper.cs" />
     <Compile Include="Actions\BaseActions\ActionType.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Actions\Communicate.cs" />
     <Compile Include="Actions\Defuse.cs" />
     <Compile Include="Actions\EnterLevel.cs" />
+    <Compile Include="Actions\Explode.cs" />
     <Compile Include="Actions\ExposeInventory.cs" />
     <Compile Include="Actions\ExposeInventoryExtraData.cs" />
     <Compile Include="Actions\Fight\Hit.cs" />

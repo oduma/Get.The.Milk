@@ -25,6 +25,8 @@
         SelectAttackWeapon,
         AcceptQuit,
         CloseInventory,
-        Defuse
+        Defuse,
+        Explode,
+        AllowPass
     }
 }

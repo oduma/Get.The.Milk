@@ -68,6 +68,10 @@ namespace GetTheMilk.Utils
                         return item.ToObject<AcceptQuit>();
                     case ActionType.Defuse:
                         return item.ToObject<Defuse>();
+                    case ActionType.Explode:
+                        return item.ToObject<Explode>();
+                    case ActionType.AllowPass:
+                        return item.ToObject<AllowPass>();
 
                 }
             }

@@ -40,9 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CanOpenerActions.cs" />
+    <Compile Include="ExplosiveActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedDoorActions.cs" />
     <Compile Include="DefusingToolActions.cs" />
+    <Compile Include="TrapDoorActions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GetTheMilk\GetTheMilk.csproj">
