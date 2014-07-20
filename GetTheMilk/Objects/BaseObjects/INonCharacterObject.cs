@@ -10,5 +10,7 @@ namespace GetTheMilk.Objects.BaseObjects
 
         ObjectCategory ObjectCategory { get; }
 
+        BasePackage Save();
+
     }
 }

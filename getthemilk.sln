@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get.The.Milk.L1.ObjectActio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetTheMilk.LevelBuilder", "GetTheMilk.LevelBuilder\GetTheMilk.LevelBuilder.csproj", "{16D5836C-3EA0-4B27-8029-0F6CECDF93EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetTheMilk.NewActions.Tests", "GetTheMilk.NewActions.Tests\GetTheMilk.NewActions.Tests.csproj", "{49E68AAF-32D4-40F7-995A-6DDA0D7D51C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,16 @@ Global
 		{16D5836C-3EA0-4B27-8029-0F6CECDF93EB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{16D5836C-3EA0-4B27-8029-0F6CECDF93EB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{16D5836C-3EA0-4B27-8029-0F6CECDF93EB}.Release|x86.ActiveCfg = Release|Any CPU
+		{49E68AAF-32D4-40F7-995A-6DDA0D7D51C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49E68AAF-32D4-40F7-995A-6DDA0D7D51C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49E68AAF-32D4-40F7-995A-6DDA0D7D51C9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{49E68AAF-32D4-40F7-995A-6DDA0D7D51C9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{49E68AAF-32D4-40F7-995A-6DDA0D7D51C9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{49E68AAF-32D4-40F7-995A-6DDA0D7D51C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49E68AAF-32D4-40F7-995A-6DDA0D7D51C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49E68AAF-32D4-40F7-995A-6DDA0D7D51C9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{49E68AAF-32D4-40F7-995A-6DDA0D7D51C9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{49E68AAF-32D4-40F7-995A-6DDA0D7D51C9}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
-using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
 using GetTheMilk.Settings;
@@ -15,6 +15,7 @@ namespace GetTheMilk.Levels
     {
         private Inventory _inventory;
         private CharacterCollection _characters;
+        private List<BaseActionTemplate> _playerAvailableActions;
         public Map CurrentMap { get; set; }
         public int Number { get; set; }
 
@@ -45,19 +46,17 @@ namespace GetTheMilk.Levels
         }
 
         [JsonIgnore]
-        public IPlayer Player { get; set; }
+        public Player Player { get; set; }
         public  string Story { get; set; }
 
-        public LevelPackages PackageForSave()
+        public ContainerNoActionsPackage PackageForSave()
         {
-            var levelPackages = new LevelPackages
+            var levelPackages = new ContainerNoActionsPackage
                        {
-                           LevelCore = JsonConvert.SerializeObject(this),
-                           LevelObjects = JsonConvert.SerializeObject(Inventory.Save()),
-                           LevelCharacters= new List<CharacterSavedPackages>()
+                           Core = JsonConvert.SerializeObject(this),
+                           InventoryCore = JsonConvert.SerializeObject(Inventory.Save()),
+                           LevelCharacters= JsonConvert.SerializeObject(Characters.Save())
                        };
-            foreach (var character in Characters)
-                levelPackages.LevelCharacters.Add(character.Save());
             return levelPackages;
         }
 
@@ -72,26 +71,22 @@ namespace GetTheMilk.Levels
                 return null;
             using(TextReader tr = new StreamReader(gameSettings.CurrentReadStrategy(levelDefFileName)))
             {
-                return Create(JsonConvert.DeserializeObject<LevelPackages>(tr.ReadToEnd()));
+                return Create(JsonConvert.DeserializeObject<ContainerNoActionsPackage>(tr.ReadToEnd()));
             }
         }
 
-        public static Level Create(LevelPackages levelPackages)
+        public static Level Create(ContainerNoActionsPackage levelPackages)
         {
-            Level level = JsonConvert.DeserializeObject<Level>(levelPackages.LevelCore);
+            Level level = JsonConvert.DeserializeObject<Level>(levelPackages.Core);
             if(level.CurrentMap!=null)
                 level.CurrentMap.LinkToParentLevel(level);
-            level.Inventory = (levelPackages.LevelObjects!=null)?Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(levelPackages.LevelObjects,
+            level.Inventory = (levelPackages.InventoryCore!=null)?Inventory.Load(JsonConvert.DeserializeObject<CollectionPackage>(levelPackages.InventoryCore,
                 new NonChracterObjectConverter())):new Inventory();
             level.Inventory.LinkObjectsToInventory();
-            if(levelPackages.LevelCharacters==null)
-                level.Characters=new CharacterCollection();
-            else
-                foreach (var characterPackage in levelPackages.LevelCharacters)
-                {
-                    level.Characters.Add(Character.Load<Character>(characterPackage));
-                }
+            level.Characters = (levelPackages.LevelCharacters != null) ? CharacterCollection.Load(JsonConvert.DeserializeObject<CollectionPackage>(levelPackages.LevelCharacters,
+    new CharacterJsonConverter())) : new CharacterCollection();
             level.Characters.LinkCharactersToInventory();
+
             return level;
         }
         public  int StartingCell { get; set; }
@@ -102,6 +97,12 @@ namespace GetTheMilk.Levels
         public SizeOfLevel SizeOfLevel { get; set; }
 
         public int ObjectiveCell { get; set; }
+
+        public List<BaseActionTemplate> PlayerAvailableActions
+        {
+            get { return _playerAvailableActions=(_playerAvailableActions)??new List<BaseActionTemplate>(); }
+            set { _playerAvailableActions = value; }
+        }
 
         public Level()
         {

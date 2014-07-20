@@ -1,4 +1,4 @@
-﻿using GetTheMilk.Actions.BaseActions;
+﻿using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects;
 
@@ -6,14 +6,14 @@ namespace Get.The.Milk.L1.ObjectActions
 {
     public class ExplosiveActions:ToolActions
     {
-        public new bool AllowsAction(GameAction a)
+        public override bool AllowsTemplateAction(BaseActionTemplate a)
         {
-            return (a.ActionType==ActionType.Explode);
+            return (a.Name.PerformerId=="Explode");
         }
 
-        public override bool AllowsIndirectAction(GameAction a, IPositionable o)
+        public override bool AllowsIndirectTemplateAction(BaseActionTemplate a, IPositionable o)
         {
-            return (base.AllowsIndirectAction(a, o)) ||(a.ActionType==ActionType.Defuse);
+            return (base.AllowsIndirectTemplateAction(a, o)) ||(a.Name.PerformerId=="Defuse");
         }
         public ExplosiveActions()
         {

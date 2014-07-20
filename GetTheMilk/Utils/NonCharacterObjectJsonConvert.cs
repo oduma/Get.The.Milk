@@ -24,24 +24,24 @@ namespace GetTheMilk.Utils
                 {
                     var obj = item.ToObject<NonCharacterObject>();
                     var objAction = factory.CreateObjectAction(item["ObjectTypeId"].Value<string>());
-                    obj.AllowsAction = objAction.AllowsAction;
-                    obj.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                    obj.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                    obj.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
                     return obj;
                 }
                 if (item["ObjectCategory"].Value<int>() == 1)
                 {
                     var obj = item.ToObject<Tool>();
                     var objAction = factory.CreateObjectAction(item["ObjectTypeId"].Value<string>());
-                    obj.AllowsAction = objAction.AllowsAction;
-                    obj.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                    obj.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                    obj.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
                     return obj;
                 }
                 if (item["ObjectCategory"].Value<int>() == 2)
                 {
                     var obj = item.ToObject<Weapon>();
                     var objAction = factory.CreateObjectAction(item["ObjectTypeId"].Value<string>());
-                    obj.AllowsAction = objAction.AllowsAction;
-                    obj.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                    obj.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                    obj.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
                     return obj;
                 }
 
@@ -53,7 +53,7 @@ namespace GetTheMilk.Utils
         public override void WriteJson(JsonWriter writer,
             object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+                throw new NotImplementedException();
         }
     }
 }

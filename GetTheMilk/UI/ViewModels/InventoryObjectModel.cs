@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.UI.ViewModels
@@ -13,7 +14,7 @@ namespace GetTheMilk.UI.ViewModels
 
         public IEnumerable<ActionWithTargetModel> Actions { get; private set; }
 
-        public InventoryObjectModel(ObjectWithPossibleActions o, Action<ActionWithTargetModel> performActionCommand)
+        public InventoryObjectModel(ObjectWithPossibleActionTemplates o, Action<ActionWithTargetModel> performActionCommand)
         {
             _performActionCommand = performActionCommand;
             ObjectName = o.Object.Name.Main;

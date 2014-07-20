@@ -1,9 +1,11 @@
 ﻿using System.IO;
 using GetTheMilk.Actions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Levels;
 using GetTheMilk.Settings;
+using GetTheMilk.Utils;
 using Newtonsoft.Json;
 using GetTheMilk.Factories;
 
@@ -47,8 +49,8 @@ namespace GetTheMilk
                 var factory = ObjectActionsFactory.GetFactory();
 
                 var objAction = factory.CreateObjectAction("Player");
-                Instance.Player.AllowsAction = objAction.AllowsAction;
-                Instance.Player.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                Instance.Player.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                Instance.Player.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
             }
             if(Instance.CurrentLevel==null)
@@ -72,9 +74,9 @@ namespace GetTheMilk
 
         public void Save(string fileName)
         {
-            LevelPackages levelPackages = CurrentLevel.PackageForSave();
+            ContainerNoActionsPackage levelPackages = CurrentLevel.PackageForSave();
 
-            CharacterSavedPackages characterPackages=Player.Save();
+            ContainerWithActionsPackage characterPackages=Player.Save();
 
             var gamePackages =
                 JsonConvert.SerializeObject(new GamePackages

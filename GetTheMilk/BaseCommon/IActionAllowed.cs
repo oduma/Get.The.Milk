@@ -1,4 +1,4 @@
-using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Actions.ActionTemplates;
 
 namespace GetTheMilk.BaseCommon
 {
@@ -8,9 +8,9 @@ namespace GetTheMilk.BaseCommon
 
         ObjectCategory ObjectCategory { get; set; }
 
-        bool AllowsAction(GameAction a);
+        bool AllowsTemplateAction(BaseActionTemplate actionTemplate);
 
-        bool AllowsIndirectAction(GameAction a, IPositionable o);
+        bool AllowsIndirectTemplateAction(BaseActionTemplate actionTemplate, IPositionable obj);
 
     }
 }

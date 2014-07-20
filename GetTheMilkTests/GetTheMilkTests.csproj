@@ -57,17 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionsTests\ActionsFactoryTests.cs" />
     <Compile Include="ActionsTests\AdditionalActionTests.cs" />
-    <Compile Include="ActionsTests\DataGeneratorForActions.cs" />
     <Compile Include="ActionsTests\DetermineActionsTests.cs" />
-    <Compile Include="ActionsTests\ExposeInentoryActionTests.cs" />
-    <Compile Include="ActionsTests\MovementsTests.cs" />
-    <Compile Include="ActionsTests\OneCharacterOneObjectActionTests.cs" />
-    <Compile Include="ActionsTests\OneCharacterTwoObjectsActionTests.cs" />
-    <Compile Include="ActionsTests\StubbedContainerOwner.cs" />
-    <Compile Include="ActionsTests\TwoCharactersOneObjectTests.cs" />
     <Compile Include="FactoriesTests\ObjectActionsFactoryTests.cs" />
+    <Compile Include="FactoriesTests\TemplatedActionPerformersTests.cs" />
     <Compile Include="IntegrationTests\AutoPlayLevel1Generated.cs" />
     <Compile Include="IntegrationTests\AutoPlayTestLevel1.cs" />
     <Compile Include="IntegrationTests\LevelCompletionTests.cs" />

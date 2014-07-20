@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Actions.ActionPerformers;
+using GetTheMilk.Actions.ActionPerformers.Base;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Levels;
@@ -14,34 +15,37 @@ namespace GetTheMilk.UI.Translators
 {
     public class ActionResultToHuL
     {
-        public string TranslateMovementResult(ActionResult actionResult)
+        public string TranslateMovementResult(PerformActionResult actionResult)
         {
             var gameSettings = GameSettings.GetInstance();
 
             if(actionResult.ForAction.ActiveCharacter==null)
                 return gameSettings.TranslatorErrorMessage;
-            if(!(actionResult.ForAction is MovementAction))
+            if(!(actionResult.ForAction is MovementActionTemplate))
                 return gameSettings.TranslatorErrorMessage;
+
             var messagesFor = gameSettings.MessagesForActionsResult.Where(m => m.ResultType == actionResult.ResultType);
             if (!messagesFor.Any())
                 return gameSettings.TranslatorErrorMessage;
-            var message = messagesFor.SelectMany(m => m.Messages, (m, f) => f).FirstOrDefault(o => o.Id == actionResult.ForAction.ActionType.ToString());
+            var message = messagesFor.SelectMany(m => m.Messages, (m, f) => f).FirstOrDefault(o => o.Id == actionResult.ForAction.Name.UniqueId);
             if (message == null)
                 return gameSettings.TranslatorErrorMessage;
+
             return string.Format(message.Value,
                           Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(actionResult.ForAction.ActiveCharacter.Name.Narrator.ToLower()),
                           actionResult.ForAction.Name.Past,
                           actionResult.ForAction.Name.Present,
-                          ((MovementAction) actionResult.ForAction).Direction,
-                          (actionResult.ForAction is EnterLevel) ? ((EnterLevel) actionResult.ForAction).CurrentMap.Parent.Number : 0,
-                          ((MovementActionExtraData) actionResult.ExtraData!=null)?
-                          FormatList(((MovementActionExtraData) actionResult.ExtraData).ObjectsBlocking,NarratorNaming):"",
-                          ((MovementActionExtraData) actionResult.ExtraData!=null)?
-                          FormatList(((MovementActionExtraData) actionResult.ExtraData).CharactersBlocking,NarratorNaming):"");
+                          ((MovementActionTemplate) actionResult.ForAction).Direction,
+                          (actionResult.ForAction.Name.UniqueId=="EnterLevel")
+                          ?((MovementActionTemplate)actionResult.ForAction).CurrentMap.Parent.Number : 0,
+                          ((MovementActionTemplateExtraData) actionResult.ExtraData!=null)?
+                          FormatList(((MovementActionTemplateExtraData) actionResult.ExtraData).ObjectsBlocking,NarratorNaming):"",
+                          ((MovementActionTemplateExtraData) actionResult.ExtraData!=null)?
+                          FormatList(((MovementActionTemplateExtraData) actionResult.ExtraData).CharactersBlocking,NarratorNaming):"");
 
         }
 
-        public string TranslateActionResult(ActionResult actionResult)
+        public string TranslateActionResult(PerformActionResult actionResult)
         {
             var gameSettings = GameSettings.GetInstance();
 
@@ -50,7 +54,7 @@ namespace GetTheMilk.UI.Translators
             var messagesFor = gameSettings.MessagesForActionsResult.Where(m => m.ResultType == actionResult.ResultType);
             if (!messagesFor.Any())
                 return gameSettings.TranslatorErrorMessage;
-            var message = messagesFor.SelectMany(m=>m.Messages,(m,f)=>f).FirstOrDefault(o=>o.Id==actionResult.ForAction.ActionType.ToString());
+            var message = messagesFor.SelectMany(m=>m.Messages,(m,f)=>f).FirstOrDefault(o=>o.Id==actionResult.ForAction.Name.UniqueId);
             if (message==null)
                 return gameSettings.TranslatorErrorMessage;
             return string.Format(message.Value,
@@ -61,10 +65,9 @@ namespace GetTheMilk.UI.Translators
                           (actionResult.ForAction.TargetObject==null)?string.Empty:actionResult.ForAction.TargetObject.Name.Narrator,
                           (actionResult.ForAction.TargetCharacter == null) ? string.Empty : actionResult.ForAction.TargetCharacter.Name.Narrator,
                           (actionResult.ForAction.ActiveObject == null) ? string.Empty : actionResult.ForAction.ActiveObject.Name.Narrator,
-                          (actionResult.ForAction.ActionType!=ActionType.Communicate) ? string.Empty : ((Communicate)actionResult.ForAction).Message,
-                          (actionResult.ForAction.ActionType == ActionType.Attack) ? ((((Attack)actionResult.ForAction).ActiveCharacter.ActiveAttackWeapon!=null)?((Attack)actionResult.ForAction).ActiveCharacter.ActiveAttackWeapon.Name.Narrator:string.Empty) : string.Empty,
-                          (actionResult.ForAction.ActionType == ActionType.Attack) ? ((((Attack)actionResult.ForAction).ActiveCharacter.ActiveDefenseWeapon != null) ? ((Attack)actionResult.ForAction).ActiveCharacter.ActiveDefenseWeapon.Name.Narrator : string.Empty) : string.Empty,
-                          (actionResult.ForAction.ActionType == ActionType.TakeMoneyFrom) ? ((TakeMoneyFrom)actionResult.ForAction).Amount : 0);
+                          (actionResult.ForAction.Name.UniqueId != "Talk") ? string.Empty : ((TwoCharactersActionTemplate)actionResult.ForAction).Message,
+                          (actionResult.ForAction.Name.UniqueId == "Attack") ? (actionResult.ForAction.ActiveCharacter.ActiveAttackWeapon != null) ? actionResult.ForAction.ActiveCharacter.ActiveAttackWeapon.Name.Narrator : string.Empty : string.Empty,
+                          (actionResult.ForAction.Name.UniqueId == "Attack") ? (actionResult.ForAction.ActiveCharacter.ActiveDefenseWeapon != null) ? actionResult.ForAction.ActiveCharacter.ActiveDefenseWeapon.Name.Narrator : string.Empty : string.Empty);
 
         }
 
@@ -74,7 +77,7 @@ namespace GetTheMilk.UI.Translators
             return obj.Name.Narrator;
         }
 
-        public string TranslateMovementExtraData(MovementActionExtraData extraData,IPlayer active,Level level)
+        public string TranslateMovementExtraData(MovementActionTemplateExtraData extraData,IPlayer active,Level level)
         {
             var gameSettings = GameSettings.GetInstance();
             var objectsReachable = string.Empty;

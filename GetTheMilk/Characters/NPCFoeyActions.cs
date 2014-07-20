@@ -1,4 +1,5 @@
-﻿using GetTheMilk.Actions.BaseActions;
+﻿using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Characters
@@ -8,17 +9,21 @@ namespace GetTheMilk.Characters
         public string ObjectTypeId { get; set; }
         public ObjectCategory ObjectCategory { get; set; }
 
-        public bool AllowsAction(GameAction a)
+        public bool AllowsTemplateAction(BaseActionTemplate a)
         {
-            return (a.ActionType==ActionType.Attack 
-                || a.ActionType==ActionType.Quit 
-                || a.ActionType==ActionType.InitiateHostilities 
-                || a.ActionType==ActionType.AcceptQuit
-                || a.ActionType==ActionType.TakeMoneyFrom);
+            return (a.Name.UniqueId=="Attack"
+                || a.Name.UniqueId == "Quit"
+                || a.Name.UniqueId == "InitiateHostilities"
+                || a.Name.UniqueId == "AcceptQuit"
+                || a.Name.UniqueId == "TakeMoneyFrom");
         }
 
-        public bool AllowsIndirectAction(GameAction a, IPositionable o)
+        public bool AllowsIndirectTemplateAction(BaseActionTemplate a, IPositionable o)
         {
+            if (((a.Category == CategorysCatalog.ExposeInventoryCategory) && ((ExposeInventoryActionTemplate)a).SelfInventory == false))
+            {
+                return false;
+            }
             return true;
         }
 

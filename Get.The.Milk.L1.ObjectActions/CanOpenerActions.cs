@@ -1,5 +1,4 @@
-using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects;
@@ -9,9 +8,9 @@ namespace Get.The.Milk.L1.ObjectActions
     public class CanOpenerActions:ToolActions
     {
 
-        public override bool AllowsIndirectAction(GameAction a, IPositionable o)
+        public override bool AllowsIndirectTemplateAction(BaseActionTemplate a, IPositionable o)
         {
-            return (o is ICharacter && (a is Keep || a is GiveTo || a is Buy || a is Sell));
+            return (o is ICharacter && (a.Name.Category=="ObjectTransferActionTemplate"));
         }
 
         public CanOpenerActions()

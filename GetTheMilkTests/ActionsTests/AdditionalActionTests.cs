@@ -1,4 +1,5 @@
 ﻿using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
@@ -13,13 +14,24 @@ namespace GetTheMilkTests.ActionsTests
         [Test]
         public void DefuseTests()
         {
-            var defuser = new Tool {AllowsAction = AllowsToDefuse};
-            var defusee = new Tool {AllowsIndirectAction = allowsToBeDefused};
+            var defuser = new Tool {AllowsTemplateAction = AllowsToDefuse};
+            var defusee = new Tool {AllowsIndirectTemplateAction = allowsToBeDefused};
             var active = new Player();
             active.Experience = 10;
             active.Health = 10;
-            var defuseAction = new Defuse {ActiveCharacter = active, ActiveObject = defuser, TargetObject = defusee};
-            var defuseResult = defuseAction.Perform();
+            var defuseAction = new ObjectUseOnObjectActionTemplate
+                                   {
+                                       Name=new Verb{PerformerId="Defuse"},
+                                       ChanceOfSuccess = ChanceOfSuccess.Big,
+                                       DestroyActiveObject = true,
+                                       DestroyTargetObject = true,
+                                       PercentOfHealthFailurePenalty = 50,
+                                       ActiveCharacter = active,
+                                       ActiveObject = defuser,
+                                       TargetObject = defusee
+                                   };
+            var defuseResult = active.PerformAction(defuseAction);
+            Assert.AreNotEqual(ActionResultType.CannotPerformThisAction,defuseResult.ResultType);
             if(defuseResult.ResultType==ActionResultType.Ok)
             {
                 Assert.AreEqual(10,active.Health);
@@ -34,12 +46,12 @@ namespace GetTheMilkTests.ActionsTests
             }
         }
 
-        private bool allowsToBeDefused(GameAction arg1, IPositionable arg2)
+        private bool allowsToBeDefused(BaseActionTemplate arg1, IPositionable arg2)
         {
             return true;
         }
 
-        private bool AllowsToDefuse(GameAction arg)
+        private bool AllowsToDefuse(BaseActionTemplate arg)
         {
             return true;
         }

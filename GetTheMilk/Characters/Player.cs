@@ -1,10 +1,11 @@
-﻿using Castle.Core.Internal;
-using GetTheMilk.Accounts;
-using GetTheMilk.Actions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Castle.Core.Internal;
+using GetTheMilk.Actions.ActionPerformers.Base;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Levels;
-using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
 using GetTheMilk.Settings;
 using GetTheMilk.Utils;
@@ -33,33 +34,40 @@ namespace GetTheMilk.Characters
             SetPlayerName(gameSettings.DefaultPlayerName);
 
             Range = gameSettings.DefaultRange;
-
+            foreach(var action in GameSettings.GetInstance().StandardPlayerActions)
+                AddAvailableAction(action);
         }
 
-
-        public void LoadInteractionsWithPlayer(ICharacter targetCharacter)
+        public override void LoadInteractions(IActionEnabled actionTarget, string objectMainName)
         {
-            if (!InteractionRules.ContainsKey(targetCharacter.Name.Main)
-                && targetCharacter.InteractionRules.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
+            base.LoadInteractions(actionTarget,objectMainName);
+            if (!Interactions.ContainsKey(objectMainName)
+                && actionTarget.Interactions.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
             {
-                InteractionRules.Add(targetCharacter.Name.Main,
-                                                      targetCharacter.InteractionRules[
+                Interactions.Add(objectMainName,
+                                                      actionTarget.Interactions[
                                                           GenericInteractionRulesKeys.PlayerResponses]);
-                InteractionRules[targetCharacter.Name.Main].ForEach(ar=> { ar.Action.TargetCharacter = this;
+                Interactions[objectMainName].ForEach(ar=> { ar.Action.TargetCharacter = this;
                                                                              ar.Reaction.ActiveCharacter = this;
                 });
             }
 
         }
 
-        public ActionResult EnterLevel(Level level)
+        public PerformActionResult EnterLevel(Level level)
         {
             if (level.Player == null)
             {
                 level.Player = this;
                 CellNumber = level.StartingCell;
+                foreach(var action in level.PlayerAvailableActions)
+                    AddAvailableAction(action);
             }
-            return (new EnterLevel { Direction = Direction.None, TargetCell = CellNumber,ActiveCharacter=this, CurrentMap=level.CurrentMap }).Perform();
+            var newAction = CreateNewInstanceOfAction<MovementActionTemplate>("EnterLevel");
+            newAction.ActiveCharacter = this;
+            newAction.TargetCell = CellNumber;
+            newAction.CurrentMap = level.CurrentMap;
+            return PerformAction(newAction);
         }
 
         public void SetPlayerName(string name)
@@ -67,6 +75,18 @@ namespace GetTheMilk.Characters
             Name = name != null
                 ? new Noun { Main = name, Narrator = GameSettings.GetInstance().DefaultNarratorAddressingForPlayer }
             : new Noun { Main = "Payer 1", Narrator = GameSettings.GetInstance().DefaultNarratorAddressingForPlayer };
+        }
+
+        protected override bool IsNonStandardActionTemplate(KeyValuePair<string,BaseActionTemplate> baseActionTemplate)
+        {
+            return
+                (!(GameSettings.GetInstance().AllCharactersActions.Any(
+                    a =>
+                    a.Name.UniqueId == baseActionTemplate.Key)) &&
+                 !(GameSettings.GetInstance().StandardPlayerActions.Any(
+                     a =>
+                     a.Name.UniqueId == baseActionTemplate.Key)));
+
         }
     }
 }

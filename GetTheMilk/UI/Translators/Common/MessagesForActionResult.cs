@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.BaseActions;
 
 namespace GetTheMilk.UI.Translators.Common
 {

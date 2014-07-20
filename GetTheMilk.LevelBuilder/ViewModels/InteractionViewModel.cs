@@ -134,7 +134,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         public InteractionViewModel(ActionReaction selectedInteraction)
         {
-            var actionTypes = ActionsFactory.GetFactory().GetActions().Where(a => a is TwoCharactersAction || a is ExposeInventory).Select(a=>a.ActionType);
+            var actionTypes = ActionsFactory.GetFactory().GetActions().Where(a => a.ActionCategory=="TwoCharactersAction" || a is ExposeInventory).Select(a=>a.ActionType);
             if (AllAvailableActionTypes == null)
                 AllAvailableActionTypes = new ObservableCollection<ActionType>();
             foreach (var actionType in actionTypes)

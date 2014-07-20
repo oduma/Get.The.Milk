@@ -1,4 +1,5 @@
-﻿using GetTheMilk.Actions.BaseActions;
+﻿using GetTheMilk.Actions.ActionTemplates;
+using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects;
 
@@ -6,9 +7,9 @@ namespace Get.The.Milk.L1.ObjectActions
 {
     public class DefusingToolActions:ToolActions
     {
-        public new bool AllowsAction(GameAction a)
+        public override bool AllowsTemplateAction(BaseActionTemplate a)
         {
-            return (a.ActionType==ActionType.Defuse);
+            return (a.Name.PerformerId=="Defuse");
         }
 
         public DefusingToolActions()

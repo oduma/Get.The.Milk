@@ -1,13 +1,14 @@
 ﻿using System;
-using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionPerformers;
+using GetTheMilk.Actions.ActionPerformers.Base;
 
 namespace GetTheMilk.UI.ViewModels
 {
     public class PlayerStatsUpdateRequestEventArgs:EventArgs
     {
-        public ActionResult ActionResult { get; private set; }
+        public PerformActionResult ActionResult { get; private set; }
 
-        public PlayerStatsUpdateRequestEventArgs(ActionResult actionResult)
+        public PlayerStatsUpdateRequestEventArgs(PerformActionResult actionResult)
         {
             ActionResult = actionResult;
         }

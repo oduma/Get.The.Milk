@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Navigation;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Characters;
@@ -14,17 +13,17 @@ namespace GetTheMilk.UI.ViewModels
     {
         public event EventHandler<ActionExecutionRequestEventArgs> ActionExecutionRequest;
 
-        private MovementAction _movementType;
+        private MovementActionTemplate _movement;
 
-        public MovementAction MovementType
+        public MovementActionTemplate Movement
         {
-            get { return _movementType; }
+            get { return _movement; }
             set
             {
-                if (value != _movementType)
+                if (value != _movement)
                 {
-                    _movementType = value;
-                    _movementType.ActiveCharacter = _player;
+                    _movement = value;
+                    _movement.ActiveCharacter = _player;
                     RaisePropertyChanged("MovementType");
                 }
             }
@@ -33,7 +32,8 @@ namespace GetTheMilk.UI.ViewModels
         public ActionPanelViewModel(Player player)
         {
             _player = player;
-            MovementType = new Walk();
+            Movement =
+                player.CreateNewInstanceOfAction<MovementActionTemplate>("Walk");
             KeyPressed = new RelayCommand<KeyEventArgs>(KeyPressedCommand);
             KeyUnPressed=new RelayCommand<KeyEventArgs>(KeyUnPressedCommand);
             PerformAction=new RelayCommand<ActionWithTargetModel>(PerformActionCommand);
@@ -51,8 +51,9 @@ namespace GetTheMilk.UI.ViewModels
         {
             if (obj.Key == Key.RightCtrl || obj.Key == Key.LeftCtrl)
             {
-                MovementType = new Walk();
-                MovementType.ActiveCharacter = _player;
+                Movement =
+                _player.CreateNewInstanceOfAction<MovementActionTemplate>("Walk");
+                Movement.ActiveCharacter = _player;
             }
 
         }
@@ -61,21 +62,22 @@ namespace GetTheMilk.UI.ViewModels
         {
             if (obj.Key == Key.RightCtrl || obj.Key == Key.LeftCtrl)
             {
-                MovementType=new Run();
-                MovementType.ActiveCharacter = _player;
+                Movement =
+                _player.CreateNewInstanceOfAction<MovementActionTemplate>("Run");
+                Movement.ActiveCharacter = _player;
             }
             var direction = CardinalStar.GetDirectionByShortcut(obj.Key.ToString());
             if (direction != Direction.None)
             {
-                MovementType.Direction = direction;
+                Movement.Direction = direction;
                 if (ActionExecutionRequest != null)
-                    ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(MovementType));
+                    ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(Movement));
             }
             else
             {
                 if(obj.Key.ToString().ToUpper()=="I")
                 {
-                    ExposeInventory exposeInventory = ToggleInventory();
+                    var exposeInventory = ToggleInventory();
 
                     if (ActionExecutionRequest != null)
                         ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(exposeInventory));
@@ -84,20 +86,15 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
-        private ExposeInventory ToggleInventory()
+        private ExposeInventoryActionTemplate ToggleInventory()
         {
             if (InventoryShowHide == "Show Inventory")
             {
                 InventoryShowHide = "Hide Inventory";
-                ExposeInventory exposeInventory = new ExposeInventory
-                                                  {
-                                                      ActiveCharacter = _player,
-                                                      TargetCharacter = _player,
-                                                      FinishActionType =
-                                                                      ActionType
-                                                                      .CloseInventory
-                                                  };
-                exposeInventory.IncludeWallet = false;
+                var exposeInventory = _player.CreateNewInstanceOfAction<ExposeInventoryActionTemplate>("ExposeInventory");
+                exposeInventory.ActiveCharacter = _player;
+                exposeInventory.TargetCharacter = _player;
+                exposeInventory.FinishActionType = "CloseInentory";
                 return exposeInventory;
             }
             InventoryShowHide = "Show Inventory";
@@ -130,7 +127,7 @@ namespace GetTheMilk.UI.ViewModels
 
         public RelayCommand<ActionWithTargetModel> PerformAction { get; private set; }
 
-        public void DisplayPossibleActions(List<GameAction> possibleActions)
+        public void DisplayPossibleActions(IEnumerable<BaseActionTemplate> possibleActions)
         {
             Actions.Clear();
             foreach (var possibleAction in possibleActions)

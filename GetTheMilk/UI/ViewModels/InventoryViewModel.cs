@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects.BaseObjects;
@@ -12,10 +13,10 @@ namespace GetTheMilk.UI.ViewModels
 {
     public class InventoryViewModel:ViewModelBase
     {
-        private readonly ExposeInventoryExtraData _exposeInventoryExtraData;
+        private readonly InventoryExtraData _exposeInventoryExtraData;
         public event EventHandler<ActionExecutionRequestEventArgs> ActionExecutionRequest;
 
-        public InventoryViewModel(string ownerName, ExposeInventoryExtraData exposeInventoryExtraData)
+        public InventoryViewModel(string ownerName, InventoryExtraData exposeInventoryExtraData)
         {
             _exposeInventoryExtraData = exposeInventoryExtraData;
             OwnerName = ownerName;
@@ -60,13 +61,13 @@ namespace GetTheMilk.UI.ViewModels
         private void RefreshInventory()
         {
             Tools = new ObservableCollection<InventoryObjectModel>();
-            foreach (ObjectWithPossibleActions tool in _exposeInventoryExtraData.Contents.Where(o => o.Object.ObjectCategory == ObjectCategory.Tool))
+            foreach (ObjectWithPossibleActionTemplates tool in _exposeInventoryExtraData.Contents.Where(o => o.Object.ObjectCategory == ObjectCategory.Tool))
             {
                 Tools.Add(new InventoryObjectModel(tool, PerformActionCommand));
             }
 
             Weapons = new ObservableCollection<InventoryObjectModel>();
-            foreach (ObjectWithPossibleActions weapon in _exposeInventoryExtraData.Contents.Where(o => o.Object.ObjectCategory == ObjectCategory.Weapon))
+            foreach (ObjectWithPossibleActionTemplates weapon in _exposeInventoryExtraData.Contents.Where(o => o.Object.ObjectCategory == ObjectCategory.Weapon))
             {
                 Weapons.Add(new InventoryObjectModel(weapon, PerformActionCommand));
             }

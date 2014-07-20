@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using GetTheMilk.Accounts;
-using GetTheMilk.Actions.Fight;
-using GetTheMilk.Actions.Interactions;
+using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
@@ -19,13 +16,12 @@ namespace GetTheMilk.Characters.BaseCharacters
         [JsonIgnore]
         Inventory Inventory { get; set; }
         Walet Walet { get; set; }
-        [JsonIgnore]
-        SortedList<string, ActionReaction[]> InteractionRules { get; set; }
         Hit PrepareDefenseHit();
         Hit PrepareAttackHit();
         Weapon ActiveAttackWeapon { get; set; }
         Weapon ActiveDefenseWeapon { get; set; }
-        CharacterSavedPackages Save();
+        ContainerWithActionsPackage Save();
 
+        void LoadInteractions(IActionEnabled objectInRange,string mainName);
     }
 }

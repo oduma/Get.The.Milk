@@ -1,5 +1,5 @@
 using System;
-using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Actions.ActionTemplates;
 
 namespace GetTheMilk.BaseCommon
 {
@@ -11,10 +11,9 @@ namespace GetTheMilk.BaseCommon
         
         string ObjectTypeId { get; set; }
 
-        Func<GameAction, bool> AllowsAction { get; set; }
+        Func<BaseActionTemplate, bool> AllowsTemplateAction { get; set; }
 
-        Func<GameAction, IPositionable, bool> AllowsIndirectAction { get; set; }
-
+        Func<BaseActionTemplate, IPositionable, bool> AllowsIndirectTemplateAction { get; set; }
 
     }
 }

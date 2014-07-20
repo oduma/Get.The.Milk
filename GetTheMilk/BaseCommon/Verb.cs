@@ -2,7 +2,7 @@
 {
     public class Verb
     {
-        public string Infinitive { get; set; }
+        public string UniqueId { get; set; }
 
         public string Present { get; set; }
 

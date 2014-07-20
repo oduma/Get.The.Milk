@@ -1,5 +1,5 @@
 ﻿using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Characters
@@ -8,15 +8,21 @@ namespace GetTheMilk.Characters
     {
         public string ObjectTypeId { get; set; }
         public ObjectCategory ObjectCategory { get; set; }
-
-        public bool AllowsAction(GameAction a)
+        public bool AllowsTemplateAction(BaseActionTemplate actionTemplate)
         {
             return true;
         }
 
-        public bool AllowsIndirectAction(GameAction a, IPositionable o)
+        public bool AllowsIndirectTemplateAction(BaseActionTemplate a, IPositionable o)
         {
-            return (!(a is Attack || a is Quit || a is InitiateHostilities || a is TakeFrom || a is TakeMoneyFrom));
+            if (((a.Category == CategorysCatalog.ExposeInventoryCategory) && ((ExposeInventoryActionTemplate)a).SelfInventory == false))
+            {
+                return false;
+            }
+            return
+                (!(a.Name.UniqueId == "Attack" || a.Name.UniqueId == "Quit" ||
+                   a.Name.UniqueId == "InitiateHostilities" ||
+                   a.Name.UniqueId == "TakeMoneyFrom"));
         }
         public NPCFriendlyActions()
         {

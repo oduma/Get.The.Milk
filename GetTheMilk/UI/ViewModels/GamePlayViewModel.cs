@@ -1,5 +1,8 @@
 using System;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionPerformers;
+using GetTheMilk.Actions.ActionPerformers.Base;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Settings;
@@ -28,7 +31,7 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
-        private string RecordMovementResult(ActionResult actionResult)
+        private string RecordMovementResult(PerformActionResult actionResult)
         {
             if(actionResult.ResultType==ActionResultType.LevelCompleted)
             {
@@ -48,11 +51,11 @@ namespace GetTheMilk.UI.ViewModels
             {
                 var actionResultToHuL = new ActionResultToHuL();
                 var additionalInformation = string.Empty;
-                if (actionResult.ExtraData is MovementActionExtraData)
+                if (actionResult.ExtraData is MovementActionTemplateExtraData)
                 {
-                    var movementExtraData = actionResult.ExtraData as MovementActionExtraData;
+                    var movementExtraData = actionResult.ExtraData as MovementActionTemplateExtraData;
                     additionalInformation = actionResultToHuL.TranslateMovementExtraData(movementExtraData, _game.Player, _game.CurrentLevel);
-                    ActionPanelViewModel.DisplayPossibleActions(movementExtraData.AvailableActions);
+                    ActionPanelViewModel.DisplayPossibleActions(movementExtraData.AvailableActionTemplates);
                 }
                 PlayerInfoViewModel.PlayerCurrentPosition = _game.Player.CellNumber;
                 return string.Format("\r\n{0}\r\n{1}",
@@ -204,7 +207,7 @@ namespace GetTheMilk.UI.ViewModels
             PlayerInfoViewModel.PlayerHealth = playerCharacter.Health;
             PlayerInfoViewModel.PlayerExperience = playerCharacter.Experience;
             PlayerInfoViewModel.PlayerMoney = playerCharacter.Walet.CurrentCapacity;
-            if(e.ActionResult.ForAction.ActionType==ActionType.AcceptQuit 
+            if(e.ActionResult.ForAction.Name.UniqueId=="AcceptQuit" 
                 || e.ActionResult.ResultType==ActionResultType.Win)
             {
                 StoryVisible = Visibility.Visible;
@@ -233,7 +236,7 @@ namespace GetTheMilk.UI.ViewModels
         {
                 if (e.GameAction.FinishTheInteractionOnExecution)
                 {
-                    if (e.GameAction is TwoCharactersAction)
+                    if (e.GameAction.Category == CategorysCatalog.TwoCharactersCategory)
                         StoryVisible = Visibility.Hidden;
                     else
                         StoryVisible = Visibility.Visible;
@@ -245,41 +248,42 @@ namespace GetTheMilk.UI.ViewModels
 
         void ActionPanelViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
         {
-            if (e.GameAction is MovementAction)
+            if (e.GameAction is MovementActionTemplate)
             {
-                ((MovementAction) e.GameAction).CurrentMap = _game.CurrentLevel.CurrentMap;
-                Story += RecordMovementResult(e.GameAction.Perform());
+                ((MovementActionTemplate) e.GameAction).CurrentMap = _game.CurrentLevel.CurrentMap;
+                Story += RecordMovementResult(_game.Player.PerformAction(e.GameAction));
             }
             else if(e.GameAction==null)
             {
                 StoryVisible = Visibility.Visible;
                 InventoryVisible = Visibility.Hidden;
             }
-            else if (e.GameAction is ExposeInventory)
+            else if (e.GameAction is ExposeInventoryActionTemplate)
             {
 
-                var actionResult = e.GameAction.Perform();
+                var actionResult = e.GameAction.ActiveCharacter.PerformAction(e.GameAction);
                 if (actionResult.ResultType == ActionResultType.Ok)
                 {
                     StoryVisible = Visibility.Hidden;
                     InventoryVisible = Visibility.Visible;
                     TwoCharactersVisible=Visibility.Hidden;
-                    InventoryViewModel = new InventoryViewModel(actionResult.ForAction.ActiveCharacter.Name.Main,actionResult.ExtraData as ExposeInventoryExtraData);
+                    InventoryViewModel = new InventoryViewModel(actionResult.ForAction.ActiveCharacter.Name.Main,actionResult.ExtraData as InventoryExtraData);
 
                 }
             }
-            else if (e.GameAction is TwoCharactersAction)
+            else if (e.GameAction is TwoCharactersActionTemplate)
             {
-                if (e.GameAction.FinishTheInteractionOnExecution 
-                    && (e.GameAction.ActionType==ActionType.Communicate 
-                    || e.GameAction.ActionType==ActionType.AcceptQuit)) //the last words
+                if (e.GameAction.FinishTheInteractionOnExecution
+                    && (e.GameAction.PerformerType == typeof(CommunicateActionPerformer) 
+                    || e.GameAction.Name.UniqueId=="AcceptQuit")) //the last words
                 {
                     StoryVisible = Visibility.Visible;
                     InventoryVisible = Visibility.Hidden;
                     TwoCharactersVisible = Visibility.Hidden;
-                    ((TwoCharactersAction)e.GameAction).FeedbackFromSubAction -= GamePlayViewModelFeedbackFromSubAction;
-                    ((TwoCharactersAction)e.GameAction).FeedbackFromSubAction += GamePlayViewModelFeedbackFromSubAction;
-                    var actionResult = e.GameAction.Perform();
+                    var performer = e.GameAction.ActiveCharacter.FindPerformer(e.GameAction.PerformerType);
+                    ((TwoCharactersActionTemplatePerformer)performer).FeedbackFromSubAction -= GamePlayViewModelFeedbackFromSubAction;
+                    ((TwoCharactersActionTemplatePerformer)performer).FeedbackFromSubAction += GamePlayViewModelFeedbackFromSubAction;
+                    var actionResult = e.GameAction.ActiveCharacter.PerformActionWithPerformer(e.GameAction,performer);
                     Story += RecordActionResult(actionResult);
                 }
                 else
@@ -288,13 +292,15 @@ namespace GetTheMilk.UI.ViewModels
                     InventoryVisible = Visibility.Hidden;
                     TwoCharactersVisible = Visibility.Visible;
                     TwoCharactersViewModel = new TwoCharactersViewModel(e.GameAction.ActiveCharacter,e.GameAction.TargetCharacter);
-                    TwoCharactersViewModel.ExecuteAction(e.GameAction as TwoCharactersAction);
+                    
+                    TwoCharactersViewModel.ExecuteAction((TwoCharactersActionTemplate)e.GameAction);
 
                 }
             }
             else
-
-                Story += RecordActionResult(e.GameAction.Perform());
+            {
+                Story += RecordActionResult(e.GameAction.ActiveCharacter.PerformAction(e.GameAction));
+            }
         }
 
         void GamePlayViewModelFeedbackFromSubAction(object sender, FeedbackEventArgs e)
@@ -302,14 +308,13 @@ namespace GetTheMilk.UI.ViewModels
             Story+=RecordActionResult(e.ActionResult);
         }
 
-        private string RecordActionResult(ActionResult actionResult)
+        private string RecordActionResult(PerformActionResult actionResult)
         {
-            if (actionResult.ForAction.ActionType == ActionType.ExposeInventory)
+            if (actionResult.ForAction.Name.UniqueId == "ExposeInventory")
             {
                 ActionPanelViewModelActionExecutionRequest(this,new ActionExecutionRequestEventArgs(actionResult.ForAction));
             }
-            if (actionResult.ForAction is ObjectTransferFromAction 
-                || actionResult.ForAction.ActionType==ActionType.TakeMoneyFrom)
+            if (actionResult.ForAction.Category == CategorysCatalog.ObjectTransferCategory)
             {
                 PlayerInfoViewModel.PlayerMoney = _game.Player.Walet.CurrentCapacity;
                 if(InventoryVisible==Visibility.Visible)
@@ -318,13 +323,16 @@ namespace GetTheMilk.UI.ViewModels
                 }
             }
             var actionResultToHuL = new ActionResultToHuL();
-            var teleport = new Teleport();
+            var teleport =
+                _game.Player.CreateNewInstanceOfAction<MovementActionTemplate>("Teleport");
+
             teleport.ActiveCharacter = _game.Player;
             teleport.CurrentMap = _game.CurrentLevel.CurrentMap;
             teleport.TargetCell = _game.Player.CellNumber;
 
+            
             ActionPanelViewModel.DisplayPossibleActions(
-                ((MovementActionExtraData)teleport.Perform().ExtraData).AvailableActions);
+                ((MovementActionTemplateExtraData)_game.Player.PerformAction(teleport).ExtraData).AvailableActionTemplates);
             return string.Format("\r\n{0}\r\n",
                                  actionResultToHuL.TranslateActionResult(
                                      actionResult));

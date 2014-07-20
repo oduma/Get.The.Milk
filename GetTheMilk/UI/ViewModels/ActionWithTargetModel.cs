@@ -1,13 +1,13 @@
-﻿using GetTheMilk.Actions.BaseActions;
+﻿using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.UI.Translators;
 
 namespace GetTheMilk.UI.ViewModels
 {
     public class ActionWithTargetModel
     {
-        private GameAction _action;
+        private BaseActionTemplate _action;
         private string _displayValue;
-        public GameAction Action
+        public BaseActionTemplate Action
         {
             get { return _action; }
             set
@@ -16,7 +16,7 @@ namespace GetTheMilk.UI.ViewModels
                 if(_action !=null)
                 {
 
-                    _displayValue = ActionToHuL.TranslateAction(_action);
+                    _displayValue = _action.ToString();
                 }
             }
         }

@@ -1,5 +1,5 @@
 ﻿using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 
@@ -9,14 +9,14 @@ namespace GetTheMilk.Objects
     {
         public string ObjectTypeId { get; set; }
         public ObjectCategory ObjectCategory { get; set; }
-        public virtual bool AllowsAction(GameAction a)
+        public virtual bool AllowsTemplateAction(BaseActionTemplate a)
         {
             return false;
         }
 
-        public virtual bool AllowsIndirectAction(GameAction a, IPositionable o)
+        public virtual bool AllowsIndirectTemplateAction(BaseActionTemplate a, IPositionable o)
         {
-            return ((a is Buy) || (a is Sell) || (a is GiveTo) || (a is TakeFrom)) && (o is ICharacter);
+            return a.Category == CategorysCatalog.ObjectTransferCategory && o is ICharacter;
 
         }
         public ToolActions()

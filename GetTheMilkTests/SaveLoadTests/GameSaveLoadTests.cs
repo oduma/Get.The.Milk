@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using System.IO;
 using GetTheMilk;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionTemplates;
+using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Settings;
 using GetTheMilk.UI.Translators.Common;
 using GetTheMilk.UI.Translators.MovementResultTemplates;
@@ -45,11 +48,11 @@ namespace GetTheMilkTests.SaveLoadTests
             game.Player.CellNumber = 0;
             game.Player.EnterLevel(game.CurrentLevel);
             game.Player.SetPlayerName("my own name");
-            Walk walk = new Walk();
+            var walk = new MovementActionTemplate { Name = new Verb { PerformerId = "Walk" } };
             walk.Direction = Direction.South;
             walk.ActiveCharacter = game.Player;
             walk.CurrentMap = game.CurrentLevel.CurrentMap;
-            walk.Perform();
+            game.Player.PerformAction(walk);
             game.Save("gamesavedtest.gsu");
             Assert.True(File.Exists(@"Saved\gamesavedtest.gsu"));
 

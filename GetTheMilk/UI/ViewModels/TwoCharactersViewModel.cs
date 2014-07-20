@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using GetTheMilk.Actions;
+using System.Linq;
+using GetTheMilk.Actions.ActionPerformers;
+using GetTheMilk.Actions.ActionPerformers.Base;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.UI.Translators;
@@ -17,13 +20,13 @@ namespace GetTheMilk.UI.ViewModels
 
         public event EventHandler<FeedbackEventArgs> FeedbackFromSubAction;
 
-        private TwoCharactersAction _action;
+        private ITwoCharactersActionTemplatePerformer _action;
         private int _passiveHealth;
         private ObservableCollection<ActionWithTargetModel> _actions;
         private ObservableCollection<Dialogue> _dialogues;
 
 
-        public TwoCharactersAction Action
+        public ITwoCharactersActionTemplatePerformer Action
         {
             get { return _action; }
             set
@@ -31,16 +34,16 @@ namespace GetTheMilk.UI.ViewModels
                 if (value != _action)
                 {
                     if (_action != null)
-                        _action.FeedbackFromOriginalAction -= ActionFeedbackFromOriginalAction;
+                        ((TwoCharactersActionTemplatePerformer)_action).FeedbackFromOriginalAction -= ActionFeedbackFromOriginalAction;
                     _action = value;
-                    _action.FeedbackFromOriginalAction += ActionFeedbackFromOriginalAction;
+                    ((TwoCharactersActionTemplatePerformer)_action).FeedbackFromOriginalAction += ActionFeedbackFromOriginalAction;
                 }
             }
         }
 
         private void ActionFeedbackFromOriginalAction(object sender, FeedbackEventArgs e)
         {
-            if (e.ActionResult.ForAction.ActionType == ActionType.Communicate && e.ActionResult.ForAction.ActiveCharacter.ObjectTypeId == "Player")
+            if (e.ActionResult.ForAction.PerformerType == typeof(CommunicateActionPerformer) && e.ActionResult.ForAction.ActiveCharacter.ObjectTypeId == "Player")
                 return;
             Dialogues.Add(new Dialogue
                               {
@@ -83,26 +86,22 @@ namespace GetTheMilk.UI.ViewModels
 
         private void PerformActionCommand(ActionWithTargetModel obj)
         {
-            if(obj.Action is TwoCharactersAction)
+                ((TwoCharactersActionTemplatePerformer)Action).FeedbackFromOriginalAction -= ActionFeedbackFromOriginalAction;
+                ((TwoCharactersActionTemplatePerformer)Action).FeedbackFromOriginalAction += ActionFeedbackFromOriginalAction;
+                ((TwoCharactersActionTemplatePerformer)Action).FeedbackFromSubAction -= TwoCharactersViewModel_FeedbackFromSubAction;
+                ((TwoCharactersActionTemplatePerformer)Action).FeedbackFromSubAction += TwoCharactersViewModel_FeedbackFromSubAction;
+                if (obj.Action.PerformerType == typeof(CommunicateActionPerformer))
             {
-                ((TwoCharactersAction) obj.Action).FeedbackFromOriginalAction -= ActionFeedbackFromOriginalAction;
-                ((TwoCharactersAction)obj.Action).FeedbackFromOriginalAction += ActionFeedbackFromOriginalAction;
-                ((TwoCharactersAction)obj.Action).FeedbackFromSubAction -= TwoCharactersViewModel_FeedbackFromSubAction;
-                ((TwoCharactersAction)obj.Action).FeedbackFromSubAction += TwoCharactersViewModel_FeedbackFromSubAction;
-
+                Dialogues.Add(new Dialogue { Who = obj.Action.ActiveCharacter.Name.Narrator, What = ((TwoCharactersActionTemplate)obj.Action).Message });
             }
-            if (obj.Action.ActionType == ActionType.Communicate)
-            {
-                Dialogues.Add(new Dialogue { Who = obj.Action.ActiveCharacter.Name.Narrator, What = ((Communicate)obj.Action).Message });
-            }
-            if (obj.Action.FinishTheInteractionOnExecution || obj.Action.ActionType == ActionType.ExposeInventory)
+            if (obj.Action.FinishTheInteractionOnExecution || obj.Action.Name.UniqueId == "ExposeInventory")
             {
                 if(ActionExecutionRequest!=null)
                     ActionExecutionRequest(this,new ActionExecutionRequestEventArgs(obj.Action));
             }
             else
             {
-                RecordActionResult(obj.Action.Perform());
+                RecordActionResult(obj.Action.ActiveCharacter.PerformAction(obj.Action));
             }
 
         }
@@ -113,17 +112,17 @@ namespace GetTheMilk.UI.ViewModels
                 FeedbackFromSubAction(this, e);
         }
 
-        private void RecordActionResult(ActionResult actionResult)
+        private void RecordActionResult(PerformActionResult actionResult)
         {
-            if (actionResult.ForAction.ActionType == ActionType.Communicate)
+            if (actionResult.ForAction.PerformerType == typeof(CommunicateActionPerformer))
             {
                 Dialogues.Add(new Dialogue
                               {
                                   Who = actionResult.ForAction.ActiveCharacter.Name.Main,
-                                  What = ((Communicate) actionResult.ForAction).Message
+                                  What = ((TwoCharactersActionTemplate) actionResult.ForAction).Message
                               });
             }
-            if (actionResult.ForAction.ActionType == ActionType.InitiateHostilities)
+            if (actionResult.ForAction.Name.UniqueId == "InitiateHostilities")
             {
                 Dialogues.Add(new Dialogue
                               {
@@ -131,7 +130,7 @@ namespace GetTheMilk.UI.ViewModels
                                   What = GetOpponentActiveWeapons(actionResult.ForAction.ActiveCharacter)
                               });
             }
-            if(actionResult.ForAction.ActionType==ActionType.Attack)
+            if (actionResult.ForAction.PerformerType == typeof(AttackActionPerformer))
             {
                 if(actionResult.ResultType==ActionResultType.Win || actionResult.ResultType== ActionResultType.Lost)
                 {
@@ -154,12 +153,12 @@ namespace GetTheMilk.UI.ViewModels
                 }
 
             }
-            if (actionResult.ForAction.ActionType == ActionType.ExposeInventory)
+            if (actionResult.ForAction.Name.UniqueId == "ExposeInventory")
             {
                 if (ActionExecutionRequest != null)
                     ActionExecutionRequest(this, new ActionExecutionRequestEventArgs(actionResult.ForAction));
             }
-            else if(actionResult.ForAction.ActionType==ActionType.AcceptQuit)
+            else if(actionResult.ForAction.Name.UniqueId=="AcceptQuit")
             {
                 if (PlayerStatsUpdateRequest != null)
                     PlayerStatsUpdateRequest(this,
@@ -169,7 +168,7 @@ namespace GetTheMilk.UI.ViewModels
             {
             
             Actions = new ObservableCollection<ActionWithTargetModel>();
-            foreach (var availableAction in (List<GameAction>) actionResult.ExtraData)
+            foreach (var availableAction in (List<BaseActionTemplate>) actionResult.ExtraData)
             {
                 Actions.Add(new ActionWithTargetModel {Action = availableAction});
             }
@@ -215,10 +214,10 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
-        public void ExecuteAction(TwoCharactersAction twoCharactersAction)
+        public void ExecuteAction(TwoCharactersActionTemplate twoCharactersAction)
         {
-            Action = twoCharactersAction;
-            RecordActionResult(Action.Perform());
+            Action = twoCharactersAction.ActiveCharacter.FindPerformer(twoCharactersAction.PerformerType) as ITwoCharactersActionTemplatePerformer;
+            RecordActionResult(Action.Perform(twoCharactersAction));
         }
     }
 }

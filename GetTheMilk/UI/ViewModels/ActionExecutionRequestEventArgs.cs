@@ -1,12 +1,12 @@
 ﻿using System;
-using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Actions.ActionTemplates;
 
 namespace GetTheMilk.UI.ViewModels
 {
     public class ActionExecutionRequestEventArgs:EventArgs
     {
-        public GameAction GameAction { get; private set; }
-        public ActionExecutionRequestEventArgs(GameAction action)
+        public BaseActionTemplate GameAction { get; private set; }
+        public ActionExecutionRequestEventArgs(BaseActionTemplate action)
         {
             GameAction = action;
         }

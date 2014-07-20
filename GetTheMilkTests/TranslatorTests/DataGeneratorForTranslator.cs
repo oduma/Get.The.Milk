@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Linq;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionPerformers;
+using GetTheMilk.Actions.ActionPerformers.Base;
+using GetTheMilk.Actions.ActionTemplates;
+using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Factories;
@@ -24,13 +28,13 @@ namespace GetTheMilkTests.TranslatorTests
                 var factory = ObjectActionsFactory.GetFactory();
 
                 var objAction = factory.CreateObjectAction("Player");
-                active.AllowsAction = objAction.AllowsAction;
-                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                active.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                active.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
 
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new Communicate { ActiveCharacter = active, TargetCharacter = Level.Characters.First(), Message = "Yes, of course" } }).Returns("As John the Shop Keeper left you heard You saying 'Yes, of course'.");
+                        new PerformActionResult { ResultType = ActionResultType.Ok, ForAction = new TwoCharactersActionTemplate { ActiveCharacter = active, TargetCharacter = Level.Characters.First(), Message = "Yes, of course" } }).Returns("As John the Shop Keeper left you heard You saying 'Yes, of course'.");
             }
         }
 
@@ -42,21 +46,21 @@ namespace GetTheMilkTests.TranslatorTests
                 var factory = ObjectActionsFactory.GetFactory();
 
                 var objAction = factory.CreateObjectAction("Player");
-                active.AllowsAction = objAction.AllowsAction;
-                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                active.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                active.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
 
                 yield return
                     new TestCaseData(
-                        new ActionResult
-                            {ResultType = ActionResultType.Ok, ForAction = new Walk {Direction = Direction.South,ActiveCharacter=active}}).Returns("You walked South.");
+                        new PerformActionResult
+                            {ResultType = ActionResultType.Ok, ForAction = new MovementActionTemplate{Name= new Verb{PerformerId="Walk"}, Direction = Direction.South,ActiveCharacter=active}}).Returns("You walked South.");
 
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new Run { Direction = Direction.West,ActiveCharacter=active } }).Returns("You ran West.");
+                        new PerformActionResult { ResultType = ActionResultType.Ok, ForAction =  new MovementActionTemplate{Name= new Verb{PerformerId="Run"}, Direction = Direction.West,ActiveCharacter=active } }).Returns("You ran West.");
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new EnterLevel { LevelNo=1,CurrentMap=new Map{Parent=new Level{Number=1}},ActiveCharacter=active } }).Returns("You entered level 1.");
+                        new PerformActionResult { ResultType = ActionResultType.Ok, ForAction = new MovementActionTemplate { Name=new Verb{PerformerId="EnterLevel"},CurrentMap=new Map{Parent=new Level{Number=1}},ActiveCharacter=active } }).Returns("You entered level 1.");
 
             }
         }
@@ -69,19 +73,18 @@ namespace GetTheMilkTests.TranslatorTests
                 var factory = ObjectActionsFactory.GetFactory();
 
                 var objAction = factory.CreateObjectAction("Player");
-                active.AllowsAction = objAction.AllowsAction;
-                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                active.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                active.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
                 Level.Player = null;
                 active.EnterLevel(Level);
                 active.CellNumber = 20;
 
                 yield return
                     new TestCaseData(
-                        new ActionResult
+                        new PerformActionResult
                         {
                             ResultType = ActionResultType.OriginNotOnTheMap,
-                            ForAction = new Walk
-                                        {
+                            ForAction = new MovementActionTemplate{Name= new Verb{PerformerId="Walk"},
                                             Direction = Direction.North,
                                             ActiveCharacter =
                                                 active
@@ -90,10 +93,10 @@ namespace GetTheMilkTests.TranslatorTests
 
                 yield return
                     new TestCaseData(
-                        new ActionResult
+                        new PerformActionResult
                         {
                             ResultType = ActionResultType.OriginNotOnTheMap,
-                            ForAction = new Run {Direction = Direction.West,ActiveCharacter=active}
+                            ForAction = new MovementActionTemplate { Name=new Verb{PerformerId="Run"}, Direction = Direction.West, ActiveCharacter = active }
                             }
         ).Returns("Error You cannot run.");
 
@@ -107,17 +110,17 @@ namespace GetTheMilkTests.TranslatorTests
                 var factory = ObjectActionsFactory.GetFactory();
 
                 var objAction = factory.CreateObjectAction("Player");
-                active.AllowsAction = objAction.AllowsAction;
-                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                active.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                active.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
 
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.OutOfTheMap, ForAction = new Walk { Direction = Direction.South, ActiveCharacter=active} }).Returns("You tried to walk South but the world has limits.");
+                        new PerformActionResult { ResultType = ActionResultType.OutOfTheMap, ForAction = new MovementActionTemplate{Name= new Verb{PerformerId="Walk"},  Direction = Direction.South, ActiveCharacter=active} }).Returns("You tried to walk South but the world has limits.");
 
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.OutOfTheMap, ForAction = new Run { Direction = Direction.West,ActiveCharacter=active } }).Returns("You tried to run West but the world has limits.");
+                        new PerformActionResult { ResultType = ActionResultType.OutOfTheMap, ForAction = new MovementActionTemplate { Name= new Verb{PerformerId="Run"}, Direction = Direction.West, ActiveCharacter = active } }).Returns("You tried to run West but the world has limits.");
 
             }
         }
@@ -130,18 +133,18 @@ namespace GetTheMilkTests.TranslatorTests
                 var factory = ObjectActionsFactory.GetFactory();
 
                 var objAction = factory.CreateObjectAction("Player");
-                active.AllowsAction = objAction.AllowsAction;
-                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                active.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                active.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
 
                 yield return
                     new TestCaseData(
-                        new ActionResult
+                        new PerformActionResult
                             {
                                 ResultType = ActionResultType.Blocked,
-                                ForAction = new Walk {Direction = Direction.South,ActiveCharacter=active},
+                                ForAction = new MovementActionTemplate{Name= new Verb{PerformerId="Walk"}, Direction = Direction.South,ActiveCharacter=active},
                                 ExtraData =
-                                    new MovementActionExtraData
+                                    new MovementActionTemplateExtraData
                                         {
                                             ObjectsBlocking =Level.Inventory
                                         }
@@ -149,21 +152,21 @@ namespace GetTheMilkTests.TranslatorTests
 
                 yield return
                     new TestCaseData(
-                        new ActionResult
+                        new PerformActionResult
                         {
                             ResultType = ActionResultType.Blocked,
-                            ForAction = new Run { Direction = Direction.West,ActiveCharacter=active },
+                            ForAction = new MovementActionTemplate { Name= new Verb{PerformerId="Run"}, Direction = Direction.West, ActiveCharacter = active },
                             ExtraData =
-                                new MovementActionExtraData
+                                new MovementActionTemplateExtraData
                                 {
                                     ObjectsBlocking = Level.Inventory
                                 }
                         }).Returns("You tried to run West but the Red Key, red door, wall and wall are on the way.");
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.Blocked, ForAction = new EnterLevel { LevelNo = 2 ,ActiveCharacter=active,CurrentMap=Level.CurrentMap,TargetCell=Level.StartingCell},
+                        new PerformActionResult { ResultType = ActionResultType.Blocked, ForAction = new MovementActionTemplate{ Name=new Verb{PerformerId="Ehterlevel"},ActiveCharacter=active,CurrentMap=Level.CurrentMap,TargetCell=Level.StartingCell},
                             ExtraData =
-                                new MovementActionExtraData
+                                new MovementActionTemplateExtraData
                                 {
                                     ObjectsBlocking = Level.Inventory
                                 } }).Returns("You tried to enter level 0 but is impossible, blocked by the Red Key, red door, wall and wall.");
@@ -179,18 +182,18 @@ namespace GetTheMilkTests.TranslatorTests
                 var factory = ObjectActionsFactory.GetFactory();
 
                 var objAction = factory.CreateObjectAction("Player");
-                active.AllowsAction = objAction.AllowsAction;
-                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                active.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                active.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
 
                 yield return
                     new TestCaseData(
-                        new ActionResult
+                        new PerformActionResult
                         {
                             ResultType = ActionResultType.Blocked,
-                            ForAction = new Walk { Direction = Direction.South ,ActiveCharacter=active},
+                            ForAction = new MovementActionTemplate{Name= new Verb{PerformerId="Walk"},  Direction = Direction.South ,ActiveCharacter=active},
                             ExtraData =
-                                new MovementActionExtraData
+                                new MovementActionTemplateExtraData
                                 {
                                     CharactersBlocking = Level.Characters
                                 }
@@ -199,24 +202,24 @@ namespace GetTheMilkTests.TranslatorTests
 
                 yield return
                     new TestCaseData(
-                        new ActionResult
+                        new PerformActionResult
                         {
                             ResultType = ActionResultType.Blocked,
-                            ForAction = new Run { Direction = Direction.West ,ActiveCharacter=active},
+                            ForAction = new MovementActionTemplate { Name= new Verb{PerformerId="Run"}, Direction = Direction.West, ActiveCharacter = active },
                             ExtraData =
-                                new MovementActionExtraData
+                                new MovementActionTemplateExtraData
                                 {
                                     CharactersBlocking = Level.Characters
                                 }
                         }).Returns("You tried to run West but John the Shop Keeper and the Baddie are on the way.");
                 yield return
                     new TestCaseData(
-                        new ActionResult
+                        new PerformActionResult
                         {
                             ResultType = ActionResultType.Blocked,
-                            ForAction = new EnterLevel { LevelNo = 2,ActiveCharacter=active,CurrentMap=Level.CurrentMap,TargetCell=Level.StartingCell },
+                            ForAction = new MovementActionTemplate{Name=new Verb{PerformerId="EnterLevel"},ActiveCharacter=active,CurrentMap=Level.CurrentMap,TargetCell=Level.StartingCell },
                             ExtraData =
-                                new MovementActionExtraData
+                                new MovementActionTemplateExtraData
                                 {
                                     CharactersBlocking = Level.Characters
                                 }
@@ -231,7 +234,7 @@ namespace GetTheMilkTests.TranslatorTests
             {
                 yield return
                     new TestCaseData(
-                        new ActionResult { ResultType = ActionResultType.Ok, ForAction = new Walk { Direction = Direction.South } }).Returns(GameSettings.GetInstance().TranslatorErrorMessage);
+                        new PerformActionResult { ResultType = ActionResultType.Ok, ForAction = new MovementActionTemplate{Name= new Verb{PerformerId="Walk"},  Direction = Direction.South } }).Returns(GameSettings.GetInstance().TranslatorErrorMessage);
 
             }
         }
@@ -245,17 +248,17 @@ namespace GetTheMilkTests.TranslatorTests
                 var factory = ObjectActionsFactory.GetFactory();
 
                 var objAction = factory.CreateObjectAction("Player");
-                active.AllowsAction = objAction.AllowsAction;
-                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                active.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                active.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
                 Level.Player = null;
                 active.EnterLevel(Level);
 
                 yield return
                     new TestCaseData(
-                        new ActionResult
+                        new PerformActionResult
                         {
                             ExtraData =
-                                new MovementActionExtraData
+                                new MovementActionTemplateExtraData
                                 {
                                     ObjectsInRange = Level.CurrentMap.Cells[1].AllObjects.Union(Level.CurrentMap.Cells[3].AllObjects)
                                 }
@@ -272,14 +275,15 @@ namespace GetTheMilkTests.TranslatorTests
                 var factory = ObjectActionsFactory.GetFactory();
 
                 var objAction = factory.CreateObjectAction("Player");
-                active.AllowsAction = objAction.AllowsAction;
-                active.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                active.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                active.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
 
                 yield return
                     new TestCaseData(
-                        new Keep
+                        new ObjectTransferActionTemplate
                         {
+                            Name= new Verb{PerformerId="Keep"},
                             TargetObject =
                                 Level.Inventory.FirstOrDefault(o => o.ObjectCategory == ObjectCategory.Tool),
                             ActiveCharacter = active
@@ -287,36 +291,44 @@ namespace GetTheMilkTests.TranslatorTests
                         ).Returns("keep the Red Key");
                 yield return
                     new TestCaseData(
-                        new Kick
+                        new ObjectTransferActionTemplate
                         {
+                            Name=new Verb{PerformerId="Kick"},
                             TargetObject =
                                 Level.Inventory.FirstOrDefault(o => o.ObjectCategory == ObjectCategory.Tool),
                             ActiveCharacter = active
                         }).Returns("kick the Red Key");
                 yield return
                     new TestCaseData(
-                        new Meet
+                        new TwoCharactersActionTemplate
                         {
+                            Name=new Verb{PerformerId="Meet"},
                             TargetCharacter =
                                 Level.Characters.FirstOrDefault(),
                             ActiveCharacter = active
                         }).Returns("meet John the Shop Keeper");
                 yield return
                     new TestCaseData(
-                        new InitiateHostilities
+                        new TwoCharactersActionTemplate
                         {
+                            Name=new Verb{PerformerId="InitiateHostilities"},
                             TargetCharacter =
                                 Level.Characters.FirstOrDefault(),
                             ActiveCharacter = active
                         }).Returns("initiate hostilities John the Shop Keeper");
                 yield return
                     new TestCaseData(
-                        new Open
+                        new ObjectUseOnObjectActionTemplate
                         {
+                            Name = new Verb { PerformerId = "Open" },
+                            DestroyActiveObject = true,
+                            DestroyTargetObject = true,
+                            ChanceOfSuccess = ChanceOfSuccess.Full,
+                            PercentOfHealthFailurePenalty = 0,
                             TargetObject =
                                 Level.Inventory.FirstOrDefault(o => o.ObjectCategory != ObjectCategory.Tool),
                             ActiveObject = Level.Inventory.FirstOrDefault(o => o.ObjectCategory == ObjectCategory.Tool),
-                            ActiveCharacter=active
+                            ActiveCharacter = active
                         }).Returns("open wall using the Red Key");
 
 

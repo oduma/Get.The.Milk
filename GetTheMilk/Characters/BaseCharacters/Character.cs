@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Castle.Core.Internal;
-using GetTheMilk.Accounts;
-using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Actions.Fight;
 using GetTheMilk.Actions.Interactions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects;
@@ -15,51 +14,62 @@ using Newtonsoft.Json;
 
 namespace GetTheMilk.Characters.BaseCharacters
 {
-    public class Character : ICharacter
+    public class Character : ActionEnabledCharacter,ICharacter
     {
-        private SortedList<string, ActionReaction[]> _interactionRules;
         private Inventory _inventory;
         private Walet _walet;
+        private Weapon _noWeapon;
+
 
         public Character()
         {
-            InteractionRules=new SortedList<string, ActionReaction[]>();
+            foreach(var action in GameSettings.GetInstance().AllCharactersActions)
+                AddAvailableAction(action);
+            Interactions=new SortedList<string, Interaction[]>();
+            LoadInteractionsForAll();
+            ActionsForExposedContents.Add(ContentActionsKeys.NPCFriendly, GameSettings.GetInstance().FriendlyContentActions);
+            ActionsForExposedContents.Add(ContentActionsKeys.NPCFoe, GameSettings.GetInstance().FoeContentActions);
         }
 
-        public static T Load<T>(CharacterSavedPackages  characterPackages) where T:Character
+        public static T Load<T>(ContainerWithActionsPackage  characterPackages) where T:Character
         {
-            var character= JsonConvert.DeserializeObject<T>(characterPackages.CharacterCore, new CharacterJsonConverter());
-            character.Inventory = Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(characterPackages.CharacterInventory,
-                                                                           new NonChracterObjectConverter()));
-            character.Inventory.LinkObjectsToInventory();
-            character.InteractionRules =
-                JsonConvert.DeserializeObject<SortedList<string, ActionReaction[]>>(
-                    characterPackages.CharacterInteractionRules, new ActionJsonConverter());
-
-            if (character.InteractionRules.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
+            var character= JsonConvert.DeserializeObject<T>(characterPackages.Core, new CharacterJsonConverter());
+            
+            var actionTemplates=
+                JsonConvert.DeserializeObject<List<BaseActionTemplate>>(characterPackages.ActionTemplates,
+                                                                        new ActionTemplateJsonConverter());
+            foreach(var actionTemplate in actionTemplates)
             {
-                character.InteractionRules[GenericInteractionRulesKeys.CharacterSpecific].ForEach(ar =>
-                {
-                    ar.Reaction
-                        .ActiveCharacter =
-                        character;
-                    ar.Action
-                        .TargetCharacter =
-                        character;
-                });
+                character.AddAvailableAction(actionTemplate);
             }
-            if (character.InteractionRules.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
+            character.Interactions = JsonConvert.DeserializeObject<SortedList<string, Interaction[]>>(
+                characterPackages.Interactions, new ActionTemplateJsonConverter());
+            character.Inventory = Inventory.Load(JsonConvert.DeserializeObject<CollectionPackage>(characterPackages.PackagedInventory));
+            character.Inventory.LinkObjectsToInventory();
+            if (character.Interactions.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
             {
-                character.InteractionRules[GenericInteractionRulesKeys.PlayerResponses].ForEach(ar =>
+                foreach (var interaction in character.Interactions[GenericInteractionRulesKeys.CharacterSpecific])
                 {
-                    ar.Action
+                    interaction.Reaction
                         .ActiveCharacter =
                         character;
-                    ar.Reaction
+                    interaction.Action
                         .TargetCharacter =
                         character;
-                });
-                
+                }
+            }
+            if (character.Interactions.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
+            {
+                foreach (var interaction in character.Interactions[GenericInteractionRulesKeys.PlayerResponses])
+                {
+                    interaction.Action
+                        .ActiveCharacter =
+                        character;
+                    interaction.Reaction
+                        .TargetCharacter =
+                        character;
+                }
+
             }
             return character;
         }
@@ -90,31 +100,8 @@ namespace GetTheMilk.Characters.BaseCharacters
             }
         }
 
-        public SortedList<string, ActionReaction[]> InteractionRules
-        {
-            get { return _interactionRules; }
-            set
-            {
-                _interactionRules = value;
-                if(!_interactionRules.ContainsKey(GenericInteractionRulesKeys.All))
-                {
-                    _interactionRules.Add(GenericInteractionRulesKeys.All,
-                                          new ActionReaction[]
-                                              {
-                                                  new ActionReaction
-                                                      {
-                                                          Action = new Attack(),
-                                                          Reaction = new Attack()
-                                                      },
-                                                  new ActionReaction
-                                                      {
-                                                          Action = new Attack(),
-                                                          Reaction = new Quit()
-                                                      }
-                                              });
-                }
-            }
-        }
+        [JsonIgnore]
+        public Func<BaseActionTemplate, IPositionable, bool> AllowsIndirectTemplateAction { get; set; }
 
         public int Range { get; set; }
 
@@ -122,51 +109,113 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         public Weapon ActiveAttackWeapon { get; set; }
 
+        protected internal Weapon NoWeapon{get
+        {
+            return _noWeapon = (_noWeapon) ?? new Weapon
+            {
+                Name = new Noun { Main = "Fist", Narrator = "bare fist" },
+                AllowsIndirectTemplateAction =
+                    new WeaponActions().AllowsIndirectTemplateAction,
+                AllowsTemplateAction = new WeaponActions().AllowsTemplateAction,
+                AttackPower = GameSettings.GetInstance().MinimumAttackPower,
+                DefensePower = GameSettings.GetInstance().MinimumDefensePower,
+                Durability = GameSettings.GetInstance().MaximumDurability
+            };
+ 
+        }
+        }
         public Hit PrepareDefenseHit()
         {
-            if (ActiveDefenseWeapon==null || ActiveDefenseWeapon.Durability == 0)
-                return null;
             return new Hit
-                       {
-                           Power =
-                               CalculationStrategies.CalculateDefensePower(
-                                   ActiveDefenseWeapon.DefensePower, Experience),
-                           WithWeapon = ActiveDefenseWeapon
-                       };
+            {
+                WithWeapon = (ActiveDefenseWeapon == null || ActiveDefenseWeapon.Durability == 0) ? NoWeapon : ActiveDefenseWeapon,
+                Power = CalculationStrategies.CalculateAttackPower(
+                    (ActiveDefenseWeapon == null || ActiveDefenseWeapon.Durability == 0) ? NoWeapon.DefensePower : ActiveDefenseWeapon.DefensePower, Experience)
+            };
         }
 
         public Hit PrepareAttackHit()
         {
-            if (ActiveAttackWeapon==null || ActiveAttackWeapon.Durability == 0)
-                return null;
-
             return new Hit
             {
-                WithWeapon = ActiveAttackWeapon,
+                WithWeapon = (ActiveAttackWeapon==null || ActiveAttackWeapon.Durability == 0)?NoWeapon:ActiveAttackWeapon,
                 Power = CalculationStrategies.CalculateAttackPower(
-                    ActiveAttackWeapon.AttackPower, Experience)
+                    (ActiveAttackWeapon==null || ActiveAttackWeapon.Durability == 0)?NoWeapon.AttackPower:ActiveAttackWeapon.AttackPower, Experience)
             };
         }
 
-        public CharacterSavedPackages Save()
+        public ContainerWithActionsPackage Save()
         {
-            return new CharacterSavedPackages
+            return new ContainerWithActionsPackage
                        {
-                           CharacterCore = JsonConvert.SerializeObject(this),
-                           CharacterInteractionRules = JsonConvert.SerializeObject(InteractionRules),
-                           CharacterInventory = JsonConvert.SerializeObject(Inventory.Save())
+                           Core = JsonConvert.SerializeObject(this),
+                           PackagedInventory = JsonConvert.SerializeObject(Inventory.Save()),
+                           ActionTemplates=JsonConvert.SerializeObject(AllActionsExcludeInteractions().Where(IsNonStandardActionTemplate)),
+                           Interactions = JsonConvert.SerializeObject(Interactions)
                        };
         }
+
+
+        protected virtual bool IsNonStandardActionTemplate(KeyValuePair<string,BaseActionTemplate> baseActionTemplate)
+        {
+            return
+                !(GameSettings.GetInstance().AllCharactersActions.Any(
+                    a =>
+                    a.Name.UniqueId==baseActionTemplate.Key));
+        }
+
 
         public Noun Name { get; set; }
         public int CellNumber { get; set; }
         public bool BlockMovement { get; set; }
         public string ObjectTypeId { get; set; }
+
         [JsonIgnore]
-        public Func<GameAction, bool> AllowsAction { get; set; }
-        [JsonIgnore]
-        public Func<GameAction, IPositionable, bool> AllowsIndirectAction { get; set; }
+        public Func<BaseActionTemplate, bool> AllowsTemplateAction { get; set; }
 
         public string CloseUpMessage { get; set; }
+
+        public virtual void LoadInteractions(IActionEnabled objectInRange, string mainName)
+        {
+            if (objectInRange.Interactions!=null
+                && objectInRange.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses))
+            {
+                if(Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses))
+                    Interactions.Remove(GenericInteractionRulesKeys.AnyCharacterResponses);
+                Interactions.Add(GenericInteractionRulesKeys.AnyCharacterResponses,objectInRange.Interactions[
+                                                          GenericInteractionRulesKeys.AnyCharacterResponses]);
+                Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].ForEach(ar =>
+                {
+                    ar.Action.TargetCharacter = this;
+                    ar.Reaction.ActiveCharacter = this;
+                });
+            }
+            if (!Interactions.ContainsKey(mainName)
+                && objectInRange.Interactions != null
+                && objectInRange.Interactions.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
+            {
+                Interactions.Add(mainName, objectInRange.Interactions[
+                                                          GenericInteractionRulesKeys.CharacterSpecific]);
+                Interactions[mainName].ForEach(ar =>
+                {
+                    ar.Action.TargetCharacter = this;
+                    ar.Reaction.ActiveCharacter = this;
+                });
+            }
+            if (!Interactions.ContainsKey(mainName)
+                && objectInRange.Interactions != null
+                && objectInRange.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacter))
+            {
+                Interactions.Add(mainName,objectInRange.Interactions[
+                                                          GenericInteractionRulesKeys.AnyCharacter]);
+                Interactions[mainName].ForEach(ar =>
+                {
+                    AddAvailableAction(ar.Action);
+                    ar.Action.ActiveCharacter = this;
+                    if(ar.Reaction!=null)
+                        ar.Reaction.ActiveCharacter = this;
+                });
+            }
+        }
     }
 }

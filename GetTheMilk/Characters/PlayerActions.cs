@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GetTheMilk.Actions.BaseActions;
+﻿using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.UI.Translators.Common;
 
 namespace GetTheMilk.Characters
 {
@@ -14,12 +9,16 @@ namespace GetTheMilk.Characters
         public string ObjectTypeId { get; set; }
         public ObjectCategory ObjectCategory { get; set; }
 
-        public bool AllowsAction(GameAction a)
+        public bool AllowsTemplateAction(BaseActionTemplate a)
         {
+            if (((a.Category == CategorysCatalog.ExposeInventoryCategory) && ((ExposeInventoryActionTemplate)a).SelfInventory == false))
+            {
+                return false;
+            }
             return true;
         }
 
-        public bool AllowsIndirectAction(GameAction a, IPositionable o)
+        public bool AllowsIndirectTemplateAction(BaseActionTemplate a, IPositionable o)
         {
             return true;
         }

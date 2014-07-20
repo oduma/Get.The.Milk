@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using GetTheMilk.Accounts;
-using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Actions.Interactions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
@@ -30,7 +28,7 @@ namespace GetTheMilkTests.SaveLoadTests
             };
 
             var result = JsonConvert.SerializeObject(mockInventory.Save());
-            Inventory actual = Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(result));
+            Inventory actual = Inventory.Load(JsonConvert.DeserializeObject<CollectionPackage>(result));
             actual.LinkObjectsToInventory();
             Assert.AreEqual(mockInventory.InventoryType,actual.InventoryType);
             Assert.AreEqual(mockInventory.MaximumCapacity, actual.MaximumCapacity);
@@ -52,7 +50,7 @@ namespace GetTheMilkTests.SaveLoadTests
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
-                AllowsAction = (a) => false
+                AllowsTemplateAction = (a) => false
             };
             mockInventory.Add(decorum);
 
@@ -64,11 +62,11 @@ namespace GetTheMilkTests.SaveLoadTests
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
-                AllowsAction = (a) => false
+                AllowsTemplateAction = (a) => false
             };
             mockInventory.Add(decorum);
             var result = JsonConvert.SerializeObject(mockInventory.Save());
-            Inventory actual = Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(result,new NonChracterObjectConverter()));
+            Inventory actual = Inventory.Load(JsonConvert.DeserializeObject<CollectionPackage>(result,new NonChracterObjectConverter()));
             actual.LinkObjectsToInventory();
             Assert.AreEqual(mockInventory.InventoryType, actual.InventoryType);
             Assert.AreEqual(mockInventory.MaximumCapacity, actual.MaximumCapacity);
@@ -96,7 +94,7 @@ namespace GetTheMilkTests.SaveLoadTests
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
-                AllowsAction = (a) => false,
+                AllowsTemplateAction = (a) => false,
                 BuyPrice=100,
                 SellPrice=50
             };
@@ -110,13 +108,13 @@ namespace GetTheMilkTests.SaveLoadTests
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
-                AllowsAction = (a) => false,
+                AllowsTemplateAction = (a) => false,
                 BuyPrice=200,
                 SellPrice=100
             };
             mockInventory.Add(decorum);
             var result = JsonConvert.SerializeObject(mockInventory.Save());
-            Inventory actual = Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(result, new NonChracterObjectConverter()));
+            Inventory actual = Inventory.Load(JsonConvert.DeserializeObject<CollectionPackage>(result, new NonChracterObjectConverter()));
             actual.LinkObjectsToInventory();
             Assert.AreEqual(mockInventory.InventoryType, actual.InventoryType);
             Assert.AreEqual(mockInventory.MaximumCapacity, actual.MaximumCapacity);
@@ -148,7 +146,7 @@ namespace GetTheMilkTests.SaveLoadTests
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
-                AllowsAction = (a) => false,
+                AllowsTemplateAction = (a) => false,
                 BuyPrice = 100,
                 SellPrice = 50
             };
@@ -162,7 +160,7 @@ namespace GetTheMilkTests.SaveLoadTests
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
-                AllowsAction = (a) => false,
+                AllowsTemplateAction = (a) => false,
                 BuyPrice = 200,
                 SellPrice = 100,
                 Durability=100,
@@ -178,13 +176,13 @@ namespace GetTheMilkTests.SaveLoadTests
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
-                AllowsAction = (a) => false
+                AllowsTemplateAction = (a) => false
             };
             mockInventory.Add(tdecorum);
 
 
             var result = JsonConvert.SerializeObject(mockInventory.Save());
-            Inventory actual = Inventory.Load(JsonConvert.DeserializeObject<InventoryPackages>(result, new NonChracterObjectConverter()));
+            Inventory actual = Inventory.Load(JsonConvert.DeserializeObject<CollectionPackage>(result, new NonChracterObjectConverter()));
             actual.LinkObjectsToInventory();
             Assert.AreEqual(mockInventory.InventoryType, actual.InventoryType);
             Assert.AreEqual(mockInventory.MaximumCapacity, actual.MaximumCapacity);
@@ -204,59 +202,60 @@ namespace GetTheMilkTests.SaveLoadTests
         [Test]
         public void SerializeACharacter()
         {
-            SortedList<string, ActionReaction[]> skInteractionRules=new SortedList<string, ActionReaction[]>();
+            SortedList<string, Interaction[]> skInteractionRules=new SortedList<string, Interaction[]>();
             skInteractionRules.Add(GenericInteractionRulesKeys.CharacterSpecific,
-                                   new ActionReaction[]
+                                   new Interaction[]
                                        {
-                                           new ActionReaction
+                                           new Interaction
                                                {
-                                                   Action = new Meet(),
+                                                   Action = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="Meet"}},
                                                    Reaction =
-                                                       new Communicate
+                                                       new TwoCharactersActionTemplate
                                                            {
-                                                               Message =
+
+                                                               Name= new Verb{PerformerId="Talk"}, Message =
                                                                    "How are you? Beautifull day out there better buy something!"
                                                            }
                                                },
-                                           new ActionReaction
+                                           new Interaction
                                                {
-                                                   Action = new Communicate {Message = "Yes"},
+                                                   Action = new TwoCharactersActionTemplate {Name= new Verb{PerformerId="Talk"}, Message = "Yes"},
                                                    Reaction =
-                                                       new ExposeInventory
-                                                           {FinishActionType = ActionType.CloseInventory}
+                                                       new ExposeInventoryActionTemplate
+                                                           {FinishActionType = "CloseInventory"}
                                                },
-                                           new ActionReaction
+                                           new Interaction
                                                {
-                                                   Action = new Communicate {Message = "No"},
+                                                   Action = new TwoCharactersActionTemplate {Name= new Verb{PerformerId="Talk"}, Message = "No"},
                                                    Reaction =
-                                                       new Communicate
-                                                           {Message = "Why oh Why!?"}
+                                                       new TwoCharactersActionTemplate
+                                                           {Name= new Verb{PerformerId="Talk"}, Message = "Why oh Why!?"}
                                                }
                                        });
             skInteractionRules.Add(GenericInteractionRulesKeys.PlayerResponses,
-                                   new ActionReaction[]
+                                   new Interaction[]
                                        {
-                                           new ActionReaction
+                                           new Interaction
                                                {
                                                    Action =
-                                                       new Communicate
+                                                       new TwoCharactersActionTemplate
                                                            {
-                                                               Message =
+                                                               Name= new Verb{PerformerId="Talk"}, Message =
                                                                    "How are you? Beautifull day out there better buy something!"
                                                            },
                                                    Reaction =
-                                                       new Communicate {Message = "Yes"}
+                                                       new TwoCharactersActionTemplate {Name= new Verb{PerformerId="Talk"}, Message = "Yes"}
                                                },
-                                           new ActionReaction
+                                           new Interaction
                                                {
                                                    Action =
-                                                       new Communicate
+                                                       new TwoCharactersActionTemplate
                                                            {
-                                                               Message =
+                                                               Name= new Verb{PerformerId="Talk"}, Message =
                                                                    "How are you? Beautifull day out there better buy something!"
                                                            },
                                                    Reaction =
-                                                       new Communicate {Message = "No"}
+                                                       new TwoCharactersActionTemplate {Name= new Verb{PerformerId="Talk"}, Message = "No"}
                                                }
 
                                        });
@@ -270,7 +269,7 @@ namespace GetTheMilkTests.SaveLoadTests
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
-                AllowsAction = (a) => false,
+                AllowsTemplateAction = (a) => false,
                 BuyPrice = 200,
                 SellPrice = 100,
                 Durability = 100,
@@ -286,7 +285,7 @@ namespace GetTheMilkTests.SaveLoadTests
                 CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
-                AllowsAction = (a) => false,
+                AllowsTemplateAction = (a) => false,
                 BuyPrice = 100,
                 SellPrice = 50
             };
@@ -318,7 +317,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                             Inventory = skInventory,
                                             Name = new Noun {Main = "John the Shop Keeper", Narrator = "John the Shop Keeper"},
                                             ObjectTypeId = "NPCFriendly",
-                                            InteractionRules=skInteractionRules,
+                                            Interactions=skInteractionRules,
                                             Range = 1,
                                             Walet = skWalet
                                            
@@ -327,14 +326,14 @@ namespace GetTheMilkTests.SaveLoadTests
             var characterCore = skCharacter.Save();
             var actual = Character.Load<Character>(characterCore);
             Assert.IsNotNull(actual);
-            Assert.AreEqual(skCharacter.InteractionRules.Count, actual.InteractionRules.Count);
-            Assert.AreEqual(skCharacter.InteractionRules[GenericInteractionRulesKeys.All].Count(),
-                            actual.InteractionRules[GenericInteractionRulesKeys.All].Count());
+            Assert.AreEqual(skCharacter.Interactions.Count, actual.Interactions.Count);
+            Assert.AreEqual(skCharacter.Interactions[GenericInteractionRulesKeys.All].Count(),
+                            actual.Interactions[GenericInteractionRulesKeys.All].Count());
             Assert.AreEqual(skCharacter.ActiveAttackWeapon, actual.ActiveAttackWeapon);
             Assert.AreEqual(skCharacter.ActiveDefenseWeapon, actual.ActiveDefenseWeapon);
-            Assert.True(actual.AllowsAction(null));
-            Assert.True(actual.AllowsIndirectAction(new GameAction(), null));
-            Assert.False(actual.AllowsIndirectAction(new Attack(),null ));
+            Assert.True(actual.AllowsTemplateAction(null));
+            Assert.True(actual.AllowsIndirectTemplateAction(new BaseActionTemplate{Name=new Verb{PerformerId="Meet"}}, null));
+            Assert.False(actual.AllowsIndirectTemplateAction(new TwoCharactersActionTemplate{Name=new Verb{PerformerId="Attack"}},null ));
             Assert.AreEqual(skCharacter.BlockMovement, actual.BlockMovement);
             Assert.AreEqual(skCharacter.CellNumber, actual.CellNumber);
             Assert.AreEqual(skCharacter.Experience, actual.Experience);

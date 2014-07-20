@@ -1,11 +1,4 @@
-﻿using System.Linq;
-using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Characters;
-using GetTheMilk.Factories;
-using GetTheMilk.Levels;
-using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.UI.Translators;
+﻿using GetTheMilk.Actions.ActionTemplates;
 using NUnit.Framework;
 
 namespace GetTheMilkTests.TranslatorTests
@@ -14,9 +7,9 @@ namespace GetTheMilkTests.TranslatorTests
     public class ActionTranslatorTests
     {
         [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForActionTranslator")]
-        public string ActionToHuLTests(GameAction action)
+        public string ActionToHuLTests(BaseActionTemplate action)
         {
-            return ActionToHuL.TranslateAction(action);
+            return action.ToString();
         }
     }
 }

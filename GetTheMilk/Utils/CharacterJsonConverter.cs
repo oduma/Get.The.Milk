@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Factories;
@@ -23,20 +19,20 @@ namespace GetTheMilk.Utils
                 var item = JObject.Load(reader);
                 var factory = ObjectActionsFactory.GetFactory();
                 var objectTypeId = item["ObjectTypeId"].Value<string>();
-            if(objectTypeId=="Player")
+            if (objectTypeId == "Player")
             {
                 var obj = item.ToObject<Player>();
                 var objAction = factory.CreateObjectAction(objectTypeId);
-                obj.AllowsAction = objAction.AllowsAction;
-                obj.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                obj.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                obj.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
                 return obj;
             }
             else
             {
                 var obj = item.ToObject<Character>();
                 var objAction = factory.CreateObjectAction(objectTypeId);
-                obj.AllowsAction = objAction.AllowsAction;
-                obj.AllowsIndirectAction = objAction.AllowsIndirectAction;
+                obj.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                obj.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
                 return obj;                
             }
         }

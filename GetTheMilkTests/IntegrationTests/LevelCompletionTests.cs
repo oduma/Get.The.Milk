@@ -1,5 +1,8 @@
 ﻿using GetTheMilk;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionTemplates;
+using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Navigation;
 using NUnit.Framework;
 
@@ -15,13 +18,13 @@ namespace GetTheMilkTests.IntegrationTests
 
             game.CurrentLevel.Characters.Remove(game.CurrentLevel.Characters[1]);
 
-            var teleport = new Teleport
+            var teleport = new MovementActionTemplate
                                {
                                    ActiveCharacter = game.Player,
                                    CurrentMap = game.CurrentLevel.CurrentMap,
                                    TargetCell = 8
                                };
-            var result = teleport.Perform();
+            var result = game.Player.PerformAction(teleport);
             Assert.IsNotNull(result);
 
             Assert.AreEqual(ActionResultType.LevelCompleted, result.ResultType);
@@ -40,22 +43,23 @@ namespace GetTheMilkTests.IntegrationTests
 
             game.CurrentLevel.Characters.Remove(game.CurrentLevel.Characters[1]);
 
-            var teleport = new Teleport
+            var teleport = new MovementActionTemplate
             {
                 ActiveCharacter = game.Player,
                 CurrentMap = game.CurrentLevel.CurrentMap,
                 TargetCell = 8
             };
-            teleport.Perform();
+            game.Player.PerformAction(teleport);
             game.ProceedToNextLevel();
 
-            var walk = new Walk
-                           {
-                               ActiveCharacter = game.Player,
-                               CurrentMap = game.CurrentLevel.CurrentMap,
-                               Direction = Direction.South
-                           };
-            Assert.AreEqual(ActionResultType.LevelCompleted,walk.Perform().ResultType);
+            var walk = new MovementActionTemplate
+            {
+                Name = new Verb { PerformerId = "Walk" },
+                ActiveCharacter = game.Player,
+                CurrentMap = game.CurrentLevel.CurrentMap,
+                Direction = Direction.South
+            };
+            Assert.AreEqual(ActionResultType.LevelCompleted,game.Player.PerformAction(walk).ResultType);
             Assert.False(game.ProceedToNextLevel());
             Assert.IsNull(game.CurrentLevel);
 

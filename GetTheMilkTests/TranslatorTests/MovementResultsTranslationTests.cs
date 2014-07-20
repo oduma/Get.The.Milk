@@ -1,4 +1,7 @@
 ﻿using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionPerformers;
+using GetTheMilk.Actions.ActionPerformers.Base;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Levels;
 using GetTheMilk.UI.Translators;
@@ -10,52 +13,52 @@ namespace GetTheMilkTests.TranslatorTests
     public class MovementResultsTranslationTests
     {
         [Test,TestCaseSource(typeof(DataGeneratorForTranslator),"TestCasesForTranslatorMovement")]
-        public string MoveOk(ActionResult actionResult)
+        public string MoveOk(PerformActionResult actionResult)
         {
             ActionResultToHuL actionResultToHuL= new ActionResultToHuL();
             return actionResultToHuL.TranslateMovementResult(actionResult);
         }
 
         [Test,TestCaseSource(typeof(DataGeneratorForTranslator),"TestCasesForTranslatorMovementError")]
-        public string OriginNotOnTheMap(ActionResult actionResult)
+        public string OriginNotOnTheMap(PerformActionResult actionResult)
         {
             ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
             return actionResultToHuL.TranslateMovementResult(actionResult);
         }
 
         [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementOutOfTheWorld")]
-        public string OutOfTheMap(ActionResult actionResult)
+        public string OutOfTheMap(PerformActionResult actionResult)
         {
             ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
             return actionResultToHuL.TranslateMovementResult(actionResult);
         }
 
         [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementBlockedByObjs")]
-        public string BlockedByObjects(ActionResult actionResult)
+        public string BlockedByObjects(PerformActionResult actionResult)
         {
             ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
             return actionResultToHuL.TranslateMovementResult(actionResult);
         }
 
         [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementBlockedByChars")]
-        public string BlockedByCharacters(ActionResult actionResult)
+        public string BlockedByCharacters(PerformActionResult actionResult)
         {
             ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
             return actionResultToHuL.TranslateMovementResult(actionResult);
         }
 
         [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementNoActiveCharacter")]
-        public string NoActiveCharacter(ActionResult actionResult)
+        public string NoActiveCharacter(PerformActionResult actionResult)
         {
             ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
             return actionResultToHuL.TranslateMovementResult(actionResult);
         }
 
         [Test, TestCaseSource(typeof(DataGeneratorForTranslator), "TestCasesForTranslatorMovementExtraData")]
-        public string MovementExtraDataTest(ActionResult actionResult, IPlayer active, Level level)
+        public string MovementExtraDataTest(PerformActionResult actionResult, IPlayer active, Level level)
         {
             ActionResultToHuL actionResultToHuL = new ActionResultToHuL();
-            return actionResultToHuL.TranslateMovementExtraData(actionResult.ExtraData as MovementActionExtraData, active,level);
+            return actionResultToHuL.TranslateMovementExtraData(actionResult.ExtraData as MovementActionTemplateExtraData, active,level);
             
         }
     }

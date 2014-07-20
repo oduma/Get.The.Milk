@@ -65,21 +65,29 @@ namespace GetTheMilk.Objects
             }
         }
 
-        public InventoryPackages Save()
+        public CollectionPackage Save()
         {
-            return new InventoryPackages
+            return new CollectionPackage
                    {
-                       Contents = this,
-                       InventoryType = InventoryType,
-                       MaximumCapacity = MaximumCapacity
+                       Contents = JsonConvert.SerializeObject(this.Select(obj => obj.Save())),
+                       InventoryType = JsonConvert.SerializeObject(InventoryType),
+                       MaximumCapacity = JsonConvert.SerializeObject(MaximumCapacity)
                    };
         }
 
-        public static Inventory Load(InventoryPackages packages)
+        public static Inventory Load(CollectionPackage packages)
         {
-            packages.Contents.MaximumCapacity = packages.MaximumCapacity;
-            packages.Contents.InventoryType = packages.InventoryType;
-            return packages.Contents;
+
+            var result = new Inventory();
+            result.InventoryType = JsonConvert.DeserializeObject<InventoryType>(packages.InventoryType);
+            result.MaximumCapacity = JsonConvert.DeserializeObject<int>(packages.MaximumCapacity);
+            List<BasePackage> objs = JsonConvert.DeserializeObject<List<BasePackage>>(packages.Contents);
+            foreach (var obj in objs)
+            {
+                result.Add(NonCharacterObject.Load<NonCharacterObject>(obj));
+            }
+
+            return result;
         }
     }
 }

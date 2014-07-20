@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using GetTheMilk.Actions.Interactions;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Levels;
@@ -143,7 +144,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             using (TextReader textReader = new StreamReader(ReadWriteStrategies.UncompressedReader(fileName)))
             {
 
-                var levelPackages = JsonConvert.DeserializeObject<LevelPackages>(textReader.ReadToEnd());
+                var levelPackages = JsonConvert.DeserializeObject<ContainerNoActionsPackage>(textReader.ReadToEnd());
                 _level = Level.Create(levelPackages);
             }
             _levelPropertiesViewModel = new LevelPropertiesViewModel(_level);

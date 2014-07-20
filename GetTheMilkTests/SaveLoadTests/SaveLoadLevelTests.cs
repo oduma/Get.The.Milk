@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using GetTheMilk.Accounts;
-using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Actions.Interactions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
@@ -48,62 +46,126 @@ namespace GetTheMilkTests.SaveLoadTests
                                     CloseUpMessage = "In the grass right in front there is a can opener.",
                                     ObjectTypeId = "CanOpener"
                                 });
-            SortedList<string, ActionReaction[]> skInteractionRules = new SortedList<string, ActionReaction[]>();
-            skInteractionRules.Add(GenericInteractionRulesKeys.CharacterSpecific,
-                                   new ActionReaction[]
-                                       {
-                                           new ActionReaction
-                                               {
-                                                   Action = new Meet(),
-                                                   Reaction =
-                                                       new Communicate
-                                                           {
-                                                               Message =
-                                                                   "How are you? Beautifull day out there better buy something!"
-                                                           }
-                                               },
-                                           new ActionReaction
-                                               {
-                                                   Action = new Communicate {Message = "Yes",FinishTheInteractionOnExecution=true},
-                                                   Reaction =
-                                                       new ExposeInventory
-                                                           {FinishActionType = ActionType.CloseInventory}
-                                               },
-                                           new ActionReaction
-                                               {
-                                                   Action = new Communicate {Message = "No",FinishTheInteractionOnExecution=true},
-                                                   Reaction =
-                                                       new Communicate
-                                                           {Message = "Why oh Why!?"}
-                                               }
-                                       });
-            skInteractionRules.Add(GenericInteractionRulesKeys.PlayerResponses,
-                                   new ActionReaction[]
-                                       {
-                                           new ActionReaction
-                                               {
-                                                   Action =
-                                                       new Communicate
-                                                           {
-                                                               Message =
-                                                                   "How are you? Beautifull day out there better buy something!"
-                                                           },
-                                                   Reaction =
-                                                       new Communicate {Message = "Yes",FinishTheInteractionOnExecution=true}
-                                               },
-                                           new ActionReaction
-                                               {
-                                                   Action =
-                                                       new Communicate
-                                                           {
-                                                               Message =
-                                                                   "How are you? Beautifull day out there better buy something!"
-                                                           },
-                                                   Reaction =
-                                                       new Communicate {Message = "No",FinishTheInteractionOnExecution=true}
-                                               }
+            var skInteractionRules = new SortedList<string, Interaction[]>
+                                         {
+                                             {
+                                                 GenericInteractionRulesKeys.CharacterSpecific, new Interaction[]
+                                                                                                    {
+                                                                                                        new Interaction
+                                                                                                            {
+                                                                                                                Action =
+                                                                                                                    new TwoCharactersActionTemplate
+                                                                                                                        {
+                                                                                                                            Name
+                                                                                                                                =
+                                                                                                                                new Verb
+                                                                                                                                    {
+                                                                                                                                        PerformerId
+                                                                                                                                            =
+                                                                                                                                            "Meet"
+                                                                                                                                    }
+                                                                                                                        },
+                                                                                                                Reaction
+                                                                                                                    =
+                                                                                                                    new TwoCharactersActionTemplate
+                                                                                                                        {
 
-                                       });
+                                                                                                                            Message
+                                                                                                                                =
+                                                                                                                                "How are you? Beautifull day out there better buy something!"
+                                                                                                                        }
+                                                                                                            },
+                                                                                                        new Interaction
+                                                                                                            {
+                                                                                                                Action =
+                                                                                                                    new TwoCharactersActionTemplate
+                                                                                                                        {
+                                                                                                                            Message
+                                                                                                                                =
+                                                                                                                                "Yes",
+                                                                                                                            FinishTheInteractionOnExecution
+                                                                                                                                =
+                                                                                                                                true
+                                                                                                                        },
+                                                                                                                Reaction
+                                                                                                                    =
+                                                                                                                    new ExposeInventoryActionTemplate
+                                                                                                                        {
+                                                                                                                            FinishActionType
+                                                                                                                                =
+                                                                                                                                "CloseInventory"
+                                                                                                                        }
+                                                                                                            },
+                                                                                                        new Interaction
+                                                                                                            {
+                                                                                                                Action =
+                                                                                                                    new TwoCharactersActionTemplate
+                                                                                                                        {
+                                                                                                                            Message
+                                                                                                                                =
+                                                                                                                                "No",
+                                                                                                                            FinishTheInteractionOnExecution
+                                                                                                                                =
+                                                                                                                                true
+                                                                                                                        },
+                                                                                                                Reaction
+                                                                                                                    =
+                                                                                                                    new TwoCharactersActionTemplate
+                                                                                                                        {
+                                                                                                                            Message
+                                                                                                                                =
+                                                                                                                                "Why oh Why!?"
+                                                                                                                        }
+                                                                                                            }
+                                                                                                    }
+                                             },
+                                             {
+                                                 GenericInteractionRulesKeys.PlayerResponses, new Interaction[]
+                                                                                                  {
+                                                                                                      new Interaction
+                                                                                                          {
+                                                                                                              Action =
+                                                                                                                  new TwoCharactersActionTemplate
+                                                                                                                      {
+                                                                                                                          Message
+                                                                                                                              =
+                                                                                                                              "How are you? Beautifull day out there better buy something!"
+                                                                                                                      },
+                                                                                                              Reaction =
+                                                                                                                  new TwoCharactersActionTemplate
+                                                                                                                      {
+                                                                                                                          Message
+                                                                                                                              =
+                                                                                                                              "Yes",
+                                                                                                                          FinishTheInteractionOnExecution
+                                                                                                                              =
+                                                                                                                              true
+                                                                                                                      }
+                                                                                                          },
+                                                                                                      new Interaction
+                                                                                                          {
+                                                                                                              Action =
+                                                                                                                  new TwoCharactersActionTemplate
+                                                                                                                      {
+                                                                                                                          Message
+                                                                                                                              =
+                                                                                                                              "How are you? Beautifull day out there better buy something!"
+                                                                                                                      },
+                                                                                                              Reaction =
+                                                                                                                  new TwoCharactersActionTemplate
+                                                                                                                      {
+                                                                                                                          Message
+                                                                                                                              =
+                                                                                                                              "No",
+                                                                                                                          FinishTheInteractionOnExecution
+                                                                                                                              =
+                                                                                                                              true
+                                                                                                                      }
+                                                                                                          }
+
+                                                                                                  }
+                                             }
+                                         };
             var skCharacter = new Character
                                   {
                                       CellNumber = 2,
@@ -111,10 +173,10 @@ namespace GetTheMilkTests.SaveLoadTests
                                       BlockMovement = true,
                                       Name = new Noun {Main = "John the Shop Keeper", Narrator = "John the Shop Keeper"},
                                       Inventory=skInventory,
-                                      InteractionRules=skInteractionRules,
                                       ObjectTypeId="NPCFriendly",
                                       CloseUpMessage="there is a shop keeper"
                                   };
+            skCharacter.Interactions = skInteractionRules;
 
             Inventory fInventory=new Inventory{InventoryType=InventoryType.CharacterInventory,MaximumCapacity=20};
             fInventory.Add(new Weapon
@@ -130,48 +192,48 @@ namespace GetTheMilkTests.SaveLoadTests
                 CloseUpMessage = "It is a small but very sharp knife.",
                 ObjectTypeId = "Weapon"
             });
-            SortedList<string, ActionReaction[]> fInteractionRules=new SortedList<string, ActionReaction[]>();
-            fInteractionRules.Add(GenericInteractionRulesKeys.CharacterSpecific, new ActionReaction[]
+            SortedList<string, Interaction[]> fInteractionRules=new SortedList<string, Interaction[]>();
+            fInteractionRules.Add(GenericInteractionRulesKeys.CharacterSpecific, new Interaction[]
                                                                                      {
-                                                                                         new ActionReaction
+                                                                                         new Interaction
                                                                                              {
-                                                                                                 Action = new Meet(),
-                                                                                                 Reaction = new Attack()
+                                                                                                 Action = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="Meet"}},
+                                                                                                 Reaction = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="Attack"}}
                                                                                              },
-                                                                                         new ActionReaction
+                                                                                         new Interaction
                                                                                              {
-                                                                                                 Action = new Quit(),
-                                                                                                 Reaction = new Attack()
+                                                                                                 Action = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="Quit"}},
+                                                                                                 Reaction = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="Attack"}}
                                                                                              },
-                                                                                         new ActionReaction
+                                                                                         new Interaction
                                                                                              {
-                                                                                                 Action = new Quit(),
-                                                                                                 Reaction = new AcceptQuit{FinishTheInteractionOnExecution=true}
+                                                                                                 Action = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="Quit"}},
+                                                                                                 Reaction = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="AcceptQuit"},FinishTheInteractionOnExecution=true}
                                                                                              },
-                                                                                         new ActionReaction
+                                                                                         new Interaction
                                                                                          {
-                                                                                             Action= new InitiateHostilities(),
-                                                                                             Reaction=new InitiateHostilities()
+                                                                                             Action= new TwoCharactersActionTemplate{Name=new Verb{PerformerId="InitiateHostilities"}},
+                                                                                             Reaction=new TwoCharactersActionTemplate{Name=new Verb{PerformerId="InitiateHostilities"}}
                                                                                          }
                                                                                      });
             fInteractionRules.Add(GenericInteractionRulesKeys.PlayerResponses,
-                new ActionReaction[]
+                new Interaction[]
                 {
-                    new ActionReaction
+                    new Interaction
                     {
-                        Action = new Quit(),
-                        Reaction = new Attack()
+                        Action = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="Quit"}},
+                        Reaction = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="Attack"}}
                     },
-                    new ActionReaction
+                    new Interaction
                     {
-                        Action = new Quit(),
-                        Reaction = new AcceptQuit{FinishTheInteractionOnExecution=true}
+                        Action = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="Quit"}},
+                        Reaction = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="AcceptQuit"},FinishTheInteractionOnExecution=true}
                     },
-                    new ActionReaction
+                    new Interaction
                     {
-                        Action = new InitiateHostilities(),
-                        Reaction = new ExposeInventory
-                            {FinishActionType = ActionType.Attack,SelfInventory=true}
+                        Action = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="InitiateHostilities"}},
+                        Reaction = new ExposeInventoryActionTemplate
+                            {FinishActionType = "Attack",SelfInventory=true}
 
                     }
                 });
@@ -183,10 +245,9 @@ namespace GetTheMilkTests.SaveLoadTests
                                      Walet = new Walet {MaxCapacity = 2000, CurrentCapacity = 400},
                                      Name = new Noun {Main = "Baddie", Narrator = "the Baddie"},
                                      Inventory = fInventory,
-                                     InteractionRules = fInteractionRules,
+                                     Interactions = fInteractionRules,
                                      ObjectTypeId="NPCFoe",
                                      CloseUpMessage = "there is a fierce warrior"
-
                                  };
 
             levelCharacters.Add(skCharacter,fCharacter);
@@ -198,14 +259,30 @@ namespace GetTheMilkTests.SaveLoadTests
                                        CloseUpMessage =
                                            "the Red Key of Kirna and you wonder how did you knew what it was.",
                                        Name = new Noun {Main = "Red Key", Narrator = "the Red Key"},
-                                       ObjectTypeId = "Key"
+                                       ObjectTypeId = "Key",
+                                       Interactions =
+                                           new SortedList<string, Interaction[]>
+                                               {
+                                                   {
+                                                       GenericInteractionRulesKeys.AnyCharacter,
+                                                       new Interaction[]
+                                                           {
+                                                               new Interaction
+                                                                   {
+                                                                       Action =
+                                                                           new ObjectTransferActionTemplate
+                                                                               {Name = new Verb {PerformerId = "Keep"}}
+                                                                   }
+                                                           }
+                                                   }
+                                               }
                                    },
                                new Tool
                                    {
                                        CellNumber = 4,
                                        CloseUpMessage = "Upclose you realise it is a door and it seems to be locked.",
                                        Name = new Noun {Main = "Red Door", Narrator = "red door"},
-                                       BlockMovement=true,
+                                       BlockMovement = true,
                                        ObjectTypeId = "RedDoor"
                                    },
                                new NonCharacterObject
@@ -213,7 +290,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                        CellNumber = 1,
                                        CloseUpMessage = "The wall is solid stone, unpassable for sure.",
                                        Name = new Noun {Main = "Wall", Narrator = "wall"},
-                                       BlockMovement=true,
+                                       BlockMovement = true,
                                        ObjectTypeId = "Decor"
 
                                    },
@@ -222,7 +299,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                        CellNumber = 7,
                                        CloseUpMessage = "The wall is solid stone, unpassable for sure.",
                                        Name = new Noun {Main = "Wall", Narrator = "wall"},
-                                       BlockMovement=true,
+                                       BlockMovement = true,
                                        ObjectTypeId = "Decor"
                                    }
                 );
@@ -359,10 +436,31 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.AreEqual(level.Inventory.Count,actual.Inventory.Count);
             Assert.False(actual.Inventory.Any(o=>o.StorageContainer.Owner.Name.Main!=actual.Name.Main));
             Assert.AreEqual(1,actual.CurrentMap.Cells[3].AllObjects.Count());
+            Assert.IsNotNull(actual.CurrentMap.Cells[3].AllObjects.First().Interactions);
+            Assert.AreEqual(1, actual.CurrentMap.Cells[3].AllObjects.First().Interactions.Keys.Count);
+            Assert.AreEqual(GenericInteractionRulesKeys.AnyCharacter, actual.CurrentMap.Cells[3].AllObjects.First().Interactions.Keys[0]);
+            Assert.AreEqual(1, actual.CurrentMap.Cells[3].AllObjects.First().Interactions[GenericInteractionRulesKeys.AnyCharacter].Count());
+            Assert.AreEqual("Keep", actual.CurrentMap.Cells[3].AllObjects.First().Interactions[GenericInteractionRulesKeys.AnyCharacter].First().Action.Name.PerformerId);
+            Assert.IsNull(actual.CurrentMap.Cells[3].AllObjects.First().Interactions[GenericInteractionRulesKeys.AnyCharacter].First().Reaction);
             Assert.IsNotNull(actual.Characters);
             Assert.AreEqual(level.Characters.Count, actual.Characters.Count);
+            Assert.IsNotNull(actual.Characters.First().Interactions);
+            Assert.AreEqual(3, actual.Characters.First().Interactions.Keys.Count);
+            Assert.AreEqual(GenericInteractionRulesKeys.All, actual.Characters.First().Interactions.Keys[0]);
+            Assert.AreEqual(2, actual.Characters.First().Interactions[GenericInteractionRulesKeys.All].Count());
+            Assert.AreEqual("Attack", actual.Characters.First().Interactions[GenericInteractionRulesKeys.All].First().Action.Name.PerformerId);
+            Assert.IsNotNull(actual.Characters.First().Interactions[GenericInteractionRulesKeys.All].First().Reaction);
+            
             Assert.AreEqual(InventoryType.CharacterInventory,actual.Characters[0].Inventory.InventoryType);
             Assert.AreEqual(2,actual.Characters.Count(c => c.StorageContainer.Owner != null));
+        }
+
+        private BaseActionTemplate[] LoadAllskActions()
+        {
+            List<BaseActionTemplate> allActions= new List<BaseActionTemplate>();
+            allActions.Add(new ExposeInventoryActionTemplate());
+            allActions.Add(new TwoCharactersActionTemplate());
+            return allActions.ToArray();
         }
 
         [Test]

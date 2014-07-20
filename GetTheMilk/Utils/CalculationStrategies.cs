@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Actions.Fight;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects;
@@ -54,29 +53,13 @@ namespace GetTheMilk.Utils
 
         public static void CalculateDamages(Hit hit, Hit counterHit, ICharacter attacker, ICharacter defender)
         {
-            if(hit==null)
-            {
-                if(counterHit!=null)
-                {
-                    counterHit.WithWeapon.Durability--;
-                    attacker.Health -= (counterHit.Power);
-                }
-            }
-            else
-            {
-                if (counterHit == null)
-                {
-                    hit.WithWeapon.Durability--;
-                    defender.Health -= hit.Power;
-                }
-                else
-                {
-                    defender.Health -= (hit.Power - counterHit.Power);
-                    counterHit.WithWeapon.Durability--;
-                    hit.WithWeapon.Durability--;
-                    attacker.Health -= (counterHit.Power);
-                }
-            }
+            if(hit==null || counterHit==null)
+                throw new Exception("Hits and counter hits cannot be null");
+            
+            defender.Health -= (hit.Power - counterHit.Power);
+            counterHit.WithWeapon.Durability--;
+            hit.WithWeapon.Durability--;
+            attacker.Health -= (counterHit.Power);
         }
 
 
@@ -92,13 +75,6 @@ namespace GetTheMilk.Utils
             return
                 character.Inventory.Where(w => (w.ObjectCategory == ObjectCategory.Weapon))
                     .Select(w => (Weapon)w).FirstOrDefault(w => w.WeaponTypes.Contains(WeaponType.Deffense));
-        }
-
-        public static int SelectAWeightedRandomAction(int start, int stop, ActionType actionType)
-        {
-            if (actionType == ActionType.Quit)
-                return stop;
-            return Randomizer.GetRandom(start, stop);
         }
 
         //take all the experience if the fromCharacter is at least as experienced as the toCharacter
@@ -207,6 +183,13 @@ namespace GetTheMilk.Utils
 
                 return _allChances;
             }
+        }
+
+        public static int SelectAWeightedRandomTemplateAction(int start, int stop, string identifier)
+        {
+            if (identifier == "Quit")
+                return stop;
+            return Randomizer.GetRandom(start, stop);
         }
     }
 }
