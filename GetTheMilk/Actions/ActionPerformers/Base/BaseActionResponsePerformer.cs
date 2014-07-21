@@ -8,7 +8,7 @@ using GetTheMilk.Utils;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {
-    public abstract class BaseActionResponsePerformer<T> where T:BaseActionTemplate
+    public abstract class BaseActionResponsePerformer<T> where T:BaseActionTemplate 
     {
         public event EventHandler<FeedbackEventArgs> FeedbackFromOriginalAction;
         
@@ -21,7 +21,6 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 FeedbackFromOriginalAction(this, new FeedbackEventArgs(new PerformActionResult { ForAction = actionTemplate, ResultType = ActionResultType.Ok }));
             int actionToRespond = CalculationStrategies.SelectAWeightedRandomTemplateAction(0, availableActions.Count - 1, actionTemplate.Name.UniqueId);
             BaseActionTemplate baseAction;
-            IActionTemplatePerformer performer;
             if (actionTemplate.TargetCharacter == null)
             {
                 baseAction=actionTemplate.TargetObject.CreateNewInstanceOfAction(availableActions[actionToRespond].Name.UniqueId);
@@ -39,16 +38,14 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
             baseAction.TargetObject = actionTemplate.ActiveObject;
             baseAction.ActiveCharacter = actionTemplate.TargetCharacter;
 
-            performer=baseAction.ActiveCharacter.FindPerformer(
-            baseAction.PerformerType);
-            if (performer is ITwoCharactersActionTemplatePerformer)
+            if (baseAction.CurrentPerformer is ITwoCharactersActionTemplatePerformer)
             {
 
-                ((TwoCharactersActionTemplatePerformer)performer).FeedbackFromSubAction -= ((TwoCharactersActionTemplatePerformer)performer).TwoCharactersActionFeedbackFromSubAction;
-                ((TwoCharactersActionTemplatePerformer)performer).FeedbackFromSubAction += ((TwoCharactersActionTemplatePerformer)performer).TwoCharactersActionFeedbackFromSubAction;
+                ((TwoCharactersActionTemplatePerformer)baseAction.CurrentPerformer).FeedbackFromSubAction -= ((TwoCharactersActionTemplatePerformer)baseAction.CurrentPerformer).TwoCharactersActionFeedbackFromSubAction;
+                ((TwoCharactersActionTemplatePerformer)baseAction.CurrentPerformer).FeedbackFromSubAction += ((TwoCharactersActionTemplatePerformer)baseAction.CurrentPerformer).TwoCharactersActionFeedbackFromSubAction;
             }
             return
-                baseAction.ActiveCharacter.PerformActionWithPerformer(baseAction, performer);
+                baseAction.ActiveCharacter.PerformAction(baseAction);
         }
 
 

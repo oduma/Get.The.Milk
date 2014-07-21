@@ -1,4 +1,5 @@
 ﻿using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
@@ -16,7 +17,7 @@ namespace GetTheMilk.Objects
 
         public virtual bool AllowsIndirectTemplateAction(BaseActionTemplate a, IPositionable o)
         {
-            return a.Category == CategorysCatalog.ObjectTransferCategory && o is ICharacter;
+            return a.GetType() == typeof(ObjectTransferActionTemplate) && o is ICharacter;
 
         }
         public ToolActions()

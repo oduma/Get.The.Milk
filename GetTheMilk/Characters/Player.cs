@@ -60,8 +60,6 @@ namespace GetTheMilk.Characters
             {
                 level.Player = this;
                 CellNumber = level.StartingCell;
-                foreach(var action in level.PlayerAvailableActions)
-                    AddAvailableAction(action);
             }
             var newAction = CreateNewInstanceOfAction<MovementActionTemplate>("EnterLevel");
             newAction.ActiveCharacter = this;

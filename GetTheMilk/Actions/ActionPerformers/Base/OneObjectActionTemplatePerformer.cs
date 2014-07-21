@@ -28,13 +28,5 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                        };
 
         }
-
-        protected void EstablishInteractionRules(OneObjectActionTemplate actionTemplate)
-        {
-            if (actionTemplate.ActiveCharacter is IPlayer)
-                ((IPlayer)actionTemplate.ActiveCharacter).LoadInteractions(actionTemplate.TargetObject,actionTemplate.TargetObject.Name.Main);
-        }
-
-        public string Category { get { return CategorysCatalog.OneObjectCategory; } }
     }
 }

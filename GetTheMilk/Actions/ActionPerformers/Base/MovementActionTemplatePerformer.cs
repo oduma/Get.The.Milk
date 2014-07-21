@@ -103,10 +103,10 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 
                 actionTemplate.ActiveCharacter.LoadInteractions(objectInRange,objectInRange.Name.Main);
                 foreach (var templateAction in actionTemplate.ActiveCharacter.AllActions
-                    .Where(a => !(a.Value.Category == CategorysCatalog.TwoCharactersCategory
-                        || a.Value.Category == CategorysCatalog.MovementCategory) && a.Value.StartingAction))
+                    .Where(a => !(a.Value.GetType() == typeof(TwoCharactersActionTemplate)
+                        || a.Value.GetType() == typeof(MovementActionTemplate)) && a.Value.StartingAction))
                 {
-                    if (templateAction.Value.Category == CategorysCatalog.ObjectUseOnObjectCategory)
+                    if (templateAction.Value.GetType() == typeof(ObjectUseOnObjectActionTemplate))
                         foreach (var activeObject in actionTemplate.ActiveCharacter.Inventory)
                         {
                             var action =
@@ -119,7 +119,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                             if (action.ActiveCharacter.CanPerformAction(action))
                                 yield return action;
                         }
-                    else if (templateAction.Value.Category == CategorysCatalog.OneObjectCategory)
+                    else if (templateAction.Value.GetType() == typeof(OneObjectActionTemplate))
                     {
                         var action =
                             actionTemplate.ActiveCharacter.CreateNewInstanceOfAction<OneObjectActionTemplate>(
@@ -130,7 +130,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                         if (action.ActiveCharacter.CanPerformAction(action))
                             yield return action;
                     }
-                    else if (templateAction.Value.Category == CategorysCatalog.ObjectTransferCategory)
+                    else if (templateAction.Value.GetType() == typeof(ObjectTransferActionTemplate))
                     {
                         var action =
                             actionTemplate.ActiveCharacter.CreateNewInstanceOfAction<ObjectTransferActionTemplate>(
@@ -151,7 +151,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
             {
                 actionTemplate.ActiveCharacter.LoadInteractions(characterInRange,characterInRange.Name.Main);
                 foreach (var action in actionTemplate.ActiveCharacter.AllActions
-                    .Where(a => a.Value.Category == CategorysCatalog.TwoCharactersCategory && a.Value.StartingAction))
+                    .Where(a => a.Value.GetType() == typeof(TwoCharactersActionTemplate) && a.Value.StartingAction))
                 {
                     var executableAction = actionTemplate.ActiveCharacter.CreateNewInstanceOfAction<TwoCharactersActionTemplate>(action.Key);
 

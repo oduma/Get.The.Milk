@@ -43,6 +43,5 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
             return (PerformResponseAction(actionTemplate))??new PerformActionResult { ForAction = actionTemplate, 
                     ResultType = (success) ? ActionResultType.Ok : ActionResultType.NotOk };
         }
-        public string Category { get { return CategorysCatalog.ObjectUseOnObjectCategory; } }
     }
 }

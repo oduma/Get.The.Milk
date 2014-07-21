@@ -26,7 +26,5 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
         {
             throw new NotImplementedException();
         }
-
-        public string Category { get { return CategorysCatalog.ObjectTransferCategory; } }
     }
 }

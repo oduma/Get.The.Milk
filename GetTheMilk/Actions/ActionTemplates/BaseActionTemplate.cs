@@ -14,10 +14,6 @@ namespace GetTheMilk.Actions.ActionTemplates
     {
         #region Naming and Categorisation
 
-        public string Category { get; set; }
-
-        public Type PerformerType { get; set; }
-
         public Verb Name { get; set; }
 
         #endregion
@@ -43,14 +39,15 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         #region Additional methods
 
-        protected virtual List<BaseActionTemplate> GetAvailableActions()
-        {
-            return new List<BaseActionTemplate>();
-        }
-
         public abstract BaseActionTemplate Clone();
 
+        public abstract bool CanPerform();
+
+        public abstract PerformActionResult Perform();
+
         #endregion
+
+        public virtual IActionTemplatePerformer CurrentPerformer { get; set; }
 
         protected virtual object[] Translate()
         {
@@ -70,7 +67,7 @@ namespace GetTheMilk.Actions.ActionTemplates
             {
                 var gameSettings = GameSettings.GetInstance();
 
-                var message = gameSettings.ActionTypeMessages.FirstOrDefault(m => m.Id == Category);
+                var message = gameSettings.ActionTypeMessages.FirstOrDefault(m => m.Id == GetType().Name);
                 return message == null ? gameSettings.TranslatorErrorMessage : string.Format(message.Value, Translate()).Trim();
             }
             catch
@@ -85,9 +82,9 @@ namespace GetTheMilk.Actions.ActionTemplates
                 return false;
             var y = (BaseActionTemplate) obj;
 
-            if (string.IsNullOrEmpty(Category) || Name == null || string.IsNullOrEmpty(Name.UniqueId))
+            if (Name == null || string.IsNullOrEmpty(Name.UniqueId))
                 return false;
-            if (string.IsNullOrEmpty(y.Category) || y.Name == null || string.IsNullOrEmpty(y.Name.UniqueId))
+            if (y.Name == null || string.IsNullOrEmpty(y.Name.UniqueId))
                 return false;
             return (Name.UniqueId == y.Name.UniqueId);
         }

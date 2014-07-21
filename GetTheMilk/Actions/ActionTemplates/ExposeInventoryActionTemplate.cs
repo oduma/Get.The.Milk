@@ -5,15 +5,26 @@ using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions.ActionTemplates
 {
-    public class ExposeInventoryActionTemplate:BaseActionTemplate 
+    public class ExposeInventoryActionTemplate:BaseActionTemplate
     {
         public ExposeInventoryActionTemplate()
         {
-            PerformerType = typeof (IExposeInventoryActionTemplatePerformer);
-            Category = GetType().Name;
             StartingAction = false;
         }
 
+        IExposeInventoryActionTemplatePerformer _currentPerformer;
+
+        public override IActionTemplatePerformer CurrentPerformer
+        {
+            get
+            {
+                return _currentPerformer;
+            }
+            set
+            {
+                _currentPerformer = (IExposeInventoryActionTemplatePerformer)value;
+            }
+        }
         [LevelBuilderAccesibleProperty(typeof(string))]
         public string FinishActionType { get; set; }
 
@@ -32,7 +43,8 @@ namespace GetTheMilk.Actions.ActionTemplates
                            FinishTheInteractionOnExecution = FinishTheInteractionOnExecution,
                            SelfInventory = SelfInventory,
                            FinishActionCategory = FinishActionCategory,
-                           FinishActionType=FinishActionType
+                           FinishActionType=FinishActionType,
+                           CurrentPerformer=CurrentPerformer
                        };
         }
 
@@ -46,5 +58,15 @@ namespace GetTheMilk.Actions.ActionTemplates
             return result;
         }
 
+
+        public override bool CanPerform()
+        {
+            return ((IExposeInventoryActionTemplatePerformer)CurrentPerformer).CanPerform(this);
+        }
+
+        public override PerformActionResult Perform()
+        {
+            return ((IExposeInventoryActionTemplatePerformer)CurrentPerformer).Perform(this);
+        }
     }
 }

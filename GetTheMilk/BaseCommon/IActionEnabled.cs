@@ -12,9 +12,6 @@ namespace GetTheMilk.BaseCommon
 
         PerformActionResult PerformAction(BaseActionTemplate actionTemplate);
 
-        PerformActionResult PerformActionWithPerformer(BaseActionTemplate actionTemplate,
-                                                       IActionTemplatePerformer performerInstance);
-
         T CreateNewInstanceOfAction<T>(string uniqueId) where T : BaseActionTemplate;
 
         BaseActionTemplate CreateNewInstanceOfAction(string uniqueId);
@@ -24,8 +21,6 @@ namespace GetTheMilk.BaseCommon
 
         [JsonIgnore]
         SortedList<string, Interaction[]> Interactions { get; set; }
-
-        IActionTemplatePerformer FindPerformer(Type performerType);
 
         bool CanPerformAction(BaseActionTemplate actionTemplate);
 

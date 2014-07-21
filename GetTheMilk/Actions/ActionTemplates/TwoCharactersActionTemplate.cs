@@ -1,22 +1,44 @@
 using GetTheMilk.Actions.ActionPerformers;
+using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.BaseActions;
 
 namespace GetTheMilk.Actions.ActionTemplates
 {
-    public class TwoCharactersActionTemplate : BaseActionTemplate
+    public class TwoCharactersActionTemplate: BaseActionTemplate
     {
-        public TwoCharactersActionTemplate()
-        {
-            Category = GetType().Name;
-        }
 
         [LevelBuilderAccesibleProperty(typeof(string))]
         public string Message { get; set; }
 
+        ITwoCharactersActionTemplatePerformer _currentPerformer;
+        public override IActionTemplatePerformer CurrentPerformer
+        {
+            get
+            {
+                return _currentPerformer;
+            }
+            set
+            {
+                _currentPerformer = (ITwoCharactersActionTemplatePerformer)value;
+            }
+        }
         public override BaseActionTemplate Clone()
         {
-            return new TwoCharactersActionTemplate { Name = Name, StartingAction = StartingAction, 
-                FinishTheInteractionOnExecution = FinishTheInteractionOnExecution,Message=Message };
+            return new TwoCharactersActionTemplate { Name = Name, StartingAction = StartingAction,
+                                                        FinishTheInteractionOnExecution = FinishTheInteractionOnExecution,
+                                                        Message = Message,
+                                                        CurrentPerformer = CurrentPerformer
+            };
+        }
+
+        public override bool CanPerform()
+        {
+            return ((ITwoCharactersActionTemplatePerformer)CurrentPerformer).CanPerform(this);
+        }
+
+        public override PerformActionResult Perform()
+        {
+            return ((ITwoCharactersActionTemplatePerformer)CurrentPerformer).Perform(this);
         }
 
         protected override object[] Translate()
@@ -35,7 +57,7 @@ namespace GetTheMilk.Actions.ActionTemplates
             if (!result)
                 return false;
             var y = (TwoCharactersActionTemplate)obj;
-            if (y.PerformerType == typeof(CommunicateActionPerformer) && PerformerType == typeof(CommunicateActionPerformer))
+            if (y.CurrentPerformer.GetType() == typeof(CommunicateActionPerformer) && CurrentPerformer.GetType() == typeof(CommunicateActionPerformer))
                 return y.Message == Message;
             return true;
         }

@@ -14,34 +14,11 @@ namespace GetTheMilk.Objects.BaseObjects
 {
     public class BaseActionEnabledObject:IActionEnabled
     {
-        protected readonly List<IActionTemplatePerformer> _actionTemplatePerformers; 
-
         private Dictionary<string,BaseActionTemplate> _actions;
 
         public PerformActionResult PerformAction(BaseActionTemplate actionTemplate)
         {
-            var performerInstance = FindPerformer(actionTemplate.PerformerType);
-            if (performerInstance == null)
-                return new PerformActionResult
-                           {ForAction = actionTemplate, ResultType = ActionResultType.CannotPerformThisAction};
-            return PerformActionWithPerformer(actionTemplate, performerInstance);
-        }
-
-        public virtual PerformActionResult PerformActionWithPerformer(BaseActionTemplate actionTemplate,
-                                                               IActionTemplatePerformer performerInstance)
-        {
-            if (actionTemplate.Category == CategorysCatalog.OneObjectCategory)
-            {
-                return ((IOneObjectActionTemplatePerformer) performerInstance).Perform((OneObjectActionTemplate) actionTemplate);
-            }
-            if (actionTemplate.Category == CategorysCatalog.ObjectUseOnObjectCategory)
-            {
-                return
-                    ((IObjectUseOnObjectActionTemplatePerformer) performerInstance).Perform(
-                        (ObjectUseOnObjectActionTemplate) actionTemplate);
-            }
-            return new PerformActionResult
-                       {ForAction = actionTemplate, ResultType = ActionResultType.CannotPerformThisAction};
+            return actionTemplate.Perform();
         }
 
         public T CreateNewInstanceOfAction<T>(string uniqueId) where T : BaseActionTemplate
@@ -101,43 +78,16 @@ namespace GetTheMilk.Objects.BaseObjects
 
         public SortedList<string, Interaction[]> Interactions { get; set; }
 
-        public IActionTemplatePerformer FindPerformer(Type performerType)
-        {
-            var templatePerformer = _actionTemplatePerformers.FirstOrDefault(p => p.GetType()== performerType);
-            if (templatePerformer != null)
-                return templatePerformer;
-            return null;
-        }
-
         public virtual bool CanPerformAction(BaseActionTemplate actionTemplate)
         {
-            var performerInstance = FindPerformer(actionTemplate.PerformerType);
-            if (performerInstance == null)
-                return false;
-            if (actionTemplate.Category == CategorysCatalog.OneObjectCategory)
-            {
-                return ((IOneObjectActionTemplatePerformer)performerInstance).CanPerform((OneObjectActionTemplate)actionTemplate);
-            }
-            if (actionTemplate.Category == CategorysCatalog.ObjectUseOnObjectCategory)
-            {
-                return ((IObjectUseOnObjectActionTemplatePerformer)performerInstance).CanPerform((ObjectUseOnObjectActionTemplate)actionTemplate);
-            }
-            return false;
+            return actionTemplate.CanPerform();
         }
+
 
         public void AddAvailableAction(BaseActionTemplate baseActionTemplate)
         {
-            if(!_actions.ContainsKey(baseActionTemplate.Name.UniqueId))
-                _actions.Add(baseActionTemplate.Name.UniqueId,baseActionTemplate);
-        }
-
-
-        public BaseActionEnabledObject()
-        {
-            _actionTemplatePerformers= new List<IActionTemplatePerformer>();
-
-            _actionTemplatePerformers.AddRange(TemplatedActionPerformersFactory.GetFactory().GetAllActionPerformers<IOneObjectActionTemplatePerformer>());
-            _actionTemplatePerformers.AddRange(TemplatedActionPerformersFactory.GetFactory().GetAllActionPerformers<IObjectUseOnObjectActionTemplatePerformer>());
+            if (!_actions.ContainsKey(baseActionTemplate.Name.UniqueId))
+                _actions.Add(baseActionTemplate.Name.UniqueId, baseActionTemplate);
         }
     }
 }

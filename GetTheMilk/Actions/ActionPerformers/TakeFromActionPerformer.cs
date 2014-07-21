@@ -6,7 +6,7 @@ namespace GetTheMilk.Actions.ActionPerformers
 {
     public class TakeFromActionPerformer:ObjectTransferToActiveCharacterPerformer
     {
-        public override bool CanPerform(ActionTemplates.ObjectTransferActionTemplate actionTemplate)
+        public override bool CanPerform(ObjectTransferActionTemplate actionTemplate)
         {
             if (!base.CanPerform(actionTemplate))
                 return false;
@@ -15,7 +15,7 @@ namespace GetTheMilk.Actions.ActionPerformers
             return true;
         }
 
-        public override Base.PerformActionResult Perform(ActionTemplates.ObjectTransferActionTemplate actionTemplate)
+        public override Base.PerformActionResult Perform(ObjectTransferActionTemplate actionTemplate)
         {
             if (CanPerform(actionTemplate))
             {

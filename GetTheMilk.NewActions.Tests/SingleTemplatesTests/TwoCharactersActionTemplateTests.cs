@@ -23,7 +23,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new TwoCharactersActionTemplate
             {
-                PerformerType = typeof(AttackActionPerformer),
+                CurrentPerformer = new AttackActionPerformer(),
                 Name = new Verb { UniqueId = "Attack", Past = "attacked", Present = "attack" }
             };
 
@@ -31,7 +31,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
 
             defaultActionTemplate = new TwoCharactersActionTemplate
             {
-                PerformerType = typeof(CommunicateActionPerformer),
+                CurrentPerformer = new CommunicateActionPerformer(),
                 Name = new Verb { UniqueId = "Communicate", Past = "said", Present = "say" },
                 Message="hello"
             };
@@ -55,7 +55,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new TwoCharactersActionTemplate
             {
-                PerformerType = typeof(CommunicateActionPerformer),
+                CurrentPerformer = new CommunicateActionPerformer(),
                 Name = new Verb { UniqueId = "Communicate", Past = "said", Present = "say" },
                 Message = "hello"
             };
@@ -82,7 +82,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var expected = new TwoCharactersActionTemplate
             {
-                PerformerType = typeof(CommunicateActionPerformer),
+                CurrentPerformer = new CommunicateActionPerformer(),
                 Name = new Verb { UniqueId = "Communicate", Past = "said", Present = "say" },
                 Message = "hello"
             };
@@ -98,7 +98,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new TwoCharactersActionTemplate
             {
-                PerformerType = typeof(CommunicateActionPerformer),
+                CurrentPerformer = new CommunicateActionPerformer(),
                 Name = new Verb { UniqueId = "Communicate", Past = "said", Present = "say" },
                 Message = "hello"
             };

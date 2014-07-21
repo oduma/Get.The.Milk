@@ -1,4 +1,5 @@
 ﻿using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
 
@@ -11,7 +12,7 @@ namespace GetTheMilk.Characters
 
         public bool AllowsTemplateAction(BaseActionTemplate a)
         {
-            if (((a.Category == CategorysCatalog.ExposeInventoryCategory) && ((ExposeInventoryActionTemplate)a).SelfInventory == false))
+            if (((a.GetType() == typeof(ExposeInventoryActionTemplate)) && ((ExposeInventoryActionTemplate)a).SelfInventory == false))
             {
                 return false;
             }

@@ -8,14 +8,41 @@ namespace GetTheMilk.Actions.ActionTemplates
         public NoObjectActionTemplate()
         {
             StartingAction = false;
-            PerformerType = typeof(INoObjectActionTemplatePerformer);
-            Category = GetType().Name;
         }
         #endregion
 
+        private INoObjectActionTemplatePerformer _currentPerformer;
+
+        public override IActionTemplatePerformer CurrentPerformer
+        {
+            get
+            {
+                return _currentPerformer;
+            }
+            set
+            {
+                _currentPerformer = (INoObjectActionTemplatePerformer)value;
+            }
+        }
+        public override bool CanPerform()
+        {
+            return ((INoObjectActionTemplatePerformer)CurrentPerformer).CanPerform(this);
+        }
+
+        public override PerformActionResult Perform()
+        {
+            return ((INoObjectActionTemplatePerformer)CurrentPerformer).Perform(this);
+        }
+
         public override BaseActionTemplate Clone()
         {
-            return new NoObjectActionTemplate { Name = Name, StartingAction = StartingAction, FinishTheInteractionOnExecution = FinishTheInteractionOnExecution };
+            return new NoObjectActionTemplate
+            {
+                Name = Name,
+                StartingAction = StartingAction,
+                FinishTheInteractionOnExecution = FinishTheInteractionOnExecution,
+                CurrentPerformer = CurrentPerformer
+            };
         }
     }
 }

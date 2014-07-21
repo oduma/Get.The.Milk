@@ -33,7 +33,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             var player = new Player();
             player.AddAvailableAction(new ObjectUseOnObjectActionTemplate
             {
-                PerformerType = typeof(ObjectUseOnObjectActionTemplatePerformer),
+                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
                 Name = new Verb
                 {
                     UniqueId = "Open",
@@ -70,7 +70,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             var expected = new Player();
             expected.AddAvailableAction(new ObjectUseOnObjectActionTemplate
             {
-                PerformerType = typeof(ObjectUseOnObjectActionTemplatePerformer),
+                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
                 Name = new Verb
                 {
                     UniqueId = "Open",
@@ -95,7 +95,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                 });
             Assert.IsNotNull(actual);
             Assert.AreEqual(expected.AllActions.Count, actual.AllActions.Count);
-            var newAction = actual.AllActions.FirstOrDefault(a => a.Value.Category == CategorysCatalog.ObjectUseOnObjectCategory);
+            var newAction = actual.AllActions.FirstOrDefault(a => a.Value.GetType() == typeof(ObjectUseOnObjectActionTemplate));
             Assert.IsNotNull(newAction);
             Assert.AreEqual(1, actual.Interactions.Count);
             Assert.AreEqual(GenericInteractionRulesKeys.All, actual.Interactions.Keys[0]);

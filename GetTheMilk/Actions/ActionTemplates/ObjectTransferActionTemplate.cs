@@ -1,4 +1,5 @@
-﻿using GetTheMilk.Objects.BaseObjects;
+﻿using GetTheMilk.Actions.ActionPerformers.Base;
+using GetTheMilk.Objects.BaseObjects;
 
 namespace GetTheMilk.Actions.ActionTemplates
 {
@@ -7,12 +8,39 @@ namespace GetTheMilk.Actions.ActionTemplates
         public ObjectTransferActionTemplate()
         {
             StartingAction = false;
-            Category = GetType().Name;
         }
 
+        IObjectTransferActionTemplatePerformer _currentPerformer;
+        public override IActionTemplatePerformer CurrentPerformer
+        {
+            get
+            {
+                return _currentPerformer;
+            }
+            set
+            {
+                _currentPerformer = (IObjectTransferActionTemplatePerformer)value;
+            }
+        }
         public override BaseActionTemplate Clone()
         {
-            return new ObjectTransferActionTemplate { Name = Name, StartingAction = StartingAction, FinishTheInteractionOnExecution = FinishTheInteractionOnExecution };
+            return new ObjectTransferActionTemplate
+            {
+                Name = Name,
+                StartingAction = StartingAction,
+                FinishTheInteractionOnExecution = FinishTheInteractionOnExecution,
+                CurrentPerformer = CurrentPerformer
+            };
+        }
+
+        public override bool CanPerform()
+        {
+            return ((IObjectTransferActionTemplatePerformer)CurrentPerformer).CanPerform(this);
+        }
+
+        public override PerformActionResult Perform()
+        {
+            return ((IObjectTransferActionTemplatePerformer)CurrentPerformer).Perform(this);
         }
 
         protected override object[] Translate()

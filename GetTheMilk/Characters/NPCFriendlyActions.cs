@@ -1,4 +1,5 @@
 ﻿using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
 
@@ -15,7 +16,7 @@ namespace GetTheMilk.Characters
 
         public bool AllowsIndirectTemplateAction(BaseActionTemplate a, IPositionable o)
         {
-            if (((a.Category == CategorysCatalog.ExposeInventoryCategory) && ((ExposeInventoryActionTemplate)a).SelfInventory == false))
+            if (((a.GetType() == typeof(ExposeInventoryActionTemplate)) && ((ExposeInventoryActionTemplate)a).SelfInventory == false))
             {
                 return false;
             }

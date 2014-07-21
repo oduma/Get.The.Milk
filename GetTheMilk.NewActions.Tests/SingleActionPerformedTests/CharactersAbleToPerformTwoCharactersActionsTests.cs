@@ -44,7 +44,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                PerformerType = typeof(CommunicateActionPerformer),
+                CurrentPerformer = new CommunicateActionPerformer(),
                 Name = new Verb
                 {
                         Past = "talked",
@@ -64,7 +64,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                PerformerType = typeof(CommunicateActionPerformer),
+                CurrentPerformer = new CommunicateActionPerformer(),
                 Name = new Verb
                 {
                     Past = "talked",
@@ -85,7 +85,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
 
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                PerformerType = typeof(CommunicateActionPerformer),
+                CurrentPerformer = new CommunicateActionPerformer(),
                 Name = new Verb
                 {
                     Past = "talked",
@@ -107,7 +107,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                PerformerType = typeof(CommunicateActionPerformer),
+                CurrentPerformer = new CommunicateActionPerformer(),
                 Name = new Verb
                 {
                     Past = "talked",
@@ -129,7 +129,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                PerformerType = typeof(CommunicateActionPerformer),
+                CurrentPerformer = new CommunicateActionPerformer(),
                 Name = new Verb
                 {
                     Past = "talked",
@@ -150,7 +150,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                PerformerType = typeof(CommunicateActionPerformer),
+                CurrentPerformer = new CommunicateActionPerformer(),
                 Name = new Verb
                 {
                     Past = "talked",

@@ -1,4 +1,5 @@
 ﻿using GetTheMilk.Actions.ActionPerformers.Base;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Objects.BaseObjects;
 
@@ -6,7 +7,7 @@ namespace GetTheMilk.Actions.ActionPerformers
 {
     public class SellActionPerformer:GiveToActionPerformer
     {
-        public override bool CanPerform(ActionTemplates.ObjectTransferActionTemplate actionTemplate)
+        public override bool CanPerform(ObjectTransferActionTemplate actionTemplate)
         {
             if (!base.CanPerform(actionTemplate))
                 return false;
@@ -15,7 +16,7 @@ namespace GetTheMilk.Actions.ActionPerformers
             return true;
         }
 
-        public override Base.PerformActionResult Perform(ActionTemplates.ObjectTransferActionTemplate actionTemplate)
+        public override Base.PerformActionResult Perform(ObjectTransferActionTemplate actionTemplate)
         {
             if (!CanPerform(actionTemplate))
                 return new PerformActionResult

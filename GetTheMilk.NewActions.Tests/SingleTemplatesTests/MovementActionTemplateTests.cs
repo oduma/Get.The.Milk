@@ -22,7 +22,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new MovementActionTemplate
             {
-                PerformerType=typeof(RunActionPerformer),
+                CurrentPerformer=new RunActionPerformer(),
                 Name=new Verb{UniqueId="Run",Past="ran", Present="run"},
                 DefaultDistance=3
             };
@@ -44,7 +44,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new MovementActionTemplate
             {
-                PerformerType=typeof(TeleportActionPerformer),
+                CurrentPerformer=new TeleportActionPerformer(),
                 Name= new Verb{UniqueId="EnterLevel",Past="entered level",Present="enter level"},
                 DefaultDistance=0,
                 TargetCell=100
@@ -73,7 +73,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var expected = new MovementActionTemplate
             {
-                PerformerType=typeof(TeleportActionPerformer),
+                CurrentPerformer=new TeleportActionPerformer(),
                 Name = new Verb { UniqueId = "EnterLevel", Past = "entered level", Present = "enter level" },
                 DefaultDistance = 0,
                 TargetCell = 100
@@ -92,7 +92,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new MovementActionTemplate
             {
-                PerformerType=typeof(TeleportActionPerformer),
+                CurrentPerformer=new TeleportActionPerformer(),
                 Name = new Verb { UniqueId = "EnterLevel", Past = "entered level", Present = "enter level" },
                 DefaultDistance = 0,
                 TargetCell = 100

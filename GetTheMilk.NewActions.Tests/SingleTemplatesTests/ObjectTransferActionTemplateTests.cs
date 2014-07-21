@@ -23,7 +23,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ObjectTransferActionTemplate
             {
-                PerformerType=typeof(BuyActionPerformer),
+                CurrentPerformer=new BuyActionPerformer(),
                 Name=new Verb{UniqueId="Buy",Past="bought", Present="buy"}
             };
 
@@ -44,7 +44,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ObjectTransferActionTemplate
             {
-                PerformerType = typeof(SellActionPerformer),
+                CurrentPerformer = new SellActionPerformer(),
                 Name = new Verb { UniqueId = "Sell", Past = "sold", Present = "sell" }
             };
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
@@ -70,7 +70,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var expected = new ObjectTransferActionTemplate
             {
-                PerformerType = typeof(SellActionPerformer),
+                CurrentPerformer = new SellActionPerformer(),
                 Name = new Verb { UniqueId = "Sell", Past = "sold", Present = "sell" }
             };
             var result =
@@ -86,7 +86,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ObjectTransferActionTemplate
             {
-                PerformerType = typeof(SellActionPerformer),
+                CurrentPerformer = new SellActionPerformer(),
                 Name = new Verb { UniqueId = "Sell", Past = "sold", Present = "sell" }
             };
 

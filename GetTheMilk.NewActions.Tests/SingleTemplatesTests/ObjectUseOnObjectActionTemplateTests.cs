@@ -25,7 +25,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ObjectUseOnObjectActionTemplate
             {
-                PerformerType = typeof(ObjectUseOnObjectActionTemplatePerformer),
+                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
                 Name = new Verb { UniqueId = "Open", Past = "opened", Present = "open" },
                 DestroyActiveObject=true,
                 DestroyTargetObject=true
@@ -48,7 +48,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ObjectUseOnObjectActionTemplate
             {
-                PerformerType = typeof(ObjectUseOnObjectActionTemplatePerformer),
+                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
                 Name = new Verb { UniqueId = "Defuse", Past = "defused", Present = "defuse" },
                 ChanceOfSuccess=ChanceOfSuccess.Small,
                 PercentOfHealthFailurePenalty=20,
@@ -79,7 +79,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var expected = new ObjectUseOnObjectActionTemplate
             {
-                PerformerType = typeof(ObjectUseOnObjectActionTemplatePerformer),
+                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
                 Name = new Verb { UniqueId = "Defuse", Past = "defused", Present = "defuse" },
                 ChanceOfSuccess = ChanceOfSuccess.Small,
                 PercentOfHealthFailurePenalty = 20,
@@ -101,7 +101,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ObjectUseOnObjectActionTemplate
             {
-                PerformerType = typeof(ObjectUseOnObjectActionTemplatePerformer),
+                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
                 Name = new Verb { UniqueId = "Defuse", Past = "defused", Present = "defuse" },
                 ChanceOfSuccess = ChanceOfSuccess.Small,
                 PercentOfHealthFailurePenalty = 20,

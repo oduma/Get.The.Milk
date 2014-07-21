@@ -15,7 +15,6 @@ namespace GetTheMilk.Levels
     {
         private Inventory _inventory;
         private CharacterCollection _characters;
-        private List<BaseActionTemplate> _playerAvailableActions;
         public Map CurrentMap { get; set; }
         public int Number { get; set; }
 
@@ -97,12 +96,6 @@ namespace GetTheMilk.Levels
         public SizeOfLevel SizeOfLevel { get; set; }
 
         public int ObjectiveCell { get; set; }
-
-        public List<BaseActionTemplate> PlayerAvailableActions
-        {
-            get { return _playerAvailableActions=(_playerAvailableActions)??new List<BaseActionTemplate>(); }
-            set { _playerAvailableActions = value; }
-        }
 
         public Level()
         {

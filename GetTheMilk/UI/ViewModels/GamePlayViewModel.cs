@@ -236,7 +236,7 @@ namespace GetTheMilk.UI.ViewModels
         {
                 if (e.GameAction.FinishTheInteractionOnExecution)
                 {
-                    if (e.GameAction.Category == CategorysCatalog.TwoCharactersCategory)
+                    if (e.GameAction.GetType() == typeof(TwoCharactersActionTemplate))
                         StoryVisible = Visibility.Hidden;
                     else
                         StoryVisible = Visibility.Visible;
@@ -274,16 +274,15 @@ namespace GetTheMilk.UI.ViewModels
             else if (e.GameAction is TwoCharactersActionTemplate)
             {
                 if (e.GameAction.FinishTheInteractionOnExecution
-                    && (e.GameAction.PerformerType == typeof(CommunicateActionPerformer) 
+                    && (e.GameAction.CurrentPerformer.GetType() == typeof(CommunicateActionPerformer) 
                     || e.GameAction.Name.UniqueId=="AcceptQuit")) //the last words
                 {
                     StoryVisible = Visibility.Visible;
                     InventoryVisible = Visibility.Hidden;
                     TwoCharactersVisible = Visibility.Hidden;
-                    var performer = e.GameAction.ActiveCharacter.FindPerformer(e.GameAction.PerformerType);
-                    ((TwoCharactersActionTemplatePerformer)performer).FeedbackFromSubAction -= GamePlayViewModelFeedbackFromSubAction;
-                    ((TwoCharactersActionTemplatePerformer)performer).FeedbackFromSubAction += GamePlayViewModelFeedbackFromSubAction;
-                    var actionResult = e.GameAction.ActiveCharacter.PerformActionWithPerformer(e.GameAction,performer);
+                    ((TwoCharactersActionTemplatePerformer)e.GameAction.CurrentPerformer).FeedbackFromSubAction -= GamePlayViewModelFeedbackFromSubAction;
+                    ((TwoCharactersActionTemplatePerformer)e.GameAction.CurrentPerformer).FeedbackFromSubAction += GamePlayViewModelFeedbackFromSubAction;
+                    var actionResult = e.GameAction.Perform();
                     Story += RecordActionResult(actionResult);
                 }
                 else
@@ -314,7 +313,7 @@ namespace GetTheMilk.UI.ViewModels
             {
                 ActionPanelViewModelActionExecutionRequest(this,new ActionExecutionRequestEventArgs(actionResult.ForAction));
             }
-            if (actionResult.ForAction.Category == CategorysCatalog.ObjectTransferCategory)
+            if (actionResult.ForAction.GetType() == typeof(ObjectTransferActionTemplate))
             {
                 PlayerInfoViewModel.PlayerMoney = _game.Player.Walet.CurrentCapacity;
                 if(InventoryVisible==Visibility.Visible)

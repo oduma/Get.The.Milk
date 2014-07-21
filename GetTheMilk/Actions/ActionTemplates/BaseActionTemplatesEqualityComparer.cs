@@ -6,9 +6,9 @@ namespace GetTheMilk.Actions.ActionTemplates
     {
         public override bool Equals(BaseActionTemplate x, BaseActionTemplate y)
         {
-            if (string.IsNullOrEmpty(x.Category) || x.Name == null || string.IsNullOrEmpty(x.Name.UniqueId))
+            if ( x.Name == null || string.IsNullOrEmpty(x.Name.UniqueId))
                 return false;
-            if (string.IsNullOrEmpty(y.Category) || y.Name == null || string.IsNullOrEmpty(y.Name.UniqueId))
+            if (y.Name == null || string.IsNullOrEmpty(y.Name.UniqueId))
                 return false;
             return (x.Name.UniqueId == y.Name.UniqueId);
         }

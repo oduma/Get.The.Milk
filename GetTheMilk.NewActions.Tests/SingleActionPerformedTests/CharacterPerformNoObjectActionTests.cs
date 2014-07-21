@@ -33,7 +33,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _character.AddAvailableAction(new NoObjectActionTemplate
             {
-                PerformerType = typeof(NoObjectActionTemplatePerformer),
+                CurrentPerformer = new NoObjectActionTemplatePerformer(),
                 Name = new Verb
                 {
                     UniqueId = "CloseInventory",
@@ -53,7 +53,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _character.AddAvailableAction(new NoObjectActionTemplate
             {
-                PerformerType = typeof(NoObjectActionTemplatePerformer),
+                CurrentPerformer = new NoObjectActionTemplatePerformer(),
                 Name = new Verb
                 {
                     UniqueId = "NoPerformerAction",

@@ -19,9 +19,9 @@ namespace GetTheMilk.Actions.Interactions
 
         private string GetActionName(BaseActionTemplate action)
         {
-            if(action.PerformerType==typeof(CommunicateActionPerformer))
+            if(action.CurrentPerformer.GetType()==typeof(CommunicateActionPerformer))
                     return ((TwoCharactersActionTemplate)action).Message;
-            if(action.PerformerType==typeof(AttackActionPerformer))
+            if(action.CurrentPerformer.GetType()==typeof(AttackActionPerformer))
                     return action.Name.Present + " " + action.TargetCharacter.Name.Main;
             return action.Name.Present;
         }

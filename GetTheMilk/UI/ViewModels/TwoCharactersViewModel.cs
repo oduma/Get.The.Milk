@@ -43,7 +43,7 @@ namespace GetTheMilk.UI.ViewModels
 
         private void ActionFeedbackFromOriginalAction(object sender, FeedbackEventArgs e)
         {
-            if (e.ActionResult.ForAction.PerformerType == typeof(CommunicateActionPerformer) && e.ActionResult.ForAction.ActiveCharacter.ObjectTypeId == "Player")
+            if (e.ActionResult.ForAction.CurrentPerformer.GetType() == typeof(CommunicateActionPerformer) && e.ActionResult.ForAction.ActiveCharacter.ObjectTypeId == "Player")
                 return;
             Dialogues.Add(new Dialogue
                               {
@@ -90,7 +90,7 @@ namespace GetTheMilk.UI.ViewModels
                 ((TwoCharactersActionTemplatePerformer)Action).FeedbackFromOriginalAction += ActionFeedbackFromOriginalAction;
                 ((TwoCharactersActionTemplatePerformer)Action).FeedbackFromSubAction -= TwoCharactersViewModel_FeedbackFromSubAction;
                 ((TwoCharactersActionTemplatePerformer)Action).FeedbackFromSubAction += TwoCharactersViewModel_FeedbackFromSubAction;
-                if (obj.Action.PerformerType == typeof(CommunicateActionPerformer))
+                if (obj.Action.CurrentPerformer.GetType() == typeof(CommunicateActionPerformer))
             {
                 Dialogues.Add(new Dialogue { Who = obj.Action.ActiveCharacter.Name.Narrator, What = ((TwoCharactersActionTemplate)obj.Action).Message });
             }
@@ -114,7 +114,7 @@ namespace GetTheMilk.UI.ViewModels
 
         private void RecordActionResult(PerformActionResult actionResult)
         {
-            if (actionResult.ForAction.PerformerType == typeof(CommunicateActionPerformer))
+            if (actionResult.ForAction.CurrentPerformer.GetType() == typeof(CommunicateActionPerformer))
             {
                 Dialogues.Add(new Dialogue
                               {
@@ -130,7 +130,7 @@ namespace GetTheMilk.UI.ViewModels
                                   What = GetOpponentActiveWeapons(actionResult.ForAction.ActiveCharacter)
                               });
             }
-            if (actionResult.ForAction.PerformerType == typeof(AttackActionPerformer))
+            if (actionResult.ForAction.CurrentPerformer.GetType() == typeof(AttackActionPerformer))
             {
                 if(actionResult.ResultType==ActionResultType.Win || actionResult.ResultType== ActionResultType.Lost)
                 {
@@ -216,7 +216,7 @@ namespace GetTheMilk.UI.ViewModels
 
         public void ExecuteAction(TwoCharactersActionTemplate twoCharactersAction)
         {
-            Action = twoCharactersAction.ActiveCharacter.FindPerformer(twoCharactersAction.PerformerType) as ITwoCharactersActionTemplatePerformer;
+            Action = twoCharactersAction.CurrentPerformer as ITwoCharactersActionTemplatePerformer;
             RecordActionResult(Action.Perform(twoCharactersAction));
         }
     }

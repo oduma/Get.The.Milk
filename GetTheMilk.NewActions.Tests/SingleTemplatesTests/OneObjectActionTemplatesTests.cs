@@ -30,7 +30,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                                                         {
                                                             Name = new Noun {Main = "Super Weapon", Narrator = "super weapon"}
                                                         },
-                                                PerformerType = typeof(OneObjectActionTemplatePerformer),
+                                                CurrentPerformer = new OneObjectActionTemplatePerformer(),
                                                 Name = new Verb
                                                 {
                                                     UniqueId = "SelectAttackWeapon",
@@ -56,7 +56,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new OneObjectActionTemplate
             {
-                PerformerType = typeof(OneObjectActionTemplatePerformer),
+                CurrentPerformer = new OneObjectActionTemplatePerformer(),
                 Name = new Verb
                 {
                     UniqueId = "SelectAttackWeapon",
@@ -87,7 +87,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var expected = new OneObjectActionTemplate
             {
-                PerformerType = typeof(OneObjectActionTemplatePerformer),
+                CurrentPerformer = new OneObjectActionTemplatePerformer(),
                 Name = new Verb
                 {
                     UniqueId = "SelectAttackWeapon",
@@ -108,7 +108,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new OneObjectActionTemplate
             {
-                PerformerType = typeof(OneObjectActionTemplatePerformer),
+                CurrentPerformer = new OneObjectActionTemplatePerformer(),
                 Name = new Verb
                 {
                     UniqueId = "SelectAttackWeapon",

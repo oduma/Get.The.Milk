@@ -84,7 +84,5 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                     ? pileagee.Walet.CurrentCapacity
                     : (pileager.Walet.MaxCapacity - pileager.Walet.CurrentCapacity));
         }
-
-        public string Category { get { return CategorysCatalog.TwoCharactersCategory; } }
     }
 }

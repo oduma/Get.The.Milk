@@ -28,7 +28,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             tool.AddAvailableAction(
                 new OneObjectActionTemplate
                 {
-                    PerformerType = typeof(OneObjectActionTemplatePerformer),
+                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
                     Name = new Verb
                     {
                         UniqueId = "Explode",
@@ -53,7 +53,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             expected.AddAvailableAction(
                 new OneObjectActionTemplate
                 {
-                    PerformerType = typeof(OneObjectActionTemplatePerformer),
+                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
                     Name = new Verb
                     {
                         UniqueId = "Explode",
@@ -72,7 +72,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                 });
             Assert.IsNotNull(actual);
             Assert.AreEqual(expected.AllActions["CloseInventory"].ToString(), actual.AllActions["CloseInventory"].ToString());
-            Assert.AreEqual(typeof(OneObjectActionTemplate).Name, actual.AllActions["CloseInventory"].Category);
+            Assert.AreEqual(typeof(OneObjectActionTemplate), actual.AllActions["CloseInventory"].GetType());
         }
     }
 }

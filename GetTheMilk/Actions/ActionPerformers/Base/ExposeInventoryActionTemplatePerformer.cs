@@ -91,7 +91,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
             {
 
                 foreach(var actionForContent in actionTemplate.ActiveCharacter.ActionsForExposedContents[actionTemplate.ActiveCharacter.ObjectTypeId]
-                    .Where(a=>a.Category==CategorysCatalog.ObjectTransferCategory))
+                    .Where(a=>a.GetType()==typeof(ObjectTransferActionTemplate)))
                 {
                     var newAction =
                         actionTemplate.ActiveCharacter.CreateNewInstanceOfActionOnExposedContent
@@ -127,7 +127,5 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 }
             }
         }
-
-        public string Category { get { return CategorysCatalog.ExposeInventoryCategory; } }
     }
 }

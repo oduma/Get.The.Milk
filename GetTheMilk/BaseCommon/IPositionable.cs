@@ -1,5 +1,6 @@
 using System;
 using GetTheMilk.Actions.ActionTemplates;
+using GetTheMilk.Actions.ActionPerformers.Base;
 
 namespace GetTheMilk.BaseCommon
 {

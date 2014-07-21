@@ -1,3 +1,4 @@
+using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.BaseActions;
 
 namespace GetTheMilk.Actions.ActionTemplates
@@ -16,7 +17,6 @@ namespace GetTheMilk.Actions.ActionTemplates
         {
             ChanceOfSuccess = ChanceOfSuccess.Full;
             StartingAction = true;
-            Category = GetType().Name;
         }
 
         protected override object[] Translate()
@@ -25,6 +25,19 @@ namespace GetTheMilk.Actions.ActionTemplates
             result[1] = (TargetObject == null) ? "No Target Object Assigned" : TargetObject.Name.Narrator;
             result[3] = (ActiveObject == null) ? "No Active Object Assigned" : ActiveObject.Name.Narrator;
             return result;
+        }
+
+        IObjectUseOnObjectActionTemplatePerformer _currentPerformer;
+        public override IActionTemplatePerformer CurrentPerformer
+        {
+            get
+            {
+                return _currentPerformer;
+            }
+            set
+            {
+                _currentPerformer = (IObjectUseOnObjectActionTemplatePerformer)value;
+            }
         }
         public override BaseActionTemplate Clone()
         {
@@ -36,8 +49,20 @@ namespace GetTheMilk.Actions.ActionTemplates
                            DestroyActiveObject = DestroyActiveObject,
                            DestroyTargetObject = DestroyTargetObject,
                            ChanceOfSuccess = ChanceOfSuccess,
-                           PercentOfHealthFailurePenalty = PercentOfHealthFailurePenalty
+                           PercentOfHealthFailurePenalty = PercentOfHealthFailurePenalty,
+                           CurrentPerformer = CurrentPerformer
                        };
         }
+
+        public override bool CanPerform()
+        {
+            return ((IObjectUseOnObjectActionTemplatePerformer)CurrentPerformer).CanPerform(this);
+        }
+
+        public override PerformActionResult Perform()
+        {
+            return ((IObjectUseOnObjectActionTemplatePerformer)CurrentPerformer).Perform(this);
+        }
+
     }
 }

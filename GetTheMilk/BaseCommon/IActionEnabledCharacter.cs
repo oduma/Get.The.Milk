@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GetTheMilk.Actions.ActionTemplates;
 using Newtonsoft.Json;
+using GetTheMilk.Actions.ActionPerformers.Base;
 
 namespace GetTheMilk.BaseCommon
 {

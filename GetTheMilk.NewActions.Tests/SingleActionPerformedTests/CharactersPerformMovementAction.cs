@@ -63,8 +63,8 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                 _character.AllActions.Any(
                     a =>
                     a.Key == extraData.AvailableActionTemplates[1].Name.UniqueId));
-            Assert.True(extraData.AvailableActionTemplates.Any(a => a.Category == typeof(TwoCharactersActionTemplate).Name));
-            Assert.True(extraData.AvailableActionTemplates.Any(a => a.Category == typeof(ObjectTransferActionTemplate).Name));
+            Assert.True(extraData.AvailableActionTemplates.Any(a => a.GetType() == typeof(TwoCharactersActionTemplate)));
+            Assert.True(extraData.AvailableActionTemplates.Any(a => a.GetType() == typeof(ObjectTransferActionTemplate)));
         }
 
         [Test]
@@ -86,8 +86,8 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             Assert.AreEqual(1, extraData.CharactersInRange.Count());
             Assert.AreEqual(2, extraData.ObjectsInRange.Count());
             Assert.AreEqual(3, extraData.AvailableActionTemplates.Count(a => a.StartingAction));
-            Assert.True(extraData.AvailableActionTemplates.Any(a => a.Category == typeof(TwoCharactersActionTemplate).Name));
-            Assert.True(extraData.AvailableActionTemplates.Any(a => a.Category == typeof(ObjectTransferActionTemplate).Name));
+            Assert.True(extraData.AvailableActionTemplates.Any(a => a.GetType() == typeof(TwoCharactersActionTemplate)));
+            Assert.True(extraData.AvailableActionTemplates.Any(a => a.GetType() == typeof(ObjectTransferActionTemplate)));
         }
 
         [Test]

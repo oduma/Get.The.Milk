@@ -36,7 +36,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _character.AddAvailableAction(new NoObjectActionTemplate
             {
-                PerformerType = typeof(NoObjectActionTemplatePerformer),
+                CurrentPerformer = new NoObjectActionTemplatePerformer(),
                 Name = new Verb
                 {
                                                               Past = "closed inventory",
@@ -56,7 +56,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _character.AddAvailableAction(new NoObjectActionTemplate
             {
-                PerformerType = typeof(NoObjectActionTemplatePerformer),
+                CurrentPerformer = new NoObjectActionTemplatePerformer(),
                 Name = new Verb
                 {
                         Past = "closed inventory",
@@ -76,7 +76,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _character.AddAvailableAction(new NoObjectActionTemplate
             {
-                PerformerType = typeof(NoObjectActionTemplatePerformer),
+                CurrentPerformer = new NoObjectActionTemplatePerformer(),
                 Name = new Verb
                 {
                         Past = "closed inventory",
