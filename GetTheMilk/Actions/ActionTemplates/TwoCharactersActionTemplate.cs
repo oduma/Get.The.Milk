@@ -1,6 +1,8 @@
 using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.BaseActions;
+using GetTheMilk.Factories;
+using System;
 
 namespace GetTheMilk.Actions.ActionTemplates
 {
@@ -9,6 +11,20 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         [LevelBuilderAccesibleProperty(typeof(string))]
         public string Message { get; set; }
+
+        private Type _performerType;
+        public Type PerformerType
+        {
+            get
+            {
+                return _performerType;
+            }
+            set
+            {
+                _performerType = value;
+                CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<ITwoCharactersActionTemplatePerformer>(value.Name);
+            }
+        }
 
         ITwoCharactersActionTemplatePerformer _currentPerformer;
         public override IActionTemplatePerformer CurrentPerformer
@@ -20,6 +36,9 @@ namespace GetTheMilk.Actions.ActionTemplates
             set
             {
                 _currentPerformer = (ITwoCharactersActionTemplatePerformer)value;
+                if (PerformerType == null || PerformerType.Name != _currentPerformer.GetType().Name)
+                    PerformerType = _currentPerformer.GetType();
+
             }
         }
         public override BaseActionTemplate Clone()

@@ -12,6 +12,11 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 {
     public class MovementActionTemplatePerformer:IMovementActionTemplatePerformer
     {
+        public string PerformerType
+        {
+            get { return GetType().Name; }
+        }
+
         public virtual bool CanPerform(MovementActionTemplate actionTemplate)
         {
             if (actionTemplate.ActiveCharacter == null || actionTemplate.CurrentMap == null)

@@ -5,6 +5,8 @@ using GetTheMilk.Characters;
 using GetTheMilk.Objects.BaseObjects;
 using NUnit.Framework;
 using Newtonsoft.Json;
+using GetTheMilk.Actions.ActionPerformers;
+using GetTheMilk.Utils;
 
 namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
 {
@@ -56,17 +58,17 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new OneObjectActionTemplate
             {
-                CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                CurrentPerformer = new SelectAttackWeaponActionPerformer(),
                 Name = new Verb
                 {
-                    UniqueId = "SelectAttackWeapon",
+                        UniqueId = "SelectAttackWeapon",
                         Past = "selected attack weapon",
                         Present = "select attack weapon"
                     }
             };
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"Category\":\"OneObjectActionTemplate\",\"Name\":{\"Identifier\":\"SelectAttackWeapon\",\"Present\":\"select attack weapon\",\"Past\":\"selected attack weapon\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
+            Assert.AreEqual("{\"Name\":{\"UniqueId\":\"SelectAttackWeapon\",\"Present\":\"select attack weapon\",\"Past\":\"selected attack weapon\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.SelectAttackWeaponActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\"}", result);
 
 
         }
@@ -87,7 +89,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var expected = new OneObjectActionTemplate
             {
-                CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                CurrentPerformer = new SelectAttackWeaponActionPerformer(),
                 Name = new Verb
                 {
                     UniqueId = "SelectAttackWeapon",
@@ -97,7 +99,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             };
             var result =
                 JsonConvert.DeserializeObject<OneObjectActionTemplate>(
-                    "{\"Name\":{\"Identifier\":\"SelectAttackWeapon\",\"Present\":\"select attack weapon\",\"Past\":\"selected attack weapon\",\"Category\":null},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
+                    "{\"Name\":{\"UniqueId\":\"SelectAttackWeapon\",\"Present\":\"select attack weapon\",\"Past\":\"selected attack weapon\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.SelectAttackWeaponActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\"}");
 
             Assert.AreEqual(expected.ToString(), result.ToString());
 
@@ -111,7 +113,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 CurrentPerformer = new OneObjectActionTemplatePerformer(),
                 Name = new Verb
                 {
-                    UniqueId = "SelectAttackWeapon",
+                        UniqueId = "SelectAttackWeapon",
                         Past = "selected attack weapon",
                         Present = "select attack weapon"
                     }

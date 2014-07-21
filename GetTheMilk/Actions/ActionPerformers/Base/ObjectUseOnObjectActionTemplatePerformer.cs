@@ -6,6 +6,11 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 {
     public class ObjectUseOnObjectActionTemplatePerformer:BaseActionResponsePerformer<ObjectUseOnObjectActionTemplate>,IObjectUseOnObjectActionTemplatePerformer
     {
+        public virtual string PerformerType
+        {
+            get { return GetType().Name; }
+        }
+
         public bool CanPerform(ObjectUseOnObjectActionTemplate actionTemplate)
         {
             if (actionTemplate.ActiveObject == null || actionTemplate.TargetObject == null)

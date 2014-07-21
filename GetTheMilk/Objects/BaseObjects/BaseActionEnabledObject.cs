@@ -86,6 +86,8 @@ namespace GetTheMilk.Objects.BaseObjects
 
         public void AddAvailableAction(BaseActionTemplate baseActionTemplate)
         {
+            if (_actions == null)
+                _actions = new Dictionary<string, BaseActionTemplate>();
             if (!_actions.ContainsKey(baseActionTemplate.Name.UniqueId))
                 _actions.Add(baseActionTemplate.Name.UniqueId, baseActionTemplate);
         }

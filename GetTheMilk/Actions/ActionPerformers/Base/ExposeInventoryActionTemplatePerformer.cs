@@ -127,5 +127,10 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 }
             }
         }
+
+        public string PerformerType
+        {
+            get { return GetType().Name; }
+        }
     }
 }

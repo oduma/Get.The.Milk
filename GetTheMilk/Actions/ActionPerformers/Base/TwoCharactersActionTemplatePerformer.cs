@@ -12,6 +12,10 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
     {
         public event EventHandler<FeedbackEventArgs> FeedbackFromSubAction;
 
+        public virtual string PerformerType
+        {
+            get { return GetType().Name; }
+        }
 
 
         public virtual bool CanPerform(TwoCharactersActionTemplate actionTemplate)

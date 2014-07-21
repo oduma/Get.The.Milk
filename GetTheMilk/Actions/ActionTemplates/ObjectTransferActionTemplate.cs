@@ -1,5 +1,7 @@
 ﻿using GetTheMilk.Actions.ActionPerformers.Base;
+using GetTheMilk.Factories;
 using GetTheMilk.Objects.BaseObjects;
+using System;
 
 namespace GetTheMilk.Actions.ActionTemplates
 {
@@ -9,6 +11,21 @@ namespace GetTheMilk.Actions.ActionTemplates
         {
             StartingAction = false;
         }
+
+        private Type _performerType;
+        public Type PerformerType
+        {
+            get
+            {
+                return _performerType;
+            }
+            set
+            {
+                _performerType = value;
+                CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<IObjectTransferActionTemplatePerformer>(value.Name);
+            }
+        }
+
 
         IObjectTransferActionTemplatePerformer _currentPerformer;
         public override IActionTemplatePerformer CurrentPerformer
@@ -20,6 +37,9 @@ namespace GetTheMilk.Actions.ActionTemplates
             set
             {
                 _currentPerformer = (IObjectTransferActionTemplatePerformer)value;
+                if (PerformerType == null || PerformerType.Name != _currentPerformer.GetType().Name)
+                    PerformerType = _currentPerformer.GetType();
+
             }
         }
         public override BaseActionTemplate Clone()

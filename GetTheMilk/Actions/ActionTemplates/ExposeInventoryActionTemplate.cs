@@ -2,6 +2,7 @@ using System;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Factories;
 
 namespace GetTheMilk.Actions.ActionTemplates
 {
@@ -11,6 +12,21 @@ namespace GetTheMilk.Actions.ActionTemplates
         {
             StartingAction = false;
         }
+
+        private Type _performerType;
+        public Type PerformerType
+        {
+            get
+            {
+                return _performerType;
+            }
+            set
+            {
+                _performerType = value;
+                CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<IExposeInventoryActionTemplatePerformer>(value.Name);
+            }
+        }
+
 
         IExposeInventoryActionTemplatePerformer _currentPerformer;
 
@@ -23,6 +39,9 @@ namespace GetTheMilk.Actions.ActionTemplates
             set
             {
                 _currentPerformer = (IExposeInventoryActionTemplatePerformer)value;
+                if (PerformerType == null || PerformerType.Name != _currentPerformer.GetType().Name)
+                    PerformerType = _currentPerformer.GetType();
+
             }
         }
         [LevelBuilderAccesibleProperty(typeof(string))]

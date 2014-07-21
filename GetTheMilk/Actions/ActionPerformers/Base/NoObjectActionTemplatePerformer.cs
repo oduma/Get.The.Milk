@@ -5,7 +5,11 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 {
     public class NoObjectActionTemplatePerformer:INoObjectActionTemplatePerformer
     {
-        public string Category { get { return CategorysCatalog.NoObjectCategory; } }
+        public virtual string PerformerType
+        {
+            get { return GetType().Name; }
+        }
+
         public bool CanPerform(NoObjectActionTemplate actionTemplate)
         {
             if (actionTemplate.ActiveCharacter == null)

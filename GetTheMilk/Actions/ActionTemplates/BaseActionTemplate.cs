@@ -7,6 +7,8 @@ using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Settings;
+using Newtonsoft.Json;
+using GetTheMilk.Factories;
 
 namespace GetTheMilk.Actions.ActionTemplates
 {
@@ -47,7 +49,10 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         #endregion
 
+        [JsonIgnore]
         public virtual IActionTemplatePerformer CurrentPerformer { get; set; }
+
+        public virtual Type PerformerType { get; set; }
 
         protected virtual object[] Translate()
         {

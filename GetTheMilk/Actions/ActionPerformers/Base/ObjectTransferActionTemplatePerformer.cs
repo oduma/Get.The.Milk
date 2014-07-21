@@ -5,6 +5,11 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 {
     public class ObjectTransferActionTemplatePerformer:IObjectTransferActionTemplatePerformer
     {
+        public virtual string PerformerType
+        {
+            get { return GetType().Name; }
+        }
+
         public virtual bool CanPerform(ObjectTransferActionTemplate actionTemplate)
         {
             if (actionTemplate.ActiveCharacter == null || actionTemplate.TargetObject == null)

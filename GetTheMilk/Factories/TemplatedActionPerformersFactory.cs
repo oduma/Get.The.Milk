@@ -25,11 +25,12 @@ namespace GetTheMilk.Factories
         //    return _componentResolver.ResolveAll<IActionTemplatePerformer>().Where(c => c.TemplateActionType == typeof(T)).Select(c => c.Identifier);
         //}
 
-        //public IActionTemplatePerformer CreateActionPerformer<T>(string actionType) where T:DefaultActionTemplate
-        //{
-        //    var all = _componentResolver.ResolveAll<IActionTemplatePerformer>();
-        //    return all.First(o => o.Identifier == actionType && o.TemplateActionType == typeof(T));
-        //}
+        public IActionTemplatePerformer CreateActionPerformer<T>(string performerType) where T : IActionTemplatePerformer
+        {
+            var all = _componentResolver.ResolveAll<T>();
+
+            return all.First(o => o.PerformerType == performerType);
+        }
 
 
         public T[] GetAllActionPerformers<T>() where T:IActionTemplatePerformer
