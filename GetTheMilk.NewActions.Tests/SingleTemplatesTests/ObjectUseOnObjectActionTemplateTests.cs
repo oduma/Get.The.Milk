@@ -17,7 +17,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ObjectUseOnObjectActionTemplate();
 
-            Assert.AreEqual("ObjectUseOnObjectActionTemplate-Default No Target Object Assigned using No Active Object Assigned", defaultActionTemplate.ToString());
+            Assert.AreEqual("ObjectUseOnObjectActionTemplate No Target Object Assigned using No Active Object Assigned", defaultActionTemplate.ToString());
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var defaultActionTemplate = new ObjectUseOnObjectActionTemplate();
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"DestroyActiveObject\":false,\"DestroyTargetObject\":false,\"ChanceOfSuccess\":100,\"PercentOfHealthFailurePenalty\":0,\"Category\":\"ObjectUseOnObjectActionTemplate\",\"Name\":{\"Identifier\":\"Default\",\"Present\":null,\"Past\":null},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
+            Assert.AreEqual("{\"DestroyActiveObject\":false,\"DestroyTargetObject\":false,\"ChanceOfSuccess\":100,\"PercentOfHealthFailurePenalty\":0,\"PerformerType\":null,\"Name\":null,\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             };
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"DestroyActiveObject\":false,\"DestroyTargetObject\":true,\"ChanceOfSuccess\":25,\"PercentOfHealthFailurePenalty\":20,\"Category\":\"ObjectUseOnObjectActionTemplate\",\"Name\":{\"Identifier\":\"Defuse\",\"Present\":\"defuse\",\"Past\":\"defused\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
+            Assert.AreEqual("{\"DestroyActiveObject\":false,\"DestroyTargetObject\":true,\"ChanceOfSuccess\":25,\"PercentOfHealthFailurePenalty\":20,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.ObjectUseOnObjectActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Defuse\",\"Present\":\"defuse\",\"Past\":\"defused\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
 
 
         }
@@ -67,7 +67,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var expected = new ObjectUseOnObjectActionTemplate();
             var result =
                 JsonConvert.DeserializeObject<ObjectUseOnObjectActionTemplate>(
-                    "{\"DestroyActiveObject\":false,\"DestroyTargetObject\":false,\"ChanceOfSuccess\":100,\"PercentOfHealthFailurePenalty\":0,\"Name\":{\"Identifier\":\"Default\",\"Present\":null,\"Past\":null,\"Category\":null},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
+                    "{\"DestroyActiveObject\":false,\"DestroyTargetObject\":false,\"ChanceOfSuccess\":100,\"PercentOfHealthFailurePenalty\":0,\"PerformerType\":null,\"Name\":null,\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
 
             Assert.AreEqual(expected.ToString(), result.ToString());
             Assert.False(result.DestroyActiveObject);
@@ -87,7 +87,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             };
             var result =
                 JsonConvert.DeserializeObject<ObjectUseOnObjectActionTemplate>(
-                    "{\"DestroyActiveObject\":false,\"DestroyTargetObject\":true,\"ChanceOfSuccess\":25,\"PercentOfHealthFailurePenalty\":20,\"Name\":{\"Identifier\":\"Defuse\",\"Present\":\"defuse\",\"Past\":\"defused\",\"Category\":null},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
+                    "{\"DestroyActiveObject\":false,\"DestroyTargetObject\":true,\"ChanceOfSuccess\":25,\"PercentOfHealthFailurePenalty\":20,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.ObjectUseOnObjectActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Defuse\",\"Present\":\"defuse\",\"Past\":\"defused\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
 
             Assert.AreEqual(expected.ToString(), result.ToString());
             Assert.AreEqual(expected.PercentOfHealthFailurePenalty, result.PercentOfHealthFailurePenalty);
