@@ -104,7 +104,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                                                                                                                     =
                                                                                                                     new ExposeInventoryActionTemplate
                                                                                                                         {
-                                                                                                                            FinishActionType
+                                                                                                                            FinishActionUniqueId
                                                                                                                                 =
                                                                                                                                 "CloseInventory"
                                                                                                                         }

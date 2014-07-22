@@ -222,7 +222,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                    Action = new TwoCharactersActionTemplate {Name= new Verb{PerformerId="Talk"}, Message = "Yes"},
                                                    Reaction =
                                                        new ExposeInventoryActionTemplate
-                                                           {FinishActionType = "CloseInventory"}
+                                                           {FinishActionUniqueId = "CloseInventory"}
                                                },
                                            new Interaction
                                                {

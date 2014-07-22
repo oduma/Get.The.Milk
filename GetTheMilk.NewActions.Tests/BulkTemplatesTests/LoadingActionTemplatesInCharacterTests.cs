@@ -28,8 +28,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             var character = new Character {ObjectTypeId = "NPCFriendly"};
             character.AddAvailableAction(new ExposeInventoryActionTemplate
                                          {
-                                             FinishActionCategory = typeof (NoObjectActionTemplate),
-                                             FinishActionType = "CloseInventory"
+                                             FinishActionUniqueId = "CloseInventory"
                                          });
             var saveResult = character.Save();
             Assert.AreEqual(
@@ -53,8 +52,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             var expected = new Character();
             expected.AddAvailableAction(new ExposeInventoryActionTemplate
             {
-                FinishActionCategory = typeof(NoObjectActionTemplate),
-                FinishActionType = "CloseInventory"
+                FinishActionUniqueId = "CloseInventory"
             });
             var actual =
                 Character.Load<Character>(new ContainerWithActionsPackage
@@ -69,8 +67,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             Assert.AreEqual(expected.AllActions.Count,actual.AllActions.Count);
             var newAction = actual.AllActions.FirstOrDefault(a => a.Key == "ExposeInventory");
             Assert.IsNotNull(newAction);
-            Assert.AreEqual(typeof(NoObjectActionTemplate),((ExposeInventoryActionTemplate)newAction.Value).FinishActionCategory);
-            Assert.AreEqual("CloseInventory", ((ExposeInventoryActionTemplate)newAction.Value).FinishActionType);
+            Assert.AreEqual("CloseInventory", ((ExposeInventoryActionTemplate)newAction.Value).FinishActionUniqueId);
             Assert.AreEqual(1,actual.Interactions.Count);
             Assert.AreEqual(GenericInteractionRulesKeys.All,actual.Interactions.Keys[0]);
             Assert.AreEqual(2, actual.Interactions[GenericInteractionRulesKeys.All].Length);

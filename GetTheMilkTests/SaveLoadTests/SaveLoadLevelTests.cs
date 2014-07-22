@@ -91,7 +91,7 @@ namespace GetTheMilkTests.SaveLoadTests
                                                                                                                     =
                                                                                                                     new ExposeInventoryActionTemplate
                                                                                                                         {
-                                                                                                                            FinishActionType
+                                                                                                                            FinishActionUniqueId
                                                                                                                                 =
                                                                                                                                 "CloseInventory"
                                                                                                                         }
@@ -233,7 +233,7 @@ namespace GetTheMilkTests.SaveLoadTests
                     {
                         Action = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="InitiateHostilities"}},
                         Reaction = new ExposeInventoryActionTemplate
-                            {FinishActionType = "Attack",SelfInventory=true}
+                            {FinishActionUniqueId = "Attack",SelfInventory=true}
 
                     }
                 });

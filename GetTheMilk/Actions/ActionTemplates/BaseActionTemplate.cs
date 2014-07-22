@@ -58,7 +58,7 @@ namespace GetTheMilk.Actions.ActionTemplates
         {
             return new object[]
                        {
-                           (Name.Present)??(GetType().Name + "-" + Name.UniqueId),
+                           (Name!=null)?((Name.Present)??(GetType().Name + "-" + Name.UniqueId)):GetType().Name,
                            (TargetObject == null) ? string.Empty : TargetObject.Name.Narrator,
                            (TargetCharacter == null) ? string.Empty : TargetCharacter.Name.Narrator,
                            (ActiveObject == null) ? string.Empty : ActiveObject.Name.Narrator,
@@ -77,7 +77,7 @@ namespace GetTheMilk.Actions.ActionTemplates
             }
             catch
             {
-                return "Translation for the action: " + Name.UniqueId + " could not be found.";
+                return "Translation for the an action of type: " + GetType().Name + " could not be found.";
             }
         }
 

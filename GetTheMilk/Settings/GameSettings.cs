@@ -217,8 +217,7 @@ namespace GetTheMilk.Settings
                                                },
                                        StartingAction = true,
                                        SelfInventory = true,
-                                       FinishActionType = "CloseInventory",
-                                       FinishActionCategory = typeof (NoObjectActionTemplate)
+                                       FinishActionUniqueId = "CloseInventory"
                                    },
                                new NoObjectActionTemplate
                                    {

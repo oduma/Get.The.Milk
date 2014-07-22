@@ -23,7 +23,8 @@ namespace GetTheMilk.Actions.ActionTemplates
             set
             {
                 _performerType = value;
-                CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<IOneObjectActionTemplatePerformer>(value.Name);
+                if(_performerType!=null)
+                    CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<IOneObjectActionTemplatePerformer>(value.Name);
             }
         }
 

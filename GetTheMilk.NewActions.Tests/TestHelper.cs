@@ -204,7 +204,7 @@ namespace GetTheMilk.NewActions.Tests
                                                                                                                     =
                                                                                                                     new ExposeInventoryActionTemplate
                                                                                                                         {
-                                                                                                                            FinishActionType
+                                                                                                                            FinishActionUniqueId
                                                                                                                                 =
                                                                                                                                 "CloseInventory"
                                                                                                                         }
@@ -471,7 +471,7 @@ namespace GetTheMilk.NewActions.Tests
                 {
                     UniqueId="InitiateHostilities"}},
                         Reaction = new ExposeInventoryActionTemplate
-                            {FinishActionType = "Attack",SelfInventory=true}
+                            {FinishActionUniqueId = "Attack",SelfInventory=true}
 
                     }
                 });

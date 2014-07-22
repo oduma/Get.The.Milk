@@ -23,7 +23,8 @@ namespace GetTheMilk.Actions.ActionTemplates
             set
             {
                 _performerType = value;
-                CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<IExposeInventoryActionTemplatePerformer>(value.Name);
+                if (_performerType != null)
+                    CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<IExposeInventoryActionTemplatePerformer>(value.Name);
             }
         }
 
@@ -45,10 +46,7 @@ namespace GetTheMilk.Actions.ActionTemplates
             }
         }
         [LevelBuilderAccesibleProperty(typeof(string))]
-        public string FinishActionType { get; set; }
-
-        [LevelBuilderAccesibleProperty(typeof(Type))]
-        public Type FinishActionCategory { get; set; }
+        public string FinishActionUniqueId { get; set; }
 
         [LevelBuilderAccesibleProperty(typeof(bool))]
         public bool SelfInventory { get; set; }
@@ -61,8 +59,7 @@ namespace GetTheMilk.Actions.ActionTemplates
                            StartingAction = StartingAction,
                            FinishTheInteractionOnExecution = FinishTheInteractionOnExecution,
                            SelfInventory = SelfInventory,
-                           FinishActionCategory = FinishActionCategory,
-                           FinishActionType=FinishActionType,
+                           FinishActionUniqueId=FinishActionUniqueId,
                            CurrentPerformer=CurrentPerformer
                        };
         }
@@ -73,7 +70,7 @@ namespace GetTheMilk.Actions.ActionTemplates
             result[5] = (TargetObject is ITransactionalObject)
                             ? ((ITransactionalObject) TargetObject).BuyPrice.ToString()
                             : string.Empty;
-            result[6] = (FinishActionType=="Attack") ? "Prepare for Battle" : "Expose Inventory";
+            result[6] = (FinishActionUniqueId=="Attack") ? "Prepare for Battle" : "Expose Inventory";
             return result;
         }
 

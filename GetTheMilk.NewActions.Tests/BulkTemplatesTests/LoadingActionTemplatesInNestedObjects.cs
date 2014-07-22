@@ -177,8 +177,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                         var character = new Character {ObjectTypeId = "NPCFriendly"};
             character.AddAvailableAction(new ExposeInventoryActionTemplate
                                          {
-                                             FinishActionCategory = typeof (NoObjectActionTemplate),
-                                             FinishActionType = "CloseInventory"
+                                             FinishActionUniqueId = "CloseInventory"
                                          });
             character.Inventory = new Inventory {InventoryType = InventoryType.CharacterInventory, MaximumCapacity = 2};
             var tool = new Tool
@@ -221,8 +220,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             var character = new Character { ObjectTypeId = "NPCFriendly" };
             character.AddAvailableAction(new ExposeInventoryActionTemplate
             {
-                FinishActionCategory = typeof(NoObjectActionTemplate),
-                FinishActionType = "CloseInventory"
+                FinishActionUniqueId = "CloseInventory"
             });
             character.Inventory = new Inventory { InventoryType = InventoryType.CharacterInventory, MaximumCapacity = 2 };
             var tool = new Tool

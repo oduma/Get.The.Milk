@@ -2,6 +2,7 @@ using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters;
 using NUnit.Framework;
 using Newtonsoft.Json;
+using GetTheMilk.Actions.ActionPerformers.Base;
 
 namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
 {
@@ -34,7 +35,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var defaultActionTemplate = new ExposeInventoryActionTemplate();
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"FinishActionType\":null,\"FinishActionCategory\":null,\"SelfInventory\":false,\"Category\":\"ExposeInventoryActionTemplate\",\"Name\":{\"Identifier\":\"ExposeInventory\",\"Present\":\"expose inventory\",\"Past\":\"exposed inventory\"},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
+            Assert.AreEqual("{\"PerformerType\":null,\"FinishActionUniqueId\":null,\"SelfInventory\":false,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
         }
 
         [Test]
@@ -42,12 +43,12 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ExposeInventoryActionTemplate
             {
-                FinishActionType = "Attack",
-                FinishActionCategory=typeof(TwoCharactersActionTemplate)
+                FinishActionUniqueId = "Attack",
+                PerformerType=typeof(ExposeInventoryActionTemplatePerformer)
             };
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"FinishActionType\":\"Attack\",\"FinishActionCategory\":\"GetTheMilk.Actions.ActionTemplates.TwoCharactersActionTemplate, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"SelfInventory\":false,\"Category\":\"ExposeInventoryActionTemplate\",\"Name\":{\"Identifier\":\"ExposeInventory\",\"Present\":\"expose inventory\",\"Past\":\"exposed inventory\"},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
+            Assert.AreEqual("{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.ExposeInventoryActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"FinishActionUniqueId\":\"Attack\",\"SelfInventory\":false,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
 
 
         }
@@ -58,7 +59,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var expected = new ExposeInventoryActionTemplate();
             var result =
                 JsonConvert.DeserializeObject<ExposeInventoryActionTemplate>(
-                    "{\"FinishActionType\":null,\"FinishActionCategory\":null,\"SelfInventory\":false,\"Name\":{\"Identifier\":\"ExposeInventory\",\"Present\":\"expose inventory\",\"Past\":\"exposed inventory\",\"Category\":null},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
+                    "{\"PerformerType\":null,\"FinishActionUniqueId\":null,\"SelfInventory\":false,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
 
             Assert.AreEqual(expected.ToString(), result.ToString());
 
@@ -68,16 +69,15 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var expected = new ExposeInventoryActionTemplate
             {
-                FinishActionType = "Attack",
-                FinishActionCategory = typeof(TwoCharactersActionTemplate)
+                FinishActionUniqueId = "Attack",
+                PerformerType=typeof(ExposeInventoryActionTemplatePerformer)
             };
             var result =
                 JsonConvert.DeserializeObject<ExposeInventoryActionTemplate>(
-                    "{\"FinishActionType\":\"Attack\",\"FinishActionCategory\":\"GetTheMilk.Actions.ActionTemplates.TwoCharactersActionTemplate, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"SelfInventory\":false,\"Name\":{\"Identifier\":\"SelectAttackWeapon\",\"Present\":\"select attack weapon\",\"Past\":\"selected attack weapon\",\"Category\":null},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
+                    "{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.ExposeInventoryActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"FinishActionUniqueId\":\"Attack\",\"SelfInventory\":false,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
 
             Assert.AreEqual(expected.ToString(), result.ToString());
-            Assert.AreEqual(expected.FinishActionCategory,result.FinishActionCategory);
-            Assert.AreEqual(expected.FinishActionType,result.FinishActionType);
+            Assert.AreEqual(expected.FinishActionUniqueId,result.FinishActionUniqueId);
 
         }
 
@@ -86,15 +86,14 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ExposeInventoryActionTemplate
             {
-                FinishActionType = "Attack",
-                FinishActionCategory = typeof(TwoCharactersActionTemplate)
+                FinishActionUniqueId = "Attack",
+                PerformerType=typeof(ExposeInventoryActionTemplatePerformer)
             };
 
             var actual = defaultActionTemplate.Clone() as ExposeInventoryActionTemplate;
             defaultActionTemplate.ActiveCharacter = new Player();
             Assert.IsNull(actual.ActiveCharacter);
-            Assert.AreEqual("Attack",actual.FinishActionType);
-            Assert.AreEqual((typeof(TwoCharactersActionTemplate)),actual.FinishActionCategory);
+            Assert.AreEqual("Attack",actual.FinishActionUniqueId);
 
         }
 

@@ -18,7 +18,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new OneObjectActionTemplate();
 
-            Assert.AreEqual("OneObjectActionTemplate-Empty One Object Action", defaultActionTemplate.ToString());
+            Assert.AreEqual("OneObjectActionTemplate", defaultActionTemplate.ToString());
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var defaultActionTemplate = new OneObjectActionTemplate();
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"Category\":\"OneObjectActionTemplate\",\"Name\":{\"Identifier\":\"Empty One Object Action\",\"Present\":null,\"Past\":null},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
+            Assert.AreEqual("{\"PerformerType\":null,\"Name\":null,\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             };
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"Name\":{\"UniqueId\":\"SelectAttackWeapon\",\"Present\":\"select attack weapon\",\"Past\":\"selected attack weapon\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.SelectAttackWeaponActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\"}", result);
+            Assert.AreEqual("{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.SelectAttackWeaponActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"SelectAttackWeapon\",\"Present\":\"select attack weapon\",\"Past\":\"selected attack weapon\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
 
 
         }
@@ -79,7 +79,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var expected = new OneObjectActionTemplate();
             var result =
                 JsonConvert.DeserializeObject<OneObjectActionTemplate>(
-                    "{\"Name\":{\"Identifier\":\"Empty One Object Action\",\"Present\":null,\"Past\":null,\"Category\":null},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
+                    "{\"PerformerType\":null,\"Name\":null,\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
 
             Assert.AreEqual(expected.ToString(), result.ToString());
 

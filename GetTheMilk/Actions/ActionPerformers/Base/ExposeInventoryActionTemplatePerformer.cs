@@ -53,33 +53,18 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
         private BaseActionTemplate GetFinishingAction(Character alternateTargetCharacter, 
             ExposeInventoryActionTemplate actionTemplate)
         {
-            var actionType = (string.IsNullOrEmpty(actionTemplate.FinishActionType))
+            var uniqueId = (string.IsNullOrEmpty(actionTemplate.FinishActionUniqueId))
                                  ? "CloseInventory"
-                                 : actionTemplate.FinishActionType;
-            if(actionTemplate.FinishActionCategory==typeof(TwoCharactersActionTemplate))
-            {
-                var templateAction = actionTemplate.TargetCharacter.CreateNewInstanceOfAction<TwoCharactersActionTemplate>(actionType);
-                if(templateAction!=null)
-                {
-                    templateAction.ActiveCharacter = actionTemplate.TargetCharacter;
-                    templateAction.FinishTheInteractionOnExecution = true;
-                    templateAction.TargetCharacter = alternateTargetCharacter;
-                    return templateAction;
-                }
-            }
-            else
-            {
-                var templateAction = actionTemplate.TargetCharacter.CreateNewInstanceOfAction<BaseActionTemplate>(actionType);
-                if (templateAction != null)
-                {
-                    templateAction.ActiveCharacter = actionTemplate.TargetCharacter;
-                    templateAction.FinishTheInteractionOnExecution = true;
-                    templateAction.TargetCharacter = actionTemplate.ActiveCharacter;
-                    return templateAction;
-
-                }
-            }
-            return null;
+                                 : actionTemplate.FinishActionUniqueId;
+            var templateAction = actionTemplate.TargetCharacter.CreateNewInstanceOfAction(uniqueId);
+            if (templateAction == null)
+                return null;
+            templateAction.ActiveCharacter = actionTemplate.TargetCharacter;
+            templateAction.FinishTheInteractionOnExecution = true;
+            templateAction.TargetCharacter=(templateAction.GetType() == 
+                typeof(TwoCharactersActionTemplate))?alternateTargetCharacter:
+                templateAction.TargetCharacter = actionTemplate.ActiveCharacter;
+            return templateAction;
         }
 
 
