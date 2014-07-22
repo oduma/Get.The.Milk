@@ -35,7 +35,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var defaultActionTemplate = new ExposeInventoryActionTemplate();
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"PerformerType\":null,\"FinishActionUniqueId\":null,\"SelfInventory\":false,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
+            Assert.AreEqual("{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.ExposeInventoryActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"FinishActionUniqueId\":null,\"SelfInventory\":false,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var expected = new ExposeInventoryActionTemplate();
             var result =
                 JsonConvert.DeserializeObject<ExposeInventoryActionTemplate>(
-                    "{\"PerformerType\":null,\"FinishActionUniqueId\":null,\"SelfInventory\":false,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
+                    "{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.ExposeInventoryActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"FinishActionUniqueId\":null,\"SelfInventory\":false,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
 
             Assert.AreEqual(expected.ToString(), result.ToString());
 

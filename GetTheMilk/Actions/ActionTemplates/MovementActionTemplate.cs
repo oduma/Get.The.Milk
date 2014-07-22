@@ -12,6 +12,7 @@ namespace GetTheMilk.Actions.ActionTemplates
         {
             DefaultDistance = 1;
             StartingAction = true;
+            PerformerType = typeof(WalkActionPerformer);
         }
 
 
@@ -25,7 +26,8 @@ namespace GetTheMilk.Actions.ActionTemplates
             set
             {
                 _performerType = value;
-                CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<IMovementActionTemplatePerformer>(value.Name);
+                if(_performerType!=null)
+                    CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<IMovementActionTemplatePerformer>(value.Name);
             }
         }
 
