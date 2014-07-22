@@ -36,7 +36,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var defaultActionTemplate = new MovementActionTemplate();
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"TargetCell\":0,\"Direction\":0,\"DefaultDistance\":1,\"CurrentMap\":null,\"Category\":\"MovementActionTemplate\",\"Name\":{\"Identifier\":\"Walk\",\"Present\":\"walk\",\"Past\":\"walked\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
+            Assert.AreEqual("{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.WalkActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"TargetCell\":0,\"Direction\":0,\"DefaultDistance\":1,\"CurrentMap\":null,\"Name\":{\"UniqueId\":\"Walk\",\"Present\":\"walk\",\"Past\":\"walked\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             };
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"TargetCell\":100,\"Direction\":0,\"DefaultDistance\":0,\"CurrentMap\":null,\"Category\":\"MovementActionTemplate\",\"Name\":{\"Identifier\":\"EnterLevel\",\"Present\":\"enter level\",\"Past\":\"entered level\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
+            Assert.AreEqual("{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.TeleportActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"TargetCell\":100,\"Direction\":0,\"DefaultDistance\":0,\"CurrentMap\":null,\"Name\":{\"UniqueId\":\"EnterLevel\",\"Present\":\"enter level\",\"Past\":\"entered level\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
 
 
         }
@@ -62,7 +62,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var expected = new MovementActionTemplate();
             var result =
                 JsonConvert.DeserializeObject<MovementActionTemplate>(
-                    "{\"TargetCell\":0,\"Direction\":0,\"DefaultDistance\":1,\"CurrentMap\":null,\"Name\":{\"Identifier\":\"Walk\",\"Present\":\"walk\",\"Past\":\"walked\",\"Category\":null},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
+                    "{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.WalkActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"TargetCell\":0,\"Direction\":0,\"DefaultDistance\":1,\"CurrentMap\":null,\"Name\":{\"UniqueId\":\"Walk\",\"Present\":\"walk\",\"Past\":\"walked\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
 
             Assert.AreEqual(expected.ToString(), result.ToString());
             Assert.AreEqual(expected.DefaultDistance,result.DefaultDistance);
@@ -80,7 +80,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             };
             var result =
                 JsonConvert.DeserializeObject<MovementActionTemplate>(
-                    "{\"TargetCell\":100,\"Direction\":0,\"DefaultDistance\":0,\"CurrentMap\":null,\"Name\":{\"Identifier\":\"EnterLevel\",\"Present\":\"enter level\",\"Past\":\"entered level\",\"Category\":null},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
+                    "{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.TeleportActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"TargetCell\":100,\"Direction\":0,\"DefaultDistance\":0,\"CurrentMap\":null,\"Name\":{\"UniqueId\":\"EnterLevel\",\"Present\":\"enter level\",\"Past\":\"entered level\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
 
             Assert.AreEqual(expected.ToString(), result.ToString());
             Assert.AreEqual(expected.TargetCell, result.TargetCell);

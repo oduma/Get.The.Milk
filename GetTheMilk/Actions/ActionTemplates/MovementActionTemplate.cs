@@ -1,5 +1,6 @@
 using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
+using GetTheMilk.BaseCommon;
 using GetTheMilk.Factories;
 using GetTheMilk.Navigation;
 using System;
@@ -13,6 +14,7 @@ namespace GetTheMilk.Actions.ActionTemplates
             DefaultDistance = 1;
             StartingAction = true;
             PerformerType = typeof(WalkActionPerformer);
+            Name = new Verb { UniqueId = "Walk", Present = "walk", Past = "walked" };
         }
 
 
@@ -81,10 +83,11 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         protected override object[] Translate()
         {
+
             return new object[]
                        {
                            null,
-                           (Name.Present)??(GetType().Name + "-" + CurrentPerformer.GetType().Name),
+                           (Name == null)?CurrentPerformer.GetType().Name:(Name.Present)??(CurrentPerformer.GetType().Name),
                            null,
                            null,
                            null,
