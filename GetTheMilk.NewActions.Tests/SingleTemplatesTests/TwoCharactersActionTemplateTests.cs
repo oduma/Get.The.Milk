@@ -15,7 +15,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new TwoCharactersActionTemplate();
 
-            Assert.AreEqual("TwoCharactersActionTemplate-Default Target Character Not Assigned", defaultActionTemplate.ToString());
+            Assert.AreEqual("TwoCharactersActionTemplate Target Character Not Assigned", defaultActionTemplate.ToString());
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var defaultActionTemplate = new TwoCharactersActionTemplate();
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"Message\":null,\"Category\":\"TwoCharactersActionTemplate\",\"Name\":{\"Identifier\":\"Default\",\"Present\":null,\"Past\":null},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
+            Assert.AreEqual("{\"Message\":null,\"PerformerType\":null,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             };
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"Message\":\"hello\",\"Category\":\"TwoCharactersActionTemplate\",\"Name\":{\"Identifier\":\"Communicate\",\"Present\":\"say\",\"Past\":\"said\"},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
+            Assert.AreEqual("{\"Message\":\"hello\",\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.CommunicateActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Communicate\",\"Present\":\"say\",\"Past\":\"said\"},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
 
 
         }
@@ -72,7 +72,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var expected = new TwoCharactersActionTemplate();
             var result =
                 JsonConvert.DeserializeObject<TwoCharactersActionTemplate>(
-                    "{\"Message\":null,\"Name\":{\"Identifier\":\"Default\",\"Present\":null,\"Past\":null,\"Category\":null},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
+                    "{\"Message\":null,\"PerformerType\":null,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
 
             Assert.AreEqual(expected.ToString(), result.ToString());
 
@@ -88,7 +88,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             };
             var result =
                 JsonConvert.DeserializeObject<TwoCharactersActionTemplate>(
-                    "{\"Message\":\"hello\",\"Name\":{\"Identifier\":\"Communicate\",\"Present\":\"say\",\"Past\":\"said\",\"Category\":null},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
+                    "{\"Message\":\"hello\",\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.CommunicateActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Communicate\",\"Present\":\"say\",\"Past\":\"said\"},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
 
             Assert.AreEqual(expected.ToString(), result.ToString());
         }
