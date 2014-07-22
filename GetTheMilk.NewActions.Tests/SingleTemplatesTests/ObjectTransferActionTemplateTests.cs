@@ -15,7 +15,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ObjectTransferActionTemplate();
 
-            Assert.AreEqual("ObjectTransferActionTemplate-Default Target Object Not Assigned", defaultActionTemplate.ToString());
+            Assert.AreEqual("ObjectTransferActionTemplate Target Object Not Assigned", defaultActionTemplate.ToString());
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var defaultActionTemplate = new ObjectTransferActionTemplate();
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"Category\":\"ObjectTransferActionTemplate\",\"Name\":{\"Identifier\":\"Default\",\"Present\":null,\"Past\":null},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
+            Assert.AreEqual("{\"PerformerType\":null,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             };
             var result = JsonConvert.SerializeObject(defaultActionTemplate);
 
-            Assert.AreEqual("{\"Category\":\"ObjectTransferActionTemplate\",\"Name\":{\"Identifier\":\"Sell\",\"Present\":\"sell\",\"Past\":\"sold\"},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
+            Assert.AreEqual("{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.SellActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Sell\",\"Present\":\"sell\",\"Past\":\"sold\"},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
 
 
         }
@@ -60,7 +60,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             var expected = new ObjectTransferActionTemplate();
             var result =
                 JsonConvert.DeserializeObject<ObjectTransferActionTemplate>(
-                    "{\"TransactionType\":0,\"Name\":{\"Identifier\":\"Default\",\"Present\":null,\"Past\":null,\"Category\":null},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
+                    "{\"PerformerType\":null,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
 
             Assert.AreEqual(expected.ToString(), result.ToString());
 
@@ -75,7 +75,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             };
             var result =
                 JsonConvert.DeserializeObject<ObjectTransferActionTemplate>(
-                    "{\"TransactionType\":1,\"Name\":{\"Identifier\":\"Sell\",\"Present\":\"sell\",\"Past\":\"sold\",\"Category\":null},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
+                    "{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.SellActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Sell\",\"Present\":\"sell\",\"Past\":\"sold\"},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
 
             Assert.AreEqual(expected.ToString(), result.ToString());
 
