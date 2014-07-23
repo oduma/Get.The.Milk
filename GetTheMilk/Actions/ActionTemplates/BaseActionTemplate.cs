@@ -34,6 +34,7 @@ namespace GetTheMilk.Actions.ActionTemplates
         #region Elements taking part
         public NonCharacterObject TargetObject { get; set; }
 
+        [JsonIgnore]
         public NonCharacterObject ActiveObject { get; set; }
 
         public Character TargetCharacter { get; set; }
