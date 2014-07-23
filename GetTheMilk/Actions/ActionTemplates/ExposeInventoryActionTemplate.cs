@@ -64,7 +64,8 @@ namespace GetTheMilk.Actions.ActionTemplates
                            FinishTheInteractionOnExecution = FinishTheInteractionOnExecution,
                            SelfInventory = SelfInventory,
                            FinishActionUniqueId=FinishActionUniqueId,
-                           CurrentPerformer=CurrentPerformer
+                           CurrentPerformer=CurrentPerformer,
+                           ActiveCharacter=ActiveCharacter
                        };
         }
 

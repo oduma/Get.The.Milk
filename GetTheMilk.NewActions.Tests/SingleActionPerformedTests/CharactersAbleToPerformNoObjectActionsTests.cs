@@ -27,28 +27,8 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         [Test]
         public void CharacterNotAbleToPerformNoDefaultAction()
         {
-            var noObjectActionTemplate = _character.CreateNewInstanceOfAction<NoObjectActionTemplate>("CloseInentory");
+            var noObjectActionTemplate = _character.CreateNewInstanceOfAction<NoObjectActionTemplate>("CloseInventory");
             Assert.IsNull(noObjectActionTemplate);
-        }
-
-        [Test]
-        public void CharacterNotAbleToPerformNoActiveCharacter()
-        {
-            _character.AddAvailableAction(new NoObjectActionTemplate
-            {
-                CurrentPerformer = new NoObjectActionTemplatePerformer(),
-                Name = new Verb
-                {
-                                                              Past = "closed inventory",
-                                                              Present = "close inventory",
-                                                              UniqueId="CloseInventory"
-                                                          }
-                                              });
-
-            var noObjectAction = _character.CreateNewInstanceOfAction<NoObjectActionTemplate>("CloseInventory");
-            Assert.IsNotNull(noObjectAction);
-            Assert.AreEqual(typeof(NoObjectActionTemplate), noObjectAction.GetType());
-            Assert.False(_character.CanPerformAction(noObjectAction));
         }
 
         [Test]
@@ -65,10 +45,9 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                     }
             });
             _character.AllowsTemplateAction = TestHelper.AllowsNothing;
-            var noObjectAction = _character.CreateNewInstanceOfAction<NoObjectActionTemplate>("CloseInentory");
+            var noObjectAction = _character.CreateNewInstanceOfAction<NoObjectActionTemplate>("CloseInventory");
             Assert.IsNotNull(noObjectAction);
             Assert.AreEqual(typeof(NoObjectActionTemplate), noObjectAction.GetType());
-            noObjectAction.ActiveCharacter = _character;
             Assert.False(_character.CanPerformAction(noObjectAction));
         }
         [Test]
@@ -84,10 +63,9 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                         UniqueId="CloseInventory"
                     }
             });
-            var noObjectAction = _character.CreateNewInstanceOfAction<NoObjectActionTemplate>("CloseInentory");
+            var noObjectAction = _character.CreateNewInstanceOfAction<NoObjectActionTemplate>("CloseInventory");
             Assert.IsNotNull(noObjectAction);
             Assert.AreEqual(typeof(NoObjectActionTemplate), noObjectAction.GetType());
-            noObjectAction.ActiveCharacter = _character;
             Assert.True(_character.CanPerformAction(noObjectAction));
         }
 

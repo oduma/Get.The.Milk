@@ -74,7 +74,9 @@ namespace GetTheMilk.Actions.ActionTemplates
                            DestroyTargetObject = DestroyTargetObject,
                            ChanceOfSuccess = ChanceOfSuccess,
                            PercentOfHealthFailurePenalty = PercentOfHealthFailurePenalty,
-                           CurrentPerformer = CurrentPerformer
+                           CurrentPerformer = CurrentPerformer,
+                           ActiveCharacter = ActiveCharacter,
+                           ActiveObject = ActiveObject
                        };
         }
 

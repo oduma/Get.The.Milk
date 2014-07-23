@@ -63,7 +63,8 @@ namespace GetTheMilk.Actions.ActionTemplates
                 Name = Name,
                 StartingAction = StartingAction,
                 FinishTheInteractionOnExecution = FinishTheInteractionOnExecution,
-                CurrentPerformer = CurrentPerformer
+                CurrentPerformer = CurrentPerformer,
+                ActiveCharacter = ActiveCharacter
             };
         }
     }
