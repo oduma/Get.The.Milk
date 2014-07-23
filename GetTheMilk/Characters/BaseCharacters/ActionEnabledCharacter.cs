@@ -17,6 +17,11 @@ namespace GetTheMilk.Characters.BaseCharacters
 {
     public class ActionEnabledCharacter:BaseActionEnabledObject,IActionEnabledCharacter
     {
+        protected override void AssignExecutor(BaseActionTemplate act)
+        {
+            act.ActiveCharacter = (Character)this;
+        }
+
         protected void LoadInteractionsForAll()
         {
 

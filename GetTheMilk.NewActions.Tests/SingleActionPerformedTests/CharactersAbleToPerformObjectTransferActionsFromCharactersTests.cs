@@ -45,29 +45,9 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("GiveTo");
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
-            objectTransferAction.ActiveCharacter = _character;
             Assert.False(_character.CanPerformAction(objectTransferAction));
 
 
-        }
-        [Test]
-        public void CharacterNotAbleToTransferNoActiveCharacter()
-        {
-            var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
-            _character.LoadInteractions(targetCharacter, targetCharacter.Name.Main);
-            _character.Inventory = new Inventory {MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory};
-            var objAction = _factory.CreateObjectAction("Tool");
-            _character.Inventory.Add(new Tool
-            {
-                Name = new Noun { Main = "test tool", Narrator = "test tool" },
-                AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction,
-                AllowsTemplateAction = objAction.AllowsTemplateAction
-            });
-            var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("GiveTo");
-            Assert.IsNotNull(objectTransferAction);
-            Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
-            objectTransferAction.TargetObject = _character.Inventory[0];
-            Assert.False(_character.CanPerformAction(objectTransferAction));
         }
         [Test]
         public void CharacterNotAbleToTransferNoTargetCharacter()
@@ -86,7 +66,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
             objectTransferAction.TargetObject = _character.Inventory[0];
-            objectTransferAction.ActiveCharacter = _character;
             Assert.False(_character.CanPerformAction(objectTransferAction));
 
         }
@@ -107,7 +86,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
             objectTransferAction.TargetObject = _character.Inventory[0];
-            objectTransferAction.ActiveCharacter = _character;
             objectTransferAction.TargetCharacter = targetCharacter;
             Assert.False(_character.CanPerformAction(objectTransferAction));
         }
@@ -131,7 +109,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
             objectTransferAction.TargetObject = _character.Inventory[0];
-            objectTransferAction.ActiveCharacter = _character;
             objectTransferAction.TargetCharacter = targetCharacter;
             Assert.False(_character.CanPerformAction(objectTransferAction));
 
@@ -154,7 +131,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
             objectTransferAction.TargetObject = _character.Inventory[0];
-            objectTransferAction.ActiveCharacter = _character;
             objectTransferAction.TargetCharacter = targetCharacter;
             Assert.True(_character.CanPerformAction(objectTransferAction));
         }
@@ -173,11 +149,10 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                 AllowsTemplateAction = objAction.AllowsTemplateAction,
                 SellPrice=10
             });
-            var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("GiveTo");
+            var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("Sell");
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
             objectTransferAction.TargetObject = _character.Inventory[0];
-            objectTransferAction.ActiveCharacter = _character;
             objectTransferAction.TargetCharacter = targetCharacter;
             Assert.False(_character.CanPerformAction(objectTransferAction));
         }
@@ -198,11 +173,10 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                 AllowsTemplateAction = objAction.AllowsTemplateAction,
                 SellPrice = 10
             });
-            var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("GiveTo");
+            var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("Sell");
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
             objectTransferAction.TargetObject = _character.Inventory[0];
-            objectTransferAction.ActiveCharacter = _character;
             objectTransferAction.TargetCharacter = targetCharacter;
             targetCharacter.Walet.CurrentCapacity = 4;
             Assert.False(_character.CanPerformAction(objectTransferAction));
@@ -228,7 +202,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
             objectTransferAction.TargetObject = _character.Inventory[0];
-            objectTransferAction.ActiveCharacter = _character;
             objectTransferAction.TargetCharacter = targetCharacter;
             Assert.True(_character.CanPerformAction(objectTransferAction));
 

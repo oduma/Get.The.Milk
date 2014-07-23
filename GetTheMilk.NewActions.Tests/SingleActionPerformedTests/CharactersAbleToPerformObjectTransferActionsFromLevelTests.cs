@@ -58,7 +58,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("Keep");
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
-            objectTransferAction.ActiveCharacter = _character;
             Assert.False(_character.CanPerformAction(objectTransferAction));
 
         }
@@ -84,7 +83,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("Keep");
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
-            objectTransferAction.ActiveCharacter = _character;
             objectTransferAction.TargetObject = anotherTargetObject;
             Assert.False(_character.CanPerformAction(objectTransferAction));
         }
@@ -99,7 +97,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
             objectTransferAction.TargetObject = targetObject;
-            objectTransferAction.ActiveCharacter = _character;
             Assert.False(_character.CanPerformAction(objectTransferAction));
         }
         [Test]
@@ -112,7 +109,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
             objectTransferAction.TargetObject = targetObject;
-            objectTransferAction.ActiveCharacter = _character;
             Assert.True(_character.CanPerformAction(objectTransferAction));
 
         }

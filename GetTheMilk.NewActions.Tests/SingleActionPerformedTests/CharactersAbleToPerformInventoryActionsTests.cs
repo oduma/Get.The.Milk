@@ -8,6 +8,8 @@ using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Factories;
 using GetTheMilk.Utils;
 using NUnit.Framework;
+using GetTheMilk.Actions.ActionPerformers;
+using GetTheMilk.Actions.ActionPerformers.Base;
 
 namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
 {
@@ -32,20 +34,9 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         }
 
         [Test]
-        public void PlayerNotAbleNoActiveCharacter()
-        {
-            var exposeInventoryActionn = _player.CreateNewInstanceOfAction<ExposeInventoryActionTemplate>("ExposeInventory");
-            Assert.IsNotNull(exposeInventoryActionn);
-            Assert.AreEqual(typeof(ExposeInventoryActionTemplate), exposeInventoryActionn.GetType());
-            Assert.False(_player.CanPerformAction(exposeInventoryActionn));
-
-        }
-
-        [Test]
         public void PlayerNotAbleNoTargetCharacter()
         {
             var exposeInventoryActionn = _player.CreateNewInstanceOfAction<ExposeInventoryActionTemplate>("ExposeInventory");
-            exposeInventoryActionn.ActiveCharacter = _player;
             Assert.IsNotNull(exposeInventoryActionn);
             Assert.AreEqual(typeof(ExposeInventoryActionTemplate), exposeInventoryActionn.GetType());
             Assert.False(_player.CanPerformAction(exposeInventoryActionn));
@@ -56,7 +47,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void PlayerNotAbleNotSelfInventory()
         {
             var exposeInventoryActionn = _player.CreateNewInstanceOfAction<ExposeInventoryActionTemplate>("ExposeInventory");
-            exposeInventoryActionn.ActiveCharacter = _player;
             exposeInventoryActionn.TargetCharacter = _player;
             exposeInventoryActionn.SelfInventory = false;
             Assert.IsNotNull(exposeInventoryActionn);
@@ -69,7 +59,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
 
             var exposeInventoryActionn = _player.CreateNewInstanceOfAction<ExposeInventoryActionTemplate>("ExposeInventory");
-            exposeInventoryActionn.ActiveCharacter = _player;
             exposeInventoryActionn.TargetCharacter = _player;
             exposeInventoryActionn.SelfInventory = true;
             Assert.IsNotNull(exposeInventoryActionn);
@@ -93,24 +82,21 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                                                                                                                 Action =
                                                                                                                     new TwoCharactersActionTemplate
                                                                                                                         {
-                                                                                                                            Message
-                                                                                                                                =
-                                                                                                                                "Yes",
-                                                                                                                            FinishTheInteractionOnExecution
-                                                                                                                                =
-                                                                                                                                true
+                                                                                                                            Message="Yes",
+                                                                                                                            FinishTheInteractionOnExecution=true,
+                                                                                                                            CurrentPerformer=new CommunicateActionPerformer(),
+                                                                                                                            Name = new Verb{UniqueId="SayYes",Past="said", Present="say"}
                                                                                                                         },
                                                                                                                 Reaction
                                                                                                                     =
                                                                                                                     new ExposeInventoryActionTemplate
                                                                                                                         {
-                                                                                                                            FinishActionUniqueId
-                                                                                                                                =
-                                                                                                                                "CloseInventory"
+                                                                                                                            FinishActionUniqueId="CloseInventory",
+                                                                                                                            CurrentPerformer=new ExposeInventoryActionTemplatePerformer(),
+                                                                                                                            Name = new Verb{UniqueId="ExposeInventory",Past="exposed", Present="expose"}
                                                                                                                         }
                                                                                                             }});
             var exposeInventoryActionn = _character.CreateNewInstanceOfAction<ExposeInventoryActionTemplate>("ExposeInventory");
-            exposeInventoryActionn.ActiveCharacter = _character;
             exposeInventoryActionn.TargetCharacter = _player;
             exposeInventoryActionn.SelfInventory = false;
             Assert.IsNotNull(exposeInventoryActionn);

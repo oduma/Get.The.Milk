@@ -53,7 +53,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Open");
             Assert.IsNotNull(useAction);
             Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());
-            useAction.ActiveCharacter = _character;
             Assert.False(_character.CanPerformAction(useAction));
 
         }
@@ -65,7 +64,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Open");
             Assert.IsNotNull(useAction);
             Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());
-            useAction.ActiveCharacter = _character;
             useAction.ActiveObject = _character.Inventory[0];
             Assert.False(_character.CanPerformAction(useAction));
 
@@ -78,7 +76,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Open");
             Assert.IsNotNull(useAction);
             Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());
-            useAction.ActiveCharacter = _character;
+
             useAction.ActiveObject = _character.Inventory[1];
             _character.Inventory[1].AllowsTemplateAction = TestHelper.AllowsNothing;
             useAction.TargetObject = targetObject;
@@ -93,7 +91,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Open");
             Assert.IsNotNull(useAction);
             Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());
-            useAction.ActiveCharacter = _character;
             useAction.ActiveObject = _character.Inventory[1];
             _character.Inventory[1].AllowsTemplateAction = TestHelper.AllowsEverything;
             useAction.TargetObject = targetObject;
@@ -107,7 +104,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Open");
             Assert.IsNotNull(useAction);
             Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());
-            useAction.ActiveCharacter = _character;
             useAction.ActiveObject = _character.Inventory[0];
             _character.Inventory[1].AllowsTemplateAction = TestHelper.AllowsEverything;
             useAction.TargetObject = targetObject;

@@ -25,7 +25,14 @@ namespace GetTheMilk.Objects.BaseObjects
         {
             if (AllActions == null || !AllActions.ContainsKey(uniqueId) || AllActions[uniqueId].GetType()!=typeof(T))
                 return null;
-            return AllActions[uniqueId].Clone() as T;
+            var act= AllActions[uniqueId].Clone() as T;
+            AssignExecutor(act);
+            return act;
+        }
+
+        protected virtual void AssignExecutor(BaseActionTemplate act)
+        {
+            act.ActiveObject = (NonCharacterObject)this;
         }
 
         public BaseActionTemplate CreateNewInstanceOfAction(string uniqueId)

@@ -142,213 +142,122 @@ namespace GetTheMilk.NewActions.Tests
                 CloseUpMessage = "It is a small but very sharp knife.",
                 ObjectTypeId = "Weapon"
             },
-                            new Tool
+            new Tool
+            {
+                BlockMovement = false,
+                BuyPrice = 4,
+                SellPrice = 2,
+                Name = new Noun { Main = "Can Opener", Narrator = "the can opener" },
+                CloseUpMessage = "In the grass right in front there is a can opener.",
+                ObjectTypeId = "CanOpener"
+            });
+            var skInteractionRules = 
+                new SortedList<string, Interaction[]>
+                {
+                    {
+                        GenericInteractionRulesKeys.CharacterSpecific, new Interaction[]
+                        {
+                            new Interaction
                             {
-                                BlockMovement = false,
-                                BuyPrice = 4,
-                                SellPrice = 2,
-                                Name = new Noun { Main = "Can Opener", Narrator = "the can opener" },
-                                CloseUpMessage = "In the grass right in front there is a can opener.",
-                                ObjectTypeId = "CanOpener"
-                            });
-            var skInteractionRules = new SortedList<string, Interaction[]>
-                                         {
-                                             {
-                                                 GenericInteractionRulesKeys.CharacterSpecific, new Interaction[]
-                                                                                                    {
-                                                                                                        new Interaction
-                                                                                                            {
-                                                                                                                Action =
-                                                                                                                    new TwoCharactersActionTemplate
-                                                                                                                        {
-                CurrentPerformer = new TwoCharactersActionTemplatePerformer(),
-                Name = new Verb
-                {
-                    UniqueId
-                                                                                                                                            =
-                                                                                                                                            "Meet",
-                                                                                                                                        Past
-                                                                                                                                            =
-                                                                                                                                            "met",
-                                                                                                                                        Present
-                                                                                                                                            =
-                                                                                                                                            "meet"
-                                                                                                                                    },
-                                                                                                                            StartingAction
-                                                                                                                                =
-                                                                                                                                true
-                                                                                                                        },
-                                                                                                                Reaction
-                                                                                                                    =
-                                                                                                                    new TwoCharactersActionTemplate
-                                                                                                                        {
-
-                                                                                                                            Message
-                                                                                                                                =
-                                                                                                                                "How are you? Beautifull day out there better buy something!"
-                                                                                                                        }
-                                                                                                            },
-                                                                                                        new Interaction
-                                                                                                            {
-                                                                                                                Action =
-                                                                                                                    new TwoCharactersActionTemplate
-                                                                                                                        {
-                                                                                                                            Message
-                                                                                                                                =
-                                                                                                                                "Yes",
-                                                                                                                            FinishTheInteractionOnExecution
-                                                                                                                                =
-                                                                                                                                true
-                                                                                                                        },
-                                                                                                                Reaction
-                                                                                                                    =
-                                                                                                                    new ExposeInventoryActionTemplate
-                                                                                                                        {
-                                                                                                                            FinishActionUniqueId
-                                                                                                                                =
-                                                                                                                                "CloseInventory"
-                                                                                                                        }
-                                                                                                            },
-                                                                                                        new Interaction
-                                                                                                            {
-                                                                                                                Action =
-                                                                                                                    new TwoCharactersActionTemplate
-                                                                                                                        {
-                                                                                                                            Message
-                                                                                                                                =
-                                                                                                                                "No",
-                                                                                                                            FinishTheInteractionOnExecution
-                                                                                                                                =
-                                                                                                                                true
-                                                                                                                        },
-                                                                                                                Reaction
-                                                                                                                    =
-                                                                                                                    new TwoCharactersActionTemplate
-                                                                                                                        {
-                                                                                                                            Message
-                                                                                                                                =
-                                                                                                                                "Why oh Why!?"
-                                                                                                                        }
-                                                                                                            }
-                                                                                                    }
-                                             },
-                                             {
-                                                 GenericInteractionRulesKeys.PlayerResponses, new Interaction[]
-                                                                                                  {
-                                                                                                      new Interaction
-                                                                                                          {
-                                                                                                              Action =
-                                                                                                                  new TwoCharactersActionTemplate
-                                                                                                                      {
-                                                                                                                          Message
-                                                                                                                              =
-                                                                                                                              "How are you? Beautifull day out there better buy something!"
-                                                                                                                      },
-                                                                                                              Reaction =
-                                                                                                                  new TwoCharactersActionTemplate
-                                                                                                                      {
-                                                                                                                          Message
-                                                                                                                              =
-                                                                                                                              "Yes",
-                                                                                                                          FinishTheInteractionOnExecution
-                                                                                                                              =
-                                                                                                                              true
-                                                                                                                      }
-                                                                                                          },
-                                                                                                      new Interaction
-                                                                                                          {
-                                                                                                              Action =
-                                                                                                                  new TwoCharactersActionTemplate
-                                                                                                                      {
-                                                                                                                          Message
-                                                                                                                              =
-                                                                                                                              "How are you? Beautifull day out there better buy something!"
-                                                                                                                      },
-                                                                                                              Reaction =
-                                                                                                                  new TwoCharactersActionTemplate
-                                                                                                                      {
-                                                                                                                          Message
-                                                                                                                              =
-                                                                                                                              "No",
-                                                                                                                          FinishTheInteractionOnExecution
-                                                                                                                              =
-                                                                                                                              true
-                                                                                                                      }
-                                                                                                          }
-
-                                                                                                  }
-                                             },
-                                             {
-                                                 GenericInteractionRulesKeys.AnyCharacterResponses, new Interaction[]
-                                                                                                     {
-                                                                                                         new Interaction
-                                                                                                             {
-                                                                                                                 Action
-                                                                                                                     =
-                                                                                                                     new TwoCharactersActionTemplate
-                                                                                                                         {
-                                                                                                                             Message
-                                                                                                                                 =
-                                                                                                                                 "Please give me a tool!"
-                                                                                                                         },
-                                                                                                                 Reaction
-                                                                                                                     =
-                                                                                                                     new ObjectTransferActionTemplate
-                                                                                                                         {
-                CurrentPerformer = new GiveToActionPerformer(),
-                Name = new Verb
-                {
-                    UniqueId
-                                                                                                                                             =
-                                                                                                                                             "GiveTo",
-                                                                                                                                         Past
-                                                                                                                                             =
-                                                                                                                                             "gave to",
-                                                                                                                                         Present
-                                                                                                                                             =
-                                                                                                                                             "give to"
-                                                                                                                                     },
-                                                                                                                             FinishTheInteractionOnExecution
-                                                                                                                                 =
-                                                                                                                                 true
-                                                                                                                         }
-                                                                                                             },
-                                                                                                                                                                                                                      new Interaction
-                                                                                                             {
-                                                                                                                 Action
-                                                                                                                     =
-                                                                                                                     new TwoCharactersActionTemplate
-                                                                                                                         {
-                                                                                                                             Message
-                                                                                                                                 =
-                                                                                                                                 "Please give me a tool!"
-                                                                                                                         },
-                                                                                                                 Reaction
-                                                                                                                     =
-                                                                                                                     new ObjectTransferActionTemplate
-                                                                                                                         {
-                CurrentPerformer = new SellActionPerformer(),
-                Name = new Verb
-                {
-                    UniqueId
-                                                                                                                                             =
-                                                                                                                                             "Sell",
-                                                                                                                                         Past
-                                                                                                                                             =
-                                                                                                                                             "sold",
-                                                                                                                                         Present
-                                                                                                                                             =
-                                                                                                                                             "sell"
-                                                                                                                                     },
-                                                                                                                             FinishTheInteractionOnExecution
-                                                                                                                                 =
-                                                                                                                                 true
-                                                                                                                         }
-                                                                                                             }
-                                                                                                     }
-                                             }
-
-                                         };
+                                Action = new TwoCharactersActionTemplate
+                                {
+                                    Message = "Yes",
+                                    FinishTheInteractionOnExecution = true,
+                                    Name= new Verb{UniqueId="SayYes",Past="said",Present="say"}
+                                },
+                                Reaction = new ExposeInventoryActionTemplate
+                                {
+                                    FinishActionUniqueId = "CloseInventory",
+                                    CurrentPerformer=new ExposeInventoryActionTemplatePerformer(),
+                                    Name= new Verb{UniqueId="ExposeForSale",Past="exposed",Present="exposed"}
+                                }
+                            },
+                            new Interaction
+                            {
+                                Action = new TwoCharactersActionTemplate
+                                {
+                                    Message = "No",
+                                    FinishTheInteractionOnExecution = true,
+                                    Name= new Verb{UniqueId="SayNo",Past="said",Present="say"}
+                                },
+                                Reaction = new TwoCharactersActionTemplate
+                                {
+                                    Message = "Why oh Why!?",
+                                    CurrentPerformer=new CommunicateActionPerformer(),
+                                    Name= new Verb{UniqueId="SayWhyOhWhy",Past="said",Present="say"}
+                                }
+                            }
+                        }
+                    },
+                    {
+                        GenericInteractionRulesKeys.PlayerResponses, new Interaction[]
+                        {
+                            new Interaction
+                            {
+                                Action = new TwoCharactersActionTemplate
+                                {
+                                    Message = "How are you? Beautifull day out there better buy something!",
+                                    Name= new Verb{UniqueId="AskForSale",Past="said",Present="say"}
+                                },
+                                Reaction = new TwoCharactersActionTemplate
+                                {
+                                    Message = "Yes",
+                                    FinishTheInteractionOnExecution = true,
+                                    CurrentPerformer=new CommunicateActionPerformer(),
+                                    Name= new Verb{UniqueId="SayYes",Past="said",Present="say"}
+                                }
+                            },
+                            new Interaction
+                            {
+                                Action = new TwoCharactersActionTemplate
+                                {
+                                    Message = "How are you? Beautifull day out there better buy something!",
+                                    Name= new Verb{UniqueId="AskForSale",Past="said",Present="say"}
+                                },
+                                Reaction = new TwoCharactersActionTemplate
+                                {
+                                    Message = "No",
+                                    FinishTheInteractionOnExecution= true,
+                                    CurrentPerformer=new CommunicateActionPerformer(),
+                                    Name= new Verb{UniqueId="SayNo",Past="said",Present="say"}
+                                }
+                            }
+                        }
+                    },
+                    {
+                        GenericInteractionRulesKeys.AnyCharacterResponses, new Interaction[]
+                        {
+                            new Interaction
+                            {
+                                Action = new TwoCharactersActionTemplate
+                                {
+                                    Message = "Please give me a tool!",
+                                    Name= new Verb{UniqueId="AskForTool",Past="said",Present="say"}
+                                },
+                                Reaction = new ObjectTransferActionTemplate
+                                {
+                                    CurrentPerformer = new GiveToActionPerformer(),
+                                    Name = new Verb{UniqueId="GiveTo",Past="gave to",Present="give to"},
+                                    FinishTheInteractionOnExecution=true
+                                }
+                            },
+                            new Interaction
+                            {
+                                Action=new TwoCharactersActionTemplate
+                                {
+                                    Message = "Please give me a tool!",
+                                    Name= new Verb{UniqueId="AskForTool",Past="said",Present="say"}
+                                },
+                                Reaction = new ObjectTransferActionTemplate
+                                {
+                                    CurrentPerformer = new SellActionPerformer(),
+                                    Name = new Verb{UniqueId="Sell",Past="sold",Present="sell"},
+                                    FinishTheInteractionOnExecution=true
+                                }
+                        }
+                    }
+                }
+            };
             var skCharacter = new Character
             {
                 CellNumber = 2,

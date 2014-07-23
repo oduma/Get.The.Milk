@@ -40,26 +40,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         }
 
         [Test]
-        public void CharacterNotAbleToPerformNoActiveCharacter()
-        {
-            _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
-            {
-                CurrentPerformer = new CommunicateActionPerformer(),
-                Name = new Verb
-                {
-                        Past = "talked",
-                        Present = "talk",
-                        UniqueId="Talk1"
-                    }
-            });
-
-            var twoCharsAction = _activeCharacter.CreateNewInstanceOfAction<TwoCharactersActionTemplate>("Talk1");
-            Assert.IsNotNull(twoCharsAction);
-            Assert.AreEqual(typeof(TwoCharactersActionTemplate), twoCharsAction.GetType());
-            Assert.False(_activeCharacter.CanPerformAction(twoCharsAction));
-
-        }
-        [Test]
         public void CharacterNotAbleToPerformNoTargetCharacter()
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
@@ -96,7 +76,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var twoCharsAction = _activeCharacter.CreateNewInstanceOfAction<TwoCharactersActionTemplate>("Talk1");
             Assert.IsNotNull(twoCharsAction);
             Assert.AreEqual(typeof(TwoCharactersActionTemplate), twoCharsAction.GetType());
-            twoCharsAction.ActiveCharacter = _activeCharacter;
             twoCharsAction.TargetCharacter = _targetCharacter;
             Assert.False(_activeCharacter.CanPerformAction(twoCharsAction));
 
@@ -119,7 +98,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var twoCharsAction = _activeCharacter.CreateNewInstanceOfAction<TwoCharactersActionTemplate>("Talk1");
             Assert.IsNotNull(twoCharsAction);
             Assert.AreEqual(typeof(TwoCharactersActionTemplate), twoCharsAction.GetType());
-            twoCharsAction.ActiveCharacter = _activeCharacter;
             twoCharsAction.TargetCharacter = _targetCharacter;
             Assert.False(_activeCharacter.CanPerformAction(twoCharsAction));
         }
@@ -140,7 +118,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var twoCharsAction = _activeCharacter.CreateNewInstanceOfAction<TwoCharactersActionTemplate>("Talk1");
             Assert.IsNotNull(twoCharsAction);
             Assert.AreEqual(typeof(TwoCharactersActionTemplate), twoCharsAction.GetType());
-            twoCharsAction.ActiveCharacter = _activeCharacter;
             twoCharsAction.TargetCharacter = _targetCharacter;
             Assert.False(_activeCharacter.CanPerformAction(twoCharsAction));
         }
@@ -162,7 +139,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var twoCharsAction = _activeCharacter.CreateNewInstanceOfAction<TwoCharactersActionTemplate>("Talk1");
             Assert.IsNotNull(twoCharsAction);
             Assert.AreEqual(typeof(TwoCharactersActionTemplate), twoCharsAction.GetType());
-            twoCharsAction.ActiveCharacter = _activeCharacter;
             twoCharsAction.TargetCharacter = _targetCharacter;
             
             Assert.True(_activeCharacter.CanPerformAction(twoCharsAction));

@@ -75,7 +75,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void PlayerAbleToWalk()
         {
             var movementAction = _player.CreateNewInstanceOfAction<MovementActionTemplate>("Walk");
-            movementAction.ActiveCharacter = _player;
             movementAction.CurrentMap = new Map { Cells = new Cell[] { new Cell() } };
             movementAction.Direction = Direction.Top;
             Assert.IsNotNull(movementAction);
@@ -86,7 +85,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void PlayerAbleToRun()
         {
             var movementAction = _player.CreateNewInstanceOfAction<MovementActionTemplate>("Run");
-            movementAction.ActiveCharacter = _player;
             movementAction.CurrentMap = new Map { Cells = new Cell[] { new Cell() } };
             movementAction.Direction = Direction.Top;
             Assert.IsNotNull(movementAction);
@@ -97,7 +95,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void PlayerAbleToTeleport()
         {
             var enterlevelAction = _player.CreateNewInstanceOfAction<MovementActionTemplate>("Teleport");
-            enterlevelAction.ActiveCharacter = _player;
             enterlevelAction.CurrentMap = new Map { Cells = new Cell[] { new Cell() } };
             Assert.IsNotNull(enterlevelAction);
             Assert.AreEqual(typeof(MovementActionTemplate), enterlevelAction.GetType());
@@ -108,7 +105,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void AnyCharacterAbleToWalk()
         {
             var movementAction = _character.CreateNewInstanceOfAction<MovementActionTemplate>("Walk");
-            movementAction.ActiveCharacter = _character;
             movementAction.CurrentMap = new Map { Cells = new Cell[] { new Cell() } };
             movementAction.Direction = Direction.Top;
             Assert.IsNotNull(movementAction);
@@ -120,7 +116,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void AnyCharacterAbleToRun()
         {
             var movementAction = _character.CreateNewInstanceOfAction<MovementActionTemplate>("Run");
-            movementAction.ActiveCharacter = _character;
             movementAction.CurrentMap = new Map { Cells = new Cell[] { new Cell() } };
             movementAction.Direction = Direction.Top;
             Assert.IsNotNull(movementAction);
@@ -132,14 +127,11 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void AnyCharacterAbleToTeleport()
         {
             var movementAction = _character.CreateNewInstanceOfAction<MovementActionTemplate>("Teleport");
-            movementAction.ActiveCharacter = _character;
             movementAction.CurrentMap = new Map { Cells = new Cell[] { new Cell() } };
             movementAction.Direction = Direction.None;
             Assert.IsNotNull(movementAction);
             Assert.AreEqual(typeof(MovementActionTemplate), movementAction.GetType());
             Assert.True(_character.CanPerformAction(movementAction));
-
-
         }
     }
 }
