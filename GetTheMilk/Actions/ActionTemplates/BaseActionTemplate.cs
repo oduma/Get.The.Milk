@@ -18,6 +18,8 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         public Verb Name { get; set; }
 
+        public string Category { get; protected set; }
+
         #endregion
 
         #region Order of execution
@@ -36,6 +38,7 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         public Character TargetCharacter { get; set; }
 
+        [JsonIgnore]
         public Character ActiveCharacter { get; set; }
         #endregion
 

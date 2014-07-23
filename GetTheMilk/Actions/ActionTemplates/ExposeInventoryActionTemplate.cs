@@ -14,6 +14,7 @@ namespace GetTheMilk.Actions.ActionTemplates
             StartingAction = false;
             //the prebuilt in default performer will load
             PerformerType = typeof(ExposeInventoryActionTemplatePerformer);
+            Category = GetType().Name;
         }
 
         private Type _performerType;

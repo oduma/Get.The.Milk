@@ -44,66 +44,6 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             Assert.AreEqual("select attack weapon super weapon", defaultActionTemplate.ToString());
 
         }
-        [Test]
-        public void SerializeEmptyDefaultActionTemplate()
-        {
-            var defaultActionTemplate = new OneObjectActionTemplate();
-            var result = JsonConvert.SerializeObject(defaultActionTemplate);
-
-            Assert.AreEqual("{\"PerformerType\":null,\"Name\":null,\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
-        }
-
-        [Test]
-        public void SerializeActionTemplate()
-        {
-            var defaultActionTemplate = new OneObjectActionTemplate
-            {
-                CurrentPerformer = new SelectAttackWeaponActionPerformer(),
-                Name = new Verb
-                {
-                        UniqueId = "SelectAttackWeapon",
-                        Past = "selected attack weapon",
-                        Present = "select attack weapon"
-                    }
-            };
-            var result = JsonConvert.SerializeObject(defaultActionTemplate);
-
-            Assert.AreEqual("{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.SelectAttackWeaponActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"SelectAttackWeapon\",\"Present\":\"select attack weapon\",\"Past\":\"selected attack weapon\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
-
-
-        }
-
-        [Test]
-        public void DeSerializeEmptyActionTemplate()
-        {
-            var expected = new OneObjectActionTemplate();
-            var result =
-                JsonConvert.DeserializeObject<OneObjectActionTemplate>(
-                    "{\"PerformerType\":null,\"Name\":null,\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
-
-            Assert.AreEqual(expected.ToString(), result.ToString());
-
-        }
-        [Test]
-        public void DeSerializeActionTemplate()
-        {
-            var expected = new OneObjectActionTemplate
-            {
-                CurrentPerformer = new SelectAttackWeaponActionPerformer(),
-                Name = new Verb
-                {
-                    UniqueId = "SelectAttackWeapon",
-                        Past = "selected attack weapon",
-                        Present = "select attack weapon"
-                    }
-            };
-            var result =
-                JsonConvert.DeserializeObject<OneObjectActionTemplate>(
-                    "{\"Name\":{\"UniqueId\":\"SelectAttackWeapon\",\"Present\":\"select attack weapon\",\"Past\":\"selected attack weapon\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.SelectAttackWeaponActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\"}");
-
-            Assert.AreEqual(expected.ToString(), result.ToString());
-
-        }
 
         [Test]
         public void CloneActionTemplate()

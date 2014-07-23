@@ -15,6 +15,8 @@ namespace GetTheMilk.Actions.ActionTemplates
             StartingAction = true;
             PerformerType = typeof(WalkActionPerformer);
             Name = new Verb { UniqueId = "Walk", Present = "walk", Past = "walked" };
+            Category = GetType().Name;
+
         }
 
 

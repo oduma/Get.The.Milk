@@ -71,9 +71,9 @@ namespace GetTheMilk.Objects.BaseObjects
             return result;
         }
 
-        protected Dictionary<string,BaseActionTemplate> AllActionsExcludeInteractions()
+        protected IEnumerable<BaseActionTemplate> AllActionsExcludeInteractions()
         {
-            return _actions;
+            return _actions.Select(a=>a.Value);
         }
 
         public SortedList<string, Interaction[]> Interactions { get; set; }
@@ -84,12 +84,19 @@ namespace GetTheMilk.Objects.BaseObjects
         }
 
 
-        public void AddAvailableAction(BaseActionTemplate baseActionTemplate)
+        public virtual void AddAvailableAction(BaseActionTemplate baseActionTemplate)
+        {
+            baseActionTemplate.ActiveObject = (NonCharacterObject)this;
+            AddAction(baseActionTemplate);
+        }
+
+        protected void AddAction(BaseActionTemplate baseActionTemplate)
         {
             if (_actions == null)
                 _actions = new Dictionary<string, BaseActionTemplate>();
             if (!_actions.ContainsKey(baseActionTemplate.Name.UniqueId))
                 _actions.Add(baseActionTemplate.Name.UniqueId, baseActionTemplate);
+
         }
     }
 }

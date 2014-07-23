@@ -75,15 +75,15 @@ namespace GetTheMilk.Characters
             : new Noun { Main = "Payer 1", Narrator = GameSettings.GetInstance().DefaultNarratorAddressingForPlayer };
         }
 
-        protected override bool IsNonStandardActionTemplate(KeyValuePair<string,BaseActionTemplate> baseActionTemplate)
+        protected override bool IsNonStandardActionTemplate(BaseActionTemplate baseActionTemplate)
         {
             return
                 (!(GameSettings.GetInstance().AllCharactersActions.Any(
                     a =>
-                    a.Name.UniqueId == baseActionTemplate.Key)) &&
+                    a.Name.UniqueId == baseActionTemplate.Name.UniqueId)) &&
                  !(GameSettings.GetInstance().StandardPlayerActions.Any(
                      a =>
-                     a.Name.UniqueId == baseActionTemplate.Key)));
+                     a.Name.UniqueId == baseActionTemplate.Name.UniqueId)));
 
         }
     }

@@ -10,6 +10,8 @@ namespace GetTheMilk.Actions.ActionTemplates
         public NoObjectActionTemplate()
         {
             StartingAction = false;
+            Category = GetType().Name;
+
         }
         #endregion
 
@@ -23,7 +25,8 @@ namespace GetTheMilk.Actions.ActionTemplates
             set
             {
                 _performerType = value;
-                CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<INoObjectActionTemplatePerformer>(value.Name);
+                if(_performerType!=null)
+                    CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<INoObjectActionTemplatePerformer>(value.Name);
             }
         }
 

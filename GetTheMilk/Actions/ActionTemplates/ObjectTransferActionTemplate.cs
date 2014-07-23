@@ -10,6 +10,8 @@ namespace GetTheMilk.Actions.ActionTemplates
         public ObjectTransferActionTemplate()
         {
             StartingAction = false;
+            Category = GetType().Name;
+
         }
 
         private Type _performerType;

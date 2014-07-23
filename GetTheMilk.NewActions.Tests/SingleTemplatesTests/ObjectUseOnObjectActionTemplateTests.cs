@@ -35,68 +35,6 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
 
         }
         [Test]
-        public void SerializeEmptyDefaultActionTemplate()
-        {
-            var defaultActionTemplate = new ObjectUseOnObjectActionTemplate();
-            var result = JsonConvert.SerializeObject(defaultActionTemplate);
-
-            Assert.AreEqual("{\"DestroyActiveObject\":false,\"DestroyTargetObject\":false,\"ChanceOfSuccess\":100,\"PercentOfHealthFailurePenalty\":0,\"PerformerType\":null,\"Name\":null,\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
-        }
-
-        [Test]
-        public void SerializeActionTemplate()
-        {
-            var defaultActionTemplate = new ObjectUseOnObjectActionTemplate
-            {
-                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
-                Name = new Verb { UniqueId = "Defuse", Past = "defused", Present = "defuse" },
-                ChanceOfSuccess=ChanceOfSuccess.Small,
-                PercentOfHealthFailurePenalty=20,
-                DestroyTargetObject=true
-            };
-            var result = JsonConvert.SerializeObject(defaultActionTemplate);
-
-            Assert.AreEqual("{\"DestroyActiveObject\":false,\"DestroyTargetObject\":true,\"ChanceOfSuccess\":25,\"PercentOfHealthFailurePenalty\":20,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.ObjectUseOnObjectActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Defuse\",\"Present\":\"defuse\",\"Past\":\"defused\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
-
-
-        }
-
-        [Test]
-        public void DeSerializeEmptyActionTemplate()
-        {
-            var expected = new ObjectUseOnObjectActionTemplate();
-            var result =
-                JsonConvert.DeserializeObject<ObjectUseOnObjectActionTemplate>(
-                    "{\"DestroyActiveObject\":false,\"DestroyTargetObject\":false,\"ChanceOfSuccess\":100,\"PercentOfHealthFailurePenalty\":0,\"PerformerType\":null,\"Name\":null,\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
-
-            Assert.AreEqual(expected.ToString(), result.ToString());
-            Assert.False(result.DestroyActiveObject);
-            Assert.False(result.DestroyTargetObject);
-
-        }
-        [Test]
-        public void DeSerializeActionTemplate()
-        {
-            var expected = new ObjectUseOnObjectActionTemplate
-            {
-                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
-                Name = new Verb { UniqueId = "Defuse", Past = "defused", Present = "defuse" },
-                ChanceOfSuccess = ChanceOfSuccess.Small,
-                PercentOfHealthFailurePenalty = 20,
-                DestroyTargetObject = true
-            };
-            var result =
-                JsonConvert.DeserializeObject<ObjectUseOnObjectActionTemplate>(
-                    "{\"DestroyActiveObject\":false,\"DestroyTargetObject\":true,\"ChanceOfSuccess\":25,\"PercentOfHealthFailurePenalty\":20,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.ObjectUseOnObjectActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Defuse\",\"Present\":\"defuse\",\"Past\":\"defused\"},\"StartingAction\":true,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
-
-            Assert.AreEqual(expected.ToString(), result.ToString());
-            Assert.AreEqual(expected.PercentOfHealthFailurePenalty, result.PercentOfHealthFailurePenalty);
-            Assert.AreEqual(expected.ChanceOfSuccess, result.ChanceOfSuccess);
-            Assert.AreEqual(expected.DestroyTargetObject, result.DestroyTargetObject);
-
-        }
-
-        [Test]
         public void CloneActionTemplate()
         {
             var defaultActionTemplate = new ObjectUseOnObjectActionTemplate

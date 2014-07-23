@@ -55,5 +55,11 @@ namespace GetTheMilk.Characters.BaseCharacters
                     a => a.Name.UniqueId == uniqueId);
             return defaultActionTemplate != null ? defaultActionTemplate.Clone() as T : null;
         }
+
+        public override void AddAvailableAction(BaseActionTemplate baseActionTemplate)
+        {
+            baseActionTemplate.ActiveCharacter = (Character)this;
+            AddAction(baseActionTemplate);
+        }
     }
 }

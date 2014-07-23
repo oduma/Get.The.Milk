@@ -41,57 +41,6 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
 
 
         }
-        [Test]
-        public void SerializeEmptyDefaultActionTemplate()
-        {
-            var defaultActionTemplate = new TwoCharactersActionTemplate();
-            var result = JsonConvert.SerializeObject(defaultActionTemplate);
-
-            Assert.AreEqual("{\"Message\":null,\"PerformerType\":null,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
-        }
-
-        [Test]
-        public void SerializeActionTemplate()
-        {
-            var defaultActionTemplate = new TwoCharactersActionTemplate
-            {
-                CurrentPerformer = new CommunicateActionPerformer(),
-                Name = new Verb { UniqueId = "Communicate", Past = "said", Present = "say" },
-                Message = "hello"
-            };
-            var result = JsonConvert.SerializeObject(defaultActionTemplate);
-
-            Assert.AreEqual("{\"Message\":\"hello\",\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.CommunicateActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Communicate\",\"Present\":\"say\",\"Past\":\"said\"},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
-
-
-        }
-
-        [Test]
-        public void DeSerializeEmptyActionTemplate()
-        {
-            var expected = new TwoCharactersActionTemplate();
-            var result =
-                JsonConvert.DeserializeObject<TwoCharactersActionTemplate>(
-                    "{\"Message\":null,\"PerformerType\":null,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
-
-            Assert.AreEqual(expected.ToString(), result.ToString());
-
-        }
-        [Test]
-        public void DeSerializeActionTemplate()
-        {
-            var expected = new TwoCharactersActionTemplate
-            {
-                CurrentPerformer = new CommunicateActionPerformer(),
-                Name = new Verb { UniqueId = "Communicate", Past = "said", Present = "say" },
-                Message = "hello"
-            };
-            var result =
-                JsonConvert.DeserializeObject<TwoCharactersActionTemplate>(
-                    "{\"Message\":\"hello\",\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.CommunicateActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Communicate\",\"Present\":\"say\",\"Past\":\"said\"},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
-
-            Assert.AreEqual(expected.ToString(), result.ToString());
-        }
 
         [Test]
         public void CloneActionTemplate()

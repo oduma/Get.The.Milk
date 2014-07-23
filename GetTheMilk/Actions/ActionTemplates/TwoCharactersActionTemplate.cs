@@ -8,12 +8,16 @@ namespace GetTheMilk.Actions.ActionTemplates
 {
     public class TwoCharactersActionTemplate: BaseActionTemplate
     {
+        public TwoCharactersActionTemplate()
+        {
+            Category = GetType().Name;
+        }
 
         [LevelBuilderAccesibleProperty(typeof(string))]
         public string Message { get; set; }
 
         private Type _performerType;
-        public Type PerformerType
+        public override Type PerformerType
         {
             get
             {

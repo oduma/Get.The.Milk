@@ -19,6 +19,8 @@ namespace GetTheMilk.Actions.ActionTemplates
         {
             ChanceOfSuccess = ChanceOfSuccess.Full;
             StartingAction = true;
+            Category = GetType().Name;
+
         }
 
         protected override object[] Translate()

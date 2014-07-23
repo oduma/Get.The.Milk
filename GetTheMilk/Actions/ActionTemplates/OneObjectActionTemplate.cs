@@ -10,6 +10,8 @@ namespace GetTheMilk.Actions.ActionTemplates
         public OneObjectActionTemplate()
         {
             StartingAction = true;
+            Category = GetType().Name;
+
         }
         #endregion
 

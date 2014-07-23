@@ -30,56 +30,6 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             Assert.AreEqual("buy Target Object Not Assigned", defaultActionTemplate.ToString());
 
         }
-        [Test]
-        public void SerializeEmptyDefaultActionTemplate()
-        {
-            var defaultActionTemplate = new ObjectTransferActionTemplate();
-            var result = JsonConvert.SerializeObject(defaultActionTemplate);
-
-            Assert.AreEqual("{\"PerformerType\":null,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
-        }
-
-        [Test]
-        public void SerializeActionTemplate()
-        {
-            var defaultActionTemplate = new ObjectTransferActionTemplate
-            {
-                CurrentPerformer = new SellActionPerformer(),
-                Name = new Verb { UniqueId = "Sell", Past = "sold", Present = "sell" }
-            };
-            var result = JsonConvert.SerializeObject(defaultActionTemplate);
-
-            Assert.AreEqual("{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.SellActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Sell\",\"Present\":\"sell\",\"Past\":\"sold\"},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}", result);
-
-
-        }
-
-        [Test]
-        public void DeSerializeEmptyActionTemplate()
-        {
-            var expected = new ObjectTransferActionTemplate();
-            var result =
-                JsonConvert.DeserializeObject<ObjectTransferActionTemplate>(
-                    "{\"PerformerType\":null,\"Name\":null,\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
-
-            Assert.AreEqual(expected.ToString(), result.ToString());
-
-        }
-        [Test]
-        public void DeSerializeActionTemplate()
-        {
-            var expected = new ObjectTransferActionTemplate
-            {
-                CurrentPerformer = new SellActionPerformer(),
-                Name = new Verb { UniqueId = "Sell", Past = "sold", Present = "sell" }
-            };
-            var result =
-                JsonConvert.DeserializeObject<ObjectTransferActionTemplate>(
-                    "{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.SellActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Sell\",\"Present\":\"sell\",\"Past\":\"sold\"},\"StartingAction\":false,\"FinishTheInteractionOnExecution\":false,\"TargetObject\":null,\"ActiveObject\":null,\"TargetCharacter\":null,\"ActiveCharacter\":null}");
-
-            Assert.AreEqual(expected.ToString(), result.ToString());
-
-        }
 
         [Test]
         public void CloneActionTemplate()

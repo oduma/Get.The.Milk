@@ -157,12 +157,12 @@ namespace GetTheMilk.Characters.BaseCharacters
         }
 
 
-        protected virtual bool IsNonStandardActionTemplate(KeyValuePair<string,BaseActionTemplate> baseActionTemplate)
+        protected virtual bool IsNonStandardActionTemplate(BaseActionTemplate baseActionTemplate)
         {
             return
                 !(GameSettings.GetInstance().AllCharactersActions.Any(
                     a =>
-                    a.Name.UniqueId==baseActionTemplate.Key));
+                    a.Name.UniqueId==baseActionTemplate.Name.UniqueId));
         }
 
 
