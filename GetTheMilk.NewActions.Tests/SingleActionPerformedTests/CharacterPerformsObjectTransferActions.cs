@@ -48,7 +48,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             var targetObject = _level.Inventory.First(o => o.ObjectCategory == ObjectCategory.Tool);
             _character.Inventory = new Inventory { MaximumCapacity = 1, InventoryType = InventoryType.CharacterInventory };
-            _character.LoadInteractions(targetObject, targetObject.Name.Main);
+            _character.LoadInteractions(targetObject);
             var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("Keep");
             objectTransferAction.TargetObject = targetObject;
             objectTransferAction.ActiveCharacter = _character;
@@ -86,7 +86,7 @@ a => a.Name.UniqueId == "Discard");
         {
             var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
             targetCharacter.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            _character.LoadInteractions(targetCharacter, targetCharacter.Name.Main);
+            _character.LoadInteractions(targetCharacter);
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             var objAction = _factory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
@@ -111,7 +111,7 @@ a => a.Name.UniqueId == "Discard");
         {
             var activeCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
             activeCharacter.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            activeCharacter.LoadInteractions(_character, _character.Name.Main);
+            activeCharacter.LoadInteractions(_character);
             activeCharacter.AddAvailableAction(new ObjectTransferActionTemplate
             {
                 PerformerType=typeof(TakeFromActionPerformer),
@@ -147,7 +147,7 @@ a => a.Name.UniqueId == "Discard");
         {
             var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
             targetCharacter.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            _character.LoadInteractions(targetCharacter, targetCharacter.Name.Main);
+            _character.LoadInteractions(targetCharacter);
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             _character.Walet = new Walet { MaxCapacity = 2000, CurrentCapacity = 100 };
             var objAction = _factory.CreateObjectAction("Tool");
@@ -177,7 +177,7 @@ a => a.Name.UniqueId == "Discard");
         {
             var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
             targetCharacter.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            _character.LoadInteractions(targetCharacter, targetCharacter.Name.Main);
+            _character.LoadInteractions(targetCharacter);
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             _character.Walet = new Walet { MaxCapacity = 2000, CurrentCapacity = 100 };
             _character.AddAvailableAction(new ObjectTransferActionTemplate

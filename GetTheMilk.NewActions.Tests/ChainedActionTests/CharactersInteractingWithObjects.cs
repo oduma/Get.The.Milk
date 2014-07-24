@@ -40,11 +40,10 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         [Test]
         public void ObjectCannotPerformReaction()
         {
-            _character.LoadInteractions(_interactionObject,_interactionObject.Name.Main);
+            _character.LoadInteractions(_interactionObject);
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Default");
             Assert.IsNotNull(useAction);
             Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());
-            useAction.ActiveCharacter = _character;
             useAction.ActiveObject = _character.Inventory[0];
             useAction.TargetObject = _interactionObject;
             Assert.AreEqual(ActionResultType.NotOk, _character.PerformAction(useAction).ResultType);
@@ -53,10 +52,9 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         [Test]
         public void CharacterInitiateObjectUseOnObjectObjectReactsWithOneObject()
         {
-            _character.LoadInteractions(_interactionObject, _interactionObject.Name.Main);
+            _character.LoadInteractions(_interactionObject);
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Ping");
             Assert.IsNotNull(useAction);
-            useAction.ActiveCharacter = _character;
             useAction.ActiveObject = _character.Inventory[0];
             useAction.TargetObject = _interactionObject;
             Assert.AreEqual(ActionResultType.NotOk, _character.PerformAction(useAction).ResultType);

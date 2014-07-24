@@ -38,9 +38,10 @@ namespace GetTheMilk.Characters
                 AddAvailableAction(action);
         }
 
-        public override void LoadInteractions(IActionEnabled actionTarget, string objectMainName)
+        public override void LoadInteractions(IActionEnabled actionTarget)
         {
-            base.LoadInteractions(actionTarget,objectMainName);
+            var objectMainName = ((IPositionable)actionTarget).Name.Main;
+            base.LoadInteractions(actionTarget);
             if (!Interactions.ContainsKey(objectMainName)
                 && actionTarget.Interactions.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
             {

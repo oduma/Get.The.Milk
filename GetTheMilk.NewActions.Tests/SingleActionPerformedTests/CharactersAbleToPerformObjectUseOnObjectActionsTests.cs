@@ -49,7 +49,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void CharacterNotAbleToPerformNoActiveObject()
         {
             var targetObject = _level.Inventory.FirstOrDefault(o => o.ObjectTypeId == "RedDoor");
-            _character.LoadInteractions(targetObject,targetObject.Name.Main);
+            _character.LoadInteractions(targetObject);
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Open");
             Assert.IsNotNull(useAction);
             Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());
@@ -60,7 +60,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void CharacterNotAbleToPerformNoTargetObject()
         {
             var targetObject = _level.Inventory.FirstOrDefault(o => o.ObjectTypeId == "RedDoor");
-            _character.LoadInteractions(targetObject, targetObject.Name.Main);
+            _character.LoadInteractions(targetObject);
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Open");
             Assert.IsNotNull(useAction);
             Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());
@@ -72,7 +72,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void CharacterNotAbleToPerformActiveObjectNotAllow()
         {
             var targetObject = _level.Inventory.FirstOrDefault(o => o.ObjectTypeId == "RedDoor");
-            _character.LoadInteractions(targetObject, targetObject.Name.Main);
+            _character.LoadInteractions(targetObject);
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Open");
             Assert.IsNotNull(useAction);
             Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());
@@ -87,7 +87,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void CharacterNotAbleToPerformTargetObjectNotAllowed()
         {
             var targetObject = _level.Inventory.FirstOrDefault(o => o.ObjectTypeId == "RedDoor");
-            _character.LoadInteractions(targetObject, targetObject.Name.Main);
+            _character.LoadInteractions(targetObject);
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Open");
             Assert.IsNotNull(useAction);
             Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());
@@ -100,7 +100,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void CharacterAbleToPerform()
         {
             var targetObject = _level.Inventory.FirstOrDefault(o => o.ObjectTypeId == "RedDoor");
-            _character.LoadInteractions(targetObject, targetObject.Name.Main);
+            _character.LoadInteractions(targetObject);
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Open");
             Assert.IsNotNull(useAction);
             Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());

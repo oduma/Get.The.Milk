@@ -176,8 +176,9 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         public string CloseUpMessage { get; set; }
 
-        public virtual void LoadInteractions(IActionEnabled objectInRange, string mainName)
+        public virtual void LoadInteractions(IActionEnabled objectInRange)
         {
+            var mainName = ((IPositionable)objectInRange).Name.Main;
             if (objectInRange.Interactions!=null
                 && objectInRange.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses))
             {

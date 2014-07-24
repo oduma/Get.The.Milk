@@ -577,200 +577,193 @@ namespace GetTheMilk.NewActions.Tests
             get
             {
                 return new NonCharacterObject
-                           {
-                               ObjectTypeId = "Decor",
-                               Name =
-                                   new Noun {Main = "testReactor", Narrator = "test reactor"},
-                               AllowsIndirectTemplateAction =
-                                   TestHelper.AllowsIndirectEverything,
-                               AllowsTemplateAction = TestHelper.AllowsEverything,
-                               Interactions =
-                                   new SortedList<string, Interaction[]>
-                                       {
-                                           {
-                                               GenericInteractionRulesKeys.AnyCharacter,
-                                               new Interaction[]
-                                                   {
-                                                       new Interaction
-                                                           {
-                                                               Action =new ObjectUseOnObjectActionTemplate
-                                                                       {
-                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
-                Name = new Verb
                 {
-                                                                                       UniqueId="Ping",
-                                                                                       Past="tested",
-                                                                                       Present="test"
-                                                                                   },
-                                                                           StartingAction = true,
-                                                                           ChanceOfSuccess = ChanceOfSuccess.Full,
-                                                                           PercentOfHealthFailurePenalty = 0
-                                                                       },
-                                                               Reaction =new OneObjectActionTemplate
-                                                                       {
-                PerformerType=typeof( OneObjectActionTemplatePerformer),
-                Name = new Verb
-                {
-                    UniqueId="Pong",
-                                                                                       Past="tested reaction",
-                                                                                       Present="test reaction"
-                                                                                   },
-                                                                           StartingAction = false,
-                                                                           FinishTheInteractionOnExecution = true
-                                                                       }
-                                                           },
-                                                           new Interaction
-                                                           {
-                                                               Action =new OneObjectActionTemplate
-                                                                       {
-                PerformerType=typeof( OneObjectActionTemplatePerformer),
-                Name = new Verb
-                {
-                    UniqueId="Ping1",
-                                                                                       Past="tested",
-                                                                                       Present="test"
-                                                                                   },
-                                                                           StartingAction = true
-                                                                       },
-                                                               Reaction =new ObjectUseOnObjectActionTemplate
-                                                                       {
-                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
-                Name = new Verb
-                {
-                    UniqueId="Pong1",
-                                                                                       Past="tested reaction",
-                                                                                       Present="test reaction"
-                                                                                   },
-                                                                           StartingAction = false,
-                                                                           FinishTheInteractionOnExecution = true,
-                                                                           ChanceOfSuccess = ChanceOfSuccess.Full,
-                                                                           PercentOfHealthFailurePenalty = 0
+                    ObjectTypeId = "Decor",
+                    Name = new Noun { Main = "testReactor", Narrator = "test reactor" },
+                    AllowsIndirectTemplateAction = TestHelper.AllowsIndirectEverything,
+                    AllowsTemplateAction = TestHelper.AllowsEverything,
+                    Interactions = new SortedList<string, Interaction[]>
+                    {
+                        {
+                            GenericInteractionRulesKeys.AnyCharacter, new Interaction[]
+                            {
+                                new Interaction
+                                {
+                                    Action =new ObjectUseOnObjectActionTemplate
+                                    {
+                                        PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
+                                        Name = new Verb
+                                        {
+                                                    UniqueId="Ping",
+                                                    Past="tested",
+                                                    Present="test"
+                                        },
+                                        StartingAction = true,
+                                        ChanceOfSuccess = ChanceOfSuccess.Full,
+                                        PercentOfHealthFailurePenalty = 0
+                                    },
+                                    Reaction =new OneObjectActionTemplate
+                                    {
+                                        PerformerType=typeof( OneObjectActionTemplatePerformer),
+                                        Name = new Verb
+                                        {
+                                            UniqueId="Pong",
+                                            Past="tested reaction",
+                                            Present="test reaction"
+                                        },
+                                        StartingAction = false,
+                                        FinishTheInteractionOnExecution = true
+                                    }
+                                },
+                                new Interaction
+                                {
+                                    Action =new OneObjectActionTemplate
+                                    {
+                                        PerformerType=typeof( OneObjectActionTemplatePerformer),
+                                        Name = new Verb
+                                        {
+                                            UniqueId="Ping1",
+                                            Past="tested",
+                                            Present="test"
+                                        },
+                                        StartingAction = true
+                                    },
+                                    Reaction =new ObjectUseOnObjectActionTemplate
+                                    {
+                                        PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
+                                        Name = new Verb
+                                        {
+                                            UniqueId="Pong1",
+                                            Past="tested reaction",
+                                            Present="test reaction"
+                                        },
+                                        StartingAction = false,
+                                        FinishTheInteractionOnExecution = true,
+                                        ChanceOfSuccess = ChanceOfSuccess.Full,
+                                        PercentOfHealthFailurePenalty = 0
+                                    }
+                                },
+                                new Interaction
+                                {
+                                    Action =new ObjectUseOnObjectActionTemplate
+                                    {
+                                        PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
+                                        Name = new Verb
+                                        {
+                                            UniqueId="DoublePing",
+                                            Past="tested",
+                                            Present="test"
+                                        },
+                                        StartingAction = true,
+                                        ChanceOfSuccess = ChanceOfSuccess.Full,
+                                        PercentOfHealthFailurePenalty = 0
+                                    },
+                                    Reaction =new OneObjectActionTemplate
+                                    {
+                                        PerformerType=typeof( OneObjectActionTemplatePerformer),
+                                        Name = new Verb
+                                        {
+                                            UniqueId="DoublePong",
+                                            Past="tested reaction",
+                                            Present="test reaction"
+                                        },
+                                        StartingAction = false,
+                                        FinishTheInteractionOnExecution = true
+                                    }
+                                },
+                                new Interaction
+                                {
+                                    Action =new OneObjectActionTemplate
+                                    {
+                                        PerformerType=typeof( OneObjectActionTemplatePerformer),
+                                        Name = new Verb
+                                        {
+                                            UniqueId="DoublePing1",
+                                            Past="tested",
+                                            Present="test"
+                                        },
+                                        StartingAction = true
+                                    },
+                                    Reaction =new ObjectUseOnObjectActionTemplate
+                                    {
+                                        PerformerType=typeof( OneObjectActionTemplatePerformer),
+                                        Name = new Verb
+                                        {
+                                            UniqueId="DoublePong1",
+                                            Past="tested reaction",
+                                            Present="test reaction"
+                                        },
+                                        StartingAction = false,
+                                        FinishTheInteractionOnExecution = true,
+                                        ChanceOfSuccess = ChanceOfSuccess.Full,
+                                        PercentOfHealthFailurePenalty = 0
+                                    }
+                                }
+                        }
+                    },
+                    {
+                        GenericInteractionRulesKeys.AnyCharacterResponses, new Interaction[]
+                        {
+                                new Interaction
+                                {
+                                    Action =new OneObjectActionTemplate
+                                    {
+                                        PerformerType=typeof( OneObjectActionTemplatePerformer),
+                                        Name = new Verb
+                                        {
+                                            UniqueId="DoublePong",
+                                            Past="tested reaction",
+                                            Present="test reaction"
+                                        },
+                                        StartingAction = false,
+                                        FinishTheInteractionOnExecution = true
+                                    },
+                                    Reaction =new ObjectUseOnObjectActionTemplate
+                                    {
+                                        PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
+                                        Name = new Verb
+                                        {
+                                            UniqueId="PingPong",
+                                            Past="tested",
+                                            Present="test"
+                                        },
+                                        StartingAction = true,
+                                        ChanceOfSuccess = ChanceOfSuccess.Full,
+                                        PercentOfHealthFailurePenalty = 0
+                                    },
+                                },
+                                new Interaction
+                                {
+                                    Action =new ObjectUseOnObjectActionTemplate
+                                    {
+                                        PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
+                                        Name = new Verb
+                                        {
+                                            UniqueId="DoublePong1",
+                                            Past="tested reaction",
+                                            Present="test reaction"
+                                        },
+                                        StartingAction = false,
+                                        FinishTheInteractionOnExecution = true,
+                                        ChanceOfSuccess = ChanceOfSuccess.Full,
+                                        PercentOfHealthFailurePenalty = 0
+                                    },
+                                    Reaction =new OneObjectActionTemplate
+                                    {
+                                        PerformerType=typeof( OneObjectActionTemplatePerformer),
+                                        Name = new Verb
+                                        {
+                                            UniqueId="PingPong1",
+                                            Past="tested",
+                                            Present="test"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
 
-                                                                       }
-                                                           },
-                                                           new Interaction
-                                                           {
-                                                               Action =new ObjectUseOnObjectActionTemplate
-                                                                       {
-                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
-                Name = new Verb
-                {
-                    UniqueId="DoublePing",
-                                                                                       Past="tested",
-                                                                                       Present="test"
-                                                                                   },
-                                                                           StartingAction = true,
-                                                                           ChanceOfSuccess = ChanceOfSuccess.Full,
-                                                                           PercentOfHealthFailurePenalty = 0
-                                                                       },
-                                                               Reaction =new OneObjectActionTemplate
-                                                                       {
-                PerformerType=typeof( OneObjectActionTemplatePerformer),
-                Name = new Verb
-                {
-                    UniqueId="DoublePong",
-                                                                                       Past="tested reaction",
-                                                                                       Present="test reaction"
-                                                                                   },
-                                                                           StartingAction = false,
-                                                                           FinishTheInteractionOnExecution = true
-                                                                       }
-                                                           },
-                                                           new Interaction
-                                                           {
-                                                               Action =new OneObjectActionTemplate
-                                                                       {
-                PerformerType=typeof( OneObjectActionTemplatePerformer),
-                Name = new Verb
-                {
-                    UniqueId="DoublePing1",
-                                                                                       Past="tested",
-                                                                                       Present="test"
-                                                                                   },
-                                                                           StartingAction = true
-                                                                       },
-                                                               Reaction =new ObjectUseOnObjectActionTemplate
-                                                                       {
-                PerformerType=typeof( OneObjectActionTemplatePerformer),
-                Name = new Verb
-                {
-                    UniqueId="DoublePong1",
-                                                                                       Past="tested reaction",
-                                                                                       Present="test reaction"
-                                                                                   },
-                                                                           StartingAction = false,
-                                                                           FinishTheInteractionOnExecution = true,
-                                                                           ChanceOfSuccess = ChanceOfSuccess.Full,
-                                                                           PercentOfHealthFailurePenalty = 0
-
-                                                                       }
-                                                           }
-                                                   }
-                                           },
-                                           {
-                                               GenericInteractionRulesKeys.AnyCharacterResponses,
-                                               new Interaction[]
-                                                   {
-                                                           new Interaction
-                                                           {
-                                                               Action =new OneObjectActionTemplate
-                                                                       {
-                PerformerType=typeof( OneObjectActionTemplatePerformer),
-                Name = new Verb
-                {
-                    UniqueId="DoublePong",
-                                                                                       Past="tested reaction",
-                                                                                       Present="test reaction"
-                                                                                   },
-                                                                           StartingAction = false,
-                                                                           FinishTheInteractionOnExecution = true
-                                                                       },
-                                                               Reaction =new ObjectUseOnObjectActionTemplate
-                                                                       {
-                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
-                Name = new Verb
-                {
-                    UniqueId="PingPong",
-                                                                                       Past="tested",
-                                                                                       Present="test"
-                                                                                   },
-                                                                           StartingAction = true,
-                                                                           ChanceOfSuccess = ChanceOfSuccess.Full,
-                                                                           PercentOfHealthFailurePenalty = 0
-                                                                       },
-                                                           },
-                                                           new Interaction
-                                                           {
-                                                               Reaction =new ObjectUseOnObjectActionTemplate
-                                                                       {
-                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
-                Name = new Verb
-                {
-                    UniqueId="DoublePong1",
-                                                                                       Past="tested reaction",
-                                                                                       Present="test reaction"
-                                                                                   },
-                                                                           StartingAction = false,
-                                                                           FinishTheInteractionOnExecution = true,
-                                                                           ChanceOfSuccess = ChanceOfSuccess.Full,
-                                                                           PercentOfHealthFailurePenalty = 0
-
-                                                                       },
-                                                               Action =new OneObjectActionTemplate
-                                                                       {
-                PerformerType=typeof( OneObjectActionTemplatePerformer),
-                Name = new Verb
-                {
-                    UniqueId="PingPong1",
-                                                                                       Past="tested",
-                                                                                       Present="test"
-                                                                                   }
-                                                                       }
-                                                           }
-                                                   }
-                                           }
-                                       }
-                           };
             }
         }
     }

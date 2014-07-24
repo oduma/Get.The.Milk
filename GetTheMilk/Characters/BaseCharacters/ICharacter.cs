@@ -22,6 +22,6 @@ namespace GetTheMilk.Characters.BaseCharacters
         Weapon ActiveDefenseWeapon { get; set; }
         ContainerWithActionsPackage Save();
 
-        void LoadInteractions(IActionEnabled objectInRange,string mainName);
+        void LoadInteractions(IActionEnabled objectInRange);
     }
 }

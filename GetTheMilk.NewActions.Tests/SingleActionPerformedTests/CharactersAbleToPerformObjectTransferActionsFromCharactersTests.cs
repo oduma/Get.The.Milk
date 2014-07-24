@@ -41,7 +41,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void CharacterNotAbleToTransferNoObject()
         {
             var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
-            _character.LoadInteractions(targetCharacter, targetCharacter.Name.Main);
+            _character.LoadInteractions(targetCharacter);
             var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("GiveTo");
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
@@ -53,7 +53,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void CharacterNotAbleToTransferNoTargetCharacter()
         {
             var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
-            _character.LoadInteractions(targetCharacter, targetCharacter.Name.Main);
+            _character.LoadInteractions(targetCharacter);
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             var objAction = _factory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
@@ -73,7 +73,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void CharacterNotAbleToTransferObjectNotAllowed()
         {
             var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
-            _character.LoadInteractions(targetCharacter, targetCharacter.Name.Main);
+            _character.LoadInteractions(targetCharacter);
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             var objAction = _factory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
@@ -96,7 +96,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
             targetCharacter.Inventory = new Inventory
                                             {MaximumCapacity = 0, InventoryType = InventoryType.CharacterInventory};
-            _character.LoadInteractions(targetCharacter, targetCharacter.Name.Main);
+            _character.LoadInteractions(targetCharacter);
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             var objAction = _factory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
@@ -118,7 +118,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
             targetCharacter.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            _character.LoadInteractions(targetCharacter, targetCharacter.Name.Main);
+            _character.LoadInteractions(targetCharacter);
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             var objAction = _factory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
@@ -139,7 +139,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
             targetCharacter.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            _character.LoadInteractions(targetCharacter, targetCharacter.Name.Main);
+            _character.LoadInteractions(targetCharacter);
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             var objAction = _factory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
@@ -162,7 +162,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
             targetCharacter.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            _character.LoadInteractions(targetCharacter, targetCharacter.Name.Main);
+            _character.LoadInteractions(targetCharacter);
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             _character.Walet = new Walet {MaxCapacity = 2000, CurrentCapacity = 0};
             var objAction = _factory.CreateObjectAction("Tool");
@@ -187,7 +187,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
             targetCharacter.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            _character.LoadInteractions(targetCharacter, targetCharacter.Name.Main);
+            _character.LoadInteractions(targetCharacter);
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             _character.Walet = new Walet { MaxCapacity = 2000, CurrentCapacity = 100 };
             var objAction = _factory.CreateObjectAction("Tool");
