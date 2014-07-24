@@ -40,7 +40,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void AvailableActionsCollectedOkAfterMove()
         {
             var movementAction = _character.CreateNewInstanceOfAction<MovementActionTemplate>("Teleport");
-            movementAction.ActiveCharacter = _character;
             movementAction.CurrentMap = _level.CurrentMap;
             _level.Characters[0].CellNumber = 1;
             _level.Inventory[0].CellNumber = 3;

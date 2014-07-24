@@ -130,11 +130,10 @@ a => a.Name.UniqueId == "Discard");
                 AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction,
                 AllowsTemplateAction = objAction.AllowsTemplateAction
             });
-            var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("TakeFrom");
+            var objectTransferAction = activeCharacter.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("TakeFrom");
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
             objectTransferAction.TargetObject = _character.Inventory[0];
-            objectTransferAction.ActiveCharacter = activeCharacter;
             objectTransferAction.TargetCharacter = _character;
             Assert.AreEqual(ActionResultType.Ok, activeCharacter.PerformAction(objectTransferAction).ResultType);
             Assert.AreEqual(0, _character.Inventory.Count);

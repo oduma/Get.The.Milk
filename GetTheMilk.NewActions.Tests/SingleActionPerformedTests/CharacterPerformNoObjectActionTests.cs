@@ -47,25 +47,5 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             noObjectAction.ActiveCharacter = _character;
             Assert.AreEqual(ActionResultType.Ok, _character.PerformAction(noObjectAction).ResultType);
         }
-
-        [Test]
-        public void CharacterCannotPerformNoPerformAvailable()
-        {
-            _character.AddAvailableAction(new NoObjectActionTemplate
-            {
-                Name = new Verb
-                {
-                    UniqueId = "NoPerformerAction",
-                        Past = "no past",
-                        Present = "no present"
-                    }
-            });
-            var noObjectAction = _character.CreateNewInstanceOfAction<NoObjectActionTemplate>("NoPerformerAction");
-            Assert.IsNotNull(noObjectAction);
-            Assert.AreEqual(typeof(NoObjectActionTemplate), noObjectAction.GetType());
-            noObjectAction.ActiveCharacter = _character;
-            Assert.AreEqual(ActionResultType.CannotPerformThisAction, _character.PerformAction(noObjectAction).ResultType);
-        }
-
     }
 }

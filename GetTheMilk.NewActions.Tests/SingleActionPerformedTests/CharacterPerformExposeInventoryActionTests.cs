@@ -11,6 +11,8 @@ using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Utils;
 using NUnit.Framework;
+using GetTheMilk.Actions.ActionPerformers;
+using GetTheMilk.Actions.ActionPerformers.Base;
 
 namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
 {
@@ -49,8 +51,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                                       });
 
             Assert.AreEqual(1, _player.Inventory.Count());
-            var exposeInventoryActionn = _character.CreateNewInstanceOfAction<ExposeInventoryActionTemplate>("ExposeInventory");
-            exposeInventoryActionn.ActiveCharacter = _player;
+            var exposeInventoryActionn = _player.CreateNewInstanceOfAction<ExposeInventoryActionTemplate>("ExposeInventory");
             exposeInventoryActionn.TargetCharacter = _player;
             exposeInventoryActionn.SelfInventory = true;
             var result = _player.PerformAction(exposeInventoryActionn);
@@ -70,20 +71,18 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                                                                                                                 Action =
                                                                                                                     new TwoCharactersActionTemplate
                                                                                                                         {
-                                                                                                                            Message
-                                                                                                                                =
-                                                                                                                                "Yes",
-                                                                                                                            FinishTheInteractionOnExecution
-                                                                                                                                =
-                                                                                                                                true
+                                                                                                                            Message="Yes",
+                                                                                                                            FinishTheInteractionOnExecution=true,
+                                                                                                                            PerformerType=typeof(CommunicateActionPerformer),
+                                                                                                                            Name= new Verb{UniqueId="SayYes",Past="said",Present="say"}
                                                                                                                         },
                                                                                                                 Reaction
                                                                                                                     =
                                                                                                                     new ExposeInventoryActionTemplate
                                                                                                                         {
-                                                                                                                            FinishActionUniqueId
-                                                                                                                                =
-                                                                                                                                "CloseInventory"
+                                                                                                                            FinishActionUniqueId="CloseInventory",
+                                                                                                                            PerformerType=typeof(ExposeInventoryActionTemplatePerformer),
+                                                                                                                            Name= new Verb{UniqueId="ExposeSelfInventory",Past="exposed inventory",Present="expose inventory"}
                                                                                                                         }
                                                                                                             }});
             _character.Inventory = new Inventory {MaximumCapacity = 10,InventoryType=InventoryType.CharacterInventory};
@@ -94,7 +93,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                                              AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction,
                                              AllowsTemplateAction = objAction.AllowsTemplateAction
                                          });
-            var exposeInventoryActionn = _character.CreateNewInstanceOfAction<ExposeInventoryActionTemplate>("ExposeInventory");
+            var exposeInventoryActionn = _character.CreateNewInstanceOfAction<ExposeInventoryActionTemplate>("ExposeSelfInventory");
             exposeInventoryActionn.ActiveCharacter = _character;
             exposeInventoryActionn.TargetCharacter = _player;
             exposeInventoryActionn.SelfInventory = false;

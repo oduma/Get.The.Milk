@@ -159,6 +159,27 @@ namespace GetTheMilk.NewActions.Tests
                         {
                             new Interaction
                             {
+                                Action =new TwoCharactersActionTemplate
+                                {
+                                    PerformerType = typeof(TwoCharactersActionTemplatePerformer),
+                                    Name = new Verb
+                                    {
+                                        UniqueId="Meet",
+                                        Past="met",
+                                        Present="meet"
+                                    },
+                                    StartingAction=true
+                                },
+                                Reaction=new TwoCharactersActionTemplate
+                                {
+                                    Message="How are you? Beautifull day out there better buy something!",
+                                    Name= new Verb{UniqueId="AskForSale",Past="said",Present="say"},
+                                    PerformerType= typeof(CommunicateActionPerformer)
+                                }
+                            },
+
+                            new Interaction
+                            {
                                 Action = new TwoCharactersActionTemplate
                                 {
                                     Message = "Yes",
