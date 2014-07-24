@@ -33,7 +33,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _character.AddAvailableAction(new NoObjectActionTemplate
             {
-                CurrentPerformer = new NoObjectActionTemplatePerformer(),
+                PerformerType=typeof(NoObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId = "CloseInventory",
@@ -53,7 +53,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _character.AddAvailableAction(new NoObjectActionTemplate
             {
-                CurrentPerformer = new NoObjectActionTemplatePerformer(),
                 Name = new Verb
                 {
                     UniqueId = "NoPerformerAction",
@@ -61,7 +60,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                         Present = "no present"
                     }
             });
-            var noObjectAction = _character.CreateNewInstanceOfAction<NoObjectActionTemplate>("CloseInventory");
+            var noObjectAction = _character.CreateNewInstanceOfAction<NoObjectActionTemplate>("NoPerformerAction");
             Assert.IsNotNull(noObjectAction);
             Assert.AreEqual(typeof(NoObjectActionTemplate), noObjectAction.GetType());
             noObjectAction.ActiveCharacter = _character;

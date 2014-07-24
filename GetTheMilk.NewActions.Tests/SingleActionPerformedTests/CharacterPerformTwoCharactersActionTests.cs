@@ -61,7 +61,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new CommunicateActionPerformer(),
+                PerformerType=typeof(CommunicateActionPerformer),
                 Name = new Verb
                 {
                     Past = "talked",
@@ -84,7 +84,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new InitiateHostilitiesActionPerformer(),
+                PerformerType=typeof(InitiateHostilitiesActionPerformer),
                 Name = new Verb
                 {
                     UniqueId = "InitiateHostilities",
@@ -106,7 +106,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new AttackActionPerformer(),
+                PerformerType=typeof(AttackActionPerformer),
                 Name = new Verb
                 {
                     UniqueId = "Attack",
@@ -135,7 +135,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new AttackActionPerformer(),
+                PerformerType=typeof(AttackActionPerformer),
                 Name = new Verb
                 {
                     UniqueId = "Attack",
@@ -168,7 +168,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new TwoCharactersActionTemplatePerformer(),
+                PerformerType=typeof(TwoCharactersActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId = "Quit",
@@ -192,7 +192,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new AcceptQuitActionPerformer(),
+                PerformerType=typeof(AcceptQuitActionPerformer),
                 Name = new Verb
                 {
                     UniqueId = "AcceptQuit",
@@ -222,7 +222,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new AllowPassActionPerformer(),
+                PerformerType=typeof(AllowPassActionPerformer),
                 Name = new Verb
                 {
                     UniqueId = "AllowPass",

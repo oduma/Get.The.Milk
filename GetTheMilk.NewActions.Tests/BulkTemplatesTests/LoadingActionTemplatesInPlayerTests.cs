@@ -33,7 +33,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             var player = new Player();
             player.AddAvailableAction(new ObjectUseOnObjectActionTemplate
             {
-                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
+                PerformerType=typeof(ObjectUseOnObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId = "Open",
@@ -70,7 +70,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             var expected = new Player();
             expected.AddAvailableAction(new ObjectUseOnObjectActionTemplate
             {
-                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
+                PerformerType=typeof(ObjectUseOnObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId = "Open",

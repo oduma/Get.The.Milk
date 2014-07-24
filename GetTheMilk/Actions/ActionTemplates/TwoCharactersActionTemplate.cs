@@ -38,11 +38,10 @@ namespace GetTheMilk.Actions.ActionTemplates
             {
                 return _currentPerformer;
             }
-            set
+            protected set
             {
                 _currentPerformer = (ITwoCharactersActionTemplatePerformer)value;
-                if (PerformerType == null || PerformerType.Name != _currentPerformer.GetType().Name)
-                    PerformerType = _currentPerformer.GetType();
+                BuildPerformer(ref _currentPerformer);
 
             }
         }

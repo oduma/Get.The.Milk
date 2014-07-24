@@ -32,7 +32,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                                                         {
                                                             Name = new Noun {Main = "Super Weapon", Narrator = "super weapon"}
                                                         },
-                                                CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                                                PerformerType=typeof( OneObjectActionTemplatePerformer),
                                                 Name = new Verb
                                                 {
                                                     UniqueId = "SelectAttackWeapon",
@@ -50,7 +50,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new OneObjectActionTemplate
             {
-                CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                PerformerType=typeof( OneObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                         UniqueId = "SelectAttackWeapon",

@@ -29,7 +29,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             var character = new Character {ObjectTypeId = "NPCFriendly"};
             character.AddAvailableAction(new ExposeInventoryActionTemplate
                                          {
-                                             CurrentPerformer=new ExposeInventoryActionTemplatePerformer(),
+                                             PerformerType=typeof(ExposeInventoryActionTemplatePerformer),
                                              Name= new Verb{UniqueId="ExposeSelfInventory", Past="exposed inventory", Present="expose inventory"},
                                              FinishActionUniqueId = "CloseInventory"
                                          });
@@ -55,7 +55,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             var expected = new Character();
             expected.AddAvailableAction(new ExposeInventoryActionTemplate
             {
-                CurrentPerformer = new ExposeInventoryActionTemplatePerformer(),
+                PerformerType=typeof(ExposeInventoryActionTemplatePerformer),
                 Name = new Verb { UniqueId = "ExposeSelfInventory", Past = "exposed inventory", Present = "expose inventory" },
                 FinishActionUniqueId = "CloseInventory"
             });

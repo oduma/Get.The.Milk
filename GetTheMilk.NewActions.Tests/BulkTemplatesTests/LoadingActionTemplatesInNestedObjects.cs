@@ -30,7 +30,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             tool.AddAvailableAction(
                 new OneObjectActionTemplate
                 {
-                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                    PerformerType=typeof(OneObjectActionTemplatePerformer),
                     Name = new Verb
                     {
                         UniqueId = "Explode",
@@ -71,7 +71,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             tool.AddAvailableAction(
                 new OneObjectActionTemplate
                 {
-                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                    PerformerType=typeof(OneObjectActionTemplatePerformer),
                     Name = new Verb
                     {
                         UniqueId = "Explode",
@@ -111,7 +111,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             tool.AddAvailableAction(
                 new OneObjectActionTemplate
                 {
-                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                    PerformerType=typeof(OneObjectActionTemplatePerformer),
                     Name = new Verb
                     {
                         UniqueId = "Explode",
@@ -145,7 +145,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             tool.AddAvailableAction(
                 new OneObjectActionTemplate
                 {
-                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                    PerformerType=typeof(OneObjectActionTemplatePerformer),
                     Name = new Verb
                     {
                         UniqueId = "Explode",
@@ -177,7 +177,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                         var character = new Character {ObjectTypeId = "NPCFriendly"};
             character.AddAvailableAction(new ExposeInventoryActionTemplate
                                          {
-                                             CurrentPerformer=new ExposeInventoryActionTemplatePerformer(),
+                                             PerformerType=typeof(ExposeInventoryActionTemplatePerformer),
                                              FinishActionUniqueId = "CloseInventory",
                                              Name = new Verb { UniqueId="ExposeSelfInventory", Present="expose inventory", Past="exposed inventory"}
                                          });
@@ -190,7 +190,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             tool.AddAvailableAction(
                 new OneObjectActionTemplate
                 {
-                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                    PerformerType=typeof(OneObjectActionTemplatePerformer),
                     Name = new Verb
                     {
                         UniqueId = "Explode",
@@ -222,7 +222,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             var character = new Character { ObjectTypeId = "NPCFriendly" };
             character.AddAvailableAction(new ExposeInventoryActionTemplate
             {
-                CurrentPerformer = new ExposeInventoryActionTemplatePerformer(),
+                PerformerType=typeof(ExposeInventoryActionTemplatePerformer),
                 FinishActionUniqueId = "CloseInventory",
                 Name = new Verb { UniqueId = "ExposeSelfInventory", Present = "expose inventory", Past = "exposed inventory" }
             });
@@ -235,7 +235,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             tool.AddAvailableAction(
                 new OneObjectActionTemplate
                 {
-                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                    PerformerType=typeof(OneObjectActionTemplatePerformer),
                     Name = new Verb
                     {
                         UniqueId = "Explode",

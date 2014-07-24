@@ -30,13 +30,13 @@ namespace GetTheMilk.Characters.BaseCharacters
                                   {
                                       new Interaction
                                           {
-                                              Action =new TwoCharactersActionTemplate{CurrentPerformer=new AttackActionPerformer(),Name=new Verb{UniqueId="Attack",Past="attacked",Present="attack"},StartingAction=false},
-                                              Reaction =new TwoCharactersActionTemplate{CurrentPerformer=new AttackActionPerformer(),Name=new Verb{UniqueId= "Attack",Past="attacked",Present="attack"},StartingAction=false}
+                                              Action =new TwoCharactersActionTemplate{PerformerType=typeof(AttackActionPerformer),Name=new Verb{UniqueId="Attack",Past="attacked",Present="attack"},StartingAction=false},
+                                              Reaction =new TwoCharactersActionTemplate{PerformerType=typeof(AttackActionPerformer),Name=new Verb{UniqueId= "Attack",Past="attacked",Present="attack"},StartingAction=false}
                                           },
                                       new Interaction
                                           {
-                                              Action =new TwoCharactersActionTemplate{CurrentPerformer= new AttackActionPerformer(),Name=new Verb{UniqueId="Attack",Past="attacked",Present="attack"},StartingAction=false},
-                                              Reaction=new TwoCharactersActionTemplate{CurrentPerformer=new TwoCharactersActionTemplatePerformer(),Name=new Verb{UniqueId="Quit",Past="quited",Present="quit"},StartingAction=false}
+                                              Action =new TwoCharactersActionTemplate{PerformerType= typeof(AttackActionPerformer),Name=new Verb{UniqueId="Attack",Past="attacked",Present="attack"},StartingAction=false},
+                                              Reaction=new TwoCharactersActionTemplate{PerformerType=typeof(TwoCharactersActionTemplatePerformer),Name=new Verb{UniqueId="Quit",Past="quited",Present="quit"},StartingAction=false}
                                           }
                                   });
         }

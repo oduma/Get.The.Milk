@@ -168,7 +168,7 @@ namespace GetTheMilk.NewActions.Tests
                                 Reaction = new ExposeInventoryActionTemplate
                                 {
                                     FinishActionUniqueId = "CloseInventory",
-                                    CurrentPerformer=new ExposeInventoryActionTemplatePerformer(),
+                                    PerformerType=typeof( ExposeInventoryActionTemplatePerformer),
                                     Name= new Verb{UniqueId="ExposeForSale",Past="exposed",Present="exposed"}
                                 }
                             },
@@ -183,7 +183,7 @@ namespace GetTheMilk.NewActions.Tests
                                 Reaction = new TwoCharactersActionTemplate
                                 {
                                     Message = "Why oh Why!?",
-                                    CurrentPerformer=new CommunicateActionPerformer(),
+                                    PerformerType=typeof( CommunicateActionPerformer),
                                     Name= new Verb{UniqueId="SayWhyOhWhy",Past="said",Present="say"}
                                 }
                             }
@@ -203,7 +203,7 @@ namespace GetTheMilk.NewActions.Tests
                                 {
                                     Message = "Yes",
                                     FinishTheInteractionOnExecution = true,
-                                    CurrentPerformer=new CommunicateActionPerformer(),
+                                    PerformerType=typeof( CommunicateActionPerformer),
                                     Name= new Verb{UniqueId="SayYes",Past="said",Present="say"}
                                 }
                             },
@@ -218,7 +218,7 @@ namespace GetTheMilk.NewActions.Tests
                                 {
                                     Message = "No",
                                     FinishTheInteractionOnExecution= true,
-                                    CurrentPerformer=new CommunicateActionPerformer(),
+                                    PerformerType=typeof( CommunicateActionPerformer),
                                     Name= new Verb{UniqueId="SayNo",Past="said",Present="say"}
                                 }
                             }
@@ -236,7 +236,7 @@ namespace GetTheMilk.NewActions.Tests
                                 },
                                 Reaction = new ObjectTransferActionTemplate
                                 {
-                                    CurrentPerformer = new GiveToActionPerformer(),
+                                    PerformerType=typeof( GiveToActionPerformer),
                                     Name = new Verb{UniqueId="GiveTo",Past="gave to",Present="give to"},
                                     FinishTheInteractionOnExecution=true
                                 }
@@ -250,7 +250,7 @@ namespace GetTheMilk.NewActions.Tests
                                 },
                                 Reaction = new ObjectTransferActionTemplate
                                 {
-                                    CurrentPerformer = new SellActionPerformer(),
+                                    PerformerType=typeof( SellActionPerformer),
                                     Name = new Verb{UniqueId="Sell",Past="sold",Present="sell"},
                                     FinishTheInteractionOnExecution=true
                                 }
@@ -293,12 +293,12 @@ namespace GetTheMilk.NewActions.Tests
                                                                                          new Interaction
                                                                                              {
                                                                                                  Action = new TwoCharactersActionTemplate{
-                CurrentPerformer = new TwoCharactersActionTemplatePerformer(),
+                PerformerType=typeof( TwoCharactersActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="Meet",Past="met",Present="meet"},StartingAction=true},
                                                                                                  Reaction = new TwoCharactersActionTemplate{
-                CurrentPerformer = new AttackActionPerformer(),
+                PerformerType=typeof( AttackActionPerformer),
                 Name = new Verb
                 {
                     UniqueId="Attack"}}
@@ -306,12 +306,12 @@ namespace GetTheMilk.NewActions.Tests
                                                                                          new Interaction
                                                                                              {
                                                                                                  Action = new TwoCharactersActionTemplate{
-                CurrentPerformer = new TwoCharactersActionTemplatePerformer(),
+                PerformerType=typeof( TwoCharactersActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="Quit"}},
                                                                                                  Reaction = new TwoCharactersActionTemplate{
-                CurrentPerformer = new AttackActionPerformer(),
+                PerformerType=typeof( AttackActionPerformer),
                 Name = new Verb
                 {
                     UniqueId="Attack"}}
@@ -319,12 +319,12 @@ namespace GetTheMilk.NewActions.Tests
                                                                                          new Interaction
                                                                                              {
                                                                                                  Action = new TwoCharactersActionTemplate{
-                CurrentPerformer = new TwoCharactersActionTemplatePerformer(),
+                PerformerType=typeof( TwoCharactersActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="Quit"}},
                                                                                                  Reaction = new TwoCharactersActionTemplate{
-                CurrentPerformer = new AcceptQuitActionPerformer(),
+                PerformerType=typeof( AcceptQuitActionPerformer),
                 Name = new Verb
                 {
                     UniqueId="AcceptQuit"},FinishTheInteractionOnExecution=true}
@@ -332,12 +332,12 @@ namespace GetTheMilk.NewActions.Tests
                                                                                          new Interaction
                                                                                          {
                                                                                              Action= new TwoCharactersActionTemplate{
-                CurrentPerformer = new InitiateHostilitiesActionPerformer(),
+                PerformerType=typeof( InitiateHostilitiesActionPerformer),
                 Name = new Verb
                 {
                     UniqueId="InitiateHostilities",Past="attacked",Present="attack"},StartingAction=true},
                                                                                              Reaction=new TwoCharactersActionTemplate{
-                CurrentPerformer = new InitiateHostilitiesActionPerformer(),
+                PerformerType=typeof( InitiateHostilitiesActionPerformer),
                 Name = new Verb
                 {
                     UniqueId="InitiateHostilities"}}
@@ -349,12 +349,12 @@ namespace GetTheMilk.NewActions.Tests
                     new Interaction
                     {
                         Action = new TwoCharactersActionTemplate{
-                CurrentPerformer = new TwoCharactersActionTemplatePerformer(),
+                PerformerType=typeof( TwoCharactersActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="Quit"}},
                         Reaction = new TwoCharactersActionTemplate{
-                CurrentPerformer = new AttackActionPerformer(),
+                PerformerType=typeof( AttackActionPerformer),
                 Name = new Verb
                 {
                     UniqueId="Attack"}}
@@ -362,12 +362,12 @@ namespace GetTheMilk.NewActions.Tests
                     new Interaction
                     {
                         Action = new TwoCharactersActionTemplate{
-                CurrentPerformer = new TwoCharactersActionTemplatePerformer(),
+                PerformerType=typeof( TwoCharactersActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="Quit"}},
                         Reaction = new TwoCharactersActionTemplate{
-                CurrentPerformer = new AcceptQuitActionPerformer(),
+                PerformerType=typeof( AcceptQuitActionPerformer),
                 Name = new Verb
                 {
                     UniqueId="AcceptQuit"},FinishTheInteractionOnExecution=true}
@@ -375,7 +375,7 @@ namespace GetTheMilk.NewActions.Tests
                     new Interaction
                     {
                         Action = new TwoCharactersActionTemplate{
-                CurrentPerformer = new InitiateHostilitiesActionPerformer(),
+                PerformerType=typeof( InitiateHostilitiesActionPerformer),
                 Name = new Verb
                 {
                     UniqueId="InitiateHostilities"}},
@@ -422,7 +422,7 @@ namespace GetTheMilk.NewActions.Tests
                                                                        Action =
                                                                            new ObjectTransferActionTemplate
                                                                                {
-                CurrentPerformer = new ObjectTransferToActiveCharacterPerformer(),
+                PerformerType=typeof( ObjectTransferToActiveCharacterPerformer),
                 Name = new Verb
                 {
                     UniqueId = "Keep",
@@ -455,7 +455,7 @@ namespace GetTheMilk.NewActions.Tests
                                                                        Action =
                                                                            new ObjectUseOnObjectActionTemplate
                                                                                {
-                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
+                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId = "Open",
@@ -574,7 +574,7 @@ namespace GetTheMilk.NewActions.Tests
                                                            {
                                                                Action =new ObjectUseOnObjectActionTemplate
                                                                        {
-                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
+                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                                                                                        UniqueId="Ping",
@@ -587,7 +587,7 @@ namespace GetTheMilk.NewActions.Tests
                                                                        },
                                                                Reaction =new OneObjectActionTemplate
                                                                        {
-                CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                PerformerType=typeof( OneObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="Pong",
@@ -602,7 +602,7 @@ namespace GetTheMilk.NewActions.Tests
                                                            {
                                                                Action =new OneObjectActionTemplate
                                                                        {
-                CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                PerformerType=typeof( OneObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="Ping1",
@@ -613,7 +613,7 @@ namespace GetTheMilk.NewActions.Tests
                                                                        },
                                                                Reaction =new ObjectUseOnObjectActionTemplate
                                                                        {
-                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
+                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="Pong1",
@@ -631,7 +631,7 @@ namespace GetTheMilk.NewActions.Tests
                                                            {
                                                                Action =new ObjectUseOnObjectActionTemplate
                                                                        {
-                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
+                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="DoublePing",
@@ -644,7 +644,7 @@ namespace GetTheMilk.NewActions.Tests
                                                                        },
                                                                Reaction =new OneObjectActionTemplate
                                                                        {
-                CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                PerformerType=typeof( OneObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="DoublePong",
@@ -659,7 +659,7 @@ namespace GetTheMilk.NewActions.Tests
                                                            {
                                                                Action =new OneObjectActionTemplate
                                                                        {
-                CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                PerformerType=typeof( OneObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="DoublePing1",
@@ -670,7 +670,7 @@ namespace GetTheMilk.NewActions.Tests
                                                                        },
                                                                Reaction =new ObjectUseOnObjectActionTemplate
                                                                        {
-                CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                PerformerType=typeof( OneObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="DoublePong1",
@@ -694,7 +694,7 @@ namespace GetTheMilk.NewActions.Tests
                                                            {
                                                                Action =new OneObjectActionTemplate
                                                                        {
-                CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                PerformerType=typeof( OneObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="DoublePong",
@@ -706,7 +706,7 @@ namespace GetTheMilk.NewActions.Tests
                                                                        },
                                                                Reaction =new ObjectUseOnObjectActionTemplate
                                                                        {
-                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
+                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="PingPong",
@@ -722,7 +722,7 @@ namespace GetTheMilk.NewActions.Tests
                                                            {
                                                                Reaction =new ObjectUseOnObjectActionTemplate
                                                                        {
-                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
+                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="DoublePong1",
@@ -737,7 +737,7 @@ namespace GetTheMilk.NewActions.Tests
                                                                        },
                                                                Action =new OneObjectActionTemplate
                                                                        {
-                CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                PerformerType=typeof( OneObjectActionTemplatePerformer),
                 Name = new Verb
                 {
                     UniqueId="PingPong1",

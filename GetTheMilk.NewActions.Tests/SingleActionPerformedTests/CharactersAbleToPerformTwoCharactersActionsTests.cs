@@ -44,7 +44,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new CommunicateActionPerformer(),
+                PerformerType=typeof(CommunicateActionPerformer),
                 Name = new Verb
                 {
                     Past = "talked",
@@ -65,7 +65,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
 
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new CommunicateActionPerformer(),
+                PerformerType=typeof(CommunicateActionPerformer),
                 Name = new Verb
                 {
                     Past = "talked",
@@ -86,7 +86,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new CommunicateActionPerformer(),
+                PerformerType=typeof(CommunicateActionPerformer),
                 Name = new Verb
                 {
                     Past = "talked",
@@ -107,7 +107,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new CommunicateActionPerformer(),
+                PerformerType=typeof(CommunicateActionPerformer),
                 Name = new Verb
                 {
                     Past = "talked",
@@ -127,7 +127,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new CommunicateActionPerformer(),
+                PerformerType=typeof(CommunicateActionPerformer),
                 Name = new Verb
                 {
                     Past = "talked",

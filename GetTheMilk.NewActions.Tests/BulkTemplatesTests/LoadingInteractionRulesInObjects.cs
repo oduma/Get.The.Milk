@@ -31,7 +31,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                                                                Action =
                                                                    new OneObjectActionTemplate
                                                                        {
-                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                    PerformerType=typeof(OneObjectActionTemplatePerformer),
                     Name = new Verb
                     {
                         UniqueId = "Touch",
@@ -42,7 +42,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                                                                Reaction =
                                                                    new OneObjectActionTemplate
                                                                        {
-                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                    PerformerType=typeof(OneObjectActionTemplatePerformer),
                     Name = new Verb
                     {
                         UniqueId = "Laugh",
@@ -79,7 +79,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                                                                Action =
                                                                    new OneObjectActionTemplate
                                                                        {
-                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                    PerformerType=typeof(OneObjectActionTemplatePerformer),
                     Name = new Verb
                     {
                         UniqueId = "Touch",
@@ -90,7 +90,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                                                                Reaction =
                                                                    new OneObjectActionTemplate
                                                                        {
-                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                    PerformerType=typeof(OneObjectActionTemplatePerformer),
                     Name = new Verb
                     {
                         UniqueId = "Laugh",

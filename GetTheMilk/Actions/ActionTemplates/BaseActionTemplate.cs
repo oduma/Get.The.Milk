@@ -54,7 +54,7 @@ namespace GetTheMilk.Actions.ActionTemplates
         #endregion
 
         [JsonIgnore]
-        public virtual IActionTemplatePerformer CurrentPerformer { get; set; }
+        public virtual IActionTemplatePerformer CurrentPerformer { get; protected set; }
 
         public virtual Type PerformerType { get; set; }
 
@@ -102,5 +102,13 @@ namespace GetTheMilk.Actions.ActionTemplates
         {
             return (Name.UniqueId).GetHashCode();
         }
+
+        protected void BuildPerformer<T>(ref T currentPerformer) where T:IActionTemplatePerformer
+        {
+            if (currentPerformer != null)
+                if (PerformerType == null || PerformerType.Name != currentPerformer.GetType().Name)
+                    PerformerType = currentPerformer.GetType();
+        }
+
     }
 }

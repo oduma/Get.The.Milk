@@ -28,7 +28,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             tool.AddAvailableAction(
                 new OneObjectActionTemplate
                 {
-                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                    PerformerType=typeof(OneObjectActionTemplatePerformer),
                     Name = new Verb
                     {
                         UniqueId = "Explode",
@@ -53,7 +53,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
             expected.AddAvailableAction(
                 new OneObjectActionTemplate
                 {
-                    CurrentPerformer = new OneObjectActionTemplatePerformer(),
+                    PerformerType=typeof(OneObjectActionTemplatePerformer),
                     Name = new Verb
                     {
                         UniqueId = "Explode",

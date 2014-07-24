@@ -153,7 +153,7 @@ namespace GetTheMilk.Settings
 
                                    new MovementActionTemplate
                                    {
-                                       CurrentPerformer=new WalkActionPerformer(),
+                                       PerformerType=typeof( WalkActionPerformer),
                                        Name = new Verb
                                                   {
                                                       UniqueId = "Walk",
@@ -164,7 +164,7 @@ namespace GetTheMilk.Settings
                                    },
                                new MovementActionTemplate
                                    {
-                                       CurrentPerformer=new RunActionPerformer(),
+                                       PerformerType=typeof( RunActionPerformer),
                                        Name = new Verb
                                                   {
                                                       UniqueId = "Run",
@@ -175,7 +175,7 @@ namespace GetTheMilk.Settings
                                    },
                                new MovementActionTemplate
                                    {
-                                       CurrentPerformer=new TeleportActionPerformer(),
+                                       PerformerType=typeof( TeleportActionPerformer),
                                        Name =
                                            new Verb
                                                {
@@ -196,7 +196,7 @@ namespace GetTheMilk.Settings
                            {
                                new MovementActionTemplate
                                    {
-                                       CurrentPerformer=new TeleportActionPerformer(),
+                                       PerformerType=typeof( TeleportActionPerformer),
                                        Name =
                                            new Verb
                                                {
@@ -207,7 +207,7 @@ namespace GetTheMilk.Settings
                                    },
                                new ExposeInventoryActionTemplate
                                    {
-                                       CurrentPerformer=new ExposeInventoryActionTemplatePerformer(),
+                                       PerformerType=typeof( ExposeInventoryActionTemplatePerformer),
                                        Name =
                                            new Verb
                                                {
@@ -221,7 +221,7 @@ namespace GetTheMilk.Settings
                                    },
                                new NoObjectActionTemplate
                                    {
-                                       CurrentPerformer=new NoObjectActionTemplatePerformer(),
+                                       PerformerType=typeof( NoObjectActionTemplatePerformer),
                                        Name =
                                            new Verb
                                                {
@@ -246,7 +246,7 @@ namespace GetTheMilk.Settings
 
                                new OneObjectActionTemplate
                                    {
-                                       CurrentPerformer=new OneObjectActionTemplatePerformer(),
+                                       PerformerType=typeof( SelectAttackWeaponActionPerformer),
                                        Name = new Verb
                                                   {
                                                       UniqueId = "SelectAttackWeapon",
@@ -256,7 +256,7 @@ namespace GetTheMilk.Settings
                                    },
                                new OneObjectActionTemplate
                                    {
-                                       CurrentPerformer=new OneObjectActionTemplatePerformer(),
+                                       PerformerType=typeof( SelectDefenseWeaponActionPerformer),
                                        Name = new Verb
                                                   {
                                                       UniqueId = "SelectDefenseWeapon",
@@ -266,7 +266,7 @@ namespace GetTheMilk.Settings
                                    },
                                new ObjectTransferActionTemplate
                                    {
-                                       CurrentPerformer=new ObjectTransferFromActiveCharacterPerformer(),
+                                       PerformerType=typeof( ObjectTransferFromActiveCharacterPerformer),
                                        Name = new Verb
                                                   {
                                                       UniqueId = "Discard",
@@ -301,7 +301,7 @@ namespace GetTheMilk.Settings
 
                                new ObjectTransferActionTemplate
                                    {
-                                       CurrentPerformer=new BuyActionPerformer(),
+                                       PerformerType=typeof( BuyActionPerformer),
                                        Name = new Verb
                                                   {
                                                       UniqueId = "Buy",
@@ -311,7 +311,7 @@ namespace GetTheMilk.Settings
                                    },
                                new ObjectTransferActionTemplate
                                    {
-                                       CurrentPerformer=new TakeFromActionPerformer(),
+                                       PerformerType=typeof( TakeFromActionPerformer),
                                        Name = new Verb
                                                   {
                                                       UniqueId = "TakeFrom",
@@ -332,7 +332,7 @@ namespace GetTheMilk.Settings
 
                                new ObjectTransferActionTemplate
                                    {
-                                       CurrentPerformer=new TakeFromActionPerformer(),
+                                       PerformerType=typeof( TakeFromActionPerformer),
                                        Name = new Verb
                                                   {
                                                       UniqueId = "TakeFrom",

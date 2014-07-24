@@ -25,7 +25,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ObjectUseOnObjectActionTemplate
             {
-                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
+                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
                 Name = new Verb { UniqueId = "Open", Past = "opened", Present = "open" },
                 DestroyActiveObject=true,
                 DestroyTargetObject=true
@@ -39,7 +39,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ObjectUseOnObjectActionTemplate
             {
-                CurrentPerformer = new ObjectUseOnObjectActionTemplatePerformer(),
+                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
                 Name = new Verb { UniqueId = "Defuse", Past = "defused", Present = "defuse" },
                 ChanceOfSuccess = ChanceOfSuccess.Small,
                 PercentOfHealthFailurePenalty = 20,

@@ -84,7 +84,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                                                                                                                         {
                                                                                                                             Message="Yes",
                                                                                                                             FinishTheInteractionOnExecution=true,
-                                                                                                                            CurrentPerformer=new CommunicateActionPerformer(),
+                                                                                                                            PerformerType=typeof(CommunicateActionPerformer),
                                                                                                                             Name = new Verb{UniqueId="SayYes",Past="said", Present="say"}
                                                                                                                         },
                                                                                                                 Reaction
@@ -92,7 +92,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                                                                                                                     new ExposeInventoryActionTemplate
                                                                                                                         {
                                                                                                                             FinishActionUniqueId="CloseInventory",
-                                                                                                                            CurrentPerformer=new ExposeInventoryActionTemplatePerformer(),
+                                                                                                                            PerformerType=typeof(ExposeInventoryActionTemplatePerformer),
                                                                                                                             Name = new Verb{UniqueId="ExposeInventory",Past="exposed", Present="expose"}
                                                                                                                         }
                                                                                                             }});

@@ -23,7 +23,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new AttackActionPerformer(),
+                PerformerType=typeof( AttackActionPerformer),
                 Name = new Verb { UniqueId = "Attack", Past = "attacked", Present = "attack" }
             };
 
@@ -31,7 +31,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
 
             defaultActionTemplate = new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new CommunicateActionPerformer(),
+                PerformerType=typeof( CommunicateActionPerformer),
                 Name = new Verb { UniqueId = "Communicate", Past = "said", Present = "say" },
                 Message="hello"
             };
@@ -47,7 +47,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new TwoCharactersActionTemplate
             {
-                CurrentPerformer = new CommunicateActionPerformer(),
+                PerformerType=typeof( CommunicateActionPerformer),
                 Name = new Verb { UniqueId = "Communicate", Past = "said", Present = "say" },
                 Message = "hello"
             };

@@ -16,7 +16,7 @@ namespace GetTheMilk.Actions.ActionTemplates
         #endregion
 
         private Type _performerType;
-        public Type PerformerType
+        public override Type PerformerType
         {
             get
             {
@@ -37,11 +37,10 @@ namespace GetTheMilk.Actions.ActionTemplates
             {
                 return _currentPerformer;
             }
-            set
+            protected set
             {
                 _currentPerformer = (IOneObjectActionTemplatePerformer)value;
-                if(PerformerType == null || PerformerType.Name!=_currentPerformer.GetType().Name)
-                    PerformerType = _currentPerformer.GetType();
+                BuildPerformer(ref _currentPerformer);
             }
         }
         public override bool CanPerform()

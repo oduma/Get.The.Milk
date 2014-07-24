@@ -23,7 +23,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ObjectTransferActionTemplate
             {
-                CurrentPerformer=new BuyActionPerformer(),
+                PerformerType=typeof( BuyActionPerformer),
                 Name=new Verb{UniqueId="Buy",Past="bought", Present="buy"}
             };
 
@@ -36,7 +36,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ObjectTransferActionTemplate
             {
-                CurrentPerformer = new SellActionPerformer(),
+                PerformerType = typeof(SellActionPerformer),
                 Name = new Verb { UniqueId = "Sell", Past = "sold", Present = "sell" }
             };
 

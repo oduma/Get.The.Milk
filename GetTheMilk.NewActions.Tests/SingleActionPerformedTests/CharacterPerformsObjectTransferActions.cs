@@ -114,7 +114,7 @@ a => a.Name.UniqueId == "Discard");
             activeCharacter.LoadInteractions(_character, _character.Name.Main);
             activeCharacter.AddAvailableAction(new ObjectTransferActionTemplate
             {
-                CurrentPerformer = new TakeFromActionPerformer(),
+                PerformerType=typeof(TakeFromActionPerformer),
                 Name = new Verb
                 {
                     UniqueId = "TakeFrom",
@@ -183,7 +183,7 @@ a => a.Name.UniqueId == "Discard");
             _character.Walet = new Walet { MaxCapacity = 2000, CurrentCapacity = 100 };
             _character.AddAvailableAction(new ObjectTransferActionTemplate
             {
-                CurrentPerformer = new BuyActionPerformer(),
+                PerformerType=typeof(BuyActionPerformer),
                 Name = new Verb
                 {
                     UniqueId = "Buy",

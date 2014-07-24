@@ -22,7 +22,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new MovementActionTemplate
             {
-                CurrentPerformer=new RunActionPerformer(),
+                PerformerType=typeof( RunActionPerformer),
                 Name=new Verb{UniqueId="Run",Past="ran", Present="run"},
                 DefaultDistance=3
             };
@@ -36,7 +36,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new MovementActionTemplate
             {
-                CurrentPerformer=new TeleportActionPerformer(),
+                PerformerType=typeof( TeleportActionPerformer),
                 Name = new Verb { UniqueId = "EnterLevel", Past = "entered level", Present = "enter level" },
                 DefaultDistance = 0,
                 TargetCell = 100
