@@ -18,6 +18,7 @@ namespace GetTheMilk.NewActions.Tests
 {
     public static class TestHelper
     {
+
         public static Map GenerateSmallMap()
         {
             return new Map

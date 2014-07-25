@@ -51,6 +51,8 @@
     <Compile Include="BulkTemplatesTests\LoadingActionTemplatesInObjectTests.cs" />
     <Compile Include="BulkTemplatesTests\LoadingActionTemplatesInPlayerTests.cs" />
     <Compile Include="BulkTemplatesTests\LoadingInteractionRulesInObjects.cs" />
+    <Compile Include="ChainedActionTests\CharacterExchangingInteractionsWithObject.cs" />
+    <Compile Include="ChainedActionTests\CharacterExchangingInteractionsWithCharacter.cs" />
     <Compile Include="ChainedActionTests\CharactersInteractingWithCharacters.cs" />
     <Compile Include="ChainedActionTests\CharactersInteractingWithObjects.cs" />
     <Compile Include="ExplodePerformer.cs" />
