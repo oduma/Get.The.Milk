@@ -164,7 +164,7 @@ namespace GetTheMilk.Characters.BaseCharacters
 
         public string CloseUpMessage { get; set; }
 
-        public virtual void LoadInteractions(IActionEnabled objectInRange)
+        public virtual void LoadInteractions(IActionEnabled objectInRange, Type typeOfObject)
         {
             var mainName = ((IPositionable)objectInRange).Name.Main;
             var mainNameResponses = mainName + "_Responses";
@@ -179,23 +179,20 @@ namespace GetTheMilk.Characters.BaseCharacters
                 Interactions[mainNameResponses].ForEach(ar =>
                 {
                     ar.Action.TargetCharacter = this;
+                    if (typeOfObject == typeof(Character))
+                        ar.Action.ActiveCharacter = (Character)objectInRange;
+                    else
+                        ar.Action.ActiveObject = (NonCharacterObject)objectInRange;
                     if (ar.Reaction != null)
+                    {
                         ar.Reaction.ActiveCharacter = this;
+                        if (typeOfObject == typeof(Character))
+                            ar.Reaction.TargetCharacter = (Character)objectInRange;
+                        else
+                            ar.Reaction.TargetObject = (NonCharacterObject)objectInRange;                        
+                    }
                 });
             }
-            //if (!Interactions.ContainsKey(mainName)
-            //    && objectInRange.Interactions != null
-            //    && objectInRange.Interactions.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
-            //{
-            //    Interactions.Add(mainName, objectInRange.Interactions[
-            //                                              GenericInteractionRulesKeys.CharacterSpecific]);
-            //    Interactions[mainName].ForEach(ar =>
-            //    {
-            //        ar.Action.TargetCharacter = this;
-            //        if (ar.Reaction != null)
-            //            ar.Reaction.ActiveCharacter = this;
-            //    });
-            //}
             if (!Interactions.ContainsKey(mainName)
                 && objectInRange.Interactions != null
                 && objectInRange.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacter))
@@ -205,8 +202,19 @@ namespace GetTheMilk.Characters.BaseCharacters
                 Interactions[mainName].ForEach(ar =>
                 {
                     ar.Action.ActiveCharacter = this;
-                    if(ar.Reaction!=null)
-                        ar.Reaction.ActiveCharacter = this;
+                    if (typeOfObject == typeof(Character))
+                        ar.Action.TargetCharacter = (Character)objectInRange;
+                    else
+                        ar.Action.TargetObject = (NonCharacterObject)objectInRange;
+                    if (ar.Reaction != null)
+                    {
+                        ar.Reaction.TargetCharacter = this;
+                        if (typeOfObject == typeof(Character))
+                            ar.Reaction.ActiveCharacter = (Character)objectInRange;
+                        else
+                            ar.Reaction.ActiveObject = (NonCharacterObject)objectInRange; 
+
+                    }
                 });
             }
         }

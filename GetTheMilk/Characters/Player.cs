@@ -9,6 +9,7 @@ using GetTheMilk.Levels;
 using GetTheMilk.Objects;
 using GetTheMilk.Settings;
 using GetTheMilk.Utils;
+using System;
 
 namespace GetTheMilk.Characters
 {
@@ -38,10 +39,10 @@ namespace GetTheMilk.Characters
                 AddAvailableAction(action);
         }
 
-        public override void LoadInteractions(IActionEnabled actionTarget)
+        public override void LoadInteractions(IActionEnabled actionTarget, Type typeOfObject)
         {
             var objectMainName = ((IPositionable)actionTarget).Name.Main;
-            base.LoadInteractions(actionTarget);
+            base.LoadInteractions(actionTarget, typeOfObject);
             if (!Interactions.ContainsKey(objectMainName)
                 && actionTarget.Interactions.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
             {

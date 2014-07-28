@@ -20,7 +20,6 @@
         /// </summary>
         public static readonly string AnyCharacterResponses = "AnyCharacterResponses";
 
-        //public static readonly string CharacterSpecific = "CharacterSpecific";
         public static readonly string PlayerResponses = "PlayerResponses";
 
 

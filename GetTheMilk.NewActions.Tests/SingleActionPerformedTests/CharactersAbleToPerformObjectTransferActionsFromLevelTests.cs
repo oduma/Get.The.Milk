@@ -54,7 +54,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void CharacterNotAbleToTransferNoObject()
         {
             var targetObject = _level.Inventory.First(o => o.ObjectCategory == ObjectCategory.Tool);
-            _character.LoadInteractions(targetObject);
+            _character.LoadInteractions(targetObject,targetObject.GetType());
             var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("Keep");
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
@@ -65,7 +65,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void CharacterNotAbleToTransferNoActiveCharacter()
         {
             var targetObject = _level.Inventory.First(o => o.ObjectCategory == ObjectCategory.Tool);
-            _character.LoadInteractions(targetObject);
+            _character.LoadInteractions(targetObject, targetObject.GetType());
             var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("Keep");
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
@@ -79,7 +79,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             var targetObject = _level.Inventory.First(o => o.ObjectCategory == ObjectCategory.Tool);
             var anotherTargetObject = _level.Inventory.First(o => o.ObjectCategory == ObjectCategory.Decor);
-            _character.LoadInteractions(targetObject);
+            _character.LoadInteractions(targetObject, targetObject.GetType());
             var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("Keep");
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
@@ -92,7 +92,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             var targetObject = _level.Inventory.First(o => o.ObjectCategory == ObjectCategory.Tool);
             _character.Inventory = new Inventory {MaximumCapacity = 0, InventoryType = InventoryType.CharacterInventory};
-            _character.LoadInteractions(targetObject);
+            _character.LoadInteractions(targetObject, targetObject.GetType());
             var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("Keep");
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());
@@ -104,7 +104,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             var targetObject = _level.Inventory.First(o => o.ObjectCategory == ObjectCategory.Tool);
             _character.Inventory = new Inventory { MaximumCapacity = 1, InventoryType = InventoryType.CharacterInventory };
-            _character.LoadInteractions(targetObject);
+            _character.LoadInteractions(targetObject, targetObject.GetType());
             var objectTransferAction = _character.CreateNewInstanceOfAction<ObjectTransferActionTemplate>("Keep");
             Assert.IsNotNull(objectTransferAction);
             Assert.AreEqual(typeof(ObjectTransferActionTemplate), objectTransferAction.GetType());

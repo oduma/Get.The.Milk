@@ -26,9 +26,8 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 baseAction=actionTemplate.TargetObject.CreateNewInstanceOfAction(availableActions[actionToRespond].Name.UniqueId);
                 
                 baseAction.TargetCharacter = actionTemplate.ActiveCharacter;
-                baseAction.ActiveObject = actionTemplate.TargetObject;
                 baseAction.TargetObject = actionTemplate.ActiveObject;
-                return baseAction.ActiveObject.PerformAction(availableActions[actionToRespond]);
+                return baseAction.Perform();
 
             }
             baseAction = actionTemplate.TargetCharacter.CreateNewInstanceOfAction(availableActions[actionToRespond].Name.UniqueId);

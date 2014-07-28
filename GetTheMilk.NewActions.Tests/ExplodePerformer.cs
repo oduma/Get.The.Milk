@@ -6,10 +6,11 @@ namespace GetTheMilk.NewActions.Tests
     {
         public override bool CanPerform(Actions.ActionTemplates.OneObjectActionTemplate actionTemplate)
         {
-            if (actionTemplate.TargetObject == null)
+            if (actionTemplate.TargetObject == null && actionTemplate.TargetCharacter==null)
                 return false;
-            return (actionTemplate.TargetObject.AllowsIndirectTemplateAction(actionTemplate, actionTemplate.ActiveCharacter)
-            && actionTemplate.ActiveObject.AllowsIndirectTemplateAction(actionTemplate, actionTemplate.TargetObject));
+            if(!actionTemplate.ActiveObject.AllowsTemplateAction(actionTemplate))
+                return false;
+            return true;
 
         }
 

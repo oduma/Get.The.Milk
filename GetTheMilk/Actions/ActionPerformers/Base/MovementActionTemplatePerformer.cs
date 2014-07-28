@@ -106,7 +106,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
             foreach (var objectInRange in objectsInRange)
             {
 
-                actionTemplate.ActiveCharacter.LoadInteractions(objectInRange);
+                actionTemplate.ActiveCharacter.LoadInteractions(objectInRange, objectInRange.GetType());
                 foreach (var templateAction in actionTemplate.ActiveCharacter.AllActions
                     .Where(a => !(a.Value.GetType() == typeof(TwoCharactersActionTemplate)
                         || a.Value.GetType() == typeof(MovementActionTemplate)) && a.Value.StartingAction))
@@ -154,7 +154,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
         {
             foreach (var characterInRange in charactersInRange)
             {
-                actionTemplate.ActiveCharacter.LoadInteractions(characterInRange);
+                actionTemplate.ActiveCharacter.LoadInteractions(characterInRange, characterInRange.GetType());
                 foreach (var action in actionTemplate.ActiveCharacter.AllActions
                     .Where(a => a.Value.GetType() == typeof(TwoCharactersActionTemplate) && a.Value.StartingAction))
                 {

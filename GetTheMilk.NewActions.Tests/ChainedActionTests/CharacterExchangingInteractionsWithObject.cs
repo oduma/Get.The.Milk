@@ -49,7 +49,7 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
             };
             _interactionObject.Interactions = new SortedList<string, Interaction[]>();
             _interactionObject.Interactions.Add(GenericInteractionRulesKeys.AnyCharacter, GetInteractions());
-            _character.LoadInteractions(_interactionObject);
+            _character.LoadInteractions(_interactionObject,_interactionObject.GetType());
             Assert.AreEqual(2, _character.Interactions.Count);
             TestHelper.ValidateDefaultCharacterInteractions(_character);
             
@@ -74,7 +74,7 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
 
             _interactionObject.Interactions = new SortedList<string, Interaction[]>();
             _interactionObject.Interactions.Add(GenericInteractionRulesKeys.AnyCharacterResponses, GetInteractionsResponses());
-            _character.LoadInteractions(_interactionObject);
+            _character.LoadInteractions(_interactionObject,_interactionObject.GetType());
             Assert.AreEqual(2, _character.Interactions.Count);
             TestHelper.ValidateDefaultCharacterInteractions(_character);
             TestHelper.ValidateAnyCharacterResponsesInteractions(_character,1,"reactor_Responses");
@@ -100,7 +100,7 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
             _interactionObject.Interactions.Add(GenericInteractionRulesKeys.AnyCharacter, GetInteractions());
             _interactionObject.Interactions.Add(GenericInteractionRulesKeys.AnyCharacterResponses, GetInteractionsResponses());
 
-            _character.LoadInteractions(_interactionObject);
+            _character.LoadInteractions(_interactionObject, _interactionObject.GetType());
             Assert.AreEqual(3, _character.Interactions.Count);
             Assert.AreEqual(2, _interactionObject.Interactions.Count);
             TestHelper.ValidateDefaultCharacterInteractions(_character);

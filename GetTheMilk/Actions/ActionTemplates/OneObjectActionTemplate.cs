@@ -62,7 +62,8 @@ namespace GetTheMilk.Actions.ActionTemplates
                 FinishTheInteractionOnExecution = FinishTheInteractionOnExecution,
                 CurrentPerformer = CurrentPerformer,
                 ActiveCharacter = ActiveCharacter,
-                ActiveObject = ActiveObject
+                ActiveObject = ActiveObject,
+                TargetObject=TargetObject
             };
         }
     }

@@ -3,6 +3,7 @@ using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using Newtonsoft.Json;
+using System;
 
 namespace GetTheMilk.Characters.BaseCharacters
 {
@@ -22,6 +23,6 @@ namespace GetTheMilk.Characters.BaseCharacters
         Weapon ActiveDefenseWeapon { get; set; }
         ContainerWithActionsPackage Save();
 
-        void LoadInteractions(IActionEnabled objectInRange);
+        void LoadInteractions(IActionEnabled objectInRange, Type typeOfObject);
     }
 }

@@ -46,7 +46,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void CharacterPerformDestructiveActionNoSelfDamage()
         {
             var targetObject = _level.Inventory.FirstOrDefault(o => o.ObjectTypeId == "RedDoor");
-            _character.LoadInteractions(targetObject);
+            _character.LoadInteractions(targetObject, targetObject.GetType());
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Open");
             Assert.IsNotNull(useAction);
             Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());
@@ -64,7 +64,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void CharacterPerformDestructiveActionSelfDamage()
         {
             var targetObject = _level.Inventory.FirstOrDefault(o => o.ObjectTypeId == "RedDoor");
-            _character.LoadInteractions(targetObject);
+            _character.LoadInteractions(targetObject, targetObject.GetType());
             var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Open");
             Assert.IsNotNull(useAction);
             Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());

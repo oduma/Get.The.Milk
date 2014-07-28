@@ -202,7 +202,6 @@
     <Compile Include="Utils\CalculationStrategies.cs" />
     <Compile Include="Utils\CharacterJsonConverter.cs" />
     <Compile Include="Utils\ContentActionsKeys.cs" />
-    <Compile Include="Utils\CoreExtensions.cs" />
     <Compile Include="Utils\GenericInteractionRulesKeys.cs" />
     <Compile Include="Utils\IO\ReadWriteStrategies.cs" />
     <Compile Include="Utils\NonCharacterObjectJsonConvert.cs" />
