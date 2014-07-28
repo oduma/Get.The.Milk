@@ -77,9 +77,9 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 return availableActions;
             }
             var result = actionTemplate.TargetCharacter.Interactions[GenericInteractionRulesKeys.All];
-            if (actionTemplate.TargetCharacter.Interactions.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
-                return result.Union(actionTemplate.TargetCharacter.Interactions[GenericInteractionRulesKeys.CharacterSpecific]).Where(
-                a => a.Action.Equals(actionTemplate)).Select(a => a.Reaction).ToList();
+            //if (actionTemplate.TargetCharacter.Interactions.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
+            //    return result.Union(actionTemplate.TargetCharacter.Interactions[GenericInteractionRulesKeys.CharacterSpecific]).Where(
+            //    a => a.Action.Equals(actionTemplate)).Select(a => a.Reaction).ToList();
             return result.Select(a => a.Reaction).ToList();
         }
 

@@ -47,18 +47,6 @@ namespace GetTheMilk.Characters.BaseCharacters
                 characterPackages.Interactions, new ActionTemplateJsonConverter());
             character.Inventory = Inventory.Load(JsonConvert.DeserializeObject<CollectionPackage>(characterPackages.PackagedInventory));
             character.Inventory.LinkObjectsToInventory();
-            if (character.Interactions.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
-            {
-                foreach (var interaction in character.Interactions[GenericInteractionRulesKeys.CharacterSpecific])
-                {
-                    interaction.Reaction
-                        .ActiveCharacter =
-                        character;
-                    interaction.Action
-                        .TargetCharacter =
-                        character;
-                }
-            }
             if (character.Interactions.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
             {
                 foreach (var interaction in character.Interactions[GenericInteractionRulesKeys.PlayerResponses])
@@ -179,31 +167,35 @@ namespace GetTheMilk.Characters.BaseCharacters
         public virtual void LoadInteractions(IActionEnabled objectInRange)
         {
             var mainName = ((IPositionable)objectInRange).Name.Main;
+            var mainNameResponses = mainName + "_Responses";
+
             if (objectInRange.Interactions!=null
                 && objectInRange.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses))
             {
-                if(Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses))
-                    Interactions.Remove(GenericInteractionRulesKeys.AnyCharacterResponses);
-                Interactions.Add(GenericInteractionRulesKeys.AnyCharacterResponses,objectInRange.Interactions[
+                if(Interactions.ContainsKey(mainNameResponses))
+                    Interactions.Remove(mainNameResponses);
+                Interactions.Add(mainNameResponses,objectInRange.Interactions[
                                                           GenericInteractionRulesKeys.AnyCharacterResponses]);
-                Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].ForEach(ar =>
+                Interactions[mainNameResponses].ForEach(ar =>
                 {
                     ar.Action.TargetCharacter = this;
-                    ar.Reaction.ActiveCharacter = this;
+                    if (ar.Reaction != null)
+                        ar.Reaction.ActiveCharacter = this;
                 });
             }
-            if (!Interactions.ContainsKey(mainName)
-                && objectInRange.Interactions != null
-                && objectInRange.Interactions.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
-            {
-                Interactions.Add(mainName, objectInRange.Interactions[
-                                                          GenericInteractionRulesKeys.CharacterSpecific]);
-                Interactions[mainName].ForEach(ar =>
-                {
-                    ar.Action.TargetCharacter = this;
-                    ar.Reaction.ActiveCharacter = this;
-                });
-            }
+            //if (!Interactions.ContainsKey(mainName)
+            //    && objectInRange.Interactions != null
+            //    && objectInRange.Interactions.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
+            //{
+            //    Interactions.Add(mainName, objectInRange.Interactions[
+            //                                              GenericInteractionRulesKeys.CharacterSpecific]);
+            //    Interactions[mainName].ForEach(ar =>
+            //    {
+            //        ar.Action.TargetCharacter = this;
+            //        if (ar.Reaction != null)
+            //            ar.Reaction.ActiveCharacter = this;
+            //    });
+            //}
             if (!Interactions.ContainsKey(mainName)
                 && objectInRange.Interactions != null
                 && objectInRange.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacter))
@@ -212,7 +204,6 @@ namespace GetTheMilk.Characters.BaseCharacters
                                                           GenericInteractionRulesKeys.AnyCharacter]);
                 Interactions[mainName].ForEach(ar =>
                 {
-                    AddAvailableAction(ar.Action);
                     ar.Action.ActiveCharacter = this;
                     if(ar.Reaction!=null)
                         ar.Reaction.ActiveCharacter = this;

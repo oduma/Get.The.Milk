@@ -77,25 +77,12 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         public void CharacterAbleToExposeInventoryToUser()
         {
             _character.Name = new Noun {Main = "testChar", Narrator = "test char"};
-            _character.Interactions.Add(GenericInteractionRulesKeys.CharacterSpecific, new Interaction[]{                                                                                                        new Interaction
-                                                                                                            {
-                                                                                                                Action =
-                                                                                                                    new TwoCharactersActionTemplate
-                                                                                                                        {
-                                                                                                                            Message="Yes",
-                                                                                                                            FinishTheInteractionOnExecution=true,
-                                                                                                                            PerformerType=typeof(CommunicateActionPerformer),
-                                                                                                                            Name = new Verb{UniqueId="SayYes",Past="said", Present="say"}
-                                                                                                                        },
-                                                                                                                Reaction
-                                                                                                                    =
-                                                                                                                    new ExposeInventoryActionTemplate
-                                                                                                                        {
-                                                                                                                            FinishActionUniqueId="CloseInventory",
-                                                                                                                            PerformerType=typeof(ExposeInventoryActionTemplatePerformer),
-                                                                                                                            Name = new Verb{UniqueId="ExposeInventory",Past="exposed", Present="expose"}
-                                                                                                                        }
-                                                                                                            }});
+            _character.AddAvailableAction(new ExposeInventoryActionTemplate
+                                            {
+                                                FinishActionUniqueId="CloseInventory",
+                                                PerformerType=typeof(ExposeInventoryActionTemplatePerformer),
+                                                Name = new Verb{UniqueId="ExposeInventory",Past="exposed", Present="expose"}
+                                            });
             var exposeInventoryActionn = _character.CreateNewInstanceOfAction<ExposeInventoryActionTemplate>("ExposeInventory");
             exposeInventoryActionn.TargetCharacter = _player;
             exposeInventoryActionn.SelfInventory = false;

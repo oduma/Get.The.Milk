@@ -13,11 +13,70 @@ using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Utils;
+using NUnit.Framework;
+using System.Linq;
 
 namespace GetTheMilk.NewActions.Tests
 {
+
+    
+
     public static class TestHelper
     {
+
+
+        public static void CheckAllActionsAfterInteractionsLoad(IActionEnabled actionInitiator, string actionInitiatorInteractionKey, IActionEnabled reactor, string reactorInteractionKey)
+        {
+            Assert.True(actionInitiator.AllActions.Any(a => a.Key == actionInitiator.Interactions[actionInitiatorInteractionKey][0].Action.Name.UniqueId));
+            Assert.True(actionInitiator.AllActions.Any(a => a.Key == actionInitiator.Interactions[actionInitiatorInteractionKey][1].Action.Name.UniqueId));
+
+            Assert.True(reactor.AllActions.Any(a => a.Key == reactor.Interactions[reactorInteractionKey][0].Reaction.Name.UniqueId));
+            Assert.True(reactor.AllActions.Any(a => a.Key == reactor.Interactions[reactorInteractionKey][1].Reaction.Name.UniqueId));
+        }
+
+        public static void ValidateAnyCharacterLoadedInteractions(IActionEnabled o, int keyIndex, string interactionKey)
+        {
+            Assert.AreEqual(interactionKey, o.Interactions.Keys[keyIndex]);
+            Assert.AreEqual(2, o.Interactions[interactionKey].Length);
+            Assert.IsNotNull(o.Interactions[interactionKey][0].Action);
+            Assert.IsNotNull(o.Interactions[interactionKey][0].Reaction);
+            Assert.IsNotNull(o.Interactions[interactionKey][1].Action);
+            Assert.IsNotNull(o.Interactions[interactionKey][1].Reaction);
+            Assert.AreEqual(o.Interactions[interactionKey][0].Action.Name.UniqueId, "Interaction1-Action");
+            Assert.AreEqual(o.Interactions[interactionKey][0].Reaction.Name.UniqueId, "Interaction1-Reaction");
+            Assert.AreEqual(o.Interactions[interactionKey][1].Action.Name.UniqueId, "Interaction2-Action");
+            Assert.AreEqual(o.Interactions[interactionKey][1].Reaction.Name.UniqueId, "Interaction2-Reaction");
+        }
+
+        public static void ValidateAnyCharacterResponsesInteractions(IActionEnabled o, int keyIndex,string interactionKey)
+        {
+            Assert.AreEqual(interactionKey, o.Interactions.Keys[keyIndex]);
+            Assert.AreEqual(2, o.Interactions[interactionKey].Length);
+            Assert.IsNotNull(o.Interactions[interactionKey][0].Action);
+            Assert.IsNotNull(o.Interactions[interactionKey][0].Reaction);
+            Assert.IsNotNull(o.Interactions[interactionKey][1].Action);
+            Assert.IsNotNull(o.Interactions[interactionKey][1].Reaction);
+            Assert.AreEqual(o.Interactions[interactionKey][0].Action.Name.UniqueId, "Interaction1-Reaction");
+            Assert.AreEqual(o.Interactions[interactionKey][0].Reaction.Name.UniqueId, "Interaction1-ReReaction1");
+            Assert.AreEqual(o.Interactions[interactionKey][1].Action.Name.UniqueId, "Interaction1-Reaction");
+            Assert.AreEqual(o.Interactions[interactionKey][1].Reaction.Name.UniqueId, "Interaction1-ReReaction2");
+        }
+
+        public static void ValidateDefaultCharacterInteractions(Character character)
+        {
+            Assert.AreEqual(GenericInteractionRulesKeys.All, character.Interactions.Keys[0]);
+            Assert.AreEqual(2, character.Interactions[GenericInteractionRulesKeys.All].Length);
+            Assert.IsNotNull(character.Interactions[GenericInteractionRulesKeys.All][0].Action);
+            Assert.IsNotNull(character.Interactions[GenericInteractionRulesKeys.All][0].Reaction);
+            Assert.IsNotNull(character.Interactions[GenericInteractionRulesKeys.All][1].Action);
+            Assert.IsNotNull(character.Interactions[GenericInteractionRulesKeys.All][1].Reaction);
+            Assert.AreEqual(character.Interactions[GenericInteractionRulesKeys.All][0].Action.Name.UniqueId, "Attack");
+            Assert.AreEqual(character.Interactions[GenericInteractionRulesKeys.All][0].Reaction.Name.UniqueId, "Attack");
+            Assert.AreEqual(character.Interactions[GenericInteractionRulesKeys.All][1].Action.Name.UniqueId, "Attack");
+            Assert.AreEqual(character.Interactions[GenericInteractionRulesKeys.All][1].Reaction.Name.UniqueId, "Quit");
+            Assert.True(character.AllActions.Any(a => a.Key == character.Interactions[GenericInteractionRulesKeys.All][0].Action.Name.UniqueId));
+            Assert.True(character.AllActions.Any(a => a.Key == character.Interactions[GenericInteractionRulesKeys.All][1].Reaction.Name.UniqueId));
+        }
 
         public static Map GenerateSmallMap()
         {
@@ -156,7 +215,7 @@ namespace GetTheMilk.NewActions.Tests
                 new SortedList<string, Interaction[]>
                 {
                     {
-                        GenericInteractionRulesKeys.CharacterSpecific, new Interaction[]
+                        GenericInteractionRulesKeys.AnyCharacter, new Interaction[]
                         {
                             new Interaction
                             {
@@ -310,7 +369,7 @@ namespace GetTheMilk.NewActions.Tests
                 ObjectTypeId = "Weapon"
             });
             SortedList<string, Interaction[]> fInteractionRules = new SortedList<string, Interaction[]>();
-            fInteractionRules.Add(GenericInteractionRulesKeys.CharacterSpecific, new Interaction[]
+            fInteractionRules.Add(GenericInteractionRulesKeys.AnyCharacter, new Interaction[]
                                                                                      {
                                                                                          new Interaction
                                                                                              {
