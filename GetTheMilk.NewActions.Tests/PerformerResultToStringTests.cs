@@ -775,5 +775,62 @@ namespace GetTheMilk.NewActions.Tests
         #endregion
 
 
+        #region ObjectTransferActionTemplates
+        [Test]
+        public void NotOkWithEmptyObjectTransferActionTemplate()
+        {
+            PerformActionResult actual = new PerformActionResult
+            {
+                ResultType = Actions.BaseActions.ActionResultType.NotOk,
+                ForAction = new ObjectTransferActionTemplate()
+            };
+            Assert.AreEqual("No Active Character Assigned tried to ObjectTransferActionTemplate Target Object Not Assigned but couldn't.", actual.ToString());
+        }
+
+        [Test]
+        public void OkWithEmptyObjectTransferActionTemplate()
+        {
+            PerformActionResult actual = new PerformActionResult
+            {
+                ResultType = Actions.BaseActions.ActionResultType.Ok,
+                ForAction = new ObjectTransferActionTemplate()
+            };
+            Assert.AreEqual("No Active Character Assigned ObjectTransferActionTemplate Target Object Not Assigned.", actual.ToString());
+        }
+
+        [Test]
+        public void NotOkWithObjectTransferActionTemplate()
+        {
+            PerformActionResult actual = new PerformActionResult
+            {
+                ResultType = Actions.BaseActions.ActionResultType.NotOk,
+                ForAction = new ObjectTransferActionTemplate
+                {
+                    Name = new Verb { UniqueId = "Sell", Past = "sold", Present = "sell" },
+                    ActiveCharacter = new Player(),
+                    TargetObject = new Tool { Name = new Noun { Main = "World", Narrator = "the world" } }
+                }
+            };
+            Assert.AreEqual("you tried to sell the world but couldn't.", actual.ToString());
+        }
+
+        [Test]
+        public void OkWithObjectTransferActionTemplate()
+        {
+            PerformActionResult actual = new PerformActionResult
+            {
+                ResultType = Actions.BaseActions.ActionResultType.Ok,
+                ForAction = new ObjectTransferActionTemplate
+                {
+                    Name = new Verb { UniqueId = "Buy", Past = "bought", Present = "buy" },
+                    ActiveCharacter = new Player(),
+                    TargetObject = new Tool { Name = new Noun { Main = "World", Narrator = "the world" } }
+                }
+            };
+            Assert.AreEqual("you bought the world.", actual.ToString());
+        }
+        #endregion
+
+
     }
 }

@@ -15,7 +15,10 @@
 		{"ResultType":"OutOfTheMap","Value":"{9} tried to {1}{10} but couldn't.{11}{12}"},
 		{"ResultType":"Blocked","Value":"{9} tried to {1}{10} but couldn't.{11}{12}"},
 		{"ResultType":"LevelCompleted","Value":"Level Completed!"}]}, 
-{"Id":"ObjectTransferActionTemplate", "Value":"{1} {2} {6}{7}"},
+{"Id":"ObjectTransferActionTemplate", "Value":"{1} {2} {6}{7}",
+	"ActionResultMessages":[
+		{"ResultType":"Ok","Value":"{9} {0} {2}."},
+		{"ResultType":"NotOk","Value":"{9} tried to {1} {2} but couldn't."}]},
 {"Id":"ObjectUseOnObjectActionTemplate", "Value":"{1} {2} using {4}",
 	"ActionResultMessages":[
 		{"ResultType":"Ok","Value":"{9} {0} {2} using {4}."},
