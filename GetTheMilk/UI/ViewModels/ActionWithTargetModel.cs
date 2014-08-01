@@ -1,5 +1,4 @@
 ﻿using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.UI.Translators;
 
 namespace GetTheMilk.UI.ViewModels
 {

@@ -14,38 +14,6 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
     public class OneObjectActionTemplatesTests
     {
         [Test]
-        public void EmptyDefaultActionToString()
-        {
-            var defaultActionTemplate = new OneObjectActionTemplate();
-
-            Assert.AreEqual("OneObjectActionTemplate", defaultActionTemplate.ToString());
-        }
-
-        [Test]
-        public void NotEmptyActionToString()
-        {
-            var defaultActionTemplate = new OneObjectActionTemplate
-                                            {
-                                                ActiveCharacter = new Player(),
-                                                TargetObject =
-                                                    new Weapon
-                                                        {
-                                                            Name = new Noun {Main = "Super Weapon", Narrator = "super weapon"}
-                                                        },
-                                                PerformerType=typeof( OneObjectActionTemplatePerformer),
-                                                Name = new Verb
-                                                {
-                                                    UniqueId = "SelectAttackWeapon",
-                                                            Past = "selected attack weapon",
-                                                            Present = "select attack weapon"
-                                                        }
-                                            };
-
-            Assert.AreEqual("select attack weapon super weapon", defaultActionTemplate.ToString());
-
-        }
-
-        [Test]
         public void CloneActionTemplate()
         {
             var defaultActionTemplate = new OneObjectActionTemplate
@@ -61,7 +29,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
 
             var actual = defaultActionTemplate.Clone();
             defaultActionTemplate.ActiveCharacter=new Player();
-            Assert.AreEqual("select attack weapon",actual.ToString());
+            Assert.AreEqual("select attack weapon No Target Object",actual.ToString());
             Assert.IsNull(actual.ActiveCharacter);
         }
     }

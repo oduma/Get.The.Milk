@@ -162,8 +162,6 @@ namespace GetTheMilk.Characters.BaseCharacters
         [JsonIgnore]
         public Func<BaseActionTemplate, bool> AllowsTemplateAction { get; set; }
 
-        public string CloseUpMessage { get; set; }
-
         public virtual void LoadInteractions(IActionEnabled objectInRange, Type typeOfObject)
         {
             var mainName = ((IPositionable)objectInRange).Name.Main;

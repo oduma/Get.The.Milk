@@ -198,8 +198,7 @@ namespace GetTheMilk.NewActions.Tests
                 WeaponTypes = new WeaponType[] { WeaponType.Attack, WeaponType.Deffense },
                 BuyPrice = 5,
                 SellPrice = 2,
-                Name = new Noun { Main = "Knife", Narrator = "the knife" },
-                CloseUpMessage = "It is a small but very sharp knife.",
+                Name = new Noun { Main = "Knife", Narrator = "the knife", Description = "It is a small but very sharp knife." },
                 ObjectTypeId = "Weapon"
             },
             new Tool
@@ -207,8 +206,7 @@ namespace GetTheMilk.NewActions.Tests
                 BlockMovement = false,
                 BuyPrice = 4,
                 SellPrice = 2,
-                Name = new Noun { Main = "Can Opener", Narrator = "the can opener" },
-                CloseUpMessage = "In the grass right in front there is a can opener.",
+                Name = new Noun { Main = "Can Opener", Narrator = "the can opener", Description = "In the grass right in front there is a can opener." },
                 ObjectTypeId = "CanOpener"
             });
             var skInteractionRules = 
@@ -344,10 +342,9 @@ namespace GetTheMilk.NewActions.Tests
                 CellNumber = 2,
                 Walet = new Walet { MaxCapacity = 1000, CurrentCapacity = 100 },
                 BlockMovement = true,
-                Name = new Noun { Main = "John the Shop Keeper", Narrator = "John the Shop Keeper" },
+                Name = new Noun { Main = "John the Shop Keeper", Narrator = "John the Shop Keeper",Description="there is a shop keeper" },
                 Inventory = skInventory,
-                ObjectTypeId = "NPCFriendly",
-                CloseUpMessage = "there is a shop keeper"
+                ObjectTypeId = "NPCFriendly"
             };
             skCharacter.Interactions = skInteractionRules;
             skCharacter.AllowsTemplateAction = objAction.AllowsTemplateAction;
@@ -364,8 +361,7 @@ namespace GetTheMilk.NewActions.Tests
                 WeaponTypes = new WeaponType[] { WeaponType.Attack, WeaponType.Deffense },
                 BuyPrice = 50,
                 SellPrice = 2,
-                Name = new Noun { Main = "Knife", Narrator = "the knife" },
-                CloseUpMessage = "It is a small but very sharp knife.",
+                Name = new Noun { Main = "Knife", Narrator = "the knife", Description = "It is a small but very sharp knife." },
                 ObjectTypeId = "Weapon"
             });
             SortedList<string, Interaction[]> fInteractionRules = new SortedList<string, Interaction[]>();
@@ -471,11 +467,11 @@ namespace GetTheMilk.NewActions.Tests
                 CellNumber = 8,
                 BlockMovement = true,
                 Walet = new Walet { MaxCapacity = 2000, CurrentCapacity = 400 },
-                Name = new Noun { Main = "Baddie", Narrator = "the Baddie" },
+                Name = new Noun { Main = "Baddie", Narrator = "the Baddie", Description = "there is a fierce warrior" },
                 Inventory = fInventory,
                 Interactions = fInteractionRules,
-                ObjectTypeId = "NPCFoe",
-                CloseUpMessage = "there is a fierce warrior"
+                ObjectTypeId = "NPCFoe"
+                
             };
 
             fCharacter.AllowsTemplateAction = objEAction.AllowsTemplateAction;
@@ -487,9 +483,7 @@ namespace GetTheMilk.NewActions.Tests
             levelInventory.Add(new Tool
                                    {
                                        CellNumber = 3,
-                                       CloseUpMessage =
-                                           "the Red Key of Kirna and you wonder how did you knew what it was.",
-                                       Name = new Noun {Main = "Red Key", Narrator = "the Red Key"},
+                                       Name = new Noun {Main = "Red Key", Narrator = "the Red Key",Description= "the Red Key of Kirna and you wonder how did you knew what it was."},
                                        ObjectTypeId = "Key",
                                        Interactions =
                                            new SortedList<string, Interaction[]>
@@ -520,8 +514,8 @@ namespace GetTheMilk.NewActions.Tests
                                new Tool
                                    {
                                        CellNumber = 4,
-                                       CloseUpMessage = "Upclose you realise it is a door and it seems to be locked.",
-                                       Name = new Noun {Main = "Red Door", Narrator = "red door"},
+
+                                       Name = new Noun { Main = "Red Door", Narrator = "red door", Description = "Upclose you realise it is a door and it seems to be locked." },
                                        BlockMovement = true,
                                        ObjectTypeId = "RedDoor",
                                        Interactions =
@@ -559,8 +553,9 @@ namespace GetTheMilk.NewActions.Tests
                                new NonCharacterObject
                                    {
                                        CellNumber = 1,
-                                       CloseUpMessage = "The wall is solid stone, unpassable for sure.",
-                                       Name = new Noun {Main = "Wall", Narrator = "wall"},
+                                       Name = new Noun {Main = "Wall", Narrator = "wall",
+                                       Description = "The wall is solid stone, unpassable for sure."
+                                       },
                                        BlockMovement = true,
                                        ObjectTypeId = "Decor"
 
@@ -568,8 +563,12 @@ namespace GetTheMilk.NewActions.Tests
                                new NonCharacterObject
                                    {
                                        CellNumber = 7,
-                                       CloseUpMessage = "The wall is solid stone, unpassable for sure.",
-                                       Name = new Noun {Main = "Wall", Narrator = "wall"},
+                                       Name = new Noun
+                                       {
+                                           Main = "Wall",
+                                           Narrator = "wall",
+                                           Description = "The wall is solid stone, unpassable for sure."
+                                       },
                                        BlockMovement = true,
                                        ObjectTypeId = "Decor"
                                    }

@@ -73,6 +73,13 @@ namespace GetTheMilk.Actions.ActionTemplates
         }
 
 
+        internal override object[] Translate()
+        {
+            var result = base.Translate();
+            if (PerformerType != typeof(TeleportActionPerformer))
+                result[10] = " " + Direction.ToString();
+            return result;
+        }
         public override bool CanPerform()
         {
             return ((IMovementActionTemplatePerformer)CurrentPerformer).CanPerform(this);
@@ -81,20 +88,6 @@ namespace GetTheMilk.Actions.ActionTemplates
         public override PerformActionResult Perform()
         {
             return ((IMovementActionTemplatePerformer)CurrentPerformer).Perform(this);
-        }
-
-        protected override object[] Translate()
-        {
-
-            return new object[]
-                       {
-                           null,
-                           (Name == null)?CurrentPerformer.GetType().Name:(Name.Present)??(CurrentPerformer.GetType().Name),
-                           null,
-                           null,
-                           null,
-                           null,null,null
-                       };
         }
     }
 }

@@ -111,48 +111,6 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
             };
         }
 
-        [Test]
-        public void ObjectCannotPerformReaction()
-        {
-            _character.LoadInteractions(_interactionObject, _interactionObject.GetType());
-            var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Default");
-            Assert.IsNotNull(useAction);
-            Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());
-            useAction.ActiveObject = _character.Inventory[0];
-            useAction.TargetObject = _interactionObject;
-            Assert.AreEqual(ActionResultType.NotOk, _character.PerformAction(useAction).ResultType);
-            Assert.AreEqual(1, _character.Inventory.Count);
-        }
-        [Test]
-        public void CharacterInitiateObjectUseOnObjectObjectReactsWithOneObject()
-        {
-            _character.LoadInteractions(_interactionObject, _interactionObject.GetType());
-            var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Ping");
-            Assert.IsNotNull(useAction);
-            useAction.ActiveObject = _character.Inventory[0];
-            useAction.TargetObject = _interactionObject;
-            Assert.AreEqual(ActionResultType.NotOk, _character.PerformAction(useAction).ResultType);
-            Assert.AreEqual(1, _character.Inventory.Count);
-
-        }
-
-        [Test]
-        public void CharacterInitiateOneObjectObjectReactsWithOneObject()
-        {
-
-        }
-
-        [Test]
-        public void CharacterInitiateObjectUseOnObjectObjectReactsWithOneObjectDoubleChain()
-        {
-
-        }
-
-        [Test]
-        public void CharacterInitiateOnOebjectObjectReactsWithOneObjectDoubleChain()
-        {
-
-        }
 
     }
 }

@@ -10,26 +10,6 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
     public class ExposeInventoryActionTemplateTests
     {
         [Test]
-        public void EmptyDefaultActionToString()
-        {
-            var defaultActionTemplate = new ExposeInventoryActionTemplate();
-
-            Assert.AreEqual("Expose Inventory", defaultActionTemplate.ToString());
-        }
-
-        [Test]
-        public void NotEmptyActionToString()
-        {
-            var defaultActionTemplate = new ExposeInventoryActionTemplate
-            {
-                ActiveCharacter = new Player(),
-                SelfInventory=true
-            };
-
-            Assert.AreEqual("Expose Inventory", defaultActionTemplate.ToString());
-
-        }
-        [Test]
         public void CloneActionTemplate()
         {
             var defaultActionTemplate = new ExposeInventoryActionTemplate

@@ -23,11 +23,11 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         }
 
-        protected override object[] Translate()
+        internal override object[] Translate()
         {
             var result = base.Translate();
-            result[1] = (TargetObject == null) ? "No Target Object Assigned" : TargetObject.Name.Narrator;
-            result[3] = (ActiveObject == null) ? "No Active Object Assigned" : ActiveObject.Name.Narrator;
+            result[2] = (TargetObject == null || TargetObject.Name==null) ? "No Target Object Assigned" : TargetObject.Name.Narrator;
+            result[4] = (ActiveObject == null || ActiveObject.Name==null) ? "No Active Object Assigned" : ActiveObject.Name.Narrator;
             return result;
         }
 

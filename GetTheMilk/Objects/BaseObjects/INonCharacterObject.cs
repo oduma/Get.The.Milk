@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace GetTheMilk.Objects.BaseObjects
 {
-    public interface INonCharacterObject:IPositionable,IObjectHumanInterface
+    public interface INonCharacterObject:IPositionable
     {
         [JsonIgnore]
         Inventory StorageContainer { get; set; }

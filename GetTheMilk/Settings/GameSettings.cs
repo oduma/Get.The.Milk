@@ -5,8 +5,6 @@ using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
-using GetTheMilk.UI.Translators.Common;
-using GetTheMilk.UI.Translators.MovementResultTemplates;
 using GetTheMilk.Utils;
 using GetTheMilk.Utils.IO;
 using Newtonsoft.Json;
@@ -19,7 +17,7 @@ namespace GetTheMilk.Settings
 
         public static GameSettings GetInstance()
         {
-            if (Instance.MessagesForActionsResult == null || Instance.MovementExtraDataTemplate == null)
+            if (Instance.ActionTemplateMessages == null)
             {
                 using (
                     Stream fs =
@@ -27,25 +25,18 @@ namespace GetTheMilk.Settings
                                                                   Instance.DefaultPaths.TemplatesFileName)))
                 {
                     var tPackageContent = (new StreamReader(fs)).ReadToEnd();
-                    var templatesPackage = JsonConvert.DeserializeObject<TemplatesPackage>(tPackageContent);
-                    Instance.MessagesForActionsResult = templatesPackage.MessagesForActionResult;
-                    Instance.MovementExtraDataTemplate = templatesPackage.MovementExtraDataTemplate;
-                    Instance.ActionTypeMessages = templatesPackage.ActionTypeMessages;
+                    Instance.ActionTemplateMessages = JsonConvert.DeserializeObject<List<Message>>(tPackageContent);
                 }
             }
             return Instance;
         }
 
-        public List<Message> ActionTypeMessages  { get; private set; }
+        public List<Message> ActionTemplateMessages  { get; private set; }
 
         public Func<string, Stream> CurrentReadStrategy { get { return ReadWriteStrategies.UncompressedReader; } }
 
 
         public Action<string, string> CurrentWriteStrategy { get { return ReadWriteStrategies.UncompressedWriter; } }
-
-        public List<MessagesForActionResult> MessagesForActionsResult { get; private set; }
-
-        public MovementExtraDataTemplate MovementExtraDataTemplate { get; private set; }
 
         public bool AllowChoiceOfDefensiveWeapons
         {
@@ -354,6 +345,6 @@ namespace GetTheMilk.Settings
             return Randomizer.GetRandom(10, 50);
         }
 
-        
+        public string MessageForObjectsInRange { get { return "Looking {0} {1}."; } }
     }
 }

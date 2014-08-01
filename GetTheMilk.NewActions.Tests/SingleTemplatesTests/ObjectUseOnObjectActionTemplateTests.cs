@@ -13,28 +13,6 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
     public class ObjectUseOnObjectActionTemplateTests
     {
         [Test]
-        public void EmptyDefaultActionToString()
-        {
-            var defaultActionTemplate = new ObjectUseOnObjectActionTemplate();
-
-            Assert.AreEqual("ObjectUseOnObjectActionTemplate No Target Object Assigned using No Active Object Assigned", defaultActionTemplate.ToString());
-        }
-
-        [Test]
-        public void NotEmptyActionToString()
-        {
-            var defaultActionTemplate = new ObjectUseOnObjectActionTemplate
-            {
-                PerformerType=typeof( ObjectUseOnObjectActionTemplatePerformer),
-                Name = new Verb { UniqueId = "Open", Past = "opened", Present = "open" },
-                DestroyActiveObject=true,
-                DestroyTargetObject=true
-            };
-
-            Assert.AreEqual("open No Target Object Assigned using No Active Object Assigned", defaultActionTemplate.ToString());
-
-        }
-        [Test]
         public void CloneActionTemplate()
         {
             var defaultActionTemplate = new ObjectUseOnObjectActionTemplate

@@ -65,12 +65,14 @@ namespace GetTheMilk.Actions.ActionTemplates
             return ((ITwoCharactersActionTemplatePerformer)CurrentPerformer).Perform(this);
         }
 
-        protected override object[] Translate()
+        internal override object[] Translate()
         {
             
             var result= base.Translate();
-            result[0] = (!string.IsNullOrEmpty(Message)) ? (result[0] + " " + Message + " to") : result[0];
-            result[2] = (TargetCharacter == null) ? "Target Character Not Assigned" : TargetCharacter.Name.Narrator;
+            result[3] = (TargetCharacter == null || TargetCharacter.Name == null) ? "Target Character Not Assigned" : TargetCharacter.Name.Narrator;
+            result[5] = (!string.IsNullOrEmpty(Message)) ? (Message + " to ") : string.Empty;
+            if (PerformerType == typeof(AttackActionPerformer))
+                result[8] = (ActiveCharacter == null || ActiveCharacter.ActiveAttackWeapon == null || ActiveCharacter.ActiveAttackWeapon.Name == null) ? string.Empty : " using " + ActiveCharacter.ActiveAttackWeapon.Name.Narrator;
 
             return result;
         }

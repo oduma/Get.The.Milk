@@ -5,15 +5,11 @@ namespace GetTheMilk.Actions.BaseActions
         Ok,
         NotOk,
         Win,
-        QuitAccepted,
         GameOver,
         Lost,
-        RequestQuit,
         OutOfTheMap,
         Blocked,
         OriginNotOnTheMap,
-        UnknownError,
-        LevelCompleted,
-        CannotPerformThisAction
+        LevelCompleted
     }
 }

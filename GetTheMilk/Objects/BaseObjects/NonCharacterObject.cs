@@ -33,7 +33,6 @@ namespace GetTheMilk.Objects.BaseObjects
                        };
         }
 
-        public string CloseUpMessage { get; set; }
         public Inventory StorageContainer { get; set; }
 
         public NonCharacterObject()

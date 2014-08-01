@@ -10,28 +10,6 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
     public class MovementActionTemplateTests
     {
         [Test]
-        public void EmptyDefaultActionToString()
-        {
-            var defaultActionTemplate = new MovementActionTemplate();
-
-            Assert.AreEqual("walk", defaultActionTemplate.ToString());
-        }
-
-        [Test]
-        public void NotEmptyActionToString()
-        {
-            var defaultActionTemplate = new MovementActionTemplate
-            {
-                PerformerType=typeof( RunActionPerformer),
-                Name=new Verb{UniqueId="Run",Past="ran", Present="run"},
-                DefaultDistance=3
-            };
-
-            Assert.AreEqual("run", defaultActionTemplate.ToString());
-
-        }
-
-        [Test]
         public void CloneActionTemplate()
         {
             var defaultActionTemplate = new MovementActionTemplate

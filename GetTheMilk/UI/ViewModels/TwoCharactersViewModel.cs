@@ -7,7 +7,6 @@ using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.UI.Translators;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.UI.ViewModels
@@ -48,7 +47,7 @@ namespace GetTheMilk.UI.ViewModels
             Dialogues.Add(new Dialogue
                               {
                                   Who = e.ActionResult.ForAction.ActiveCharacter.Name.Narrator,
-                                  What = (new ActionResultToHuL()).TranslateActionResult(e.ActionResult)
+                                  What = e.ActionResult.ToString()
                               });
             PassiveHealth = e.ActionResult.ForAction.TargetCharacter.Health;
             if (PlayerStatsUpdateRequest != null)
@@ -142,7 +141,7 @@ namespace GetTheMilk.UI.ViewModels
                 Dialogues.Add(new Dialogue
                                   {
                                       Who = actionResult.ForAction.ActiveCharacter.Name.Narrator,
-                                      What = (new ActionResultToHuL()).TranslateActionResult(actionResult)
+                                      What = actionResult.ToString()
                                   });
                 if(!(actionResult.ForAction.ActiveCharacter is IPlayer))
                 {

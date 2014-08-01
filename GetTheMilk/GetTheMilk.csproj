@@ -121,7 +121,6 @@
     <Compile Include="BaseCommon\IActionEnabled.cs" />
     <Compile Include="BaseCommon\IActionEnabledCharacter.cs" />
     <Compile Include="BaseCommon\IInventoryOwner.cs" />
-    <Compile Include="BaseCommon\IObjectHumanInterface.cs" />
     <Compile Include="BaseCommon\IPositionable.cs" />
     <Compile Include="BaseCommon\BasePackage.cs" />
     <Compile Include="BaseCommon\Noun.cs" />
@@ -168,11 +167,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\GameSettings.cs" />
     <Compile Include="Settings\Paths.cs" />
-    <Compile Include="Settings\TemplatesPackage.cs" />
-    <Compile Include="UI\Translators\ActionResultToHuL.cs" />
-    <Compile Include="UI\Translators\Common\Message.cs" />
-    <Compile Include="UI\Translators\Common\MessagesForActionResult.cs" />
-    <Compile Include="UI\Translators\MovementResultTemplates\MovementExtraDataTemplate.cs" />
+    <Compile Include="BaseCommon\ActionResultMessage.cs" />
+    <Compile Include="BaseCommon\Message.cs" />
     <Compile Include="UI\ViewModels\ActionExecutionRequestEventArgs.cs" />
     <Compile Include="UI\ViewModels\ActionPanelViewModel.cs" />
     <Compile Include="UI\ViewModels\ActionWithTargetModel.cs" />
@@ -205,6 +201,7 @@
     <Compile Include="Utils\GenericInteractionRulesKeys.cs" />
     <Compile Include="Utils\IO\ReadWriteStrategies.cs" />
     <Compile Include="Utils\NonCharacterObjectJsonConvert.cs" />
+    <Compile Include="Utils\PerformerLoggingInterceptor.cs" />
     <Compile Include="Utils\Randomizer.cs" />
   </ItemGroup>
   <ItemGroup>

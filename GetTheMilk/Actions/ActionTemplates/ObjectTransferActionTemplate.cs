@@ -1,4 +1,5 @@
-﻿using GetTheMilk.Actions.ActionPerformers.Base;
+﻿using GetTheMilk.Actions.ActionPerformers;
+using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Factories;
 using GetTheMilk.Objects.BaseObjects;
 using System;
@@ -66,14 +67,22 @@ namespace GetTheMilk.Actions.ActionTemplates
             return ((IObjectTransferActionTemplatePerformer)CurrentPerformer).Perform(this);
         }
 
-        protected override object[] Translate()
+        internal override object[] Translate()
         {
             var result = base.Translate();
-            result[1] = (TargetObject == null) ? "Target Object Not Assigned" : TargetObject.Name.Narrator;
+            result[2] = (TargetObject == null || TargetObject.Name==null) ? "Target Object Not Assigned" : TargetObject.Name.Narrator;
 
-            result[5] = (TargetObject!=null && TargetObject is ITransactionalObject)
+            result[6] = ((TargetObject!=null && TargetObject is ITransactionalObject)
+                &&(PerformerType!=null 
+                    && PerformerType==typeof(BuyActionPerformer)))
                             ? "("+ ((ITransactionalObject)TargetObject).BuyPrice.ToString() +")"
                             : string.Empty;
+            result[7] = ((TargetObject != null && TargetObject is ITransactionalObject)
+                && (PerformerType != null
+                    && PerformerType == typeof(SellActionPerformer)))
+                            ? "(" + ((ITransactionalObject)TargetObject).SellPrice.ToString() + ")"
+                            : string.Empty;
+
             return result;
         }
 

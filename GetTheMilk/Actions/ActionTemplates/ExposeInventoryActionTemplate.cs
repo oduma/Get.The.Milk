@@ -68,13 +68,15 @@ namespace GetTheMilk.Actions.ActionTemplates
                        };
         }
 
-        protected override object[] Translate()
+        internal override object[] Translate()
         {
             var result = base.Translate();
-            result[5] = (TargetObject is ITransactionalObject)
-                            ? ((ITransactionalObject) TargetObject).BuyPrice.ToString()
-                            : string.Empty;
-            result[6] = (FinishActionUniqueId=="Attack") ? "Prepare for Battle" : "Expose Inventory";
+            result[0] = (FinishActionUniqueId!=null && FinishActionUniqueId == "Attack") ? "prepared for Battle" : "exposed Inventory";
+            result[1] = (FinishActionUniqueId!=null && FinishActionUniqueId=="Attack") ? "prepare for Battle" : "expose Inventory";
+            if(!SelfInventory)
+            {
+                result[3] = (TargetCharacter == null || TargetCharacter.Name == null) ? " to No Target Character Assigned" : " to " + TargetCharacter.Name.Narrator;
+            }
             return result;
         }
 

@@ -6,7 +6,6 @@ using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Settings;
-using GetTheMilk.UI.Translators;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using System.Windows;
 
@@ -49,18 +48,16 @@ namespace GetTheMilk.UI.ViewModels
             }
             else
             {
-                var actionResultToHuL = new ActionResultToHuL();
                 var additionalInformation = string.Empty;
                 if (actionResult.ExtraData is MovementActionTemplateExtraData)
                 {
                     var movementExtraData = actionResult.ExtraData as MovementActionTemplateExtraData;
-                    additionalInformation = actionResultToHuL.TranslateMovementExtraData(movementExtraData, _game.Player, _game.CurrentLevel);
+                    additionalInformation =movementExtraData.ToString();
                     ActionPanelViewModel.DisplayPossibleActions(movementExtraData.AvailableActionTemplates);
                 }
                 PlayerInfoViewModel.PlayerCurrentPosition = _game.Player.CellNumber;
                 return string.Format("\r\n{0}\r\n{1}",
-                                     actionResultToHuL.TranslateMovementResult(
-                                         actionResult), additionalInformation);
+                                     actionResult.ToString(), additionalInformation);
             }
         }
 
@@ -217,7 +214,7 @@ namespace GetTheMilk.UI.ViewModels
             else if(e.ActionResult.ResultType==ActionResultType.Lost)
             {
                 if(GameAdvanceRequest!=null)
-                    GameAdvanceRequest(this, new GameAdvanceRequestEventArgs(_game, (new ActionResultToHuL()).TranslateActionResult(e.ActionResult),string.Empty));
+                    GameAdvanceRequest(this, new GameAdvanceRequestEventArgs(_game, e.ActionResult.ToString(),string.Empty));
             }
         }
 
@@ -321,7 +318,6 @@ namespace GetTheMilk.UI.ViewModels
                     InventoryViewModel.Remove(actionResult.ForAction.TargetObject);
                 }
             }
-            var actionResultToHuL = new ActionResultToHuL();
             var teleport =
                 _game.Player.CreateNewInstanceOfAction<MovementActionTemplate>("Teleport");
 
@@ -333,8 +329,7 @@ namespace GetTheMilk.UI.ViewModels
             ActionPanelViewModel.DisplayPossibleActions(
                 ((MovementActionTemplateExtraData)_game.Player.PerformAction(teleport).ExtraData).AvailableActionTemplates);
             return string.Format("\r\n{0}\r\n",
-                                 actionResultToHuL.TranslateActionResult(
-                                     actionResult));
+                                 actionResult.ToString());
 
 
         }

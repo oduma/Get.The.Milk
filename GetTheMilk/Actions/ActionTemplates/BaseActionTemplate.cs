@@ -58,15 +58,23 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         public virtual Type PerformerType { get; set; }
 
-        protected virtual object[] Translate()
+        internal virtual object[] Translate()
         {
             return new object[]
                        {
-                           (Name!=null)?((Name.Present)??(GetType().Name + "-" + Name.UniqueId)):GetType().Name,
-                           (TargetObject == null) ? string.Empty : TargetObject.Name.Narrator,
-                           (TargetCharacter == null) ? string.Empty : TargetCharacter.Name.Narrator,
-                           (ActiveObject == null) ? string.Empty : ActiveObject.Name.Narrator,
-                           null,null,null,null,null,null
+                           (Name!=null)?((Name.Past)??(Name.UniqueId)):Category,
+                           (Name!=null)?((Name.Present)??(Name.UniqueId)):Category,
+                           null,
+                           null,
+                           null,
+                           null,
+                           null,
+                           null,
+                           null,
+                           (ActiveCharacter==null || ActiveCharacter.Name==null)?"No Active Character Assigned":ActiveCharacter.Name.Narrator,
+                           null,
+                           null,
+                           null
                        };
         }
 
@@ -76,7 +84,7 @@ namespace GetTheMilk.Actions.ActionTemplates
             {
                 var gameSettings = GameSettings.GetInstance();
 
-                var message = gameSettings.ActionTypeMessages.FirstOrDefault(m => m.Id == GetType().Name);
+                var message = gameSettings.ActionTemplateMessages.FirstOrDefault(m => m.Id == GetType().Name);
                 return message == null ? gameSettings.TranslatorErrorMessage : string.Format(message.Value, Translate()).Trim();
             }
             catch

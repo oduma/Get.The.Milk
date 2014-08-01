@@ -7,7 +7,7 @@ using System;
 
 namespace GetTheMilk.Characters.BaseCharacters
 {
-    public interface ICharacter : IPositionable, IObjectHumanInterface
+    public interface ICharacter : IPositionable
     {
         int Health { get; set; }
         int Experience { get; set; }

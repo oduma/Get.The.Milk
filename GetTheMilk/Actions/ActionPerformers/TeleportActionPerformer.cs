@@ -12,7 +12,7 @@ namespace GetTheMilk.Actions.ActionPerformers
         public override PerformActionResult Perform(MovementActionTemplate actionTemplate)
         {
             if (actionTemplate.Direction != Direction.None)
-                return new PerformActionResult { ResultType = ActionResultType.UnknownError, ForAction = actionTemplate };
+                return new PerformActionResult { ResultType = ActionResultType.NotOk, ForAction = actionTemplate };
             var movementResult = MoveOneStep(actionTemplate.TargetCell, actionTemplate.CurrentMap.Cells[actionTemplate.ActiveCharacter.CellNumber],actionTemplate);
             if (movementResult == null)
                 return MoveActiveCharacter(actionTemplate, actionTemplate.TargetCell,
