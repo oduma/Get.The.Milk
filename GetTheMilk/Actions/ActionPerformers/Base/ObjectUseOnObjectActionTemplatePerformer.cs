@@ -13,7 +13,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 
         public bool CanPerform(ObjectUseOnObjectActionTemplate actionTemplate)
         {
-            if (actionTemplate.ActiveObject == null || actionTemplate.TargetObject == null)
+            if (actionTemplate.ActiveCharacter==null || actionTemplate.ActiveObject == null || actionTemplate.TargetObject == null)
                 return false;
             return (actionTemplate.ActiveObject.AllowsTemplateAction(actionTemplate) &&
                     actionTemplate.TargetObject.AllowsIndirectTemplateAction(actionTemplate, actionTemplate.ActiveObject));

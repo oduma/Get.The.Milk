@@ -5,6 +5,9 @@ using Castle.Windsor;
 using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using Sciendo.Common.Logging;
+using Castle.DynamicProxy;
+using GetTheMilk.Utils;
+using Castle.Core;
 
 namespace GetTheMilk.Factories
 {
@@ -15,36 +18,45 @@ namespace GetTheMilk.Factories
             using (LoggingManager.LogSciendoPerformance())
             {
                 container.Register(
+        Component.For<IInterceptor>()
+        .ImplementedBy<PerformerLoggingInterceptor>()
+        .Named("PerformerLoggingInterceptor"));
+                container.Register(
                     Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <IExposeInventoryActionTemplatePerformer>().WithService.Base().LifestyleSingleton()
+                        <IExposeInventoryActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
                     );
                 container.Register(
                     Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <IMovementActionTemplatePerformer>().WithService.Base().LifestyleSingleton()
+                        <IMovementActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
                     );
                 container.Register(
                     Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <IOneObjectActionTemplatePerformer>().WithService.Base().LifestyleSingleton()
+                        <IOneObjectActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
                     );
                 container.Register(
                     Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <IObjectUseOnObjectActionTemplatePerformer>().WithService.Base().LifestyleSingleton()
+                        <IObjectUseOnObjectActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
                     );
                 container.Register(
                     Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <IObjectTransferActionTemplatePerformer>().WithService.Base().LifestyleSingleton()
+                        <IObjectTransferActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
                     );
                 container.Register(
                     Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <ITwoCharactersActionTemplatePerformer>().WithService.Base().LifestyleSingleton()
+                        <ITwoCharactersActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
                     );
                 container.Register(
                     Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <INoObjectActionTemplatePerformer>().WithService.Base().LifestyleSingleton()
+                        <INoObjectActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
                     );
 
             }
 
+        }
+
+        private void Configurator(ComponentRegistration obj)
+        {
+            obj.Interceptors(InterceptorReference.ForKey("PerformerLoggingInterceptor"));
         }
     }
 }

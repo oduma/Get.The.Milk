@@ -70,12 +70,14 @@
     <Compile Include="Actions\ActionPerformers\Base\IExposeInventoryActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\IMovementActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\INoObjectActionTemplatePerformer.cs" />
+    <Compile Include="Actions\ActionPerformers\Base\IObjectResponseActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\IObjectTransferActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\IObjectUseOnObjectActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\IOneObjectActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\ITwoCharactersActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\MovementActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\NoObjectActionTemplatePerformer.cs" />
+    <Compile Include="Actions\ActionPerformers\Base\ObjectResponseActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\ObjectTransferActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\ObjectUseOnObjectActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\OneObjectActionTemplatePerformer.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Actions\ActionTemplates\MovementActionTemplateExtraData.cs" />
     <Compile Include="Actions\ActionTemplates\MovementActionTemplate.cs" />
     <Compile Include="Actions\ActionTemplates\NoObjectActionTemplate.cs" />
+    <Compile Include="Actions\ActionTemplates\ObjectResponseActionTemplate.cs" />
     <Compile Include="Actions\ActionTemplates\ObjectTransferActionTemplate.cs" />
     <Compile Include="Actions\ActionTemplates\ObjectUseOnObjectActionTemplate.cs" />
     <Compile Include="Actions\ActionTemplates\ObjectWithPossibleActionTemplates.cs" />
