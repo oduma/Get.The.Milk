@@ -75,20 +75,6 @@ namespace GetTheMilk.NewActions.Tests
             Assert.AreEqual("you tried to kick No Target Object but couldn't.", actual.ToString());
         }
         [Test]
-        public void NotOkWithIncompleteNotEmptyOneObjectActionTemplateWithActiveObject()
-        {
-            PerformActionResult actual = new PerformActionResult
-            {
-                ResultType = Actions.BaseActions.ActionResultType.NotOk,
-                ForAction = new OneObjectActionTemplate
-                {
-                    Name = new BaseCommon.Verb { UniqueId = "Explode", Past = "exploded", Present = "explode" },
-                    ActiveObject = new Tool { Name = new Noun { Main ="Bomb", Narrator="the bomb"} }
-                }
-            };
-            Assert.AreEqual("the bomb tried to explode No Target Object but couldn't.", actual.ToString());
-        }
-        [Test]
         public void NotOkWithCompleteNotEmptyOneObjectActionTemplateWithActiveCharacter()
         {
             PerformActionResult actual = new PerformActionResult
@@ -102,39 +88,6 @@ namespace GetTheMilk.NewActions.Tests
                 }
             };
             Assert.AreEqual("you tried to kick the tyre but couldn't.", actual.ToString());
-        }
-        [Test]
-        public void NotOkWithCompleteNotEmptyOneObjectActionTemplateWithActiveObject()
-        {
-            PerformActionResult actual = new PerformActionResult
-            {
-                ResultType = Actions.BaseActions.ActionResultType.NotOk,
-                ForAction = new OneObjectActionTemplate
-                {
-                    Name = new BaseCommon.Verb { UniqueId = "Explode", Past = "exploded", Present = "explode" },
-                    ActiveObject = new Tool { Name = new Noun { Main = "Bomb", Narrator = "the bomb" } },
-                    TargetObject = new Tool { Name = new Noun { Main="SkrewDriver", Narrator ="the skrew driver"} }
-                    
-                }
-            };
-            Assert.AreEqual("the bomb tried to explode the skrew driver but couldn't.", actual.ToString());
-        }
-        [Test]
-        public void NotOkWithCompleteNotEmptyOneObjectActionTemplateWithActiveObject2()
-        {
-            PerformActionResult actual = new PerformActionResult
-            {
-                ResultType = Actions.BaseActions.ActionResultType.NotOk,
-                ForAction = new OneObjectActionTemplate
-                {
-                    Name = new BaseCommon.Verb { UniqueId = "Explode", Past = "exploded", Present = "explode" },
-                    ActiveObject = new Tool { Name = new Noun { Main = "Bomb", Narrator = "the bomb" } },
-                    TargetObject = new Tool { Name = new Noun { Main = "SkrewDriver", Narrator = "the skrew driver" } },
-                    TargetCharacter= new Player()
-
-                }
-            };
-            Assert.AreEqual("the bomb tried to explode the skrew driver and you but couldn't.", actual.ToString());
         }
         [Test]
         public void OkWithEmptyOneObjectActionTemplate()
@@ -157,20 +110,6 @@ namespace GetTheMilk.NewActions.Tests
             Assert.AreEqual("you kicked No Target Object.", actual.ToString());
         }
         [Test]
-        public void OkWithIncompleteNotEmptyOneObjectActionTemplateWithActiveObject()
-        {
-            PerformActionResult actual = new PerformActionResult
-            {
-                ResultType = Actions.BaseActions.ActionResultType.Ok,
-                ForAction = new OneObjectActionTemplate
-                {
-                    Name = new BaseCommon.Verb { UniqueId = "Explode", Past = "exploded", Present = "explode" },
-                    ActiveObject = new Tool { Name = new Noun { Main = "Bomb", Narrator = "the bomb" } }
-                }
-            };
-            Assert.AreEqual("the bomb exploded No Target Object.", actual.ToString());
-        }
-        [Test]
         public void OkWithCompleteNotEmptyOneObjectActionTemplateWithActiveCharacter()
         {
             PerformActionResult actual = new PerformActionResult
@@ -185,40 +124,6 @@ namespace GetTheMilk.NewActions.Tests
             };
             Assert.AreEqual("you kicked the tyre.", actual.ToString());
         }
-        [Test]
-        public void OkWithCompleteNotEmptyOneObjectActionTemplateWithActiveObject()
-        {
-            PerformActionResult actual = new PerformActionResult
-            {
-                ResultType = Actions.BaseActions.ActionResultType.Ok,
-                ForAction = new OneObjectActionTemplate
-                {
-                    Name = new BaseCommon.Verb { UniqueId = "Explode", Past = "exploded", Present = "explode" },
-                    ActiveObject = new Tool { Name = new Noun { Main = "Bomb", Narrator = "the bomb" } },
-                    TargetObject = new Tool { Name = new Noun { Main = "SkrewDriver", Narrator = "the skrew driver" } }
-
-                }
-            };
-            Assert.AreEqual("the bomb exploded the skrew driver.", actual.ToString());
-        }
-        [Test]
-        public void OkWithCompleteNotEmptyOneObjectActionTemplateWithActiveObject2()
-        {
-            PerformActionResult actual = new PerformActionResult
-            {
-                ResultType = Actions.BaseActions.ActionResultType.Ok,
-                ForAction = new OneObjectActionTemplate
-                {
-                    Name = new BaseCommon.Verb { UniqueId = "Explode", Past = "exploded", Present = "explode" },
-                    ActiveObject = new Tool { Name = new Noun { Main = "Bomb", Narrator = "the bomb" } },
-                    TargetObject = new Tool { Name = new Noun { Main = "SkrewDriver", Narrator = "the skrew driver" } },
-                    TargetCharacter = new Player()
-
-                }
-            };
-            Assert.AreEqual("the bomb exploded the skrew driver and you.", actual.ToString());
-        }
-
         #endregion
 
         #region ObjectUseOnObjectActionTemplates
@@ -295,7 +200,6 @@ namespace GetTheMilk.NewActions.Tests
             Assert.AreEqual("you hammered the nail using the Big Hammer.", actual.ToString());
         }
         #endregion
-
 
         #region ExposeInventoryActionTemplates
         [Test]
@@ -402,7 +306,6 @@ namespace GetTheMilk.NewActions.Tests
         }
 
         #endregion
-
 
         #region MovementActionTemplates
         [Test]
@@ -653,7 +556,6 @@ namespace GetTheMilk.NewActions.Tests
 
         #endregion
 
-        
         #region TwoCharactersActionTemplates
         [Test]
         public void NotOkWithEmptyTwoCharactersActionTemplate()
@@ -774,7 +676,6 @@ namespace GetTheMilk.NewActions.Tests
         }
         #endregion
 
-
         #region ObjectTransferActionTemplates
         [Test]
         public void NotOkWithEmptyObjectTransferActionTemplate()
@@ -830,7 +731,6 @@ namespace GetTheMilk.NewActions.Tests
             Assert.AreEqual("you bought the world.", actual.ToString());
         }
         #endregion
-
 
     }
 }

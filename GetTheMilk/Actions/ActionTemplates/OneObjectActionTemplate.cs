@@ -70,12 +70,6 @@ namespace GetTheMilk.Actions.ActionTemplates
         {
             var result = base.Translate();
             result[2] = (TargetObject == null || TargetObject.Name == null) ? ((TargetCharacter==null)?"No Target Object":string.Empty) : TargetObject.Name.Narrator;
-            result[3] = (TargetCharacter == null || TargetCharacter.Name == null) ? string.Empty : " and " + TargetCharacter.Name.Narrator;
-            if(ActiveObject!=null)
-            {
-                result[4] = (ActiveObject.Name == null) ? ActiveObject.ObjectTypeId : ActiveObject.Name.Narrator;
-                result[9] = null;
-            }
             return result;
         }
     }

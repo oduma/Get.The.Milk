@@ -1,8 +1,8 @@
 ﻿[
-{"Id":"OneObjectActionTemplate", "Value":"{1} {2} {3}",
+{"Id":"OneObjectActionTemplate", "Value":"{1} {2}",
 	"ActionResultMessages":[
-		{"ResultType":"Ok","Value":"{4}{9} {0} {2}{3}."},
-		{"ResultType":"NotOk","Value":"{4}{9} tried to {1} {2}{3} but couldn't."}]}, 
+		{"ResultType":"Ok","Value":"{9} {0} {2}."},
+		{"ResultType":"NotOk","Value":"{9} tried to {1} {2} but couldn't."}]}, 
 {"Id":"ExposeInventoryActionTemplate", "Value":"{1}",
 	"ActionResultMessages":[
 		{"ResultType":"Ok","Value":"{9} {0}{3}."},
