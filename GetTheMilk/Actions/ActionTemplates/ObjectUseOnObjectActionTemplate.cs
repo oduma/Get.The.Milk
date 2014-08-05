@@ -73,7 +73,8 @@ namespace GetTheMilk.Actions.ActionTemplates
                            PercentOfHealthFailurePenalty = PercentOfHealthFailurePenalty,
                            CurrentPerformer = CurrentPerformer,
                            ActiveCharacter = ActiveCharacter,
-                           ActiveObject = ActiveObject
+                           ActiveObject = ActiveObject,
+                           TargetObject=TargetObject
                        };
         }
 

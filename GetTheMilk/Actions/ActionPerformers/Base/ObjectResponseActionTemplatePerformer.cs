@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {
-    public class ObjectResponseActionTemplatePerformer:IObjectResponseActionTemplatePerformer
+    public class ObjectResponseActionTemplatePerformer:BaseActionResponsePerformer<ObjectResponseActionTemplate>, IObjectResponseActionTemplatePerformer
     {
         public bool CanPerform(ObjectResponseActionTemplate actionTemplate)
         {
@@ -20,7 +20,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
         public virtual PerformActionResult Perform(ActionTemplates.ObjectResponseActionTemplate actionTemplate)
         {
             if (CanPerform(actionTemplate))
-                return new PerformActionResult { ForAction = actionTemplate, ResultType = ActionResultType.Ok };
+                return new PerformActionResult { ForAction = actionTemplate, ResultType = ActionResultType.Ok,ExtraData=GetAvailableActions(actionTemplate) };
             return new PerformActionResult { ForAction = actionTemplate, ResultType = ActionResultType.NotOk };
         }
 

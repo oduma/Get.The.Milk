@@ -47,6 +47,15 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 baseAction.ActiveCharacter.PerformAction(baseAction);
         }
 
+        protected List<BaseActionTemplate> GetAvailableActions(ObjectResponseActionTemplate actionTemplate)
+        {
+            if (!actionTemplate.ActiveObject.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses) 
+                || actionTemplate.ActiveObject.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].
+                FirstOrDefault(ar => ar.Action.Equals(actionTemplate) && ar.Reaction != null) == null)
+                return null;
+            return actionTemplate.ActiveObject.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].Where(
+                a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).ToList();
+        }
 
         protected List<BaseActionTemplate> GetAvailableActions(BaseActionTemplate actionTemplate)
         {

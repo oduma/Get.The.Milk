@@ -17,7 +17,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
             if (actionTemplate.ActiveCharacter == null || actionTemplate.TargetObject == null)
                 return false;
             return (actionTemplate.TargetObject.AllowsIndirectTemplateAction(actionTemplate, actionTemplate.ActiveCharacter)
-            && actionTemplate.ActiveCharacter.AllowsIndirectTemplateAction(actionTemplate, actionTemplate.TargetObject));
+            && actionTemplate.ActiveCharacter.AllowsTemplateAction(actionTemplate));
 
         }
 
