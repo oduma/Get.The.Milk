@@ -32,4 +32,8 @@
 {"Id":"NoObjectActionTemplate", "Value":"{1}",
 	"ActionResultMessages":[
 		{"ResultType":"Ok","Value":"{9} {0}."},
-		{"ResultType":"NotOk","Value":"{9} tried to {1} but couldn't."}]}]
+		{"ResultType":"NotOk","Value":"{9} tried to {1} but couldn't."}]},
+{"Id":"ObjectResponseActionTemplate", "Value":"{1}",
+	"ActionResultMessages":[
+		{"ResultType":"Ok","Value":"{4} {0}."},
+		{"ResultType":"NotOk","Value":"{4} tried to {1} but couldn't."}]}]

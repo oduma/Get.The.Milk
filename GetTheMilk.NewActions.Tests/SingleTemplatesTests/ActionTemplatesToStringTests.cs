@@ -344,5 +344,32 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         }
         #endregion
 
+        #region ObjectResponseActionTemplates
+        [Test]
+        public void EmptyObjectResponseActionTemplateToString()
+        {
+            var defaultActionTemplate = new ObjectResponseActionTemplate();
+
+            Assert.AreEqual("ObjectResponseActionTemplate", defaultActionTemplate.ToString());
+        }
+
+        [Test]
+        public void IncompleteEmptyObjectResponseActionTemplateToString()
+        {
+            var defaultActionTemplate = new ObjectResponseActionTemplate { Name = new Verb { UniqueId = "Crack" } };
+
+            Assert.AreEqual("Crack", defaultActionTemplate.ToString());
+        }
+
+        [Test]
+        public void CompleteEmptyObjectResponseActionTemplateToString()
+        {
+            var defaultActionTemplate = new ObjectResponseActionTemplate { Name = new Verb { UniqueId = "Crack", Past = "cracked", Present = "crack" } };
+
+            Assert.AreEqual("crack", defaultActionTemplate.ToString());
+        }
+
+        #endregion
+
     }
 }

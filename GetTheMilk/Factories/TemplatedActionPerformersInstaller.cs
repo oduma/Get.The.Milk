@@ -49,6 +49,10 @@ namespace GetTheMilk.Factories
                     Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
                         <INoObjectActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
                     );
+                container.Register(
+                    Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
+                        <IObjectResponseActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
+                    );
 
             }
 

@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GetTheMilk.NewActions.Tests
+namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
 {
     [TestFixture]
     public class PerformerResultToStringTests
@@ -731,6 +731,50 @@ namespace GetTheMilk.NewActions.Tests
             Assert.AreEqual("you bought the world.", actual.ToString());
         }
         #endregion
+
+        #region ObjectResponseActionTemplates
+        [Test]
+        public void NotOkWithEmptyObjectResponseActionTemplate()
+        {
+            PerformActionResult actual = new PerformActionResult { ResultType = Actions.BaseActions.ActionResultType.NotOk, ForAction = new ObjectResponseActionTemplate() };
+            Assert.AreEqual("No Active Object Assigned tried to ObjectResponseActionTemplate but couldn't.", actual.ToString());
+        }
+        [Test]
+        public void NotOkWithCompleteNotEmptyObjectResponseActionTemplate()
+        {
+            PerformActionResult actual = new PerformActionResult
+            {
+                ResultType = Actions.BaseActions.ActionResultType.NotOk,
+                ForAction = new ObjectResponseActionTemplate
+                {
+                    Name = new BaseCommon.Verb { UniqueId = "Crack", Past = "cracked", Present = "crack" },
+                    ActiveObject = new NonCharacterObject { Name = new Noun { Main="Dawn", Narrator="the dawn"} }
+                }
+            };
+            Assert.AreEqual("the dawn tried to crack but couldn't.", actual.ToString());
+        }
+        [Test]
+        public void OkWithEmptyObjectResponseActionTemplate()
+        {
+            PerformActionResult actual = new PerformActionResult { ResultType = Actions.BaseActions.ActionResultType.Ok, ForAction = new ObjectResponseActionTemplate() };
+            Assert.AreEqual("No Active Object Assigned ObjectResponseActionTemplate.", actual.ToString());
+        }
+        [Test]
+        public void OkWithCompleteNotEmptyObjectResponseActionTemplate()
+        {
+            PerformActionResult actual = new PerformActionResult
+            {
+                ResultType = Actions.BaseActions.ActionResultType.Ok,
+                ForAction = new ObjectResponseActionTemplate
+                {
+                    Name = new BaseCommon.Verb { UniqueId = "Crack", Past = "cracked", Present = "crack" },
+                    ActiveObject = new NonCharacterObject { Name = new Noun { Main="Dawn", Narrator="the dawn"} }
+                }
+            };
+            Assert.AreEqual("the dawn cracked.", actual.ToString());
+        }
+        #endregion
+
 
     }
 }
