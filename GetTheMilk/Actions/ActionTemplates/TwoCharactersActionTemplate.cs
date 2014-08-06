@@ -50,7 +50,8 @@ namespace GetTheMilk.Actions.ActionTemplates
             return new TwoCharactersActionTemplate { Name = Name, StartingAction = StartingAction,
                                                         Message = Message,
                                                      CurrentPerformer = CurrentPerformer,
-                                                     ActiveCharacter = ActiveCharacter
+                                                     ActiveCharacter = ActiveCharacter,
+                                                     TargetCharacter=TargetCharacter
             };
         }
 
