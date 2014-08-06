@@ -57,18 +57,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
 
         }
         [Test]
-        public void CharacterNotAbleToPerformNoTargetObject()
-        {
-            var targetObject = _level.Inventory.FirstOrDefault(o => o.ObjectTypeId == "RedDoor");
-            _character.LoadInteractions(targetObject, targetObject.GetType());
-            var useAction = _character.CreateNewInstanceOfAction<ObjectUseOnObjectActionTemplate>("Open");
-            Assert.IsNotNull(useAction);
-            Assert.AreEqual(typeof(ObjectUseOnObjectActionTemplate), useAction.GetType());
-            useAction.ActiveObject = _character.Inventory[0];
-            Assert.False(_character.CanPerformAction(useAction));
-
-        }
-        [Test]
         public void CharacterNotAbleToPerformActiveObjectNotAllow()
         {
             var targetObject = _level.Inventory.FirstOrDefault(o => o.ObjectTypeId == "RedDoor");

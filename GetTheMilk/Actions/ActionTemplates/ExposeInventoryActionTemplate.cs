@@ -60,7 +60,6 @@ namespace GetTheMilk.Actions.ActionTemplates
                        {
                            Name = Name,
                            StartingAction = StartingAction,
-                           FinishTheInteractionOnExecution = FinishTheInteractionOnExecution,
                            SelfInventory = SelfInventory,
                            FinishActionUniqueId=FinishActionUniqueId,
                            CurrentPerformer=CurrentPerformer,

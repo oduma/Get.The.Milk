@@ -49,7 +49,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 
         protected List<BaseActionTemplate> GetAvailableActions(ObjectResponseActionTemplate actionTemplate)
         {
-            if (!actionTemplate.ActiveObject.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses) 
+            if (actionTemplate.ActiveObject.Interactions==null || !actionTemplate.ActiveObject.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses) 
                 || actionTemplate.ActiveObject.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].
                 FirstOrDefault(ar => ar.Action.Equals(actionTemplate) && ar.Reaction != null) == null)
                 return null;

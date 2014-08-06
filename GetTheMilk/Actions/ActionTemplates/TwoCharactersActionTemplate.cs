@@ -48,7 +48,6 @@ namespace GetTheMilk.Actions.ActionTemplates
         public override BaseActionTemplate Clone()
         {
             return new TwoCharactersActionTemplate { Name = Name, StartingAction = StartingAction,
-                                                        FinishTheInteractionOnExecution = FinishTheInteractionOnExecution,
                                                         Message = Message,
                                                      CurrentPerformer = CurrentPerformer,
                                                      ActiveCharacter = ActiveCharacter

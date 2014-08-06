@@ -220,26 +220,20 @@ namespace GetTheMilk.UI.ViewModels
 
         void TwoCharactersViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
         {
-            if (e.GameAction.FinishTheInteractionOnExecution)
-            {
                 StoryVisible = Visibility.Visible;
                 InventoryVisible = Visibility.Hidden;
                 TwoCharactersVisible = Visibility.Hidden;
-            }
             ActionPanelViewModelActionExecutionRequest(sender, e);
         }
 
         void InventoryViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
         {
-                if (e.GameAction.FinishTheInteractionOnExecution)
-                {
                     if (e.GameAction.GetType() == typeof(TwoCharactersActionTemplate))
                         StoryVisible = Visibility.Hidden;
                     else
                         StoryVisible = Visibility.Visible;
                     InventoryVisible = Visibility.Hidden;
                     ActionPanelViewModel.InventoryShowHide = "Show Inventory";
-                }
                 ActionPanelViewModelActionExecutionRequest(sender, e);
         }
 
@@ -270,8 +264,7 @@ namespace GetTheMilk.UI.ViewModels
             }
             else if (e.GameAction is TwoCharactersActionTemplate)
             {
-                if (e.GameAction.FinishTheInteractionOnExecution
-                    && (e.GameAction.CurrentPerformer.GetType() == typeof(CommunicateActionPerformer) 
+                if ((e.GameAction.CurrentPerformer.GetType() == typeof(CommunicateActionPerformer) 
                     || e.GameAction.Name.UniqueId=="AcceptQuit")) //the last words
                 {
                     StoryVisible = Visibility.Visible;

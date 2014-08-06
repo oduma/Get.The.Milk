@@ -241,7 +241,6 @@ namespace GetTheMilk.NewActions.Tests
                                 Action = new TwoCharactersActionTemplate
                                 {
                                     Message = "Yes",
-                                    FinishTheInteractionOnExecution = true,
                                     Name= new Verb{UniqueId="SayYes",Past="said",Present="say"}
                                 },
                                 Reaction = new ExposeInventoryActionTemplate
@@ -256,7 +255,6 @@ namespace GetTheMilk.NewActions.Tests
                                 Action = new TwoCharactersActionTemplate
                                 {
                                     Message = "No",
-                                    FinishTheInteractionOnExecution = true,
                                     Name= new Verb{UniqueId="SayNo",Past="said",Present="say"}
                                 },
                                 Reaction = new TwoCharactersActionTemplate
@@ -281,7 +279,6 @@ namespace GetTheMilk.NewActions.Tests
                                 Reaction = new TwoCharactersActionTemplate
                                 {
                                     Message = "Yes",
-                                    FinishTheInteractionOnExecution = true,
                                     PerformerType=typeof( CommunicateActionPerformer),
                                     Name= new Verb{UniqueId="SayYes",Past="said",Present="say"}
                                 }
@@ -296,7 +293,6 @@ namespace GetTheMilk.NewActions.Tests
                                 Reaction = new TwoCharactersActionTemplate
                                 {
                                     Message = "No",
-                                    FinishTheInteractionOnExecution= true,
                                     PerformerType=typeof( CommunicateActionPerformer),
                                     Name= new Verb{UniqueId="SayNo",Past="said",Present="say"}
                                 }
@@ -317,7 +313,6 @@ namespace GetTheMilk.NewActions.Tests
                                 {
                                     PerformerType=typeof( GiveToActionPerformer),
                                     Name = new Verb{UniqueId="GiveTo",Past="gave to",Present="give to"},
-                                    FinishTheInteractionOnExecution=true
                                 }
                             },
                             new Interaction
@@ -331,7 +326,6 @@ namespace GetTheMilk.NewActions.Tests
                                 {
                                     PerformerType=typeof( SellActionPerformer),
                                     Name = new Verb{UniqueId="Sell",Past="sold",Present="sell"},
-                                    FinishTheInteractionOnExecution=true
                                 }
                         }
                     }
@@ -404,7 +398,7 @@ namespace GetTheMilk.NewActions.Tests
                 PerformerType=typeof( AcceptQuitActionPerformer),
                 Name = new Verb
                 {
-                    UniqueId="AcceptQuit"},FinishTheInteractionOnExecution=true}
+                    UniqueId="AcceptQuit"}}
                                                                                              },
                                                                                          new Interaction
                                                                                          {
@@ -447,7 +441,7 @@ namespace GetTheMilk.NewActions.Tests
                 PerformerType=typeof( AcceptQuitActionPerformer),
                 Name = new Verb
                 {
-                    UniqueId="AcceptQuit"},FinishTheInteractionOnExecution=true}
+                    UniqueId="AcceptQuit"}}
                     },
                     new Interaction
                     {
@@ -670,8 +664,7 @@ namespace GetTheMilk.NewActions.Tests
                                             Past="tested reaction",
                                             Present="test reaction"
                                         },
-                                        StartingAction = false,
-                                        FinishTheInteractionOnExecution = true
+                                        StartingAction = false
                                     }
                                 },
                                 new Interaction
@@ -697,7 +690,6 @@ namespace GetTheMilk.NewActions.Tests
                                             Present="test reaction"
                                         },
                                         StartingAction = false,
-                                        FinishTheInteractionOnExecution = true,
                                         ChanceOfSuccess = ChanceOfSuccess.Full,
                                         PercentOfHealthFailurePenalty = 0
                                     }
@@ -726,8 +718,7 @@ namespace GetTheMilk.NewActions.Tests
                                             Past="tested reaction",
                                             Present="test reaction"
                                         },
-                                        StartingAction = false,
-                                        FinishTheInteractionOnExecution = true
+                                        StartingAction = false
                                     }
                                 },
                                 new Interaction
@@ -753,7 +744,6 @@ namespace GetTheMilk.NewActions.Tests
                                             Present="test reaction"
                                         },
                                         StartingAction = false,
-                                        FinishTheInteractionOnExecution = true,
                                         ChanceOfSuccess = ChanceOfSuccess.Full,
                                         PercentOfHealthFailurePenalty = 0
                                     }
@@ -774,8 +764,7 @@ namespace GetTheMilk.NewActions.Tests
                                             Past="tested reaction",
                                             Present="test reaction"
                                         },
-                                        StartingAction = false,
-                                        FinishTheInteractionOnExecution = true
+                                        StartingAction = false
                                     },
                                     Reaction =new ObjectUseOnObjectActionTemplate
                                     {
@@ -803,7 +792,6 @@ namespace GetTheMilk.NewActions.Tests
                                             Present="test reaction"
                                         },
                                         StartingAction = false,
-                                        FinishTheInteractionOnExecution = true,
                                         ChanceOfSuccess = ChanceOfSuccess.Full,
                                         PercentOfHealthFailurePenalty = 0
                                     },

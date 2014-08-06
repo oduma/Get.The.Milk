@@ -60,7 +60,6 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
             if (templateAction == null)
                 return null;
             templateAction.ActiveCharacter = actionTemplate.TargetCharacter;
-            templateAction.FinishTheInteractionOnExecution = true;
             templateAction.TargetCharacter=(templateAction.GetType() == 
                 typeof(TwoCharactersActionTemplate))?alternateTargetCharacter:
                 templateAction.TargetCharacter = actionTemplate.ActiveCharacter;

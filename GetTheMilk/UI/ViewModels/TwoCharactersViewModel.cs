@@ -93,7 +93,7 @@ namespace GetTheMilk.UI.ViewModels
             {
                 Dialogues.Add(new Dialogue { Who = obj.Action.ActiveCharacter.Name.Narrator, What = ((TwoCharactersActionTemplate)obj.Action).Message });
             }
-            if (obj.Action.FinishTheInteractionOnExecution || obj.Action.Name.UniqueId == "ExposeInventory")
+            if (obj.Action.Name.UniqueId == "ExposeInventory")
             {
                 if(ActionExecutionRequest!=null)
                     ActionExecutionRequest(this,new ActionExecutionRequestEventArgs(obj.Action));

@@ -59,7 +59,6 @@ namespace GetTheMilk.Actions.ActionTemplates
             {
                 Name = Name,
                 StartingAction = StartingAction,
-                FinishTheInteractionOnExecution = FinishTheInteractionOnExecution,
                 CurrentPerformer = CurrentPerformer,
                 ActiveCharacter = ActiveCharacter,
                 ActiveObject = ActiveObject,

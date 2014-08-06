@@ -26,8 +26,8 @@ namespace GetTheMilk.Actions.ActionTemplates
         public bool StartingAction { get; set; }
 
 
-        [LevelBuilderAccesibleProperty(typeof(bool))]
-        public bool FinishTheInteractionOnExecution { get; set; }
+        //[LevelBuilderAccesibleProperty(typeof(bool))]
+        //public bool FinishTheInteractionOnExecution { get; set; }
 
         #endregion
 

@@ -57,7 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionsTests\AdditionalActionTests.cs" />
     <Compile Include="ActionsTests\DetermineActionsTests.cs" />
     <Compile Include="FactoriesTests\ObjectActionsFactoryTests.cs" />
     <Compile Include="FactoriesTests\TemplatedActionPerformersTests.cs" />
@@ -72,10 +71,6 @@
     <Compile Include="SaveLoadTests\SerializeDeserializeTests.cs" />
     <Compile Include="Stubs\BlueDoorActions.cs" />
     <Compile Include="Stubs\MockInventoryOwner.cs" />
-    <Compile Include="TranslatorTests\ActionTranslatorTests.cs" />
-    <Compile Include="TranslatorTests\DataGeneratorForTranslator.cs" />
-    <Compile Include="TranslatorTests\MovementResultsTranslationTests.cs" />
-    <Compile Include="TranslatorTests\OtherActionResultsTranslatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameData\GDES.gdu">
