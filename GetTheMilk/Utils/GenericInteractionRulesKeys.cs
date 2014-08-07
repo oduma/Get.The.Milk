@@ -20,8 +20,5 @@
         /// </summary>
         public static readonly string AnyCharacterResponses = "AnyCharacterResponses";
 
-        public static readonly string PlayerResponses = "PlayerResponses";
-
-
     }
 }

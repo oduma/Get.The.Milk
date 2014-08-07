@@ -47,9 +47,9 @@ namespace GetTheMilk.Characters.BaseCharacters
                 characterPackages.Interactions, new ActionTemplateJsonConverter());
             character.Inventory = Inventory.Load(JsonConvert.DeserializeObject<CollectionPackage>(characterPackages.PackagedInventory));
             character.Inventory.LinkObjectsToInventory();
-            if (character.Interactions.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
+            if (character.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses))
             {
-                foreach (var interaction in character.Interactions[GenericInteractionRulesKeys.PlayerResponses])
+                foreach (var interaction in character.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses])
                 {
                     interaction.Action
                         .ActiveCharacter =

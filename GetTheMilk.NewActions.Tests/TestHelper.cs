@@ -267,39 +267,6 @@ namespace GetTheMilk.NewActions.Tests
                         }
                     },
                     {
-                        GenericInteractionRulesKeys.PlayerResponses, new Interaction[]
-                        {
-                            new Interaction
-                            {
-                                Action = new TwoCharactersActionTemplate
-                                {
-                                    Message = "How are you? Beautifull day out there better buy something!",
-                                    Name= new Verb{UniqueId="AskForSale",Past="said",Present="say"}
-                                },
-                                Reaction = new TwoCharactersActionTemplate
-                                {
-                                    Message = "Yes",
-                                    PerformerType=typeof( CommunicateActionPerformer),
-                                    Name= new Verb{UniqueId="SayYes",Past="said",Present="say"}
-                                }
-                            },
-                            new Interaction
-                            {
-                                Action = new TwoCharactersActionTemplate
-                                {
-                                    Message = "How are you? Beautifull day out there better buy something!",
-                                    Name= new Verb{UniqueId="AskForSale",Past="said",Present="say"}
-                                },
-                                Reaction = new TwoCharactersActionTemplate
-                                {
-                                    Message = "No",
-                                    PerformerType=typeof( CommunicateActionPerformer),
-                                    Name= new Verb{UniqueId="SayNo",Past="said",Present="say"}
-                                }
-                            }
-                        }
-                    },
-                    {
                         GenericInteractionRulesKeys.AnyCharacterResponses, new Interaction[]
                         {
                             new Interaction
@@ -414,48 +381,8 @@ namespace GetTheMilk.NewActions.Tests
                     UniqueId="InitiateHostilities"}}
                                                                                          }
                                                                                      });
-            fInteractionRules.Add(GenericInteractionRulesKeys.PlayerResponses,
-                new Interaction[]
-                {
-                    new Interaction
-                    {
-                        Action = new TwoCharactersActionTemplate{
-                PerformerType=typeof( TwoCharactersActionTemplatePerformer),
-                Name = new Verb
-                {
-                    UniqueId="Quit"}},
-                        Reaction = new TwoCharactersActionTemplate{
-                PerformerType=typeof( AttackActionPerformer),
-                Name = new Verb
-                {
-                    UniqueId="Attack"}}
-                    },
-                    new Interaction
-                    {
-                        Action = new TwoCharactersActionTemplate{
-                PerformerType=typeof( TwoCharactersActionTemplatePerformer),
-                Name = new Verb
-                {
-                    UniqueId="Quit"}},
-                        Reaction = new TwoCharactersActionTemplate{
-                PerformerType=typeof( AcceptQuitActionPerformer),
-                Name = new Verb
-                {
-                    UniqueId="AcceptQuit"}}
-                    },
-                    new Interaction
-                    {
-                        Action = new TwoCharactersActionTemplate{
-                PerformerType=typeof( InitiateHostilitiesActionPerformer),
-                Name = new Verb
-                {
-                    UniqueId="InitiateHostilities"}},
-                        Reaction = new ExposeInventoryActionTemplate
-                            {FinishActionUniqueId = "Attack",SelfInventory=true}
 
-                    }
-                });
-
+            
             var fCharacter = new Character
             {
                 CellNumber = 8,

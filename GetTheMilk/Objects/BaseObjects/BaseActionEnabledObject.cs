@@ -57,8 +57,6 @@ namespace GetTheMilk.Objects.BaseObjects
             var result = _actions;
             
             foreach(var interactionKey in Interactions.Keys.Where(k=>
-                //k==GenericInteractionRulesKeys.CharacterSpecific || 
-                //k==GenericInteractionRulesKeys.AnyCharacterResponses || 
                 k==GenericInteractionRulesKeys.AnyCharacter|| 
                 k==GenericInteractionRulesKeys.All ||
                 k.EndsWith("_Responses")))
@@ -67,10 +65,7 @@ namespace GetTheMilk.Objects.BaseObjects
                             result.Add(interactionChar.Name.UniqueId,interactionChar);
             foreach(var interactionKey in Interactions.Keys.Except(new string[]
                                                                        {
-                                                                           GenericInteractionRulesKeys.AnyCharacter,
-                                                                           //GenericInteractionRulesKeys.AnyCharacterResponses,
-                                                                           //GenericInteractionRulesKeys.CharacterSpecific,
-                                                                           GenericInteractionRulesKeys.PlayerResponses
+                                                                           GenericInteractionRulesKeys.AnyCharacter
                                                                        }))
                 foreach (var interactionAll in Interactions[interactionKey].Select(a => a.Action))
                     if(!result.ContainsKey(interactionAll.Name.UniqueId))

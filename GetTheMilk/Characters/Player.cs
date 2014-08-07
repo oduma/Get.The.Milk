@@ -39,23 +39,6 @@ namespace GetTheMilk.Characters
                 AddAvailableAction(action);
         }
 
-        public override void LoadInteractions(IActionEnabled actionTarget, Type typeOfObject)
-        {
-            var objectMainName = ((IPositionable)actionTarget).Name.Main;
-            base.LoadInteractions(actionTarget, typeOfObject);
-            if (!Interactions.ContainsKey(objectMainName)
-                && actionTarget.Interactions.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
-            {
-                Interactions.Add(objectMainName,
-                                                      actionTarget.Interactions[
-                                                          GenericInteractionRulesKeys.PlayerResponses]);
-                Interactions[objectMainName].ForEach(ar=> { ar.Action.TargetCharacter = this;
-                                                                             ar.Reaction.ActiveCharacter = this;
-                });
-            }
-
-        }
-
         public PerformActionResult EnterLevel(Level level)
         {
             if (level.Player == null)
