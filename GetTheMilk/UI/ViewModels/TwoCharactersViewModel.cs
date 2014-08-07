@@ -131,12 +131,12 @@ namespace GetTheMilk.UI.ViewModels
             }
             if (actionResult.ForAction.CurrentPerformer.GetType() == typeof(AttackActionPerformer))
             {
-                if(actionResult.ResultType==ActionResultType.Win || actionResult.ResultType== ActionResultType.Lost)
-                {
-                    if(PlayerStatsUpdateRequest!=null)
-                        PlayerStatsUpdateRequest(this,new PlayerStatsUpdateRequestEventArgs(actionResult));
-                    return;
-                }
+                //if(actionResult.ResultType==ActionResultType.Win || actionResult.ResultType== ActionResultType.Lost)
+                //{
+                //    if(PlayerStatsUpdateRequest!=null)
+                //        PlayerStatsUpdateRequest(this,new PlayerStatsUpdateRequestEventArgs(actionResult));
+                //    return;
+                //}
 
                 Dialogues.Add(new Dialogue
                                   {

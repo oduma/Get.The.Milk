@@ -50,6 +50,7 @@ namespace GetTheMilk.Objects.BaseObjects
                 return PickActionsFromInteractions();
             }
         }
+
         private Dictionary<string,BaseActionTemplate> PickActionsFromInteractions()
         {
             if(Interactions==null)
@@ -85,7 +86,6 @@ namespace GetTheMilk.Objects.BaseObjects
         {
             return actionTemplate.CanPerform();
         }
-
 
         public virtual void AddAvailableAction(BaseActionTemplate baseActionTemplate)
         {

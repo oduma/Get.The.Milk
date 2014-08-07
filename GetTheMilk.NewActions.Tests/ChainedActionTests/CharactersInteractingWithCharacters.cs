@@ -196,14 +196,16 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
                 Name = new BaseCommon.Noun { Main = "reactor", Narrator = "reactor" },
                 ObjectTypeId = "NPCFoe",
                 AllowsIndirectTemplateAction = TestHelper.AllowsIndirectEverything,
-                AllowsTemplateAction = TestHelper.AllowsEverything
+                AllowsTemplateAction = TestHelper.AllowsEverything,
+                Health=20
             };
             var interactionWeapon = new Weapon { ObjectTypeId = "Weapon", Name = new Noun { Main = "ReactorWeapon", Narrator = "reactor weapon" }, AttackPower = 20, DefensePower = 10, WeaponTypes = new WeaponType[] { WeaponType.Attack, WeaponType.Deffense } };
             _interactionCharacter.Inventory.Add(interactionWeapon);
             _interactionCharacter.ActiveAttackWeapon = interactionWeapon;
             _interactionCharacter.ActiveDefenseWeapon = interactionWeapon;
             var playerWeapon = new Weapon { ObjectTypeId = "Weapon", Name = new Noun { Main = "ReactorWeapon", Narrator = "reactor weapon" }, AttackPower = 20, DefensePower = 10, WeaponTypes = new WeaponType[] { WeaponType.Attack, WeaponType.Deffense } };
-            var player = new Player { AllowsTemplateAction=TestHelper.AllowsEverything,AllowsIndirectTemplateAction=TestHelper.AllowsIndirectEverything};
+            var player = new Player { AllowsTemplateAction=TestHelper.AllowsEverything,
+                AllowsIndirectTemplateAction=TestHelper.AllowsIndirectEverything,Health=10};
             player.Inventory.Add(playerWeapon);
             player.ActiveAttackWeapon = playerWeapon;
             player.ActiveDefenseWeapon = playerWeapon;

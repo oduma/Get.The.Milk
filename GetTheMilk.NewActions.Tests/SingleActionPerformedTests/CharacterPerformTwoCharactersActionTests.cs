@@ -102,7 +102,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         }
 
         [Test]
-        [Ignore("No exit from the loop")]
         public void CharacterAttacksAnotherCharacterWithoutAnAttackWeapon()
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
@@ -127,12 +126,11 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var initialTargetHealth = _targetFoeCharacter.Health;
             var result = _activeCharacter.PerformAction(twoCharsAction);
             Assert.AreEqual(ActionResultType.Ok, result.ResultType);
-            Assert.AreEqual(initialActiveHealth-1,_activeCharacter.Health);
-            Assert.AreEqual(initialTargetHealth - 1, _targetFoeCharacter.Health);
+            Assert.AreEqual(0,_activeCharacter.Health);
+            Assert.AreEqual(0, _targetFoeCharacter.Health);
         }
 
         [Test]
-        [Ignore("Lose not implemented yet")]
         public void CharacterAttacksAnotherCharacterAndLoses()
         {
             _activeCharacter.AddAvailableAction(new TwoCharactersActionTemplate
@@ -157,11 +155,10 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             twoCharsAction.TargetCharacter = _targetFoeCharacter;
             var initialTargetHealth = _targetFoeCharacter.Health;
             var result = _activeCharacter.PerformAction(twoCharsAction);
-            Assert.AreEqual(ActionResultType.Win, result.ResultType);
-            Assert.AreEqual(_targetFoeCharacter.Name.Main,((Character)result.ExtraData).Name.Main);
-            Assert.AreEqual(initialTargetHealth - 3, _targetFoeCharacter.Health);
-            Assert.AreEqual(4,_targetFoeCharacter.Experience);
-            Assert.IsNull(twoCharsAction.ActiveCharacter);
+            Assert.AreEqual(ActionResultType.Ok, result.ResultType);
+            Assert.AreEqual(initialTargetHealth - 4, _targetFoeCharacter.Health);
+            Assert.IsNotNull(twoCharsAction.ActiveCharacter);
+            Assert.GreaterOrEqual(0, twoCharsAction.ActiveCharacter.Health);
         }
 
 

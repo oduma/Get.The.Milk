@@ -204,18 +204,18 @@ namespace GetTheMilk.UI.ViewModels
             PlayerInfoViewModel.PlayerHealth = playerCharacter.Health;
             PlayerInfoViewModel.PlayerExperience = playerCharacter.Experience;
             PlayerInfoViewModel.PlayerMoney = playerCharacter.Walet.CurrentCapacity;
-            if(e.ActionResult.ForAction.Name.UniqueId=="AcceptQuit" 
-                || e.ActionResult.ResultType==ActionResultType.Win)
-            {
-                StoryVisible = Visibility.Visible;
-                TwoCharactersVisible = Visibility.Hidden;
-                Story += RecordActionResult(e.ActionResult);
-            }
-            else if(e.ActionResult.ResultType==ActionResultType.Lost)
-            {
-                if(GameAdvanceRequest!=null)
-                    GameAdvanceRequest(this, new GameAdvanceRequestEventArgs(_game, e.ActionResult.ToString(),string.Empty));
-            }
+            //if(e.ActionResult.ForAction.Name.UniqueId=="AcceptQuit" 
+            //    || e.ActionResult.ResultType==ActionResultType.Win)
+            //{
+            //    StoryVisible = Visibility.Visible;
+            //    TwoCharactersVisible = Visibility.Hidden;
+            //    Story += RecordActionResult(e.ActionResult);
+            //}
+            //else if(e.ActionResult.ResultType==ActionResultType.Lost)
+            //{
+            //    if(GameAdvanceRequest!=null)
+            //        GameAdvanceRequest(this, new GameAdvanceRequestEventArgs(_game, e.ActionResult.ToString(),string.Empty));
+            //}
         }
 
         void TwoCharactersViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)

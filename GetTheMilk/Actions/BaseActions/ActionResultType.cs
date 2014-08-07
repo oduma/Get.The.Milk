@@ -4,9 +4,6 @@ namespace GetTheMilk.Actions.BaseActions
     {
         Ok,
         NotOk,
-        Win,
-        GameOver,
-        Lost,
         OutOfTheMap,
         Blocked,
         OriginNotOnTheMap,

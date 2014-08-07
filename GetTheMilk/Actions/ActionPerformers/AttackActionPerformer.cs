@@ -18,6 +18,10 @@ namespace GetTheMilk.Actions.ActionPerformers
                 actionTemplate.TargetCharacter.PrepareDefenseHit(), 
                 actionTemplate.ActiveCharacter, 
                 actionTemplate.TargetCharacter);
+            if (actionTemplate.TargetCharacter.Health <= 0 
+                || actionTemplate.ActiveCharacter.Health<=0)
+                return new PerformActionResult { ResultType = ActionResultType.Ok, ForAction = actionTemplate };
+
             return (PerformResponseAction(actionTemplate))??
             new PerformActionResult
                        {
@@ -29,36 +33,36 @@ namespace GetTheMilk.Actions.ActionPerformers
         }
 
 
-        private PerformActionResult FightConcluded(TwoCharactersActionTemplate actionTemplate)
-        {
-            if (actionTemplate.ActiveCharacter.Health > 0 && actionTemplate.TargetCharacter.Health > 0)
-                return null;
+        //private PerformActionResult FightConcluded(TwoCharactersActionTemplate actionTemplate)
+        //{
+        //    if (actionTemplate.ActiveCharacter.Health > 0 && actionTemplate.TargetCharacter.Health > 0)
+        //        return null;
 
-            var winningCharacter = (actionTemplate.ActiveCharacter.Health>0)
-                                      ? actionTemplate.ActiveCharacter
-                                      : actionTemplate.TargetCharacter;
-            var looserCharacter = (actionTemplate.ActiveCharacter.Health>0)
-                                       ? actionTemplate.TargetCharacter
-                                       : actionTemplate.ActiveCharacter;
+        //    var winningCharacter = (actionTemplate.ActiveCharacter.Health>0)
+        //                              ? actionTemplate.ActiveCharacter
+        //                              : actionTemplate.TargetCharacter;
+        //    var looserCharacter = (actionTemplate.ActiveCharacter.Health>0)
+        //                               ? actionTemplate.TargetCharacter
+        //                               : actionTemplate.ActiveCharacter;
 
-            winningCharacter.Experience += CalculationStrategies.CalculateWinExperience(winningCharacter, looserCharacter);
-            PileageCharacter(winningCharacter, looserCharacter);
-            if (looserCharacter.StorageContainer != null && looserCharacter.StorageContainer.Owner != null)
-                looserCharacter.StorageContainer.Remove(looserCharacter as Character);
-            if(looserCharacter.ObjectTypeId=="Player")
-                ((Level)winningCharacter.StorageContainer.Owner).Player = null;
-            if(actionTemplate.ActiveCharacter.Health > 0)
-                actionTemplate.TargetCharacter=null;
-            else 
-                actionTemplate.ActiveCharacter=null;
+        //    winningCharacter.Experience += CalculationStrategies.CalculateWinExperience(winningCharacter, looserCharacter);
+        //    PileageCharacter(winningCharacter, looserCharacter);
+        //    if (looserCharacter.StorageContainer != null && looserCharacter.StorageContainer.Owner != null)
+        //        looserCharacter.StorageContainer.Remove(looserCharacter as Character);
+        //    if(looserCharacter.ObjectTypeId=="Player")
+        //        ((Level)winningCharacter.StorageContainer.Owner).Player = null;
+        //    if(actionTemplate.ActiveCharacter.Health > 0)
+        //        actionTemplate.TargetCharacter=null;
+        //    else 
+        //        actionTemplate.ActiveCharacter=null;
 
-            return new PerformActionResult
-            {
-                ExtraData=winningCharacter,
-                ResultType = ActionResultType.Win,
-                ForAction = actionTemplate
-            };
-        }
+        //    return new PerformActionResult
+        //    {
+        //        ExtraData=winningCharacter,
+        //        ResultType = ActionResultType.Win,
+        //        ForAction = actionTemplate
+        //    };
+        //}
 
 
     }

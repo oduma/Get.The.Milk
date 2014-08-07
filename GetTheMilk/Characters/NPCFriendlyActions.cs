@@ -20,6 +20,8 @@ namespace GetTheMilk.Characters
             {
                 return false;
             }
+            if (o.ObjectTypeId == "NPCFoe")
+                return true;
             return
                 (!(a.Name.UniqueId == "Attack" || a.Name.UniqueId == "Quit" ||
                    a.Name.UniqueId == "InitiateHostilities" ||
