@@ -38,7 +38,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                        {
                            ForAction = actionTemplate,
                            ResultType = ActionResultType.Ok,
-                           ExtraData = GetAvailableActions(actionTemplate)
+                           ExtraData = GetAvailableReactions(actionTemplate)
                        };
 
         }

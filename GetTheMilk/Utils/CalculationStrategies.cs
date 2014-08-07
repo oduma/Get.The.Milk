@@ -63,18 +63,13 @@ namespace GetTheMilk.Utils
         }
 
 
-        public static Weapon SelectAnAttackWeapon(ICharacter character)
+        public static Weapon SelectAWeapon(ICharacter character,WeaponType weaponType)
         {
+            if (!character.Inventory.Any(w => w.ObjectCategory == ObjectCategory.Weapon))
+                return null;
             return
                 character.Inventory.Where(w => (w.ObjectCategory == ObjectCategory.Weapon))
-                    .Select(w => (Weapon) w).FirstOrDefault(w => w.WeaponTypes.Contains(WeaponType.Attack));
-        }
-
-        public static Weapon SelectADefenseWeapon(ICharacter character)
-        {
-            return
-                character.Inventory.Where(w => (w.ObjectCategory == ObjectCategory.Weapon))
-                    .Select(w => (Weapon)w).FirstOrDefault(w => w.WeaponTypes.Contains(WeaponType.Deffense));
+                    .Select(w => (Weapon) w).FirstOrDefault(w => w.WeaponTypes.Contains(weaponType));
         }
 
         //take all the experience if the fromCharacter is at least as experienced as the toCharacter

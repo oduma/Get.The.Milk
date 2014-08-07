@@ -45,8 +45,13 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 actionTemplate.ActiveCharacter.Health -= (actionTemplate.ActiveCharacter.Health * actionTemplate.PercentOfHealthFailurePenalty / 100);
             }
 
+            if(actionTemplate.TargetObject==null)
+                return new PerformActionResult { ForAction = actionTemplate, 
+                    ResultType = (success) ? ActionResultType.Ok : ActionResultType.NotOk};
+
             return (PerformResponseAction(actionTemplate))??new PerformActionResult { ForAction = actionTemplate, 
-                    ResultType = (success) ? ActionResultType.Ok : ActionResultType.NotOk };
+                    ResultType = (success) ? ActionResultType.Ok : ActionResultType.NotOk,
+                    ExtraData=GetAvailableReactions(actionTemplate) };
         }
     }
 }

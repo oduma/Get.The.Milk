@@ -45,16 +45,40 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 ((TwoCharactersActionTemplatePerformer)baseAction.CurrentPerformer).FeedbackFromSubAction += ((TwoCharactersActionTemplatePerformer)baseAction.CurrentPerformer).TwoCharactersActionFeedbackFromSubAction;
             }
             return
-                baseAction.ActiveCharacter.PerformAction(baseAction);
+                (baseAction.ActiveCharacter is IPlayer)?null:baseAction.ActiveCharacter.PerformAction(baseAction);
         }
 
-        protected List<BaseActionTemplate> GetAvailableActions(ObjectResponseActionTemplate actionTemplate)
+        protected List<BaseActionTemplate> GetAvailableReactions(BaseActionTemplate actionTemplate)
         {
-            if (actionTemplate.ActiveObject.Interactions==null || !actionTemplate.ActiveObject.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses) 
-                || actionTemplate.ActiveObject.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].
-                FirstOrDefault(ar => ar.Action.Equals(actionTemplate) && ar.Reaction != null) == null)
+            IActionEnabled active;
+
+            if(actionTemplate.Category==typeof(ObjectResponseActionTemplate).Name)
+                active = actionTemplate.ActiveObject;
+            else
+                active = actionTemplate.ActiveCharacter;
+            if (active.Interactions == null)
                 return null;
-            return actionTemplate.ActiveObject.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].Where(
+            if ((!active.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses) 
+                || active.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].
+                FirstOrDefault(ar => ar.Action.Equals(actionTemplate) && ar.Reaction != null) == null)
+                && (!active.Interactions.ContainsKey(GenericInteractionRulesKeys.All)
+                || active.Interactions[GenericInteractionRulesKeys.All].
+                FirstOrDefault(ar => ar.Action.Equals(actionTemplate) && ar.Reaction != null) == null))
+                return null;
+            if (active.Interactions.ContainsKey(GenericInteractionRulesKeys.All) 
+                && active.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses))
+            {
+                return active.Interactions[GenericInteractionRulesKeys.All].Where(
+                a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).
+                Union(active.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].Where(
+                a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction)).ToList();
+            }
+            else if (active.Interactions.ContainsKey(GenericInteractionRulesKeys.All))
+            {
+                return active.Interactions[GenericInteractionRulesKeys.All].Where(
+                a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).ToList();
+            }
+            return active.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].Where(
                 a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).ToList();
         }
 
@@ -73,38 +97,23 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 targetMainName = actionTemplate.TargetObject.Name.Main;
 
             }
-            if (target == null ||
-                !actionTemplate.ActiveCharacter.Interactions.ContainsKey(targetMainName)
-                || actionTemplate.ActiveCharacter.Interactions[targetMainName].
-                FirstOrDefault(ar => ar.Action.Equals(actionTemplate) && ar.Reaction != null) == null)
+            if (target == null)
                 return null;
-            return actionTemplate.ActiveCharacter.Interactions[targetMainName].Where(
-                a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).ToList();
+            if ((!actionTemplate.ActiveCharacter.Interactions.ContainsKey(targetMainName)
+                || actionTemplate.ActiveCharacter.Interactions[targetMainName].
+                FirstOrDefault(ar => ar.Action.Equals(actionTemplate) && ar.Reaction != null) == null) &&
+                (!actionTemplate.ActiveCharacter.Interactions.ContainsKey(GenericInteractionRulesKeys.All)
+                    || actionTemplate.ActiveCharacter.Interactions[GenericInteractionRulesKeys.All].
+                FirstOrDefault(ar => ar.Action.Equals(actionTemplate) && ar.Reaction != null) == null))
+            
+                return null;
+
+            return (!actionTemplate.ActiveCharacter.Interactions.ContainsKey(targetMainName))
+                ?actionTemplate.ActiveCharacter.Interactions[GenericInteractionRulesKeys.All].
+                Where(a=>a.Action.Equals(actionTemplate) && a.Reaction!=null).Select(a=>a.Reaction).ToList():
+                actionTemplate.ActiveCharacter.Interactions[GenericInteractionRulesKeys.All].Where(a=>a.Action.Equals(actionTemplate) && a.Reaction!=null).Select(a=>a.Reaction).Union(
+                actionTemplate.ActiveCharacter.Interactions[targetMainName].Where(
+                a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction)).ToList();
         }
-
-        //protected List<BaseActionTemplate> GetAvailableActions(TwoCharactersActionTemplate actionTemplate)
-        //{
-        //    if (actionTemplate.TargetCharacter is IPlayer)
-        //    {
-        //        var availableActions =
-        //            actionTemplate.TargetCharacter.Interactions[actionTemplate.ActiveCharacter.Name.Main].Union(
-        //                actionTemplate.TargetCharacter.Interactions[GenericInteractionRulesKeys.All])
-        //                .Where(a => a.Action.Equals(actionTemplate))
-        //                .Select(a => a.Reaction).ToList();
-        //        availableActions.ForEach(a =>
-        //        {
-        //            a.ActiveCharacter = actionTemplate.TargetCharacter;
-        //            a.TargetCharacter = actionTemplate.ActiveCharacter;
-        //        });
-        //        return availableActions;
-        //    }
-        //    var result = actionTemplate.TargetCharacter.Interactions[GenericInteractionRulesKeys.All];
-        //    //if (actionTemplate.TargetCharacter.Interactions.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
-        //    //    return result.Union(actionTemplate.TargetCharacter.Interactions[GenericInteractionRulesKeys.CharacterSpecific]).Where(
-        //    //    a => a.Action.Equals(actionTemplate)).Select(a => a.Reaction).ToList();
-        //    return result.Select(a => a.Reaction).ToList();
-        //}
-
-
     }
 }

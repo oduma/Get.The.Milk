@@ -13,9 +13,9 @@ namespace GetTheMilk.Actions.ActionPerformers
             var result = base.Perform(actionTemplate);
             if (result.ResultType == ActionResultType.Ok)
             {
-                ActionsHelper.SelectWeapon(actionTemplate.ActiveCharacter, CalculationStrategies.SelectAnAttackWeapon(actionTemplate.ActiveCharacter),
+                ActionsHelper.SelectWeapon(actionTemplate.ActiveCharacter, CalculationStrategies.SelectAWeapon(actionTemplate.ActiveCharacter,WeaponType.Attack),
                                            WeaponType.Attack);
-                ActionsHelper.SelectWeapon(actionTemplate.ActiveCharacter, CalculationStrategies.SelectADefenseWeapon(actionTemplate.ActiveCharacter),
+                ActionsHelper.SelectWeapon(actionTemplate.ActiveCharacter, CalculationStrategies.SelectAWeapon(actionTemplate.ActiveCharacter,WeaponType.Deffense),
                                            WeaponType.Deffense);
             }
             return result;

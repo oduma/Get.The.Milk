@@ -18,18 +18,12 @@ namespace GetTheMilk.Actions.ActionPerformers
                 actionTemplate.TargetCharacter.PrepareDefenseHit(), 
                 actionTemplate.ActiveCharacter, 
                 actionTemplate.TargetCharacter);
-            var result = FightConcluded(actionTemplate);
-            if (result != null)
-                return result;
-            if (actionTemplate.ActiveCharacter is IPlayer)
-            {
-                return PerformResponseAction(actionTemplate);
-            }
-            return new PerformActionResult
+            return (PerformResponseAction(actionTemplate))??
+            new PerformActionResult
                        {
                            ResultType = ActionResultType.Ok,
                            ForAction = actionTemplate,
-                           ExtraData = GetAvailableActions(actionTemplate)
+                           ExtraData = GetAvailableReactions(actionTemplate)
                        };
 
         }

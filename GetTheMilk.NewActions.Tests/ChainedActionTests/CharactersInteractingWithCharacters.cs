@@ -4,6 +4,7 @@ using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Interactions;
 using GetTheMilk.BaseCommon;
+using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Factories;
 using GetTheMilk.Objects;
@@ -11,6 +12,7 @@ using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Utils;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GetTheMilk.NewActions.Tests.ChainedActionTests
 {
@@ -23,12 +25,10 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         [SetUp]
         public void SetUp()
         {
-            _activeCharacter = new Character { ObjectTypeId = "NPCFriendly" };
-            var factory = ObjectActionsFactory.GetFactory();
+            _activeCharacter = new Character { ObjectTypeId = "NPCFriendly", Name = new Noun { Main = "MyActiveFriend", Narrator = "My Active Friend" } };
 
-            var objAction = factory.CreateObjectAction("NPCFriendly");
-            _activeCharacter.AllowsTemplateAction = objAction.AllowsTemplateAction;
-            _activeCharacter.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
+            _activeCharacter.AllowsTemplateAction = TestHelper.AllowsEverything;
+            _activeCharacter.AllowsIndirectTemplateAction = TestHelper.AllowsIndirectEverything;
 
             var activeObject = new Weapon
             {
@@ -36,7 +36,8 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
                 AllowsTemplateAction = TestHelper.AllowsEverything,
                 AllowsIndirectTemplateAction = TestHelper.AllowsIndirectEverything,
                 DefensePower=2,
-                AttackPower=5
+                AttackPower=5,
+                WeaponTypes = new WeaponType[] { WeaponType.Attack,WeaponType.Deffense}
             };
 
             _activeCharacter.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
@@ -83,27 +84,142 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
             { 
                 Action = new TwoCharactersActionTemplate { Name= new BaseCommon.Verb{UniqueId="Interaction2-Action",Past="Interaction2-Action",Present="Interaction2-Action"},Message="sell me something",PerformerType=typeof(CommunicateActionPerformer)}, 
                 Reaction = new ExposeInventoryActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction2-Reaction",Past="Interaction2-Reaction",Present="Interaction2-Reaction"},PerformerType=typeof(ExposeInventoryActionTemplatePerformer)} 
+            },
+            new Interaction 
+            { 
+                Action = new TwoCharactersActionTemplate { Name= new BaseCommon.Verb{UniqueId="Interaction3-Action",Past="Interaction3-Action",Present="Interaction3-Action"},Message="Hello",PerformerType=typeof(CommunicateActionPerformer)}, 
+                Reaction = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction3-Reaction",Past="Interaction3-Reaction",Present="Interaction3-Reaction"},Message="Hi", PerformerType=typeof(CommunicateActionPerformer)} 
+            },
+            new Interaction 
+            { 
+                Action = new TwoCharactersActionTemplate { Name= new BaseCommon.Verb{UniqueId="Interaction4-Action",Past="Interaction4-Action",Present="Interaction4-Action"},PerformerType=typeof(InitiateHostilitiesActionPerformer)}, 
+                Reaction = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction4-Reaction",Past="Interaction4-Reaction",Present="Interaction4-Reaction"},PerformerType=typeof(InitiateHostilitiesActionPerformer)} 
             }
             };
         }
+
+        private static Interaction[] GetInteractionsResponses()
+        {
+            return new Interaction[] { new Interaction 
+            { 
+                Action = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction3-Reaction",Past="Interaction3-Reaction",Present="Interaction3-Reaction"},Message="Hi", PerformerType=typeof(CommunicateActionPerformer)} , 
+                Reaction = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction3-ReReaction1",Past="Interaction3-ReReaction1",Present="Interaction3-ReReaction1"},Message="I'm good!", PerformerType=typeof(CommunicateActionPerformer)} 
+            },
+            new Interaction 
+            { 
+                Action = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction3-Reaction",Past="Interaction3-Reaction",Present="Interaction3-Reaction"},Message="Hi", PerformerType=typeof(CommunicateActionPerformer)} , 
+                Reaction = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction3-ReReaction2",Past="Interaction3-ReReaction2",Present="Interaction3-ReReaction2"},Message="I'm bad!", PerformerType=typeof(CommunicateActionPerformer)} 
+            }
+            };
+        }
+
         [Test]
         public void CharacterCommunicateCharacterCommunicateAndStop()
         {
+            _interactionCharacter = new Character
+            {
+                Name = new BaseCommon.Noun { Main = "reactor", Narrator = "reactor" },
+                ObjectTypeId = "NPCFriendly",
+                AllowsIndirectTemplateAction = TestHelper.AllowsIndirectEverything,
+                AllowsTemplateAction = TestHelper.AllowsEverything
+            };
+            _interactionCharacter.Interactions = new SortedList<string, Interaction[]>();
+            _interactionCharacter.Interactions.Add(GenericInteractionRulesKeys.AnyCharacter, GetInteractions());
+            _activeCharacter.LoadInteractions(_interactionCharacter, _interactionCharacter.GetType());
+            var actionThree = _activeCharacter.CreateNewInstanceOfAction<TwoCharactersActionTemplate>("Interaction3-Action");
+
+            var result = _activeCharacter.PerformAction(actionThree);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(ActionResultType.Ok, result.ResultType);
+            Assert.IsNull(result.ExtraData);
+            Assert.AreEqual(typeof(CommunicateActionPerformer), result.ForAction.PerformerType);
+            Assert.AreEqual("Hi", ((TwoCharactersActionTemplate)result.ForAction).Message);
+
 
         }
         [Test]
         public void CharacterCommunicateCharacterCommunicateDouble()
         {
+            _interactionCharacter = new Character
+            {
+                Name = new BaseCommon.Noun { Main = "reactor", Narrator = "reactor" },
+                ObjectTypeId = "NPCFriendly",
+                AllowsIndirectTemplateAction = TestHelper.AllowsIndirectEverything,
+                AllowsTemplateAction = TestHelper.AllowsEverything
+            };
+            _interactionCharacter.Interactions = new SortedList<string, Interaction[]>();
+            _interactionCharacter.Interactions.Add(GenericInteractionRulesKeys.AnyCharacter, GetInteractions());
+            _interactionCharacter.Interactions.Add(GenericInteractionRulesKeys.AnyCharacterResponses, GetInteractionsResponses());
+            _activeCharacter.LoadInteractions(_interactionCharacter, _interactionCharacter.GetType());
+            var actionThree = _activeCharacter.CreateNewInstanceOfAction<TwoCharactersActionTemplate>("Interaction3-Action");
+
+            var result = _activeCharacter.PerformAction(actionThree);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(ActionResultType.Ok, result.ResultType);
+            Assert.IsNotNull(result.ExtraData);
+            Assert.AreEqual(2, ((List<BaseActionTemplate>)result.ExtraData).Count);
+            Assert.AreEqual(2, ((IEnumerable<BaseActionTemplate>)result.ExtraData).Count(a => a.PerformerType == typeof(CommunicateActionPerformer)));
+
+            Assert.AreEqual(typeof(CommunicateActionPerformer), result.ForAction.PerformerType);
+            Assert.AreEqual("Hi", ((TwoCharactersActionTemplate)result.ForAction).Message);
 
         }
         [Test]
         public void CharacterInitiateHostilitiesCharacterInitiateHostilities()
         {
+            _interactionCharacter = new Character
+            {
+                Name = new BaseCommon.Noun { Main = "reactor", Narrator = "reactor" },
+                ObjectTypeId = "NPCFriendly",
+                AllowsIndirectTemplateAction = TestHelper.AllowsIndirectEverything,
+                AllowsTemplateAction = TestHelper.AllowsEverything
+            };
+            _interactionCharacter.Interactions = new SortedList<string, Interaction[]>();
+            _interactionCharacter.Interactions.Add(GenericInteractionRulesKeys.AnyCharacter, GetInteractions());
+            _activeCharacter.LoadInteractions(_interactionCharacter, _interactionCharacter.GetType());
+            var actionFour = _activeCharacter.CreateNewInstanceOfAction<TwoCharactersActionTemplate>("Interaction4-Action");
 
+            var result = _activeCharacter.PerformAction(actionFour);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(ActionResultType.Ok, result.ResultType);
+            Assert.IsNull(result.ExtraData);
+            Assert.AreEqual(typeof(InitiateHostilitiesActionPerformer), result.ForAction.PerformerType);
         }
         [Test]
-        public void CharacterAttackCharacterAttack()
+        public void PlayerAttackCharacterAttack()
         {
+            _interactionCharacter = new Character
+            {
+                Name = new BaseCommon.Noun { Main = "reactor", Narrator = "reactor" },
+                ObjectTypeId = "NPCFoe",
+                AllowsIndirectTemplateAction = TestHelper.AllowsIndirectEverything,
+                AllowsTemplateAction = TestHelper.AllowsEverything
+            };
+            var interactionWeapon = new Weapon { ObjectTypeId = "Weapon", Name = new Noun { Main = "ReactorWeapon", Narrator = "reactor weapon" }, AttackPower = 20, DefensePower = 10, WeaponTypes = new WeaponType[] { WeaponType.Attack, WeaponType.Deffense } };
+            _interactionCharacter.Inventory.Add(interactionWeapon);
+            _interactionCharacter.ActiveAttackWeapon = interactionWeapon;
+            _interactionCharacter.ActiveDefenseWeapon = interactionWeapon;
+            var playerWeapon = new Weapon { ObjectTypeId = "Weapon", Name = new Noun { Main = "ReactorWeapon", Narrator = "reactor weapon" }, AttackPower = 20, DefensePower = 10, WeaponTypes = new WeaponType[] { WeaponType.Attack, WeaponType.Deffense } };
+            var player = new Player { AllowsTemplateAction=TestHelper.AllowsEverything,AllowsIndirectTemplateAction=TestHelper.AllowsIndirectEverything};
+            player.Inventory.Add(playerWeapon);
+            player.ActiveAttackWeapon = playerWeapon;
+            player.ActiveDefenseWeapon = playerWeapon;
+
+            var actionFour = player.CreateNewInstanceOfAction<TwoCharactersActionTemplate>("Attack");
+            actionFour.TargetCharacter = _interactionCharacter;
+
+            var result = player.PerformAction(actionFour);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(ActionResultType.Ok, result.ResultType);
+            Assert.IsNotNull(result.ExtraData);
+            Assert.AreEqual(2,((List<BaseActionTemplate>)result.ExtraData).Count(a=>a.Category==typeof(TwoCharactersActionTemplate).Name));
+            Assert.AreEqual(1, ((List<BaseActionTemplate>)result.ExtraData).Count(a => a.PerformerType == typeof(AttackActionPerformer)));
+            Assert.AreEqual(1, ((List<BaseActionTemplate>)result.ExtraData).Count(a => a.Name.UniqueId == "Quit"));
+            Assert.AreEqual(typeof(AttackActionPerformer), result.ForAction.PerformerType);
 
         }
     }

@@ -20,7 +20,8 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
         public virtual PerformActionResult Perform(ActionTemplates.ObjectResponseActionTemplate actionTemplate)
         {
             if (CanPerform(actionTemplate))
-                return new PerformActionResult { ForAction = actionTemplate, ResultType = ActionResultType.Ok,ExtraData=GetAvailableActions(actionTemplate) };
+                return new PerformActionResult { ForAction = actionTemplate, ResultType = ActionResultType.Ok,
+                    ExtraData=GetAvailableReactions(actionTemplate) };
             return new PerformActionResult { ForAction = actionTemplate, ResultType = ActionResultType.NotOk };
         }
 
