@@ -8,11 +8,12 @@ using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Utils;
-using GetTheMilkTests.Stubs;
 using NUnit.Framework;
 using Newtonsoft.Json;
+using GetTheMilk.Levels;
+using GetTheMilk.Actions.ActionPerformers;
 
-namespace GetTheMilkTests.SaveLoadTests
+namespace GetTheMilk.NewActions.Tests.SaveLoadTests
 {
     [TestFixture]
     public class SerializeDeserializeTests
@@ -24,7 +25,7 @@ namespace GetTheMilkTests.SaveLoadTests
             {
                 InventoryType = InventoryType.LevelInventory,
                 MaximumCapacity = 10,
-                Owner = new MockInventoryOwner()
+                Owner = new Level()
             };
 
             var result = JsonConvert.SerializeObject(mockInventory.Save());
@@ -33,6 +34,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.AreEqual(mockInventory.InventoryType,actual.InventoryType);
             Assert.AreEqual(mockInventory.MaximumCapacity, actual.MaximumCapacity);
         }
+        
         [Test]
         public void SerializeADecorInventory()
         {
@@ -40,14 +42,13 @@ namespace GetTheMilkTests.SaveLoadTests
             {
                 InventoryType = InventoryType.LevelInventory,
                 MaximumCapacity = 10,
-                Owner = new MockInventoryOwner()
+                Owner = new Level()
             };
 
             NonCharacterObject decorum = new NonCharacterObject
             {
                 ObjectTypeId = "Decor",
                 CellNumber = 123,
-                CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsTemplateAction = (a) => false
@@ -59,7 +60,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ObjectTypeId = "Decor",
 
                 CellNumber = 124,
-                CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsTemplateAction = (a) => false
@@ -83,7 +83,7 @@ namespace GetTheMilkTests.SaveLoadTests
             {
                 InventoryType = InventoryType.LevelInventory,
                 MaximumCapacity = 10,
-                Owner = new MockInventoryOwner()
+                Owner = new Character()
             };
 
             Tool decorum = new Tool
@@ -91,7 +91,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ObjectTypeId = "Key",
 
                 CellNumber = 123,
-                CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsTemplateAction = (a) => false,
@@ -105,7 +104,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ObjectTypeId = "Key",
 
                 CellNumber = 124,
-                CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsTemplateAction = (a) => false,
@@ -135,7 +133,7 @@ namespace GetTheMilkTests.SaveLoadTests
             {
                 InventoryType = InventoryType.LevelInventory,
                 MaximumCapacity = 10,
-                Owner = new MockInventoryOwner()
+                Owner = new Character()
             };
 
             Tool decorum = new Tool
@@ -143,7 +141,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ObjectTypeId = "Key",
 
                 CellNumber = 123,
-                CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsTemplateAction = (a) => false,
@@ -157,7 +154,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ObjectTypeId = "Weapon",
 
                 CellNumber = 124,
-                CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsTemplateAction = (a) => false,
@@ -173,7 +169,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ObjectTypeId = "Decor",
 
                 CellNumber = 123,
-                CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsTemplateAction = (a) => false
@@ -203,36 +198,53 @@ namespace GetTheMilkTests.SaveLoadTests
         public void SerializeACharacter()
         {
             SortedList<string, Interaction[]> skInteractionRules=new SortedList<string, Interaction[]>();
-            skInteractionRules.Add(GenericInteractionRulesKeys.CharacterSpecific,
+            skInteractionRules.Add(GenericInteractionRulesKeys.AnyCharacter,
                                    new Interaction[]
                                        {
                                            new Interaction
                                                {
-                                                   Action = new TwoCharactersActionTemplate{Name=new Verb{PerformerId="Meet"}},
+                                                   Action = new TwoCharactersActionTemplate
+                                                   {
+                                                       Name=new Verb{UniqueId="Meet",Past="met",Present="meet"},
+                                                       Message="Hi",
+                                                       PerformerType=typeof(CommunicateActionPerformer)
+                                                   },
                                                    Reaction =
                                                        new TwoCharactersActionTemplate
                                                            {
 
-                                                               Name= new Verb{PerformerId="Talk"}, Message =
-                                                                   "How are you? Beautifull day out there better buy something!"
+                                                               Name= new Verb{UniqueId="Talk",Past="talked", Present="talk"}, 
+                                                               Message = "How are you? Beautifull day out there better buy something!",
+                                                               PerformerType=typeof(CommunicateActionPerformer)
                                                            }
                                                },
                                            new Interaction
                                                {
-                                                   Action = new TwoCharactersActionTemplate {Name= new Verb{PerformerId="Talk"}, Message = "Yes"},
+                                                   Action = new TwoCharactersActionTemplate 
+                                                   {
+                                                       Name= new Verb{UniqueId="Responde",Past="talked", Present="talk"}, 
+                                                       Message = "Yes",
+                                                       PerformerType=typeof(CommunicateActionPerformer)},
                                                    Reaction =
                                                        new ExposeInventoryActionTemplate
                                                            {FinishActionUniqueId = "CloseInventory"}
                                                },
                                            new Interaction
                                                {
-                                                   Action = new TwoCharactersActionTemplate {Name= new Verb{PerformerId="Talk"}, Message = "No"},
+                                                   Action = new TwoCharactersActionTemplate 
+                                                   {
+                                                       Name= new Verb{UniqueId="RespondeNo", Present="talk",Past="talked"},
+                                                       Message = "No",
+                                                       PerformerType=typeof(CommunicateActionPerformer)},
                                                    Reaction =
                                                        new TwoCharactersActionTemplate
-                                                           {Name= new Verb{PerformerId="Talk"}, Message = "Why oh Why!?"}
+                                                           {
+                                                               Name= new Verb{UniqueId="Lamment",Past="said",Present="say"}, 
+                                                               Message = "Why oh Why!?",
+                                                               PerformerType=typeof(CommunicateActionPerformer)}
                                                }
                                        });
-            skInteractionRules.Add(GenericInteractionRulesKeys.PlayerResponses,
+            skInteractionRules.Add(GenericInteractionRulesKeys.AnyCharacterResponses,
                                    new Interaction[]
                                        {
                                            new Interaction
@@ -240,22 +252,35 @@ namespace GetTheMilkTests.SaveLoadTests
                                                    Action =
                                                        new TwoCharactersActionTemplate
                                                            {
-                                                               Name= new Verb{PerformerId="Talk"}, Message =
-                                                                   "How are you? Beautifull day out there better buy something!"
+                                                               Name= new Verb{UniqueId="Talk"}, 
+                                                               Message =
+                                                                   "How are you? Beautifull day out there better buy something!",
+                                                               PerformerType=typeof(CommunicateActionPerformer)
                                                            },
                                                    Reaction =
-                                                       new TwoCharactersActionTemplate {Name= new Verb{PerformerId="Talk"}, Message = "Yes"}
+                                                       new TwoCharactersActionTemplate 
+                                                       {
+                                                           Name= new Verb{UniqueId="Responde",Past="talked",Present="talk"}, 
+                                                           Message = "Yes",
+                                                               PerformerType=typeof(CommunicateActionPerformer)}
                                                },
                                            new Interaction
                                                {
                                                    Action =
                                                        new TwoCharactersActionTemplate
                                                            {
-                                                               Name= new Verb{PerformerId="Talk"}, Message =
-                                                                   "How are you? Beautifull day out there better buy something!"
+                                                               Name= new Verb{UniqueId="Talk",Past="said", Present="say"}, 
+                                                               Message =
+                                                                   "How are you? Beautifull day out there better buy something!",
+                                                               PerformerType=typeof(CommunicateActionPerformer)
+
                                                            },
                                                    Reaction =
-                                                       new TwoCharactersActionTemplate {Name= new Verb{PerformerId="Talk"}, Message = "No"}
+                                                       new TwoCharactersActionTemplate 
+                                                       {
+                                                           Name= new Verb{UniqueId="RespondeNO",Past="talked",Present="talk"}, 
+                                                           Message = "No",
+                                                               PerformerType=typeof(CommunicateActionPerformer)}
                                                }
 
                                        });
@@ -266,7 +291,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ObjectTypeId = "Weapon",
 
                 CellNumber = 124,
-                CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsTemplateAction = (a) => false,
@@ -282,7 +306,6 @@ namespace GetTheMilkTests.SaveLoadTests
                 ObjectTypeId = "Key",
 
                 CellNumber = 123,
-                CloseUpMessage = "You can't pass me",
                 BlockMovement = true,
                 Name = new Noun { Main = "Wall", Narrator = "wall" },
                 AllowsTemplateAction = (a) => false,
@@ -295,16 +318,7 @@ namespace GetTheMilkTests.SaveLoadTests
 
             CharacterCollection mockCharacterCollection = new CharacterCollection
                                                               {
-                                                                  Owner =
-                                                                      new MockInventoryOwner
-                                                                          {
-                                                                              Name =
-                                                                                  new Noun
-                                                                                      {
-                                                                                          Main = "Level",
-                                                                                          Narrator = "level"
-                                                                                      }
-                                                                          }
+                                                                  Owner =new Level()
                                                               };
             Character skCharacter = new Character
                                         {
@@ -317,12 +331,15 @@ namespace GetTheMilkTests.SaveLoadTests
                                             Inventory = skInventory,
                                             Name = new Noun {Main = "John the Shop Keeper", Narrator = "John the Shop Keeper"},
                                             ObjectTypeId = "NPCFriendly",
-                                            Interactions=skInteractionRules,
                                             Range = 1,
                                             Walet = skWalet
                                            
                                         };
+            skCharacter.Interactions.Add(GenericInteractionRulesKeys.AnyCharacter, skInteractionRules[GenericInteractionRulesKeys.AnyCharacter]);
+            skCharacter.Interactions.Add(GenericInteractionRulesKeys.AnyCharacterResponses, skInteractionRules[GenericInteractionRulesKeys.AnyCharacterResponses]);
+
             mockCharacterCollection.Add(skCharacter);
+
             var characterCore = skCharacter.Save();
             var actual = Character.Load<Character>(characterCore);
             Assert.IsNotNull(actual);
@@ -332,8 +349,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.AreEqual(skCharacter.ActiveAttackWeapon, actual.ActiveAttackWeapon);
             Assert.AreEqual(skCharacter.ActiveDefenseWeapon, actual.ActiveDefenseWeapon);
             Assert.True(actual.AllowsTemplateAction(null));
-            Assert.True(actual.AllowsIndirectTemplateAction(new BaseActionTemplate{Name=new Verb{PerformerId="Meet"}}, null));
-            Assert.False(actual.AllowsIndirectTemplateAction(new TwoCharactersActionTemplate{Name=new Verb{PerformerId="Attack"}},null ));
+            Assert.False(actual.AllowsIndirectTemplateAction(new TwoCharactersActionTemplate{Name=new Verb{UniqueId="Attack"}},null ));
             Assert.AreEqual(skCharacter.BlockMovement, actual.BlockMovement);
             Assert.AreEqual(skCharacter.CellNumber, actual.CellNumber);
             Assert.AreEqual(skCharacter.Experience, actual.Experience);
@@ -344,6 +360,31 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.AreEqual(skCharacter.Name.Narrator, actual.Name.Narrator);
             Assert.AreEqual(skCharacter.Range, actual.Range);
             Assert.AreEqual(skCharacter.Walet.MaxCapacity, actual.Walet.MaxCapacity);
+        }
+
+        [Test]
+        public void SaveAPlayer()
+        {
+            Player player = new Player();
+            var result = player.Save();
+
+            var resultString = JsonConvert.SerializeObject(result);
+
+            var actual = Player.Load<Player>(result);
+
+            Assert.IsNotNull(actual);
+
+            Assert.AreEqual(player.BlockMovement, actual.BlockMovement);
+            Assert.AreEqual(player.CellNumber, actual.CellNumber);
+            Assert.AreEqual(player.Experience, actual.Experience);
+            Assert.AreEqual(player.Health, actual.Health);
+            Assert.AreEqual(player.Interactions.Count, actual.Interactions.Count);
+            Assert.AreEqual(player.Interactions[GenericInteractionRulesKeys.All].Length, actual.Interactions[GenericInteractionRulesKeys.All].Length);
+            Assert.AreEqual(player.Name.Main, actual.Name.Main);
+            Assert.AreEqual(player.Name.Narrator, actual.Name.Narrator);
+            Assert.AreEqual(player.Range, actual.Range);
+            Assert.AreEqual(player.Walet.MaxCapacity, actual.Walet.MaxCapacity);
+            Assert.AreEqual(player.Walet.CurrentCapacity, actual.Walet.CurrentCapacity);
         }
 
     }

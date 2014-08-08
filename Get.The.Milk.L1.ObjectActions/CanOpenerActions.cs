@@ -10,7 +10,7 @@ namespace Get.The.Milk.L1.ObjectActions
 
         public override bool AllowsIndirectTemplateAction(BaseActionTemplate a, IPositionable o)
         {
-            return (o is ICharacter && (a.Name.Category=="ObjectTransferActionTemplate"));
+            return (o is ICharacter && (a.Category=="ObjectTransferActionTemplate"));
         }
 
         public CanOpenerActions()

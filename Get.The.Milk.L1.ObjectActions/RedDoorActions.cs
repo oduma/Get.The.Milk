@@ -8,7 +8,7 @@ namespace Get.The.Milk.L1.ObjectActions
     {
         public override bool AllowsIndirectTemplateAction(BaseActionTemplate a, IPositionable o)
         {
-            return (a.Name.PerformerId=="Open" && o.Name.Main=="Red Key");
+            return (a.Name.UniqueId=="Open" && o.Name.Main=="Red Key");
         }
 
         public RedDoorActions()

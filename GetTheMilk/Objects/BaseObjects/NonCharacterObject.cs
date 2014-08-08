@@ -50,7 +50,7 @@ namespace GetTheMilk.Objects.BaseObjects
                 foreach (var objAction in objActions)
                     obj.AddAvailableAction(objAction.Value);
             }
-            if(package.Interactions!=null)
+            if(package.Interactions!=null && package.Interactions!="null")
                 obj.Interactions = JsonConvert.DeserializeObject<SortedList<string, Interaction[]>>(package.Interactions,
                                                                                                 new ActionTemplateJsonConverter
                                                                                                     ());

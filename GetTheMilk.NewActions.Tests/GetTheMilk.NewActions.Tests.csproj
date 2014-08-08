@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SaveAndLoadTests\GameSaveLoadTests.cs" />
+    <Compile Include="SaveAndLoadTests\SaveLoadLevelTests.cs" />
+    <Compile Include="SaveAndLoadTests\SerializeDeserializeTests.cs" />
     <Compile Include="SingleActionPerformedTests\ObjectPerformObjectResponseActionTests.cs" />
     <Compile Include="SingleActionPerformedTests\ObjectsAbleToPerformObjectResponseActionTests.cs" />
     <Compile Include="SingleTemplatesTests\ActionTemplatesToStringTests.cs" />
@@ -95,6 +98,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Get.The.Milk.L1.ObjectActions\Get.The.Milk.L1.ObjectActions.csproj">
+      <Project>{3f76d762-4647-4ab3-943d-37e61ce086ec}</Project>
+      <Name>Get.The.Milk.L1.ObjectActions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GetTheMilk\GetTheMilk.csproj">
       <Project>{0F1B4894-F8A9-41F9-861E-3F3F14D87D8F}</Project>
       <Name>GetTheMilk</Name>
