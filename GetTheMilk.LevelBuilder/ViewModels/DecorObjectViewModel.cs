@@ -38,15 +38,15 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             return
                 new DecorObjectViewModel(new NonCharacterObject
                 {
-                    AllowsAction = Value.AllowsAction,
-                    AllowsIndirectAction = Value.AllowsIndirectAction,
+                    AllowsTemplateAction = Value.AllowsTemplateAction,
+                    AllowsIndirectTemplateAction = Value.AllowsIndirectTemplateAction,
                     BlockMovement = Value.BlockMovement,
-                    CloseUpMessage = Value.CloseUpMessage,
                     Name =
                         new Noun
                         {
                             Main = Value.Name.Main,
-                            Narrator = Value.Name.Narrator
+                            Narrator = Value.Name.Narrator,
+                            Description=Value.Name.Description
                         },
                     ObjectTypeId = Value.ObjectTypeId,
                 });

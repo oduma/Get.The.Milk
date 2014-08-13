@@ -31,7 +31,7 @@
         <Label Grid.Row="3" Grid.Column="0" Content="Blocks Movement"/>
         <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding Path=Value.BlockMovement}"/>
         <Label Grid.Row="4" Grid.Column="0" Content="CloseUp Message"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=Value.CloseUpMessage}"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=Value.Name.Description}"/>
         <Label Grid.Row="5" Grid.Column="0" Content="Buy Price"/>
         <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=Value.BuyPrice}"/>
         <Label Grid.Row="6" Grid.Column="0" Content="Sell Price"/>

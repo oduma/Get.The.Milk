@@ -22,12 +22,12 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         public CharacterViewModel(Character selectedCharacter, 
             ObservableCollection<NonCharacterObject> allObjectsAvailable,
-            ObservableCollection<ActionReaction> allAvailableInteractions)
+            ObservableCollection<Interaction> allAvailableInteractions)
         {
             if (selectedCharacter.Name == null)
                 selectedCharacter.Name = new Noun();
-            if(selectedCharacter.InteractionRules==null)
-                selectedCharacter.InteractionRules= new SortedList<string, ActionReaction[]>();
+            if(selectedCharacter.Interactions==null)
+                selectedCharacter.Interactions= new SortedList<string, Interaction[]>();
             Value = selectedCharacter;
             AllObjectsAvailable = allObjectsAvailable;
             AllAvailableInteractions = allAvailableInteractions;
@@ -41,17 +41,17 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             foreach(var obj in Value.Inventory)
                 CharacterInventory.Add(obj);
             if(CharacterSpecificInteractions==null)
-                CharacterSpecificInteractions= new ObservableCollection<ActionReaction>();
-            if(Value.InteractionRules.ContainsKey(GenericInteractionRulesKeys.CharacterSpecific))
+                CharacterSpecificInteractions= new ObservableCollection<Interaction>();
+            if(Value.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacter))
             {
-                foreach( var car in Value.InteractionRules[GenericInteractionRulesKeys.CharacterSpecific])
+                foreach( var car in Value.Interactions[GenericInteractionRulesKeys.AnyCharacter])
                     CharacterSpecificInteractions.Add(car);
             }
             if (PlayerInteractions == null)
-                PlayerInteractions = new ObservableCollection<ActionReaction>();
-            if(Value.InteractionRules.ContainsKey(GenericInteractionRulesKeys.PlayerResponses))
+                PlayerInteractions = new ObservableCollection<Interaction>();
+            if(Value.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses))
             {
-                foreach (var car in Value.InteractionRules[GenericInteractionRulesKeys.PlayerResponses])
+                foreach (var car in Value.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses])
                     PlayerInteractions.Add(car);
             }
 
@@ -74,7 +74,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             PlayerInteractions.Remove(SelectedPlayerInteraction);
         }
 
-        public ActionReaction SelectedPlayerInteraction
+        public Interaction SelectedPlayerInteraction
         {
             get { return _selectedPlayerInteraction; }
             set
@@ -93,7 +93,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             AllAvailableInteractions.Remove(SelectedAvailablePlayerInteraction);
         }
 
-        public ActionReaction SelectedAvailablePlayerInteraction
+        public Interaction SelectedAvailablePlayerInteraction
         {
             get { return _selectedAvailablePlayerInteraction; }
             set
@@ -112,7 +112,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             CharacterSpecificInteractions.Remove(SelectedCharacterInteraction);
         }
 
-        public ActionReaction SelectedCharacterInteraction
+        public Interaction SelectedCharacterInteraction
         {
             get { return _selectedCharacterInteraction; }
             set
@@ -131,7 +131,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             AllAvailableInteractions.Remove(SelectedAvailableCharacterInteraction);
         }
 
-        public ActionReaction SelectedAvailableCharacterInteraction
+        public Interaction SelectedAvailableCharacterInteraction
         {
             get { return _selectedAvailableCharacterInteraction; }
             set
@@ -144,7 +144,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-        public ObservableCollection<ActionReaction> AllAvailableInteractions
+        public ObservableCollection<Interaction> AllAvailableInteractions
         {
             get { return _allAvailableInteractions; }
             set
@@ -205,13 +205,13 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         private Character _value;
         private ObservableCollection<NonCharacterObject> _allObjectsAvailable;
         private ObservableCollection<NonCharacterObject> _characterInventory;
-        private ObservableCollection<ActionReaction> _allAvailableInteractions;
-        private ActionReaction _selectedAvailableCharacterInteraction;
-        private ActionReaction _selectedAvailablePlayerInteraction;
-        private ActionReaction _selectedCharacterInteraction;
-        private ActionReaction _selectedPlayerInteraction;
-        private ObservableCollection<ActionReaction> _characterSpecificInteractions;
-        private ObservableCollection<ActionReaction> _playerInteractions;
+        private ObservableCollection<Interaction> _allAvailableInteractions;
+        private Interaction _selectedAvailableCharacterInteraction;
+        private Interaction _selectedAvailablePlayerInteraction;
+        private Interaction _selectedCharacterInteraction;
+        private Interaction _selectedPlayerInteraction;
+        private ObservableCollection<Interaction> _characterSpecificInteractions;
+        private ObservableCollection<Interaction> _playerInteractions;
 
         public override Character Value
         {
@@ -262,7 +262,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         }
 
 
-        public ObservableCollection<ActionReaction> CharacterSpecificInteractions
+        public ObservableCollection<Interaction> CharacterSpecificInteractions
         {
             get { return _characterSpecificInteractions; }
 
@@ -276,7 +276,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-        public ObservableCollection<ActionReaction> PlayerInteractions
+        public ObservableCollection<Interaction> PlayerInteractions
         {
             get { return _playerInteractions; }
 

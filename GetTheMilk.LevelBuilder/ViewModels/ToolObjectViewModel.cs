@@ -38,16 +38,16 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             return
                 new ToolObjectViewModel(new Tool
                 {
-                    AllowsAction = Value.AllowsAction,
-                    AllowsIndirectAction = Value.AllowsIndirectAction,
+                    AllowsTemplateAction = Value.AllowsTemplateAction,
+                    AllowsIndirectTemplateAction = Value.AllowsIndirectTemplateAction,
                     BlockMovement = ((Tool)Value).BlockMovement,
                     BuyPrice = ((Tool)Value).BuyPrice,
-                    CloseUpMessage = ((Tool)Value).CloseUpMessage,
                     Name =
                         new Noun
                         {
                             Main = ((Tool)Value).Name.Main,
-                            Narrator = ((Tool)Value).Name.Narrator
+                            Narrator = ((Tool)Value).Name.Narrator,
+                            Description= Value.Name.Description
                         },
                     ObjectTypeId = ((Tool)Value).ObjectTypeId,
                     SellPrice = ((Tool)Value).SellPrice

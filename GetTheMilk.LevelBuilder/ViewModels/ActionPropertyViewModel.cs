@@ -4,6 +4,8 @@ using System.Reflection;
 using System.Windows;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
+using GetTheMilk.Actions.ActionTemplates;
+using System.Collections.Generic;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
@@ -14,7 +16,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         private Visibility _boolInputControlVisibility;
         private Visibility _choiceInputControlVisibility;
         private Visibility _textInputControlVisibility;
-        private ObservableCollection<ActionType> _choiceInputControlSource;
+        private ObservableCollection<string> _choiceInputControlSource;
 
 
         public string PropertyName
@@ -64,14 +66,14 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             {
                 BoolInputControlVisibility = Visibility.Visible;
             }
-            else if(propertyType==typeof(ActionType))
+            else if(propertyType==typeof(string))
             {
                 ChoiceInputControlVisibility = Visibility.Visible;
-                ChoiceInputControlSource = new ObservableCollection<ActionType>();
-                var availableACtionTypes = Enum.GetValues(typeof(ActionType));
+                ChoiceInputControlSource = new ObservableCollection<string>();
+                var availableACtionTypes = new List<string>();//Enum.GetValues(typeof(string));
                 foreach (var availableACtionType in availableACtionTypes)
                 {
-                    ChoiceInputControlSource.Add((ActionType)availableACtionType);
+                    ChoiceInputControlSource.Add(availableACtionType);
                 }
             }
             else
@@ -80,7 +82,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-        public ObservableCollection<ActionType> ChoiceInputControlSource
+        public ObservableCollection<string> ChoiceInputControlSource
         {
             get { return _choiceInputControlSource; }
             set
@@ -151,9 +153,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-        private GameAction _parentAction;
+        private BaseActionTemplate _parentAction;
 
-        public ActionPropertyViewModel(PropertyInfo actionPropertyInfo, GameAction parentAction, GameAction sourceAction)
+        public ActionPropertyViewModel(PropertyInfo actionPropertyInfo, BaseActionTemplate parentAction, BaseActionTemplate sourceAction)
         {
             _actionPropertyInfo = actionPropertyInfo;
             _parentAction = parentAction;

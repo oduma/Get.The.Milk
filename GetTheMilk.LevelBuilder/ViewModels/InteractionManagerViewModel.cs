@@ -48,7 +48,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         private void DoneCommand()
         {
             if(AllExistingInteractions==null)
-                AllExistingInteractions=new ObservableCollection<ActionReaction>();
+                AllExistingInteractions=new ObservableCollection<Interaction>();
 
             CurrentInteractionViewModel.Value.Action = CurrentInteractionViewModel.CurrentAction;
             CurrentInteractionViewModel.Value.Reaction = CurrentInteractionViewModel.CurrentReaction;
@@ -62,11 +62,11 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private void DisplayNewInteractionEditor()
         {
-            CurrentInteractionViewModel = new InteractionViewModel(new ActionReaction());
+            CurrentInteractionViewModel = new InteractionViewModel(new Interaction());
         }
 
-        private ActionReaction _selectedInteraction;
-        public ActionReaction SelectedInteraction
+        private Interaction _selectedInteraction;
+        public Interaction SelectedInteraction
         {
             get { return _selectedInteraction; }
             set
@@ -79,9 +79,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 }
             }
         }
-        private ObservableCollection<ActionReaction> _allExistingInteractions;
+        private ObservableCollection<Interaction> _allExistingInteractions;
 
-        public ObservableCollection<ActionReaction> AllExistingInteractions
+        public ObservableCollection<Interaction> AllExistingInteractions
         {
             get { return _allExistingInteractions; }
             set

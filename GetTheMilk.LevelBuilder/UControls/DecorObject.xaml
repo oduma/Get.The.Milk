@@ -26,6 +26,6 @@
         <Label Grid.Row="3" Grid.Column="0" Content="Blocks Movement"/>
         <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding Path=Value.BlockMovement}"/>
         <Label Grid.Row="4" Grid.Column="0" Content="CloseUp Message"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=Value.CloseUpMessage}"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=Value.Name.Description}"/>
     </Grid>
 </UserControl>

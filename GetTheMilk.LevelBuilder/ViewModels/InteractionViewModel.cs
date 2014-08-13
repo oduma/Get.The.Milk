@@ -6,13 +6,15 @@ using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Interactions;
 using GetTheMilk.Factories;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
+using GetTheMilk.Actions.ActionTemplates;
+using System.Collections.Generic;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
     public class InteractionViewModel:ViewModelBase
     {
-        private ActionReaction _value;
-        private ObservableCollection<ActionType> _allAvailableActionTypes;
+        private Interaction _value;
+        private ObservableCollection<string> _allAvailableActionTypes;
         private ObservableCollection<ActionPropertyViewModel> _actionProperties;
 
         public ObservableCollection<ActionPropertyViewModel> ActionProperties
@@ -43,7 +45,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-        public ActionReaction Value
+        public Interaction Value
         {
             get { return _value; }
             set
@@ -56,7 +58,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-        public GameAction CurrentAction
+        public BaseActionTemplate CurrentAction
         {
             get { return _currentAction; }
             set
@@ -66,7 +68,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-        public GameAction CurrentReaction
+        public BaseActionTemplate CurrentReaction
         {
             get { return _currentReaction; }
             set
@@ -76,8 +78,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-        private ActionType _selectedActionType;
-        public ActionType SelectedActionType
+        private string _selectedActionType;
+        public string SelectedActionType
         {
             get { return _selectedActionType; }
             set
@@ -86,16 +88,16 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 {
                     _selectedActionType = value;
                     RaisePropertyChanged("SelectedActionType");
-                    CurrentAction = ActionsFactory.GetFactory().CreateNewActionInstance(_selectedActionType);
+                    CurrentAction = null;//ActionsFactory.GetFactory().CreateNewActionInstance(_selectedActionType);
                 }
             }
         }
 
-        private ActionType _selectedReactionType;
-        private GameAction _currentAction;
-        private GameAction _currentReaction;
+        private string _selectedReactionType;
+        private BaseActionTemplate _currentAction;
+        private BaseActionTemplate _currentReaction;
 
-        public ActionType SelectedReactionType
+        public string SelectedReactionType
         {
             get { return _selectedReactionType; }
             set
@@ -104,14 +106,14 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 {
                     _selectedReactionType = value;
                     RaisePropertyChanged("SelectedReactionType");
-                    CurrentReaction = ActionsFactory.GetFactory().CreateNewActionInstance(_selectedReactionType);
+                    CurrentReaction = null;// ActionsFactory.GetFactory().CreateNewActionInstance(_selectedReactionType);
 
                 }
             }
         }
 
         private ObservableCollection<ActionPropertyViewModel> DisplayActionProperties(Type actionType,
-            GameAction action, GameAction sourceAction)
+            BaseActionTemplate action, BaseActionTemplate sourceAction)
         {
             var displayProperties =
                 actionType.GetProperties().Where(
@@ -132,11 +134,11 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         }
 
 
-        public InteractionViewModel(ActionReaction selectedInteraction)
+        public InteractionViewModel(Interaction selectedInteraction)
         {
-            var actionTypes = ActionsFactory.GetFactory().GetActions().Where(a => a.ActionCategory=="TwoCharactersAction" || a is ExposeInventory).Select(a=>a.ActionType);
+            var actionTypes = new List<string>();// ActionsFactory.GetFactory().GetActions().Where(a => a.ActionCategory == "TwoCharactersAction" || a is ExposeInventory).Select(a => a.ActionType);
             if (AllAvailableActionTypes == null)
-                AllAvailableActionTypes = new ObservableCollection<ActionType>();
+                AllAvailableActionTypes = new ObservableCollection<string>();
             foreach (var actionType in actionTypes)
             {
                 AllAvailableActionTypes.Add(actionType);
@@ -144,19 +146,19 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             Value = selectedInteraction;
             if (selectedInteraction !=null && selectedInteraction.Action != null)
             {
-                _selectedActionType =selectedInteraction.Action.ActionType;
+                _selectedActionType =selectedInteraction.Action.Category;
                 RaisePropertyChanged("SelectedActionType");
                 CurrentAction = selectedInteraction.Action;
             }
             if (selectedInteraction != null && selectedInteraction.Reaction != null)
             {
-                _selectedReactionType =selectedInteraction.Reaction.ActionType;
+                _selectedReactionType =selectedInteraction.Reaction.Category;
                 RaisePropertyChanged("SelectedReactionType");
                 CurrentReaction = selectedInteraction.Reaction;
             }
         }
 
-        public ObservableCollection<ActionType> AllAvailableActionTypes
+        public ObservableCollection<string> AllAvailableActionTypes
         {
             get { return _allAvailableActionTypes; }
             set

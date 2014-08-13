@@ -31,7 +31,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         public RelayCommand Done { get; private set; }
 
         public CharacterManagerViewModel(ObservableCollection<NonCharacterObject> allAvailableObjects, 
-            ObservableCollection<ActionReaction> allAvailableInteractions)
+            ObservableCollection<Interaction> allAvailableInteractions)
         {
             AllAvailableObjects = allAvailableObjects;
             AllAvailableInteractions = allAvailableInteractions;
@@ -45,7 +45,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         }
 
-        public ObservableCollection<ActionReaction> AllAvailableInteractions { get; set; }
+        public ObservableCollection<Interaction> AllAvailableInteractions { get; set; }
 
         private void DoneCommand()
         {
@@ -53,9 +53,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 AllExistingCharacters=new ObservableCollection<Character>();
             foreach (var obj in CurrentCharacterViewModel.CharacterInventory)
                 CurrentCharacterViewModel.Value.Inventory.Add(obj);
-            RePopulateInteractions(GenericInteractionRulesKeys.CharacterSpecific,
+            RePopulateInteractions(GenericInteractionRulesKeys.AnyCharacter,
                                    CurrentCharacterViewModel.CharacterSpecificInteractions);
-            RePopulateInteractions(GenericInteractionRulesKeys.PlayerResponses,
+            RePopulateInteractions(GenericInteractionRulesKeys.AnyCharacterResponses,
                                    CurrentCharacterViewModel.PlayerInteractions);
             CurrentCharacterViewModel.Value.Inventory.LinkObjectsToInventory();
             if (AllExistingCharacters.Any(c => c.Name.Main == CurrentCharacterViewModel.Value.Name.Main))
@@ -66,11 +66,11 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         }
 
 
-        private void RePopulateInteractions(string interactionType,ObservableCollection<ActionReaction> newInteractions)
+        private void RePopulateInteractions(string interactionType,ObservableCollection<Interaction> newInteractions)
         {
-            if (CurrentCharacterViewModel.Value.InteractionRules.ContainsKey(interactionType))
-                CurrentCharacterViewModel.Value.InteractionRules.Remove(interactionType);
-            CurrentCharacterViewModel.Value.InteractionRules.Add(interactionType, newInteractions.ToArray());
+            if (CurrentCharacterViewModel.Value.Interactions.ContainsKey(interactionType))
+                CurrentCharacterViewModel.Value.Interactions.Remove(interactionType);
+            CurrentCharacterViewModel.Value.Interactions.Add(interactionType, newInteractions.ToArray());
         }
 
         private void DisplayNewCharacterEditor()

@@ -70,7 +70,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
             _interactionManagerViewModel= new InteractionManagerViewModel();
 
-            _interactionManagerViewModel.AllExistingInteractions= new ObservableCollection<ActionReaction>();
+            _interactionManagerViewModel.AllExistingInteractions= new ObservableCollection<Interaction>();
 
             _characterManagerViewModel = new CharacterManagerViewModel(_objectManagerViewModel.AllExistingObjects,
                                                                        _interactionManagerViewModel.

@@ -44,19 +44,19 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             return
                 new WeaponObjectViewModel(new Weapon
                                               {
-                                                  AllowsAction = Value.AllowsAction,
-                                                  AllowsIndirectAction = Value.AllowsIndirectAction,
+                                                  AllowsTemplateAction = Value.AllowsTemplateAction,
+                                                  AllowsIndirectTemplateAction = Value.AllowsIndirectTemplateAction,
                                                   AttackPower = ((Weapon) Value).AttackPower,
                                                   BlockMovement = ((Weapon) Value).BlockMovement,
                                                   BuyPrice = ((Weapon) Value).BuyPrice,
-                                                  CloseUpMessage = ((Weapon) Value).CloseUpMessage,
                                                   DefensePower = ((Weapon) Value).DefensePower,
                                                   Durability = ((Weapon) Value).Durability,
                                                   Name =
                                                       new Noun
                                                           {
                                                               Main = ((Weapon) Value).Name.Main,
-                                                              Narrator = ((Weapon) Value).Name.Narrator
+                                                              Narrator = ((Weapon) Value).Name.Narrator,
+                                                              Description=Value.Name.Description
                                                           },
                                                   ObjectTypeId = ((Weapon) Value).ObjectTypeId,
                                                   SellPrice = ((Weapon) Value).SellPrice,
