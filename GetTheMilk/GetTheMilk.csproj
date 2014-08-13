@@ -65,6 +65,7 @@
     <Compile Include="Actions\ActionPerformers\AllowPassActionPerformer.cs" />
     <Compile Include="Actions\ActionPerformers\AttackActionPerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\BaseActionResponsePerformer.cs" />
+    <Compile Include="Actions\ActionPerformers\Base\BaseHealthAffectingActionPerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\ExposeInventoryActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\IActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\IExposeInventoryActionTemplatePerformer.cs" />

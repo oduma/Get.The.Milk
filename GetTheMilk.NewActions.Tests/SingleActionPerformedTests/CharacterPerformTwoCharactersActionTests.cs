@@ -126,8 +126,8 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var initialTargetHealth = _targetFoeCharacter.Health;
             var result = _activeCharacter.PerformAction(twoCharsAction);
             Assert.AreEqual(ActionResultType.Ok, result.ResultType);
-            Assert.AreEqual(0,_activeCharacter.Health);
-            Assert.AreEqual(0, _targetFoeCharacter.Health);
+            Assert.AreEqual(9,_activeCharacter.Health);
+            Assert.AreEqual(9, _targetFoeCharacter.Health);
         }
 
         [Test]
@@ -156,7 +156,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var initialTargetHealth = _targetFoeCharacter.Health;
             var result = _activeCharacter.PerformAction(twoCharsAction);
             Assert.AreEqual(ActionResultType.Ok, result.ResultType);
-            Assert.AreEqual(initialTargetHealth - 4, _targetFoeCharacter.Health);
+            Assert.AreEqual(initialTargetHealth - 3, _targetFoeCharacter.Health);
             Assert.IsNotNull(twoCharsAction.ActiveCharacter);
             Assert.GreaterOrEqual(0, twoCharsAction.ActiveCharacter.Health);
         }

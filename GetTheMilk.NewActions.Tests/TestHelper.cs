@@ -62,22 +62,6 @@ namespace GetTheMilk.NewActions.Tests
             Assert.AreEqual(o.Interactions[interactionKey][1].Reaction.Name.UniqueId, "Interaction1-ReReaction2");
         }
 
-        public static void ValidateDefaultCharacterInteractions(Character character)
-        {
-            Assert.AreEqual(GenericInteractionRulesKeys.All, character.Interactions.Keys[0]);
-            Assert.AreEqual(2, character.Interactions[GenericInteractionRulesKeys.All].Length);
-            Assert.IsNotNull(character.Interactions[GenericInteractionRulesKeys.All][0].Action);
-            Assert.IsNotNull(character.Interactions[GenericInteractionRulesKeys.All][0].Reaction);
-            Assert.IsNotNull(character.Interactions[GenericInteractionRulesKeys.All][1].Action);
-            Assert.IsNotNull(character.Interactions[GenericInteractionRulesKeys.All][1].Reaction);
-            Assert.AreEqual(character.Interactions[GenericInteractionRulesKeys.All][0].Action.Name.UniqueId, "Attack");
-            Assert.AreEqual(character.Interactions[GenericInteractionRulesKeys.All][0].Reaction.Name.UniqueId, "Attack");
-            Assert.AreEqual(character.Interactions[GenericInteractionRulesKeys.All][1].Action.Name.UniqueId, "Attack");
-            Assert.AreEqual(character.Interactions[GenericInteractionRulesKeys.All][1].Reaction.Name.UniqueId, "Quit");
-            Assert.True(character.AllActions.Any(a => a.Key == character.Interactions[GenericInteractionRulesKeys.All][0].Action.Name.UniqueId));
-            Assert.True(character.AllActions.Any(a => a.Key == character.Interactions[GenericInteractionRulesKeys.All][1].Reaction.Name.UniqueId));
-        }
-
         public static Map GenerateSmallMap()
         {
             return new Map

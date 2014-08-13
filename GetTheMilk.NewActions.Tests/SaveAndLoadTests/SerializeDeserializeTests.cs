@@ -344,8 +344,6 @@ namespace GetTheMilk.NewActions.Tests.SaveLoadTests
             var actual = Character.Load<Character>(characterCore);
             Assert.IsNotNull(actual);
             Assert.AreEqual(skCharacter.Interactions.Count, actual.Interactions.Count);
-            Assert.AreEqual(skCharacter.Interactions[GenericInteractionRulesKeys.All].Count(),
-                            actual.Interactions[GenericInteractionRulesKeys.All].Count());
             Assert.AreEqual(skCharacter.ActiveAttackWeapon, actual.ActiveAttackWeapon);
             Assert.AreEqual(skCharacter.ActiveDefenseWeapon, actual.ActiveDefenseWeapon);
             Assert.True(actual.AllowsTemplateAction(null));
@@ -379,7 +377,6 @@ namespace GetTheMilk.NewActions.Tests.SaveLoadTests
             Assert.AreEqual(player.Experience, actual.Experience);
             Assert.AreEqual(player.Health, actual.Health);
             Assert.AreEqual(player.Interactions.Count, actual.Interactions.Count);
-            Assert.AreEqual(player.Interactions[GenericInteractionRulesKeys.All].Length, actual.Interactions[GenericInteractionRulesKeys.All].Length);
             Assert.AreEqual(player.Name.Main, actual.Name.Main);
             Assert.AreEqual(player.Name.Narrator, actual.Name.Narrator);
             Assert.AreEqual(player.Range, actual.Range);

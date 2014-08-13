@@ -188,41 +188,5 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
             Assert.IsNull(result.ExtraData);
             Assert.AreEqual(typeof(InitiateHostilitiesActionPerformer), result.ForAction.PerformerType);
         }
-        [Test]
-        public void PlayerAttackCharacterAttack()
-        {
-            _interactionCharacter = new Character
-            {
-                Name = new BaseCommon.Noun { Main = "reactor", Narrator = "reactor" },
-                ObjectTypeId = "NPCFoe",
-                AllowsIndirectTemplateAction = TestHelper.AllowsIndirectEverything,
-                AllowsTemplateAction = TestHelper.AllowsEverything,
-                Health=20
-            };
-            var interactionWeapon = new Weapon { ObjectTypeId = "Weapon", Name = new Noun { Main = "ReactorWeapon", Narrator = "reactor weapon" }, AttackPower = 20, DefensePower = 10, WeaponTypes = new WeaponType[] { WeaponType.Attack, WeaponType.Deffense } };
-            _interactionCharacter.Inventory.Add(interactionWeapon);
-            _interactionCharacter.ActiveAttackWeapon = interactionWeapon;
-            _interactionCharacter.ActiveDefenseWeapon = interactionWeapon;
-            var playerWeapon = new Weapon { ObjectTypeId = "Weapon", Name = new Noun { Main = "ReactorWeapon", Narrator = "reactor weapon" }, AttackPower = 20, DefensePower = 10, WeaponTypes = new WeaponType[] { WeaponType.Attack, WeaponType.Deffense } };
-            var player = new Player { AllowsTemplateAction=TestHelper.AllowsEverything,
-                AllowsIndirectTemplateAction=TestHelper.AllowsIndirectEverything,Health=10};
-            player.Inventory.Add(playerWeapon);
-            player.ActiveAttackWeapon = playerWeapon;
-            player.ActiveDefenseWeapon = playerWeapon;
-
-            var actionFour = player.CreateNewInstanceOfAction<TwoCharactersActionTemplate>("Attack");
-            actionFour.TargetCharacter = _interactionCharacter;
-
-            var result = player.PerformAction(actionFour);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(ActionResultType.Ok, result.ResultType);
-            Assert.IsNotNull(result.ExtraData);
-            Assert.AreEqual(2,((List<BaseActionTemplate>)result.ExtraData).Count(a=>a.Category==typeof(TwoCharactersActionTemplate).Name));
-            Assert.AreEqual(1, ((List<BaseActionTemplate>)result.ExtraData).Count(a => a.PerformerType == typeof(AttackActionPerformer)));
-            Assert.AreEqual(1, ((List<BaseActionTemplate>)result.ExtraData).Count(a => a.Name.UniqueId == "Quit"));
-            Assert.AreEqual(typeof(AttackActionPerformer), result.ForAction.PerformerType);
-
-        }
     }
 }

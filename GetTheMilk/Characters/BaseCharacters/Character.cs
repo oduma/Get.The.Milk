@@ -21,21 +21,18 @@ namespace GetTheMilk.Characters.BaseCharacters
         private Walet _walet;
         private Weapon _noWeapon;
 
-
         public Character()
         {
             foreach(var action in GameSettings.GetInstance().AllCharactersActions)
                 AddAvailableAction(action);
             Interactions=new SortedList<string, Interaction[]>();
-            LoadInteractionsForAll();
             ActionsForExposedContents.Add(ContentActionsKeys.NPCFriendly, GameSettings.GetInstance().FriendlyContentActions);
             ActionsForExposedContents.Add(ContentActionsKeys.NPCFoe, GameSettings.GetInstance().FoeContentActions);
         }
 
-        public static T Load<T>(ContainerWithActionsPackage  characterPackages) where T:Character
+        public static T Load<T>(ContainerWithActionsPackage  characterPackages) where T:Character 
         {
             var character= JsonConvert.DeserializeObject<T>(characterPackages.Core, new CharacterJsonConverter());
-            
             var actionTemplates=
                 JsonConvert.DeserializeObject<List<BaseActionTemplate>>(characterPackages.ActionTemplates,
                                                                         new ActionTemplateJsonConverter());
@@ -64,7 +61,11 @@ namespace GetTheMilk.Characters.BaseCharacters
         }
         public CharacterCollection StorageContainer { get; set; }
 
-        public int Health { get; set; }
+        public int Health
+        {
+            get;
+            set;
+        }
 
         public int Experience { get; set; }
 

@@ -9,7 +9,7 @@ using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {
-    public abstract class BaseActionResponsePerformer<T> where T:BaseActionTemplate 
+    public abstract class BaseActionResponsePerformer<T>:BaseHealthAffectingActionPerformer<T> where T:BaseActionTemplate 
     {
         public event EventHandler<FeedbackEventArgs> FeedbackFromOriginalAction;
         
@@ -51,31 +51,36 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
         protected List<BaseActionTemplate> GetAvailableReactions(BaseActionTemplate actionTemplate)
         {
             IActionEnabled active;
-
-            if(actionTemplate.Category==typeof(ObjectResponseActionTemplate).Name)
+            string targetName=(actionTemplate.TargetCharacter==null)?string.Empty:
+                actionTemplate.TargetCharacter.Name.Main + "_Responses";
+            if (actionTemplate.Category == typeof(ObjectResponseActionTemplate).Name)
+            {
                 active = actionTemplate.ActiveObject;
+            }
             else
+            {
                 active = actionTemplate.ActiveCharacter;
+            }
             if (active.Interactions == null)
                 return null;
             if ((!active.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses) 
                 || active.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].
                 FirstOrDefault(ar => ar.Action.Equals(actionTemplate) && ar.Reaction != null) == null)
-                && (!active.Interactions.ContainsKey(GenericInteractionRulesKeys.All)
-                || active.Interactions[GenericInteractionRulesKeys.All].
+                && (!active.Interactions.ContainsKey(targetName)
+                || active.Interactions[targetName].
                 FirstOrDefault(ar => ar.Action.Equals(actionTemplate) && ar.Reaction != null) == null))
                 return null;
-            if (active.Interactions.ContainsKey(GenericInteractionRulesKeys.All) 
+            if (active.Interactions.ContainsKey(targetName) 
                 && active.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses))
             {
-                return active.Interactions[GenericInteractionRulesKeys.All].Where(
+                return active.Interactions[targetName].Where(
                 a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).
                 Union(active.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].Where(
                 a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction)).ToList();
             }
-            else if (active.Interactions.ContainsKey(GenericInteractionRulesKeys.All))
+            else if (active.Interactions.ContainsKey(targetName))
             {
-                return active.Interactions[GenericInteractionRulesKeys.All].Where(
+                return active.Interactions[targetName].Where(
                 a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).ToList();
             }
             return active.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].Where(
@@ -101,19 +106,12 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 return null;
             if ((!actionTemplate.ActiveCharacter.Interactions.ContainsKey(targetMainName)
                 || actionTemplate.ActiveCharacter.Interactions[targetMainName].
-                FirstOrDefault(ar => ar.Action.Equals(actionTemplate) && ar.Reaction != null) == null) &&
-                (!actionTemplate.ActiveCharacter.Interactions.ContainsKey(GenericInteractionRulesKeys.All)
-                    || actionTemplate.ActiveCharacter.Interactions[GenericInteractionRulesKeys.All].
                 FirstOrDefault(ar => ar.Action.Equals(actionTemplate) && ar.Reaction != null) == null))
             
                 return null;
 
-            return (!actionTemplate.ActiveCharacter.Interactions.ContainsKey(targetMainName))
-                ?actionTemplate.ActiveCharacter.Interactions[GenericInteractionRulesKeys.All].
-                Where(a=>a.Action.Equals(actionTemplate) && a.Reaction!=null).Select(a=>a.Reaction).ToList():
-                actionTemplate.ActiveCharacter.Interactions[GenericInteractionRulesKeys.All].Where(a=>a.Action.Equals(actionTemplate) && a.Reaction!=null).Select(a=>a.Reaction).Union(
-                actionTemplate.ActiveCharacter.Interactions[targetMainName].Where(
-                a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction)).ToList();
+            return actionTemplate.ActiveCharacter.Interactions[targetMainName].Where(
+                a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).ToList();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace GetTheMilk
         {
         }
 
-        public static Game CreateGameInstance()
+        public static Game CreateGameInstance() 
         {
             if (Instance.Player == null)
             {

@@ -23,7 +23,7 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         [SetUp]
         public void SetUp()
         {
-            _character = new Character { ObjectTypeId = "NPCFriendly" };
+            _character = new Character { ObjectTypeId = "NPCFriendly", Name = new Noun { Main = "chr", Narrator = "chr" } };
             var factory = ObjectActionsFactory.GetFactory();
 
             var objAction = factory.CreateObjectAction("NPCFriendly");

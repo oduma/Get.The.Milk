@@ -174,7 +174,18 @@ namespace GetTheMilk.Settings
                                                    Past = "teleported",
                                                    Present = "teleport"
                                                }
-                                   }
+                                   },
+                                new ObjectTransferActionTemplate
+                                    {
+                                        PerformerType=typeof(TakeFromActionPerformer),
+                                        Name=
+                                            new Verb
+                                                {
+                                                    UniqueId="TakeFrom",
+                                                    Past="took",
+                                                    Present="take"
+                                                }
+                                    }
 
                            };
             }

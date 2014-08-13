@@ -67,7 +67,8 @@ namespace GetTheMilk.Actions.ActionTemplates
                 Name = Name,
                 StartingAction = StartingAction,
                 CurrentPerformer = CurrentPerformer,
-                ActiveCharacter = ActiveCharacter
+                ActiveCharacter = ActiveCharacter,
+                DefaultDistance=DefaultDistance
             };
         }
 
@@ -88,5 +89,6 @@ namespace GetTheMilk.Actions.ActionTemplates
         {
             return ((IMovementActionTemplatePerformer)CurrentPerformer).Perform(this);
         }
+
     }
 }

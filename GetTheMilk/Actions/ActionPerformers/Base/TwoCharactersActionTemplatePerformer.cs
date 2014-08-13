@@ -10,13 +10,11 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 {
     public class TwoCharactersActionTemplatePerformer:BaseActionResponsePerformer<TwoCharactersActionTemplate>,ITwoCharactersActionTemplatePerformer
     {
-        public event EventHandler<FeedbackEventArgs> FeedbackFromSubAction;
-
         public virtual string PerformerType
         {
             get { return GetType().Name; }
         }
-
+        public event EventHandler<FeedbackEventArgs> FeedbackFromSubAction;
 
         public virtual bool CanPerform(TwoCharactersActionTemplate actionTemplate)
         {
@@ -43,12 +41,6 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 
         }
 
-        public void TwoCharactersActionFeedbackFromSubAction(object sender, FeedbackEventArgs e)
-        {
-            if (FeedbackFromSubAction != null)
-                FeedbackFromSubAction(this, e);
-        }
-
         protected void PileageCharacter(Character pileager, Character pileagee)
         {
             var takeFrom =
@@ -56,12 +48,11 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
             if (takeFrom != null)
             {
                 var pileageeInventory = pileagee.Inventory.ToList();
-                PerformActionResult actionResult=null;
+                PerformActionResult actionResult = null;
                 foreach (var o in pileageeInventory)
                 {
                     if (pileager.Inventory.MaximumCapacity >= pileager.Inventory.Count)
                     {
-                        takeFrom.ActiveCharacter = pileager;
                         takeFrom.TargetCharacter = pileagee;
                         if (o.ObjectCategory == ObjectCategory.Weapon)
                         {
@@ -72,7 +63,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                         }
 
                         takeFrom.TargetObject = o;
-                            actionResult=pileager.PerformAction(takeFrom);
+                        actionResult = pileager.PerformAction(takeFrom);
                         if (FeedbackFromSubAction != null)
                             FeedbackFromSubAction(this, new FeedbackEventArgs(actionResult));
                     }
@@ -87,6 +78,13 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                                         pileagee.Walet.CurrentCapacity)
                     ? pileagee.Walet.CurrentCapacity
                     : (pileager.Walet.MaxCapacity - pileager.Walet.CurrentCapacity));
+        }
+
+
+        public void TwoCharactersActionFeedbackFromSubAction(object sender, FeedbackEventArgs e)
+        {
+            if (FeedbackFromSubAction != null)
+                FeedbackFromSubAction(this, e);
         }
     }
 }

@@ -20,11 +20,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
         {
             var player = new Player();
             Assert.IsNotNull(player.AllActions);
-            Assert.AreEqual(8, player.AllActions.Count);
-            Assert.AreEqual(2,
-                            player.AllActions.Count(
-                                a =>
-                                (a.Key == "Attack" || a.Key == "Quit")));
+            Assert.AreEqual(7, player.AllActions.Count);
         }
 
         [Test]
@@ -57,7 +53,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                 "{\"Contents\":\"[]\",\"InventoryType\":\"1\",\"MaximumCapacity\":\"20\"}",
                 saveResult.PackagedInventory);
             Assert.AreEqual(
-    "{\"All\":[{\"Action\":{\"Message\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.AttackActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Attack\",\"Present\":\"attack\",\"Past\":\"attacked\"},\"Category\":\"TwoCharactersActionTemplate\",\"StartingAction\":false,\"TargetObject\":null,\"TargetCharacter\":null},\"Reaction\":{\"Message\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.AttackActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Attack\",\"Present\":\"attack\",\"Past\":\"attacked\"},\"Category\":\"TwoCharactersActionTemplate\",\"StartingAction\":false,\"TargetObject\":null,\"TargetCharacter\":null}},{\"Action\":{\"Message\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.AttackActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Attack\",\"Present\":\"attack\",\"Past\":\"attacked\"},\"Category\":\"TwoCharactersActionTemplate\",\"StartingAction\":false,\"TargetObject\":null,\"TargetCharacter\":null},\"Reaction\":{\"Message\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.TwoCharactersActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Quit\",\"Present\":\"quit\",\"Past\":\"quited\"},\"Category\":\"TwoCharactersActionTemplate\",\"StartingAction\":false,\"TargetObject\":null,\"TargetCharacter\":null}}]}",
+    "{}",
     saveResult.Interactions);
 
 
@@ -89,15 +85,12 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                         "{\"Health\":0,\"Experience\":1,\"Walet\":{\"MaxCapacity\":200,\"CurrentCapacity\":20},\"Range\":1,\"ActiveDefenseWeapon\":null,\"ActiveAttackWeapon\":null,\"Name\":{\"Main\":\"Player\",\"Narrator\":\"you\",\"Description\":null},\"CellNumber\":0,\"BlockMovement\":true,\"ObjectTypeId\":\"Player\"}",
                     ActionTemplates = "[{\"DestroyActiveObject\":true,\"DestroyTargetObject\":true,\"ChanceOfSuccess\":100,\"PercentOfHealthFailurePenalty\":0,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.ObjectUseOnObjectActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Open\",\"Present\":\"open\",\"Past\":\"opened\"},\"Category\":\"ObjectUseOnObjectActionTemplate\",\"StartingAction\":true,\"TargetObject\":null,\"TargetCharacter\":null}]",
                     PackagedInventory = "{\"Contents\":\"[]\",\"InventoryType\":\"1\",\"MaximumCapacity\":\"20\"}",
-                    Interactions = "{\"All\":[{\"Action\":{\"Message\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.AttackActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Attack\",\"Present\":\"attack\",\"Past\":\"attacked\"},\"Category\":\"TwoCharactersActionTemplate\",\"StartingAction\":false,\"TargetObject\":null,\"TargetCharacter\":null},\"Reaction\":{\"Message\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.AttackActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Attack\",\"Present\":\"attack\",\"Past\":\"attacked\"},\"Category\":\"TwoCharactersActionTemplate\",\"StartingAction\":false,\"TargetObject\":null,\"TargetCharacter\":null}},{\"Action\":{\"Message\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.AttackActionPerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Attack\",\"Present\":\"attack\",\"Past\":\"attacked\"},\"Category\":\"TwoCharactersActionTemplate\",\"StartingAction\":false,\"TargetObject\":null,\"TargetCharacter\":null},\"Reaction\":{\"Message\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.TwoCharactersActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Quit\",\"Present\":\"quit\",\"Past\":\"quited\"},\"Category\":\"TwoCharactersActionTemplate\",\"StartingAction\":false,\"TargetObject\":null,\"TargetCharacter\":null}}]}"
+                    Interactions = "{}"
                 });
             Assert.IsNotNull(actual);
             Assert.AreEqual(expected.AllActions.Count, actual.AllActions.Count);
             var newAction = actual.AllActions.FirstOrDefault(a => a.Value.GetType() == typeof(ObjectUseOnObjectActionTemplate));
             Assert.IsNotNull(newAction);
-            Assert.AreEqual(1, actual.Interactions.Count);
-            Assert.AreEqual(GenericInteractionRulesKeys.All, actual.Interactions.Keys[0]);
-            Assert.AreEqual(2, actual.Interactions[GenericInteractionRulesKeys.All].Length);
 
         }
 

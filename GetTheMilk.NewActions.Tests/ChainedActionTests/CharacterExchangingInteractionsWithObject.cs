@@ -33,11 +33,9 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         }
 
         [Test]
-        public void CharacterHasDefaultInteractions()
+        public void CharacterHasDefaultActions()
         {
-            Assert.AreEqual(1, _character.Interactions.Count);
-            TestHelper.ValidateDefaultCharacterInteractions(_character);
-            Assert.AreEqual(5, _character.AllActions.Count);
+            Assert.AreEqual(4, _character.AllActions.Count);
         }
         [Test]
         public void CharacterReceivingInteractionsFromObjectUnderAnyCharacter()
@@ -51,16 +49,15 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
             _interactionObject.Interactions = new SortedList<string, Interaction[]>();
             _interactionObject.Interactions.Add(GenericInteractionRulesKeys.AnyCharacter, GetInteractions());
             _character.LoadInteractions(_interactionObject,_interactionObject.GetType());
-            Assert.AreEqual(2, _character.Interactions.Count);
-            TestHelper.ValidateDefaultCharacterInteractions(_character);
+            Assert.AreEqual(1, _character.Interactions.Count);
             
-            TestHelper.ValidateAnyCharacterLoadedInteractions(_character, 1,_interactionObject.Name.Main);
+            TestHelper.ValidateAnyCharacterLoadedInteractions(_character, 0,_interactionObject.Name.Main);
 
             TestHelper.ValidateAnyCharacterLoadedInteractions(_interactionObject, 0, GenericInteractionRulesKeys.AnyCharacter);
 
             TestHelper.CheckAllActionsAfterInteractionsLoad(_character,_interactionObject.Name.Main,_interactionObject,GenericInteractionRulesKeys.AnyCharacter);
 
-            Assert.AreEqual(7, _character.AllActions.Count);
+            Assert.AreEqual(6, _character.AllActions.Count);
 
         }
 
@@ -76,14 +73,13 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
             _interactionObject.Interactions = new SortedList<string, Interaction[]>();
             _interactionObject.Interactions.Add(GenericInteractionRulesKeys.AnyCharacterResponses, GetInteractionsResponses());
             _character.LoadInteractions(_interactionObject,_interactionObject.GetType());
-            Assert.AreEqual(2, _character.Interactions.Count);
-            TestHelper.ValidateDefaultCharacterInteractions(_character);
-            TestHelper.ValidateAnyCharacterResponsesInteractions(_character,1,"reactor_Responses");
+            Assert.AreEqual(1, _character.Interactions.Count);
+            TestHelper.ValidateAnyCharacterResponsesInteractions(_character,0,"reactor_Responses");
             TestHelper.ValidateAnyCharacterResponsesInteractions(_interactionObject, 0, GenericInteractionRulesKeys.AnyCharacterResponses);
 
             TestHelper.CheckAllActionsAfterInteractionsLoad(_interactionObject, GenericInteractionRulesKeys.AnyCharacterResponses, _character, "reactor_Responses");
 
-            Assert.AreEqual(8, _character.AllActions.Count);
+            Assert.AreEqual(7, _character.AllActions.Count);
 
         }
 
@@ -102,16 +98,15 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
             _interactionObject.Interactions.Add(GenericInteractionRulesKeys.AnyCharacterResponses, GetInteractionsResponses());
 
             _character.LoadInteractions(_interactionObject, _interactionObject.GetType());
-            Assert.AreEqual(3, _character.Interactions.Count);
+            Assert.AreEqual(2, _character.Interactions.Count);
             Assert.AreEqual(2, _interactionObject.Interactions.Count);
-            TestHelper.ValidateDefaultCharacterInteractions(_character);
-            TestHelper.ValidateAnyCharacterLoadedInteractions(_character,1,_interactionObject.Name.Main);
+            TestHelper.ValidateAnyCharacterLoadedInteractions(_character,0,_interactionObject.Name.Main);
             TestHelper.ValidateAnyCharacterLoadedInteractions(_interactionObject, 0, GenericInteractionRulesKeys.AnyCharacter);
             TestHelper.CheckAllActionsAfterInteractionsLoad(_character, _interactionObject.Name.Main, _interactionObject, GenericInteractionRulesKeys.AnyCharacter);
 
-            TestHelper.ValidateAnyCharacterResponsesInteractions(_character, 2, _interactionObject.Name.Main +"_Responses");
+            TestHelper.ValidateAnyCharacterResponsesInteractions(_character, 1, _interactionObject.Name.Main +"_Responses");
             TestHelper.CheckAllActionsAfterInteractionsLoad(_interactionObject, GenericInteractionRulesKeys.AnyCharacterResponses, _character, "reactor_Responses");
-            Assert.AreEqual(10, _character.AllActions.Count);
+            Assert.AreEqual(9, _character.AllActions.Count);
 
         }
 

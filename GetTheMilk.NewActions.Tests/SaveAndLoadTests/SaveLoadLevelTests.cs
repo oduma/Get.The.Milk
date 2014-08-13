@@ -57,7 +57,8 @@ namespace GetTheMilk.NewActions.Tests.SaveLoadTests
                                                    {
                                                        Name=new Verb{UniqueId="Meet",Past="met",Present="meet"},
                                                        Message="Hi",
-                                                       PerformerType=typeof(CommunicateActionPerformer)
+                                                       PerformerType=typeof(CommunicateActionPerformer),
+                                                       StartingAction=true
                                                    },
                                                    Reaction =
                                                        new TwoCharactersActionTemplate
@@ -77,7 +78,8 @@ namespace GetTheMilk.NewActions.Tests.SaveLoadTests
                                                        PerformerType=typeof(CommunicateActionPerformer)},
                                                    Reaction =
                                                        new ExposeInventoryActionTemplate
-                                                           {FinishActionUniqueId = "CloseInventory"}
+                                                           {Name=new Verb{UniqueId="ExposeInventory",Past="exposed inventory",Present="expose inventory"},
+                                                               FinishActionUniqueId = "CloseInventory"}
                                                },
                                            new Interaction
                                                {
@@ -165,7 +167,7 @@ namespace GetTheMilk.NewActions.Tests.SaveLoadTests
                                                                                      {
                                                                                          new Interaction
                                                                                              {
-                                                                                                 Action = new TwoCharactersActionTemplate{Name=new Verb{UniqueId="Meet",Present="say", Past="said"},Message="Hi",PerformerType=typeof(CommunicateActionPerformer)},
+                                                                                                 Action = new TwoCharactersActionTemplate{Name=new Verb{UniqueId="Meet",Present="say", Past="said"},Message="Hi",PerformerType=typeof(CommunicateActionPerformer),StartingAction=true},
                                                                                                  Reaction = new TwoCharactersActionTemplate{Name=new Verb{UniqueId="Attack",Past="attacked",Present="attack"},PerformerType=typeof(AttackActionPerformer)}
                                                                                              },
                                                                                          new Interaction
@@ -180,13 +182,23 @@ namespace GetTheMilk.NewActions.Tests.SaveLoadTests
                                                                                              },
                                                                                          new Interaction
                                                                                          {
-                                                                                             Action= new TwoCharactersActionTemplate{Name=new Verb{UniqueId="InitiateHostilities",Past="attacked",Present="attack"},PerformerType=typeof(InitiateHostilitiesActionPerformer)},
+                                                                                             Action= new TwoCharactersActionTemplate{Name=new Verb{UniqueId="InitiateHostilities",Past="attacked",Present="attack"},PerformerType=typeof(InitiateHostilitiesActionPerformer),StartingAction=true},
                                                                                              Reaction=new TwoCharactersActionTemplate{Name=new Verb{UniqueId="InitiateHostilities",Past="attacked",Present="attack"},PerformerType=typeof(InitiateHostilitiesActionPerformer)}
                                                                                          }
                                                                                      });
             fInteractionRules.Add(GenericInteractionRulesKeys.AnyCharacterResponses,
                 new Interaction[]
                 {
+                    new Interaction
+                        {
+                            Action = new TwoCharactersActionTemplate{Name=new Verb{UniqueId="Attack",Past="attacked",Present="attack"},PerformerType=typeof(AttackActionPerformer)},
+                            Reaction = new TwoCharactersActionTemplate{Name=new Verb{UniqueId="Attack",Past="attacked",Present="attack"},PerformerType=typeof(AttackActionPerformer)}
+                        },
+                    new Interaction
+                        {
+                            Action = new TwoCharactersActionTemplate{Name=new Verb{UniqueId="Attack",Past="attacked",Present="attack"},PerformerType=typeof(AttackActionPerformer)},
+                            Reaction = new TwoCharactersActionTemplate{Name=new Verb{UniqueId="Quit",Past="quited",Present="quit"},PerformerType=typeof(TwoCharactersActionTemplatePerformer)}
+                        },
                     new Interaction
                     {
                         Action = new TwoCharactersActionTemplate{Name=new Verb{UniqueId="Quit",Past="quited",Present="quit"},PerformerType=typeof(TwoCharactersActionTemplatePerformer)},
@@ -201,7 +213,7 @@ namespace GetTheMilk.NewActions.Tests.SaveLoadTests
                     {
                         Action= new TwoCharactersActionTemplate{Name=new Verb{UniqueId="InitiateHostilities",Past="attacked",Present="attack"},PerformerType=typeof(InitiateHostilitiesActionPerformer)},
                         Reaction = new ExposeInventoryActionTemplate
-                            {FinishActionUniqueId = "Attack",SelfInventory=true}
+                            {Name=new Verb{UniqueId="PrepareForBattle",Past="attacked",Present="attack"}, FinishActionUniqueId = "Attack",SelfInventory=true}
 
                     }
                 });
@@ -236,7 +248,7 @@ namespace GetTheMilk.NewActions.Tests.SaveLoadTests
                                                                    {
                                                                        Action =
                                                                            new ObjectTransferActionTemplate
-                                                                               {Name = new Verb {UniqueId = "Keep", Past="kept",Present="keep"},PerformerType=typeof(ObjectTransferToActiveCharacterPerformer)}
+                                                                               {Name = new Verb {UniqueId = "Keep", Past="kept",Present="keep"},PerformerType=typeof(ObjectTransferToActiveCharacterPerformer),StartingAction=true}
                                                                    }
                                                            }
                                                    }
@@ -430,12 +442,8 @@ namespace GetTheMilk.NewActions.Tests.SaveLoadTests
             Assert.IsNotNull(actual.Characters);
             Assert.AreEqual(level.Characters.Count, actual.Characters.Count);
             Assert.IsNotNull(actual.Characters.First().Interactions);
-            Assert.AreEqual(3, actual.Characters.First().Interactions.Keys.Count);
-            Assert.AreEqual(GenericInteractionRulesKeys.All, actual.Characters.First().Interactions.Keys[0]);
-            Assert.AreEqual(2, actual.Characters.First().Interactions[GenericInteractionRulesKeys.All].Count());
-            Assert.AreEqual("Attack", actual.Characters.First().Interactions[GenericInteractionRulesKeys.All].First().Action.Name.UniqueId);
-            Assert.IsNotNull(actual.Characters.First().Interactions[GenericInteractionRulesKeys.All].First().Reaction);
-            
+            Assert.AreEqual(2, actual.Characters.First().Interactions.Keys.Count);
+           
             Assert.AreEqual(InventoryType.CharacterInventory,actual.Characters[0].Inventory.InventoryType);
             Assert.AreEqual(2,actual.Characters.Count(c => c.StorageContainer.Owner != null));
         }

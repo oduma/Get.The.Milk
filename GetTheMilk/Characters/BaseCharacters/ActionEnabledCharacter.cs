@@ -22,25 +22,6 @@ namespace GetTheMilk.Characters.BaseCharacters
             act.ActiveCharacter = (Character)this;
         }
 
-        protected void LoadInteractionsForAll()
-        {
-
-            Interactions.Add(GenericInteractionRulesKeys.All,
-                              new Interaction[]
-                                  {
-                                      new Interaction
-                                          {
-                                              Action =new TwoCharactersActionTemplate{PerformerType=typeof(AttackActionPerformer),Name=new Verb{UniqueId="Attack",Past="attacked",Present="attack"},StartingAction=false},
-                                              Reaction =new TwoCharactersActionTemplate{PerformerType=typeof(AttackActionPerformer),Name=new Verb{UniqueId= "Attack",Past="attacked",Present="attack"},StartingAction=false}
-                                          },
-                                      new Interaction
-                                          {
-                                              Action =new TwoCharactersActionTemplate{PerformerType= typeof(AttackActionPerformer),Name=new Verb{UniqueId="Attack",Past="attacked",Present="attack"},StartingAction=false},
-                                              Reaction=new TwoCharactersActionTemplate{PerformerType=typeof(TwoCharactersActionTemplatePerformer),Name=new Verb{UniqueId="Quit",Past="quited",Present="quit"},StartingAction=false}
-                                          }
-                                  });
-        }
-
         public SortedList<string, IEnumerable<BaseActionTemplate>> ActionsForExposedContents { get; set; }
 
         public ActionEnabledCharacter():base()
