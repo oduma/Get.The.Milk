@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:GetTheMilk.LevelBuilder.ViewModels"
         xmlns:UCViews="clr-namespace:GetTheMilk.LevelBuilder.UControls" 
-        xmlns:ViewModels="clr-namespace:GetTheMilk.LevelBuilder.ViewModels" Title="Level Builder" Height="350" Width="525">
+        xmlns:ViewModels="clr-namespace:GetTheMilk.LevelBuilder.ViewModels" 
+        Title="Level Builder" Height="450" Width="625">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -25,6 +26,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type ViewModels:InteractionManagerViewModel}">
             <UCViews:InteractionManager />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:ActionManagerViewModel}">
+            <UCViews:ActionManager />
         </DataTemplate>
     </Window.Resources>
 
@@ -53,6 +57,7 @@
                 <MenuItem Header="Objects" Command="{Binding Path=ManageObjects}"/>
                 <MenuItem Header="Characters" Command="{Binding Path=ManageCharacters}"/>
                 <MenuItem Header="Interactions" Command="{Binding Path=ManageInteractions}"/>
+                <MenuItem Header="Actions" Command="{Binding Path=ManageActions}"/>
             </MenuItem>
         </Menu>
         <ContentControl  TabIndex="-1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Path=CurrentViewModel}" Focusable="True"/>

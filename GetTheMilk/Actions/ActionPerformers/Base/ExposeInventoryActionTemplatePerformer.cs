@@ -53,9 +53,9 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
         private BaseActionTemplate GetFinishingAction(Character alternateTargetCharacter, 
             ExposeInventoryActionTemplate actionTemplate)
         {
-            var uniqueId = (string.IsNullOrEmpty(actionTemplate.FinishActionUniqueId))
+            var uniqueId = (string.IsNullOrEmpty(actionTemplate.FinishingAction.ToString()))
                                  ? "CloseInventory"
-                                 : actionTemplate.FinishActionUniqueId;
+                                 : actionTemplate.FinishingAction.ToString();
             var templateAction = actionTemplate.TargetCharacter.CreateNewInstanceOfAction(uniqueId);
             if (templateAction == null)
                 return null;

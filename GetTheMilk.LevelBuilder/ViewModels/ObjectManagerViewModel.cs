@@ -3,6 +3,7 @@ using System.Linq;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
+using GetTheMilk.Actions.Interactions;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
@@ -45,12 +46,13 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         public RelayCommand Done { get; private set; }
         public RelayCommand CreateInstances { get; private set; }
 
-        public ObjectManagerViewModel()
+        public ObjectManagerViewModel(ObservableCollection<Interaction> allAvailableInteractions)
         {
             ObjectCategories = 
                 new ObservableCollection<ObjectCategory> { ObjectCategory.Decor, ObjectCategory.Tool, ObjectCategory.Weapon };
             CreateNewObject= new RelayCommand<ObjectCategory>(DisplayNewObjectEditor);
             NoOfInstances = 1;
+            _allAvailableInteractions = allAvailableInteractions;
             Done= new RelayCommand(DoneCommand);
             CreateInstances= new RelayCommand(CreateInstancesCommand);
         }
@@ -75,17 +77,18 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private void DispalyObjectEditor()
         {
+
             switch(SelectedObject.ObjectCategory)
             {
                 case ObjectCategory.Decor:
 
-                    CurrentObjectViewModel = new DecorObjectViewModel(SelectedObject);
+                    CurrentObjectViewModel = new DecorObjectViewModel(SelectedObject, _allAvailableInteractions);
                     break;
                 case ObjectCategory.Tool:
-                    CurrentObjectViewModel = new ToolObjectViewModel(SelectedObject as Tool);
+                    CurrentObjectViewModel = new ToolObjectViewModel(SelectedObject as Tool, _allAvailableInteractions);
                     break;
                 case ObjectCategory.Weapon:
-                    CurrentObjectViewModel = new WeaponObjectViewModel(SelectedObject as Weapon);
+                    CurrentObjectViewModel = new WeaponObjectViewModel(SelectedObject as Weapon, _allAvailableInteractions);
                     break;
             }
 
@@ -108,14 +111,14 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             switch(obj)
             {
                 case ObjectCategory.Decor:
-                    
-                    CurrentObjectViewModel = new DecorObjectViewModel(new NonCharacterObject());
+
+                    CurrentObjectViewModel = new DecorObjectViewModel(new NonCharacterObject(), _allAvailableInteractions);
                     break;
                     case ObjectCategory.Tool:
-                    CurrentObjectViewModel = new ToolObjectViewModel(new Tool());
+                    CurrentObjectViewModel = new ToolObjectViewModel(new Tool(), _allAvailableInteractions);
                     break;
                     case ObjectCategory.Weapon:
-                    CurrentObjectViewModel = new WeaponObjectViewModel(new Weapon());
+                    CurrentObjectViewModel = new WeaponObjectViewModel(new Weapon(),_allAvailableInteractions);
                     break;
             }
         }
@@ -129,7 +132,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 if (value != _selectedObject)
                 {
                     _selectedObject = value;
-                    RaisePropertyChanged("SelectedObject");
+                    RaisePropertyChanged("SelectedAction");
                     if(_selectedObject!=null)
                         DispalyObjectEditor();
                 }
@@ -150,6 +153,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         }
 
         private ObservableCollection<ObjectCategory> _objectCategories;
+        private ObservableCollection<Interaction> _allAvailableInteractions;
 
         public ObservableCollection<ObjectCategory> ObjectCategories
         {
@@ -159,7 +163,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 if (value != _objectCategories)
                 {
                     _objectCategories = value;
-                    RaisePropertyChanged("ObjectCategories");
+                    RaisePropertyChanged("ActionCategories");
                 }
             }
         }

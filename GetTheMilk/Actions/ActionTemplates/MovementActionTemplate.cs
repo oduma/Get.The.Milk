@@ -1,5 +1,6 @@
 using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
+using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Factories;
 using GetTheMilk.Navigation;
@@ -19,7 +20,7 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         }
 
-
+        
         private Type _performerType;
         public override Type PerformerType
         {
@@ -34,8 +35,6 @@ namespace GetTheMilk.Actions.ActionTemplates
                     CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<IMovementActionTemplatePerformer>(value.Name);
             }
         }
-
-
 
         private IMovementActionTemplatePerformer _currentPerformer;
         public override IActionTemplatePerformer CurrentPerformer
@@ -52,8 +51,10 @@ namespace GetTheMilk.Actions.ActionTemplates
             }
         }
 
+        [LevelBuilderAccesibleProperty(typeof(int))]
         public int TargetCell { get; set; }
 
+        [LevelBuilderAccesibleProperty(typeof(Direction))]
         public Direction Direction { get; set; }
 
         public int DefaultDistance { get; set; }
@@ -72,7 +73,6 @@ namespace GetTheMilk.Actions.ActionTemplates
             };
         }
 
-
         internal override object[] Translate()
         {
             var result = base.Translate();
@@ -80,6 +80,7 @@ namespace GetTheMilk.Actions.ActionTemplates
                 result[10] = " " + Direction.ToString();
             return result;
         }
+
         public override bool CanPerform()
         {
             return ((IMovementActionTemplatePerformer)CurrentPerformer).CanPerform(this);

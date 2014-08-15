@@ -227,7 +227,7 @@ namespace GetTheMilk.NewActions.Tests.SaveLoadTests
                                                        PerformerType=typeof(CommunicateActionPerformer)},
                                                    Reaction =
                                                        new ExposeInventoryActionTemplate
-                                                           {FinishActionUniqueId = "CloseInventory"}
+                                                           {FinishingAction = ExposeInventoryFinishingAction.CloseInventory}
                                                },
                                            new Interaction
                                                {

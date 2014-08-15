@@ -223,7 +223,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             {
                 ActiveCharacter = new Player(),
                 SelfInventory = true,
-                FinishActionUniqueId="Attack"
+                FinishingAction=ExposeInventoryFinishingAction.Attack
             };
 
             Assert.AreEqual("prepare for Battle", defaultActionTemplate.ToString());

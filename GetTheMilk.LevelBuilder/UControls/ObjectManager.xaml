@@ -17,7 +17,6 @@
             <UControls:WeaponObject />
         </DataTemplate>
     </UserControl.Resources>
-
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="9*"/>

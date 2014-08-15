@@ -14,14 +14,14 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         {
             var defaultActionTemplate = new ExposeInventoryActionTemplate
             {
-                FinishActionUniqueId = "Attack",
+                FinishingAction = ExposeInventoryFinishingAction.Attack,
                 PerformerType=typeof(ExposeInventoryActionTemplatePerformer)
             };
 
             var actual = defaultActionTemplate.Clone() as ExposeInventoryActionTemplate;
             defaultActionTemplate.ActiveCharacter = new Player();
             Assert.IsNull(actual.ActiveCharacter);
-            Assert.AreEqual("Attack",actual.FinishActionUniqueId);
+            Assert.AreEqual(ExposeInventoryFinishingAction.Attack,actual.FinishingAction);
 
         }
 

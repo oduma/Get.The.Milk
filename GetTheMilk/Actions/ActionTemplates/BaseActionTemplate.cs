@@ -23,24 +23,21 @@ namespace GetTheMilk.Actions.ActionTemplates
         #endregion
 
         #region Order of execution
+
         public bool StartingAction { get; set; }
-
-
-        //[LevelBuilderAccesibleProperty(typeof(bool))]
-        //public bool FinishTheInteractionOnExecution { get; set; }
 
         #endregion
 
         #region Elements taking part
-        public NonCharacterObject TargetObject { get; set; }
+        public virtual NonCharacterObject TargetObject { get; set; }
 
         [JsonIgnore]
-        public NonCharacterObject ActiveObject { get; set; }
-
-        public Character TargetCharacter { get; set; }
+        public virtual NonCharacterObject ActiveObject { get; set; }
+        
+        public virtual Character TargetCharacter { get; set; }
 
         [JsonIgnore]
-        public Character ActiveCharacter { get; set; }
+        public virtual Character ActiveCharacter { get; set; }
         #endregion
 
         #region Additional methods

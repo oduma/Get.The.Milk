@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
+using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
@@ -21,6 +22,19 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
+        private InteractionsViewModel _currentInteractionsViewModel;
+        public InteractionsViewModel CurrentInteractionsViewModel
+        {
+            get { return _currentInteractionsViewModel; }
+            set
+            {
+                if (value != _currentInteractionsViewModel)
+                {
+                    _currentInteractionsViewModel = value;
+                    RaisePropertyChanged("CurrentInteractionsiewModel");
+                }
+            }
+        }
 
         public abstract ObjectViewModelBase<T> Clone();
     }

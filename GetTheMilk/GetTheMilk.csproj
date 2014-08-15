@@ -140,6 +140,8 @@
     <Compile Include="Characters\NPCFriendlyActions.cs" />
     <Compile Include="Characters\Player.cs" />
     <Compile Include="Characters\PlayerActions.cs" />
+    <Compile Include="Factories\ActionsFactory.cs" />
+    <Compile Include="Factories\ActionsInstaller.cs" />
     <Compile Include="Factories\ObjectActionsFactory.cs" />
     <Compile Include="Factories\ObjectsActionAllowedInstaller.cs" />
     <Compile Include="Factories\TemplatedActionPerformersFactory.cs" />

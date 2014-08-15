@@ -4,19 +4,20 @@ using GetTheMilk.BaseCommon;
 using GetTheMilk.Factories;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Actions.Interactions;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
     public class WeaponObjectViewModel:ObjectViewModelBase<NonCharacterObject>
     {
-        public WeaponObjectViewModel(Weapon weapon)
+        public WeaponObjectViewModel(Weapon weapon, ObservableCollection<Interaction> allAvailableInteractions)
         {
             if(weapon.Name==null)
                 weapon.Name=new Noun();
             if(weapon.WeaponTypes==null)
                 weapon.WeaponTypes=new WeaponType[0];
             Value = weapon;
-            
+            CurrentInteractionsViewModel = new InteractionsViewModel(Value,allAvailableInteractions);
             var objectTypes = ObjectActionsFactory.GetFactory().ListAllRegisterNames(ObjectCategory.Weapon);
             if(AllObjectTypes==null)
                 AllObjectTypes= new ObservableCollection<string>();
@@ -60,8 +61,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                                                           },
                                                   ObjectTypeId = ((Weapon) Value).ObjectTypeId,
                                                   SellPrice = ((Weapon) Value).SellPrice,
-                                                  WeaponTypes = ((Weapon) Value).WeaponTypes
-                                              });
+                                                  WeaponTypes = ((Weapon) Value).WeaponTypes,
+                                                  Interactions=Value.Interactions
+                                              }, CurrentInteractionsViewModel.AllAvailableInteractions);
         }
 
 

@@ -7,12 +7,17 @@ using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Actions.ActionTemplates
 {
+    public enum ExposeInventoryFinishingAction
+    {
+        CloseInventory,
+        Attack
+    }
+
     public class ExposeInventoryActionTemplate:BaseActionTemplate
     {
         public ExposeInventoryActionTemplate()
         {
             StartingAction = false;
-            //the prebuilt in default performer will load
             PerformerType = typeof(ExposeInventoryActionTemplatePerformer);
             Category = GetType().Name;
         }
@@ -48,8 +53,8 @@ namespace GetTheMilk.Actions.ActionTemplates
 
             }
         }
-        [LevelBuilderAccesibleProperty(typeof(string))]
-        public string FinishActionUniqueId { get; set; }
+
+        public ExposeInventoryFinishingAction FinishingAction { get; set; }
 
         [LevelBuilderAccesibleProperty(typeof(bool))]
         public bool SelfInventory { get; set; }
@@ -61,7 +66,7 @@ namespace GetTheMilk.Actions.ActionTemplates
                            Name = Name,
                            StartingAction = StartingAction,
                            SelfInventory = SelfInventory,
-                           FinishActionUniqueId=FinishActionUniqueId,
+                           FinishingAction=FinishingAction,
                            CurrentPerformer=CurrentPerformer,
                            ActiveCharacter=ActiveCharacter
                        };
@@ -70,8 +75,8 @@ namespace GetTheMilk.Actions.ActionTemplates
         internal override object[] Translate()
         {
             var result = base.Translate();
-            result[0] = (FinishActionUniqueId!=null && FinishActionUniqueId == "Attack") ? "prepared for Battle" : "exposed Inventory";
-            result[1] = (FinishActionUniqueId!=null && FinishActionUniqueId=="Attack") ? "prepare for Battle" : "expose Inventory";
+            result[0] = (FinishingAction!=null && FinishingAction.ToString() == "Attack") ? "prepared for Battle" : "exposed Inventory";
+            result[1] = (FinishingAction!=null && FinishingAction.ToString()=="Attack") ? "prepare for Battle" : "expose Inventory";
             if(!SelfInventory)
             {
                 result[3] = (TargetCharacter == null || TargetCharacter.Name == null) ? " to No Target Character Assigned" : " to " + TargetCharacter.Name.Narrator;

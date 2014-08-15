@@ -54,6 +54,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UControls\Action.xaml.cs">
+      <DependentUpon>Action.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UControls\ActionManager.xaml.cs">
+      <DependentUpon>ActionManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UControls\Character.xaml.cs">
       <DependentUpon>Character.xaml</DependentUpon>
     </Compile>
@@ -81,6 +87,9 @@
     <Compile Include="UControls\LoadLevel.xaml.cs">
       <DependentUpon>LoadLevel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UControls\Interactions.xaml.cs">
+      <DependentUpon>Interactions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UControls\ObjectManager.xaml.cs">
       <DependentUpon>ObjectManager.xaml</DependentUpon>
     </Compile>
@@ -91,7 +100,9 @@
       <DependentUpon>WeaponObject.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\CellsGridHelper.cs" />
+    <Compile Include="ViewModels\ActionManagerViewModel.cs" />
     <Compile Include="ViewModels\ActionPropertyViewModel.cs" />
+    <Compile Include="ViewModels\ActionViewModel.cs" />
     <Compile Include="ViewModels\CellViewModel.cs" />
     <Compile Include="ViewModels\CharacterManagerViewModel.cs" />
     <Compile Include="ViewModels\CharacterViewModel.cs" />
@@ -104,6 +115,7 @@
     <Compile Include="ViewModels\LoadLevelViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ObjectHierarchyViewModel.cs" />
+    <Compile Include="ViewModels\InteractionsViewModel.cs" />
     <Compile Include="ViewModels\ObjectManagerViewModel.cs" />
     <Compile Include="ViewModels\ObjectViewModelBase.cs" />
     <Compile Include="ViewModels\ToolObjectViewModel.cs" />
@@ -120,6 +132,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UControls\Action.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UControls\ActionManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UControls\Character.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -156,6 +176,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UControls\Interactions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UControls\ObjectManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -187,6 +211,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="GameData\GDT.gdu">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

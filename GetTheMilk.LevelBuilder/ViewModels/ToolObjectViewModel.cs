@@ -2,16 +2,18 @@
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Factories;
 using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Actions.Interactions;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
     public class ToolObjectViewModel:ObjectViewModelBase<NonCharacterObject>
     {
-        public ToolObjectViewModel(Tool tool)
+        public ToolObjectViewModel(Tool tool, ObservableCollection<Interaction> allAvailableInteractions)
         {
             if(tool.Name==null)
                 tool.Name=new Noun();
             Value = tool;
+            CurrentInteractionsViewModel = new InteractionsViewModel(Value,allAvailableInteractions);
             var objectTypes = ObjectActionsFactory.GetFactory().ListAllRegisterNames(ObjectCategory.Tool);
             if(AllObjectTypes==null)
                 AllObjectTypes= new ObservableCollection<string>();
@@ -50,8 +52,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                             Description= Value.Name.Description
                         },
                     ObjectTypeId = ((Tool)Value).ObjectTypeId,
-                    SellPrice = ((Tool)Value).SellPrice
-                });
+                    SellPrice = ((Tool)Value).SellPrice,
+                    Interactions=Value.Interactions
+                }, CurrentInteractionsViewModel.AllAvailableInteractions);
         }
     }
 }

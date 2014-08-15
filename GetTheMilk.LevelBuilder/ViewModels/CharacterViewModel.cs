@@ -197,7 +197,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 if (value != _selectedObject)
                 {
                     _selectedObject = value;
-                    RaisePropertyChanged("SelectedObject");
+                    RaisePropertyChanged("SelectedAction");
                 }
             }
         }

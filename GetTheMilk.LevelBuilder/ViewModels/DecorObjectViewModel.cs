@@ -2,16 +2,19 @@
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Factories;
 using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Actions.Interactions;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
     public class DecorObjectViewModel:ObjectViewModelBase<NonCharacterObject>
     {
-        public DecorObjectViewModel(NonCharacterObject nonCharacter)
+        public DecorObjectViewModel(NonCharacterObject nonCharacter,
+            ObservableCollection<Interaction> allAvailableInteractions)
         {
             if(nonCharacter.Name==null)
                 nonCharacter.Name=new Noun();
             Value = nonCharacter;
+            CurrentInteractionsViewModel = new InteractionsViewModel(Value, allAvailableInteractions);
             var objectTypes = ObjectActionsFactory.GetFactory().ListAllRegisterNames(ObjectCategory.Decor);
             if(AllObjectTypes==null)
                 AllObjectTypes= new ObservableCollection<string>();
@@ -49,7 +52,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                             Description=Value.Name.Description
                         },
                     ObjectTypeId = Value.ObjectTypeId,
-                });
+                    Interactions=Value.Interactions
+                },CurrentInteractionsViewModel.AllAvailableInteractions);
         }
     }
 }

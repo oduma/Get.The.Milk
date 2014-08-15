@@ -14,36 +14,11 @@ namespace GetTheMilk.LevelBuilder.ViewModels
     public class InteractionViewModel:ViewModelBase
     {
         private Interaction _value;
-        private ObservableCollection<string> _allAvailableActionTypes;
-        private ObservableCollection<ActionPropertyViewModel> _actionProperties;
+        private ObservableCollection<string> _allAvailableActionCategories;
 
-        public ObservableCollection<ActionPropertyViewModel> ActionProperties
-        {
-            get { return _actionProperties; }
-            set
-            {
-                if (value != _actionProperties)
-                {
-                    _actionProperties = value;
-                    RaisePropertyChanged("ActionProperties");
-                }
-            }
-        }
+        public ActionViewModel CurrentActionViewModel { get; set; }
 
-        private ObservableCollection<ActionPropertyViewModel> _reactionProperties;
-
-        public ObservableCollection<ActionPropertyViewModel> ReactionProperties
-        {
-            get { return _reactionProperties; }
-            set
-            {
-                if (value != _reactionProperties)
-                {
-                    _reactionProperties = value;
-                    RaisePropertyChanged("ReactionProperties");
-                }
-            }
-        }
+        public ActionViewModel CurrentReactionViewModel { get; set; }
 
         public Interaction Value
         {
@@ -58,62 +33,42 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
-        public BaseActionTemplate CurrentAction
+        private string _selectedActionCategory;
+        public string SelectedActionCategory
         {
-            get { return _currentAction; }
+            get { return _selectedActionCategory; }
             set
             {
-                _currentAction = value;
-                ActionProperties = DisplayActionProperties(_currentAction.GetType(), _currentAction, _currentAction);
-            }
-        }
-
-        public BaseActionTemplate CurrentReaction
-        {
-            get { return _currentReaction; }
-            set
-            {
-                _currentReaction = value;
-                ReactionProperties = DisplayActionProperties(_currentReaction.GetType(), _currentReaction, _currentReaction);
-            }
-        }
-
-        private string _selectedActionType;
-        public string SelectedActionType
-        {
-            get { return _selectedActionType; }
-            set
-            {
-                if (value != _selectedActionType)
+                if (value != _selectedActionCategory)
                 {
-                    _selectedActionType = value;
-                    RaisePropertyChanged("SelectedActionType");
-                    CurrentAction = null;//ActionsFactory.GetFactory().CreateNewActionInstance(_selectedActionType);
+                    _selectedActionCategory = value;
+                    RaisePropertyChanged("SelectedActionCategory");
+                    Value.Action = ActionsFactory.GetFactory().CreateAction(_selectedActionCategory);
+                    CurrentActionViewModel.Value = Value.Action;
                 }
             }
         }
 
-        private string _selectedReactionType;
-        private BaseActionTemplate _currentAction;
-        private BaseActionTemplate _currentReaction;
+        private string _selectedReactionCategory;
 
-        public string SelectedReactionType
+        public string SelectedReactionCategory
         {
-            get { return _selectedReactionType; }
+            get { return _selectedReactionCategory; }
             set
             {
-                if (value != _selectedReactionType)
+                if (value != _selectedReactionCategory)
                 {
-                    _selectedReactionType = value;
-                    RaisePropertyChanged("SelectedReactionType");
-                    CurrentReaction = null;// ActionsFactory.GetFactory().CreateNewActionInstance(_selectedReactionType);
+                    _selectedReactionCategory = value;
+                    RaisePropertyChanged("SelectedReactionCategory");
+                    Value.Reaction = ActionsFactory.GetFactory().CreateAction(_selectedActionCategory);
+                    CurrentReactionViewModel.Value = Value.Reaction;
 
                 }
             }
         }
 
         private ObservableCollection<ActionPropertyViewModel> DisplayActionProperties(Type actionType,
-            BaseActionTemplate action, BaseActionTemplate sourceAction)
+            BaseActionTemplate action)
         {
             var displayProperties =
                 actionType.GetProperties().Where(
@@ -121,7 +76,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             var props=new ObservableCollection<ActionPropertyViewModel>();
             foreach (var displayProperty in displayProperties)
             {
-                props.Add(new ActionPropertyViewModel(displayProperty,action,sourceAction)
+                props.Add(new ActionPropertyViewModel(displayProperty,action,action)
                               {
                                   PropertyName = displayProperty.Name,
                                   PropertyType =
@@ -136,37 +91,41 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         public InteractionViewModel(Interaction selectedInteraction)
         {
-            var actionTypes = new List<string>();// ActionsFactory.GetFactory().GetActions().Where(a => a.ActionCategory == "TwoCharactersAction" || a is ExposeInventory).Select(a => a.ActionType);
-            if (AllAvailableActionTypes == null)
-                AllAvailableActionTypes = new ObservableCollection<string>();
-            foreach (var actionType in actionTypes)
-            {
-                AllAvailableActionTypes.Add(actionType);
-            }
+            if (AllAvailableActionCategories == null)
+                AllAvailableActionCategories = new ObservableCollection<string> { CategorysCatalog.MovementCategory,
+                    CategorysCatalog.ExposeInventoryCategory,CategorysCatalog.NoObjectCategory,
+                    CategorysCatalog.OneObjectCategory,CategorysCatalog.ObjectTransferCategory,
+                    CategorysCatalog.ObjectUseOnObjectCategory,CategorysCatalog.ObjectResponseCategory,
+                    CategorysCatalog.TwoCharactersCategory};
+            ;
             Value = selectedInteraction;
+            if (CurrentActionViewModel == null)
+                CurrentActionViewModel = new ActionViewModel();
+            if (CurrentReactionViewModel == null)
+                CurrentReactionViewModel = new ActionViewModel();
             if (selectedInteraction !=null && selectedInteraction.Action != null)
             {
-                _selectedActionType =selectedInteraction.Action.Category;
-                RaisePropertyChanged("SelectedActionType");
-                CurrentAction = selectedInteraction.Action;
+                _selectedActionCategory =selectedInteraction.Action.Category;
+                RaisePropertyChanged("SelectedActionCategory");
+                CurrentActionViewModel.Value = selectedInteraction.Action;
             }
             if (selectedInteraction != null && selectedInteraction.Reaction != null)
             {
-                _selectedReactionType =selectedInteraction.Reaction.Category;
-                RaisePropertyChanged("SelectedReactionType");
-                CurrentReaction = selectedInteraction.Reaction;
+                _selectedReactionCategory =selectedInteraction.Reaction.Category;
+                RaisePropertyChanged("SelectedReactionCategory");
+                CurrentReactionViewModel.Value = selectedInteraction.Reaction;
             }
         }
 
-        public ObservableCollection<string> AllAvailableActionTypes
+        public ObservableCollection<string> AllAvailableActionCategories
         {
-            get { return _allAvailableActionTypes; }
+            get { return _allAvailableActionCategories; }
             set
             {
-                if(value!=_allAvailableActionTypes)
+                if(value!=_allAvailableActionCategories)
                 {
-                    _allAvailableActionTypes = value;
-                    RaisePropertyChanged("AllAvailableActionTypes");
+                    _allAvailableActionCategories = value;
+                    RaisePropertyChanged("AllAvailableActionCategories");
                 }
             }
         }

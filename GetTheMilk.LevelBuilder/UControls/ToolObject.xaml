@@ -3,36 +3,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:UControls="clr-namespace:GetTheMilk.LevelBuilder.UControls"
+             xmlns:ViewModels="clr-namespace:GetTheMilk.LevelBuilder.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Object Type:"/>
-        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=AllObjectTypes}" SelectedItem="{Binding Path=Value.ObjectTypeId}"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Main Name"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Value.Name.Main}"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Narrator Name"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Value.Name.Narrator}"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Blocks Movement"/>
-        <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding Path=Value.BlockMovement}"/>
-        <Label Grid.Row="4" Grid.Column="0" Content="CloseUp Message"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=Value.Name.Description}"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Buy Price"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=Value.BuyPrice}"/>
-        <Label Grid.Row="6" Grid.Column="0" Content="Sell Price"/>
-        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path=Value.SellPrice}"/>
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type ViewModels:InteractionsViewModel}">
+            <UControls:ObjectInteractions />
+        </DataTemplate>
+    </UserControl.Resources>
 
-    </Grid>
+    <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <TabItem Header="Object Properties">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Object Type:"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=AllObjectTypes}" SelectedItem="{Binding Path=Value.ObjectTypeId}"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Main Name"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Value.Name.Main}"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Narrator Name"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Value.Name.Narrator}"/>
+                <Label Grid.Row="3" Grid.Column="0" Content="Blocks Movement"/>
+                <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding Path=Value.BlockMovement}"/>
+                <Label Grid.Row="4" Grid.Column="0" Content="CloseUp Message"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path=Value.Name.Description}"/>
+                <Label Grid.Row="5" Grid.Column="0" Content="Buy Price"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=Value.BuyPrice}"/>
+                <Label Grid.Row="6" Grid.Column="0" Content="Sell Price"/>
+                <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path=Value.SellPrice}"/>
+
+            </Grid>
+        </TabItem>
+        <TabItem Header="Object Interactions">
+            <ContentControl  TabIndex="-1"
+                         HorizontalAlignment="Stretch" 
+                         VerticalAlignment="Stretch" 
+                         Content="{Binding Path=CurrentInteractionsViewModel}" Focusable="True"/>
+        </TabItem>
+
+    </TabControl>
 </UserControl>

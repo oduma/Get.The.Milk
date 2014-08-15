@@ -143,7 +143,7 @@ namespace GetTheMilk.NewActions.Tests.IntegrationTests
             Assert.IsEmpty(((InventoryExtraData)actionResult.ExtraData).Contents[0].PossibleUsses);
 
             //the user closes his inventory
-            var closeInventory = level.Player.CreateNewInstanceOfAction(exposeInventory.FinishActionUniqueId);
+            var closeInventory = level.Player.CreateNewInstanceOfAction(exposeInventory.FinishingAction.ToString());
             actionResult = level.Player.PerformAction(closeInventory);
             Assert.AreEqual(ActionResultType.Ok, actionResult.ResultType);
             //the user runs to the east

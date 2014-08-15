@@ -229,7 +229,7 @@ namespace GetTheMilk.NewActions.Tests
                                 },
                                 Reaction = new ExposeInventoryActionTemplate
                                 {
-                                    FinishActionUniqueId = "CloseInventory",
+                                    FinishingAction = ExposeInventoryFinishingAction.CloseInventory,
                                     PerformerType=typeof( ExposeInventoryActionTemplatePerformer),
                                     Name= new Verb{UniqueId="ExposeForSale",Past="exposed",Present="exposed"}
                                 }

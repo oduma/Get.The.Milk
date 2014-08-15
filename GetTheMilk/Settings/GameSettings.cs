@@ -219,7 +219,7 @@ namespace GetTheMilk.Settings
                                                },
                                        StartingAction = true,
                                        SelfInventory = true,
-                                       FinishActionUniqueId = "CloseInventory"
+                                       FinishingAction = ExposeInventoryFinishingAction.CloseInventory
                                    },
                                new NoObjectActionTemplate
                                    {

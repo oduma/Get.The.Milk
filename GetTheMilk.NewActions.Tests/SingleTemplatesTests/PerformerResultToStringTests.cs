@@ -232,7 +232,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 {
                     ActiveCharacter = new Player(),
                     SelfInventory = true,
-                    FinishActionUniqueId="Attack"
+                    FinishingAction=ExposeInventoryFinishingAction.Attack
                 }
             };
             Assert.AreEqual("you tried to prepare for Battle but couldn't.", actual.ToString());
@@ -283,7 +283,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 {
                     ActiveCharacter = new Player(),
                     SelfInventory = true,
-                    FinishActionUniqueId = "Attack"
+                    FinishingAction = ExposeInventoryFinishingAction.Attack
                 }
             };
             Assert.AreEqual("you prepared for Battle.", actual.ToString());

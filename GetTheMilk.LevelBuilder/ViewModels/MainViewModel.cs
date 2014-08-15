@@ -11,6 +11,7 @@ using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Utils.IO;
 using Newtonsoft.Json;
+using GetTheMilk.Actions.ActionTemplates;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
@@ -40,6 +41,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         private ObservableCollection<SizeOfLevel> _allSizes;
         private LevelMapViewModel _levelMapViewModel;
         private InteractionManagerViewModel _interactionManagerViewModel;
+        private ActionManagerViewModel _actionManagerViewModel;
 
         public MainViewModel()
         {
@@ -64,19 +66,32 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
             ManageInteractions= new RelayCommand(DisplayInteractionManager);
 
-            _objectManagerViewModel=new ObjectManagerViewModel();
+            ManageActions = new RelayCommand(DisplayActionManager);
+
+            _actionManagerViewModel = new ActionManagerViewModel();
+
+            _actionManagerViewModel.AllExistingActions = new ObservableCollection<BaseActionTemplate>();
+
+            _interactionManagerViewModel = new InteractionManagerViewModel();
+
+            _interactionManagerViewModel.AllExistingInteractions = new ObservableCollection<Interaction>();
+
+            _objectManagerViewModel = new ObjectManagerViewModel(_interactionManagerViewModel.AllExistingInteractions);
 
             _objectManagerViewModel.AllExistingObjects = new ObservableCollection<NonCharacterObject>();
-
-            _interactionManagerViewModel= new InteractionManagerViewModel();
-
-            _interactionManagerViewModel.AllExistingInteractions= new ObservableCollection<Interaction>();
 
             _characterManagerViewModel = new CharacterManagerViewModel(_objectManagerViewModel.AllExistingObjects,
                                                                        _interactionManagerViewModel.
                                                                            AllExistingInteractions);
             _characterManagerViewModel.AllExistingCharacters= new ObservableCollection<Character>();
 
+        }
+
+        private void DisplayActionManager()
+        {
+            if (_actionManagerViewModel == null)
+                _actionManagerViewModel = new ActionManagerViewModel();
+            CurrentViewModel = _actionManagerViewModel;
         }
 
         private void DisplayInteractionManager()
@@ -103,7 +118,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         private void DisplayObjectManager()
         {
             if(_objectManagerViewModel==null)
-                _objectManagerViewModel=new ObjectManagerViewModel();
+                _objectManagerViewModel=new ObjectManagerViewModel(_interactionManagerViewModel.AllExistingInteractions);
 
             CurrentViewModel = _objectManagerViewModel;
         }
@@ -186,6 +201,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         public RelayCommand ManageCharacters { get; private set; }
 
         public RelayCommand ManageInteractions { get; private set; }
+
+        public RelayCommand ManageActions { get; private set; }
 
         public ObservableCollection<SizeOfLevel> AllSizes 
         {

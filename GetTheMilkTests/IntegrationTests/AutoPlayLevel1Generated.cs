@@ -153,7 +153,7 @@ namespace GetTheMilkTests.IntegrationTests
                                       {
                                           ActiveCharacter = level.Player,
                                           TargetCharacter = level.Player,
-                                          FinishActionUniqueId = "CloseInventory"
+                                          FinishingAction = "CloseInventory"
                                       };
             actionResult = level.Player.PerformAction(exposeInventory);
 

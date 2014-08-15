@@ -17,7 +17,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 if(value!=_objectCategories)
                 {
                     _objectCategories = value;
-                    RaisePropertyChanged("ObjectCategories");
+                    RaisePropertyChanged("ActionCategories");
                 }
             }
         }

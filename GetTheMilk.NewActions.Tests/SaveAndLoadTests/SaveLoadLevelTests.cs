@@ -79,7 +79,7 @@ namespace GetTheMilk.NewActions.Tests.SaveLoadTests
                                                    Reaction =
                                                        new ExposeInventoryActionTemplate
                                                            {Name=new Verb{UniqueId="ExposeInventory",Past="exposed inventory",Present="expose inventory"},
-                                                               FinishActionUniqueId = "CloseInventory"}
+                                                               FinishingAction = ExposeInventoryFinishingAction.CloseInventory}
                                                },
                                            new Interaction
                                                {
@@ -213,7 +213,7 @@ namespace GetTheMilk.NewActions.Tests.SaveLoadTests
                     {
                         Action= new TwoCharactersActionTemplate{Name=new Verb{UniqueId="InitiateHostilities",Past="attacked",Present="attack"},PerformerType=typeof(InitiateHostilitiesActionPerformer)},
                         Reaction = new ExposeInventoryActionTemplate
-                            {Name=new Verb{UniqueId="PrepareForBattle",Past="attacked",Present="attack"}, FinishActionUniqueId = "Attack",SelfInventory=true}
+                            {Name=new Verb{UniqueId="PrepareForBattle",Past="attacked",Present="attack"}, FinishingAction = ExposeInventoryFinishingAction.Attack,SelfInventory=true}
 
                     }
                 });

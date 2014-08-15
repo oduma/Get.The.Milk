@@ -68,7 +68,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             _character.Name = new Noun { Main = "testChar", Narrator = "test char" };
             _character.AddAvailableAction(new ExposeInventoryActionTemplate
                                         {
-                                            FinishActionUniqueId="CloseInventory",
+                                            FinishingAction=ExposeInventoryFinishingAction.CloseInventory,
                                             PerformerType=typeof(ExposeInventoryActionTemplatePerformer),
                                             Name= new Verb{UniqueId="ExposeSelfInventory",Past="exposed inventory",Present="expose inventory"}
                                         });

@@ -94,7 +94,7 @@ namespace GetTheMilk.UI.ViewModels
                 var exposeInventory = _player.CreateNewInstanceOfAction<ExposeInventoryActionTemplate>("ExposeInventory");
                 exposeInventory.ActiveCharacter = _player;
                 exposeInventory.TargetCharacter = _player;
-                exposeInventory.FinishActionUniqueId = "CloseInentory";
+                exposeInventory.FinishingAction = ExposeInventoryFinishingAction.CloseInventory;
                 return exposeInventory;
             }
             InventoryShowHide = "Show Inventory";
