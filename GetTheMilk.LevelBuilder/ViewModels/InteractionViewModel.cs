@@ -60,34 +60,12 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 {
                     _selectedReactionCategory = value;
                     RaisePropertyChanged("SelectedReactionCategory");
-                    Value.Reaction = ActionsFactory.GetFactory().CreateAction(_selectedActionCategory);
+                    Value.Reaction = ActionsFactory.GetFactory().CreateAction(_selectedReactionCategory);
                     CurrentReactionViewModel.Value = Value.Reaction;
 
                 }
             }
         }
-
-        private ObservableCollection<ActionPropertyViewModel> DisplayActionProperties(Type actionType,
-            BaseActionTemplate action)
-        {
-            var displayProperties =
-                actionType.GetProperties().Where(
-                    p => p.GetCustomAttributes(typeof (LevelBuilderAccesiblePropertyAttribute), false).Any());
-            var props=new ObservableCollection<ActionPropertyViewModel>();
-            foreach (var displayProperty in displayProperties)
-            {
-                props.Add(new ActionPropertyViewModel(displayProperty,action,action)
-                              {
-                                  PropertyName = displayProperty.Name,
-                                  PropertyType =
-                                      ((LevelBuilderAccesiblePropertyAttribute)
-                                       displayProperty.GetCustomAttributes(
-                                           typeof (LevelBuilderAccesiblePropertyAttribute), false).First()).SourceType
-                              });
-            }
-            return props;
-        }
-
 
         public InteractionViewModel(Interaction selectedInteraction)
         {

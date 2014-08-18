@@ -115,7 +115,6 @@
     <Compile Include="Actions\BaseActions\ActionsHelper.cs" />
     <Compile Include="Actions\BaseActions\ChanceOfSuccess.cs" />
     <Compile Include="Actions\BaseActions\Hit.cs" />
-    <Compile Include="Actions\BaseActions\LevelBuilderAccesiblePropertyAttribute.cs" />
     <Compile Include="Actions\CategorysCatalog.cs" />
     <Compile Include="Actions\Interactions\Interaction.cs" />
     <Compile Include="BaseCommon\CollectionPackage.cs" />

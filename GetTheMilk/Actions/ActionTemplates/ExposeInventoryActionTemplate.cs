@@ -37,7 +37,6 @@ namespace GetTheMilk.Actions.ActionTemplates
             }
         }
 
-
         IExposeInventoryActionTemplatePerformer _currentPerformer;
 
         public override IActionTemplatePerformer CurrentPerformer
@@ -56,7 +55,6 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         public ExposeInventoryFinishingAction FinishingAction { get; set; }
 
-        [LevelBuilderAccesibleProperty(typeof(bool))]
         public bool SelfInventory { get; set; }
 
         public override BaseActionTemplate Clone()
@@ -83,7 +81,6 @@ namespace GetTheMilk.Actions.ActionTemplates
             }
             return result;
         }
-
 
         public override bool CanPerform()
         {

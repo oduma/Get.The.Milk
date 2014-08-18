@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using Sciendo.Common.IOC;
+using System.Collections.Generic;
+using System;
 
 namespace GetTheMilk.Factories
 {
@@ -37,6 +39,12 @@ namespace GetTheMilk.Factories
         {
             var cmps = _componentResolver.ResolveAll<T>();
             return cmps.ToArray();
+        }
+
+        public IEnumerable<Type> ListAllActionPerformerTypes()
+        {
+            var tmp = _componentResolver.ResolveAll().Select(p => p.GetType()).ToList();
+            return _componentResolver.ResolveAll<IActionTemplatePerformer>().Select(p => p.GetType());
         }
     }
 }

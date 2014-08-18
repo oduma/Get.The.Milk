@@ -35,8 +35,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private bool CanBeDone()
         {
-            return CurrentInteractionViewModel!=null && (CurrentInteractionViewModel.CurrentAction != null &&
-                    CurrentInteractionViewModel.CurrentReaction != null);
+            return CurrentInteractionViewModel!=null && (CurrentInteractionViewModel.Value.Action != null &&
+                    CurrentInteractionViewModel.Value.Reaction != null);
         }
 
         private void DispalyInteractionEditor()
@@ -50,8 +50,6 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             if(AllExistingInteractions==null)
                 AllExistingInteractions=new ObservableCollection<Interaction>();
 
-            CurrentInteractionViewModel.Value.Action = CurrentInteractionViewModel.CurrentAction;
-            CurrentInteractionViewModel.Value.Reaction = CurrentInteractionViewModel.CurrentReaction;
             var existingInteraction =
                 AllExistingInteractions.FirstOrDefault(i => i.ToString() == CurrentInteractionViewModel.Value.ToString());
             if (existingInteraction != null)

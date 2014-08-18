@@ -51,10 +51,8 @@ namespace GetTheMilk.Actions.ActionTemplates
             }
         }
 
-        [LevelBuilderAccesibleProperty(typeof(int))]
         public int TargetCell { get; set; }
 
-        [LevelBuilderAccesibleProperty(typeof(Direction))]
         public Direction Direction { get; set; }
 
         public int DefaultDistance { get; set; }

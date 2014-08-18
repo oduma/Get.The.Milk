@@ -13,7 +13,6 @@ namespace GetTheMilk.Actions.ActionTemplates
             Category = GetType().Name;
         }
 
-        [LevelBuilderAccesibleProperty(typeof(string))]
         public string Message { get; set; }
 
         private Type _performerType;

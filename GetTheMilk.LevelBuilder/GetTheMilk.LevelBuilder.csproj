@@ -69,6 +69,9 @@
     <Compile Include="UControls\DecorObject.xaml.cs">
       <DependentUpon>DecorObject.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UControls\ExposeInventoryAction.xaml.cs">
+      <DependentUpon>ExposeInventoryAction.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UControls\FloorPlan.xaml.cs">
       <DependentUpon>FloorPlan.xaml</DependentUpon>
     </Compile>
@@ -90,11 +93,20 @@
     <Compile Include="UControls\Interactions.xaml.cs">
       <DependentUpon>Interactions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UControls\MovementAction.xaml.cs">
+      <DependentUpon>MovementAction.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UControls\ObjectManager.xaml.cs">
       <DependentUpon>ObjectManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UControls\ObjectUseOnObjectAction.xaml.cs">
+      <DependentUpon>ObjectUseOnObjectAction.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UControls\ToolObject.xaml.cs">
       <DependentUpon>ToolObject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UControls\TwoCharactersAction.xaml.cs">
+      <DependentUpon>TwoCharactersAction.xaml</DependentUpon>
     </Compile>
     <Compile Include="UControls\WeaponObject.xaml.cs">
       <DependentUpon>WeaponObject.xaml</DependentUpon>
@@ -107,6 +119,7 @@
     <Compile Include="ViewModels\CharacterManagerViewModel.cs" />
     <Compile Include="ViewModels\CharacterViewModel.cs" />
     <Compile Include="ViewModels\DecorObjectViewModel.cs" />
+    <Compile Include="ViewModels\ExposeInventoryActionViewModel.cs" />
     <Compile Include="ViewModels\FloorPlanViewModel.cs" />
     <Compile Include="ViewModels\InteractionManagerViewModel.cs" />
     <Compile Include="ViewModels\InteractionViewModel.cs" />
@@ -114,11 +127,14 @@
     <Compile Include="ViewModels\LevelPropertiesViewModel.cs" />
     <Compile Include="ViewModels\LoadLevelViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MovementActionViewModel.cs" />
     <Compile Include="ViewModels\ObjectHierarchyViewModel.cs" />
     <Compile Include="ViewModels\InteractionsViewModel.cs" />
     <Compile Include="ViewModels\ObjectManagerViewModel.cs" />
+    <Compile Include="ViewModels\ObjectUseOnObjectActionViewModel.cs" />
     <Compile Include="ViewModels\ObjectViewModelBase.cs" />
     <Compile Include="ViewModels\ToolObjectViewModel.cs" />
+    <Compile Include="ViewModels\TwoCharactersActionViewModel.cs" />
     <Compile Include="ViewModels\WeaponObjectViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -152,6 +168,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UControls\ExposeInventoryAction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UControls\FloorPlan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -180,11 +200,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UControls\MovementAction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UControls\ObjectManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UControls\ObjectUseOnObjectAction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UControls\ToolObject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UControls\TwoCharactersAction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

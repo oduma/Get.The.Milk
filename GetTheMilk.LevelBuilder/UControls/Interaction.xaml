@@ -30,20 +30,27 @@
                   HorizontalAlignment="Stretch" 
                   VerticalAlignment="Top">
         </ComboBox>
-        
-        <ContentControl  TabIndex="-1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+        <ScrollViewer Grid.ColumnSpan="2" 
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0">
+
+            <ContentControl  TabIndex="-1"
                          HorizontalAlignment="Stretch" 
                          VerticalAlignment="Stretch" 
                          Content="{Binding Path=CurrentActionViewModel}" Focusable="True"/>
-
+        </ScrollViewer>
         <Label Content="Reaction" Grid.Row="2" Grid.Column="0"/>
         <ComboBox Grid.Column="1" Grid.Row="2" 
                   ItemsSource="{Binding Path=AllAvailableActionCategories}" 
                   SelectedItem="{Binding Path=SelectedReactionCategory}"  HorizontalAlignment="Stretch" VerticalAlignment="Top">
         </ComboBox>
-        <ContentControl  TabIndex="-1" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+        <ScrollViewer Grid.ColumnSpan="2" 
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="0">
+
+
+            <ContentControl  TabIndex="-1"
                          HorizontalAlignment="Stretch" 
                          VerticalAlignment="Stretch" 
                          Content="{Binding Path=CurrentReactionViewModel}" Focusable="True"/>
+        </ScrollViewer>
     </Grid>
 </UserControl>
