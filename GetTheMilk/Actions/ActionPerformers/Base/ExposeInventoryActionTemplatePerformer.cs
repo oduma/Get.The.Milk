@@ -10,9 +10,9 @@ using GetTheMilk.Utils;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {
-    public class ExposeInventoryActionTemplatePerformer:IExposeInventoryActionTemplatePerformer
+    public class ExposeInventoryActionTemplatePerformer:IActionTemplatePerformer
     {
-        public bool CanPerform(ExposeInventoryActionTemplate actionTemplate)
+        public bool CanPerform(BaseActionTemplate actionTemplate)
         {
             if (actionTemplate.ActiveCharacter == null || actionTemplate.TargetCharacter == null)
                 return false;
@@ -21,8 +21,11 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 
         }
 
-        public PerformActionResult Perform(ExposeInventoryActionTemplate actionTemplate)
+        public PerformActionResult Perform(BaseActionTemplate act)
         {
+            ExposeInventoryActionTemplate actionTemplate;
+            if (!act.TryConvertTo(out actionTemplate))
+                return new PerformActionResult { ResultType = ActionResultType.NotOk, ForAction = act };
             var result = new PerformActionResult { ResultType = ActionResultType.Ok, ForAction = actionTemplate };
             var tempTargetCharacter = actionTemplate.TargetCharacter;
             if (actionTemplate.SelfInventory)
@@ -115,6 +118,17 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
         public string PerformerType
         {
             get { return GetType().Name; }
+        }
+
+
+        public event EventHandler<FeedbackEventArgs> FeedbackFromOriginalAction;
+
+        public event EventHandler<FeedbackEventArgs> FeedbackFromSubAction;
+
+
+        public string Category
+        {
+            get { return CategorysCatalog.ExposeInventoryCategory; }
         }
     }
 }

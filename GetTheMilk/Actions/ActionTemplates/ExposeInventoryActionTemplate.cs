@@ -22,37 +22,6 @@ namespace GetTheMilk.Actions.ActionTemplates
             Category = GetType().Name;
         }
 
-        private Type _performerType;
-        public override Type PerformerType
-        {
-            get
-            {
-                return _performerType;
-            }
-            set
-            {
-                _performerType = value;
-                if (_performerType != null)
-                    CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<IExposeInventoryActionTemplatePerformer>(value.Name);
-            }
-        }
-
-        IExposeInventoryActionTemplatePerformer _currentPerformer;
-
-        public override IActionTemplatePerformer CurrentPerformer
-        {
-            get
-            {
-                return _currentPerformer;
-            }
-            protected set
-            {
-                _currentPerformer = (IExposeInventoryActionTemplatePerformer)value;
-                BuildPerformer<IExposeInventoryActionTemplatePerformer>(ref _currentPerformer);
-
-            }
-        }
-
         public ExposeInventoryFinishingAction FinishingAction { get; set; }
 
         public bool SelfInventory { get; set; }
@@ -80,16 +49,6 @@ namespace GetTheMilk.Actions.ActionTemplates
                 result[3] = (TargetCharacter == null || TargetCharacter.Name == null) ? " to No Target Character Assigned" : " to " + TargetCharacter.Name.Narrator;
             }
             return result;
-        }
-
-        public override bool CanPerform()
-        {
-            return ((IExposeInventoryActionTemplatePerformer)CurrentPerformer).CanPerform(this);
-        }
-
-        public override PerformActionResult Perform()
-        {
-            return ((IExposeInventoryActionTemplatePerformer)CurrentPerformer).Perform(this);
         }
     }
 }

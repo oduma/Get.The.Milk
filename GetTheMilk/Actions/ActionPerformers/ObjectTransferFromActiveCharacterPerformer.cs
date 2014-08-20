@@ -8,7 +8,7 @@ namespace GetTheMilk.Actions.ActionPerformers
     //default transfer to level
     public class ObjectTransferFromActiveCharacterPerformer:ObjectTransferActionTemplatePerformer
     {
-        public override PerformActionResult Perform(ObjectTransferActionTemplate actionTemplate)
+        public override PerformActionResult Perform(BaseActionTemplate actionTemplate)
         {
             if (CanPerform(actionTemplate))
             {

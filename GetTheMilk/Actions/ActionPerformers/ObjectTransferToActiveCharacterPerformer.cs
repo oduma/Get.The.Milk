@@ -7,7 +7,7 @@ namespace GetTheMilk.Actions.ActionPerformers
     //default transfer from level to character
     public class ObjectTransferToActiveCharacterPerformer : ObjectTransferActionTemplatePerformer
     {
-        public override bool CanPerform(ObjectTransferActionTemplate actionTemplate)
+        public override bool CanPerform(BaseActionTemplate actionTemplate)
         {
             if (!base.CanPerform(actionTemplate))
                 return false;
@@ -16,7 +16,7 @@ namespace GetTheMilk.Actions.ActionPerformers
             return true;
         }
 
-        public override PerformActionResult Perform(ObjectTransferActionTemplate actionTemplate)
+        public override PerformActionResult Perform(BaseActionTemplate actionTemplate)
         {
             if (CanPerform(actionTemplate))
             {

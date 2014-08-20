@@ -14,7 +14,7 @@ namespace GetTheMilk.Actions.ActionPerformers
 {
     public class AttackActionPerformer:TwoCharactersActionTemplatePerformer
     {
-        public override PerformActionResult Perform(TwoCharactersActionTemplate actionTemplate)
+        public override PerformActionResult Perform(BaseActionTemplate actionTemplate)
         {
             if (!CanPerform(actionTemplate))
                 return new PerformActionResult { ForAction = actionTemplate, ResultType = ActionResultType.NotOk };

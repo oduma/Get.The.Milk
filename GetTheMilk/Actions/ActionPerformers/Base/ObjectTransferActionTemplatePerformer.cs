@@ -3,14 +3,14 @@ using GetTheMilk.Actions.ActionTemplates;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {
-    public class ObjectTransferActionTemplatePerformer:IObjectTransferActionTemplatePerformer
+    public class ObjectTransferActionTemplatePerformer:IActionTemplatePerformer
     {
         public virtual string PerformerType
         {
             get { return GetType().Name; }
         }
 
-        public virtual bool CanPerform(ObjectTransferActionTemplate actionTemplate)
+        public virtual bool CanPerform(BaseActionTemplate actionTemplate)
         {
             if (actionTemplate.ActiveCharacter == null || actionTemplate.TargetObject == null)
                 return false;
@@ -27,9 +27,20 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
             return true;
         }
 
-        public virtual PerformActionResult Perform(ObjectTransferActionTemplate actionTemplate)
+        public virtual PerformActionResult Perform(BaseActionTemplate actionTemplate)
         {
             throw new NotImplementedException();
+        }
+
+
+        public event EventHandler<FeedbackEventArgs> FeedbackFromOriginalAction;
+
+        public event EventHandler<FeedbackEventArgs> FeedbackFromSubAction;
+
+
+        public string Category
+        {
+            get { return CategorysCatalog.ObjectTransferCategory; }
         }
     }
 }

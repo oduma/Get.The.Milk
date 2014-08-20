@@ -8,13 +8,12 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-       <Label Content="Target Cell:" Grid.Row="2" Grid.Column="0"/>
+       <Label Content="Target Cell:" Grid.Row="0" Grid.Column="0"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Value.TargetCell}"/>
     </Grid>
 </UserControl>

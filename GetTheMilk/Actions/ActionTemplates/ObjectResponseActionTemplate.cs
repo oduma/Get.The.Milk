@@ -18,49 +18,6 @@ namespace GetTheMilk.Actions.ActionTemplates
         }
         #endregion
 
-
-        public override bool CanPerform()
-        {
-            return ((IObjectResponseActionTemplatePerformer)CurrentPerformer).CanPerform(this);
-        }
-
-        public override PerformActionResult Perform()
-        {
-            return ((IObjectResponseActionTemplatePerformer)CurrentPerformer).Perform(this);
-        }
-
-        private Type _performerType;
-        public override Type PerformerType
-        {
-            get
-            {
-                return _performerType;
-            }
-            set
-            {
-                _performerType = value;
-                if (_performerType != null)
-                    CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<IObjectResponseActionTemplatePerformer>(value.Name);
-            }
-        }
-
-
-        private IObjectResponseActionTemplatePerformer _currentPerformer;
-
-        public override IActionTemplatePerformer CurrentPerformer
-        {
-            get
-            {
-                return _currentPerformer;
-            }
-            protected set
-            {
-                _currentPerformer = (IObjectResponseActionTemplatePerformer)value;
-                BuildPerformer(ref _currentPerformer);
-
-            }
-        }
-
         public override BaseActionTemplate Clone()
         {
             return new ObjectResponseActionTemplate

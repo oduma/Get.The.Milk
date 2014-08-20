@@ -10,22 +10,30 @@ using GetTheMilk.Utils;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {
-    public class MovementActionTemplatePerformer:IMovementActionTemplatePerformer
+    public class MovementActionTemplatePerformer:IActionTemplatePerformer
     {
         public string PerformerType
         {
             get { return GetType().Name; }
         }
 
-        public virtual bool CanPerform(MovementActionTemplate actionTemplate)
+        public virtual bool CanPerform(BaseActionTemplate act)
         {
+            MovementActionTemplate actionTemplate;
+            if (!act.TryConvertTo(out actionTemplate))
+                return false;
+
             if (actionTemplate.ActiveCharacter == null || actionTemplate.CurrentMap == null)
                 return false;
             return actionTemplate.ActiveCharacter.AllowsTemplateAction(actionTemplate);
         }
 
-        public virtual PerformActionResult Perform(MovementActionTemplate actionTemplate)
+        public virtual PerformActionResult Perform(BaseActionTemplate act)
         {
+            MovementActionTemplate actionTemplate;
+            if (!act.TryConvertTo(out actionTemplate))
+                return new PerformActionResult { ResultType = ActionResultType.NotOk, ForAction = act };
+
             if (actionTemplate.ActiveCharacter.CellNumber < 0 || actionTemplate.ActiveCharacter.CellNumber >= actionTemplate.CurrentMap.Cells.Length)
                 return MoveActiveCharacter(actionTemplate, actionTemplate.ActiveCharacter.CellNumber,
                                ActionResultType.OriginNotOnTheMap, new NonCharacterObject[0], new Character[0]);
@@ -191,5 +199,10 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
         }
 
         public string Category { get { return CategorysCatalog.MovementCategory; } }
+
+
+        public event System.EventHandler<FeedbackEventArgs> FeedbackFromOriginalAction;
+
+        public event System.EventHandler<FeedbackEventArgs> FeedbackFromSubAction;
     }
 }

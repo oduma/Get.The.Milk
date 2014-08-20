@@ -23,37 +23,8 @@ namespace GetTheMilk.Factories
         .Named("PerformerLoggingInterceptor"));
                 container.Register(
                     Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <IExposeInventoryActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
+                        <IActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
                     );
-                container.Register(
-                    Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <IMovementActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
-                    );
-                container.Register(
-                    Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <IOneObjectActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
-                    );
-                container.Register(
-                    Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <IObjectUseOnObjectActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
-                    );
-                container.Register(
-                    Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <IObjectTransferActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
-                    );
-                container.Register(
-                    Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <ITwoCharactersActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
-                    );
-                container.Register(
-                    Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <INoObjectActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
-                    );
-                container.Register(
-                    Classes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory)).BasedOn
-                        <IObjectResponseActionTemplatePerformer>().WithService.Base().Configure(Configurator).LifestyleSingleton()
-                    );
-
             }
 
         }

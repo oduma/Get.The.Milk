@@ -14,5 +14,6 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Message:" Grid.Row="0" Grid.Column="0"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Value.Message}"/>
     </Grid>
 </UserControl>

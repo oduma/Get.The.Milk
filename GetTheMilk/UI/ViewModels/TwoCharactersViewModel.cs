@@ -19,13 +19,13 @@ namespace GetTheMilk.UI.ViewModels
 
         public event EventHandler<FeedbackEventArgs> FeedbackFromSubAction;
 
-        private ITwoCharactersActionTemplatePerformer _action;
+        private IActionTemplatePerformer _action;
         private int _passiveHealth;
         private ObservableCollection<ActionWithTargetModel> _actions;
         private ObservableCollection<Dialogue> _dialogues;
 
 
-        public ITwoCharactersActionTemplatePerformer Action
+        public IActionTemplatePerformer Action
         {
             get { return _action; }
             set
@@ -215,7 +215,7 @@ namespace GetTheMilk.UI.ViewModels
 
         public void ExecuteAction(TwoCharactersActionTemplate twoCharactersAction)
         {
-            Action = twoCharactersAction.CurrentPerformer as ITwoCharactersActionTemplatePerformer;
+            Action = twoCharactersAction.CurrentPerformer;
             RecordActionResult(Action.Perform(twoCharactersAction));
         }
     }

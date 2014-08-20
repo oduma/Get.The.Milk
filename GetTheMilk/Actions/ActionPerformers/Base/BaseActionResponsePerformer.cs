@@ -9,11 +9,11 @@ using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {
-    public abstract class BaseActionResponsePerformer<T>:BaseHealthAffectingActionPerformer<T> where T:BaseActionTemplate 
+    public abstract class BaseActionResponsePerformer:BaseHealthAffectingActionPerformer
     {
         public event EventHandler<FeedbackEventArgs> FeedbackFromOriginalAction;
         
-        protected PerformActionResult PerformResponseAction(T actionTemplate)
+        protected PerformActionResult PerformResponseAction(BaseActionTemplate actionTemplate)
         {
             var availableActions = GetAvailableActions(actionTemplate);
             if (availableActions == null)
@@ -38,11 +38,11 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
             baseAction.TargetObject = actionTemplate.ActiveObject;
             baseAction.ActiveCharacter = actionTemplate.TargetCharacter;
 
-            if (baseAction.CurrentPerformer is ITwoCharactersActionTemplatePerformer)
+            if (baseAction.Category==CategorysCatalog.TwoCharactersCategory)
             {
 
-                ((TwoCharactersActionTemplatePerformer)baseAction.CurrentPerformer).FeedbackFromSubAction -= ((TwoCharactersActionTemplatePerformer)baseAction.CurrentPerformer).TwoCharactersActionFeedbackFromSubAction;
-                ((TwoCharactersActionTemplatePerformer)baseAction.CurrentPerformer).FeedbackFromSubAction += ((TwoCharactersActionTemplatePerformer)baseAction.CurrentPerformer).TwoCharactersActionFeedbackFromSubAction;
+                baseAction.CurrentPerformer.FeedbackFromSubAction -= ((TwoCharactersActionTemplatePerformer)baseAction.CurrentPerformer).TwoCharactersActionFeedbackFromSubAction;
+                baseAction.CurrentPerformer.FeedbackFromSubAction += ((TwoCharactersActionTemplatePerformer)baseAction.CurrentPerformer).TwoCharactersActionFeedbackFromSubAction;
             }
             return
                 (baseAction.ActiveCharacter is IPlayer)?null:baseAction.ActiveCharacter.PerformAction(baseAction);

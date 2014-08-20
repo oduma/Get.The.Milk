@@ -16,6 +16,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Expose Inventory Finishing Action" Grid.Row="0" Grid.Column="0"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=AllFinishingActions}" SelectedItem="{Binding Path=Value.FinishingAction}"/>
         <CheckBox Content="Self inventory" Grid.Row="1" Grid.Column="0"/>
     </Grid>
 </UserControl>

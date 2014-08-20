@@ -4,14 +4,14 @@ using GetTheMilk.Utils;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {
-    public class ObjectUseOnObjectActionTemplatePerformer:BaseActionResponsePerformer<ObjectUseOnObjectActionTemplate>,IObjectUseOnObjectActionTemplatePerformer
+    public class ObjectUseOnObjectActionTemplatePerformer:BaseActionResponsePerformer,IActionTemplatePerformer
     {
         public virtual string PerformerType
         {
             get { return GetType().Name; }
         }
 
-        public bool CanPerform(ObjectUseOnObjectActionTemplate actionTemplate)
+        public bool CanPerform(BaseActionTemplate actionTemplate)
         {
             if (actionTemplate.ActiveCharacter==null || actionTemplate.ActiveObject == null || actionTemplate.TargetObject == null)
                 return false;
@@ -20,8 +20,11 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 
         }
 
-        public PerformActionResult Perform(ObjectUseOnObjectActionTemplate actionTemplate)
+        public PerformActionResult Perform(BaseActionTemplate act)
         {
+            ObjectUseOnObjectActionTemplate actionTemplate;
+            if (!act.TryConvertTo(out actionTemplate))
+                return new PerformActionResult { ForAction = actionTemplate, ResultType = ActionResultType.NotOk };
             if (!CanPerform(actionTemplate))
                 return new PerformActionResult {ForAction = actionTemplate, ResultType = ActionResultType.NotOk};
 
@@ -51,6 +54,15 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
             return (PerformResponseAction(actionTemplate))??new PerformActionResult { ForAction = actionTemplate, 
                     ResultType = (success) ? ActionResultType.Ok : ActionResultType.NotOk,
                     ExtraData=GetAvailableReactions(actionTemplate) };
+        }
+
+
+        public event System.EventHandler<FeedbackEventArgs> FeedbackFromSubAction;
+
+
+        public string Category
+        {
+            get { return CategorysCatalog.ObjectUseOnObjectCategory; }
         }
     }
 }

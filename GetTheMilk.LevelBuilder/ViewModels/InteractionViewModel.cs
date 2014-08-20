@@ -72,10 +72,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             if (AllAvailableActionCategories == null)
                 AllAvailableActionCategories = new ObservableCollection<string> { CategorysCatalog.MovementCategory,
                     CategorysCatalog.ExposeInventoryCategory,CategorysCatalog.NoObjectCategory,
-                    CategorysCatalog.OneObjectCategory,CategorysCatalog.ObjectTransferCategory,
+                    CategorysCatalog.OneObjectCategory,
                     CategorysCatalog.ObjectUseOnObjectCategory,CategorysCatalog.ObjectResponseCategory,
                     CategorysCatalog.TwoCharactersCategory};
-            ;
             Value = selectedInteraction;
             if (CurrentActionViewModel == null)
                 CurrentActionViewModel = new ActionViewModel();

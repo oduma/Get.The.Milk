@@ -7,7 +7,7 @@ namespace GetTheMilk.Actions.ActionPerformers
 {
     public class BuyActionPerformer:TakeFromActionPerformer
     {
-        public override bool CanPerform(ObjectTransferActionTemplate actionTemplate)
+        public override bool CanPerform(BaseActionTemplate actionTemplate)
         {
             if (!base.CanPerform(actionTemplate))
                 return false;
@@ -15,7 +15,7 @@ namespace GetTheMilk.Actions.ActionPerformers
                 return false;
             return true;
         }
-        public override Base.PerformActionResult Perform(ObjectTransferActionTemplate actionTemplate)
+        public override PerformActionResult Perform(BaseActionTemplate actionTemplate)
         {
             if (!CanPerform(actionTemplate))
                 return new PerformActionResult

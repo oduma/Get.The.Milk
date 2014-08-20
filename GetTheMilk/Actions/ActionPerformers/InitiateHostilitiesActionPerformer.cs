@@ -8,7 +8,7 @@ namespace GetTheMilk.Actions.ActionPerformers
 {
     public class InitiateHostilitiesActionPerformer:TwoCharactersActionTemplatePerformer
     {
-        public override PerformActionResult Perform(TwoCharactersActionTemplate actionTemplate)
+        public override PerformActionResult Perform(BaseActionTemplate actionTemplate)
         {
             var result = base.Perform(actionTemplate);
             if (result.ResultType == ActionResultType.Ok)

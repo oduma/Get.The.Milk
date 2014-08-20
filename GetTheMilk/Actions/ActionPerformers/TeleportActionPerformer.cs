@@ -9,8 +9,12 @@ namespace GetTheMilk.Actions.ActionPerformers
 {
     public class TeleportActionPerformer:MovementActionTemplatePerformer
     {
-        public override PerformActionResult Perform(MovementActionTemplate actionTemplate)
+        public override PerformActionResult Perform(BaseActionTemplate act)
         {
+            MovementActionTemplate actionTemplate;
+            if (!act.TryConvertTo(out actionTemplate))
+                return new PerformActionResult { ResultType = ActionResultType.NotOk, ForAction = act };
+
             if (actionTemplate.Direction != Direction.None)
                 return new PerformActionResult { ResultType = ActionResultType.NotOk, ForAction = actionTemplate };
             var movementResult = MoveOneStep(actionTemplate.TargetCell, actionTemplate.CurrentMap.Cells[actionTemplate.ActiveCharacter.CellNumber],actionTemplate);
@@ -22,8 +26,11 @@ namespace GetTheMilk.Actions.ActionPerformers
             return null;
         }
 
-        public override bool CanPerform(MovementActionTemplate actionTemplate)
+        public override bool CanPerform(BaseActionTemplate act)
         {
+            MovementActionTemplate actionTemplate;
+            if (!act.TryConvertTo(out actionTemplate))
+                return false;
             return (base.CanPerform(actionTemplate) && actionTemplate.TargetCell >= 0 &&
                     actionTemplate.Direction == Direction.None);
         }

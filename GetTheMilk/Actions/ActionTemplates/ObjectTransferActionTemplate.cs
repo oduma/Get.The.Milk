@@ -15,36 +15,6 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         }
 
-        private Type _performerType;
-        public override Type PerformerType
-        {
-            get
-            {
-                return _performerType;
-            }
-            set
-            {
-                _performerType = value;
-                if(_performerType!=null)
-                    CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<IObjectTransferActionTemplatePerformer>(value.Name);
-            }
-        }
-
-
-        IObjectTransferActionTemplatePerformer _currentPerformer;
-        public override IActionTemplatePerformer CurrentPerformer
-        {
-            get
-            {
-                return _currentPerformer;
-            }
-            protected set
-            {
-                _currentPerformer = (IObjectTransferActionTemplatePerformer)value;
-                BuildPerformer(ref _currentPerformer);
-
-            }
-        }
         public override BaseActionTemplate Clone()
         {
             return new ObjectTransferActionTemplate
@@ -55,17 +25,6 @@ namespace GetTheMilk.Actions.ActionTemplates
                 ActiveCharacter = ActiveCharacter
             };
         }
-
-        public override bool CanPerform()
-        {
-            return ((IObjectTransferActionTemplatePerformer)CurrentPerformer).CanPerform(this);
-        }
-
-        public override PerformActionResult Perform()
-        {
-            return ((IObjectTransferActionTemplatePerformer)CurrentPerformer).Perform(this);
-        }
-
         internal override object[] Translate()
         {
             var result = base.Translate();

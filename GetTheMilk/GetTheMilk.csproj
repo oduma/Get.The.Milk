@@ -68,14 +68,6 @@
     <Compile Include="Actions\ActionPerformers\Base\BaseHealthAffectingActionPerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\ExposeInventoryActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\IActionTemplatePerformer.cs" />
-    <Compile Include="Actions\ActionPerformers\Base\IExposeInventoryActionTemplatePerformer.cs" />
-    <Compile Include="Actions\ActionPerformers\Base\IMovementActionTemplatePerformer.cs" />
-    <Compile Include="Actions\ActionPerformers\Base\INoObjectActionTemplatePerformer.cs" />
-    <Compile Include="Actions\ActionPerformers\Base\IObjectResponseActionTemplatePerformer.cs" />
-    <Compile Include="Actions\ActionPerformers\Base\IObjectTransferActionTemplatePerformer.cs" />
-    <Compile Include="Actions\ActionPerformers\Base\IObjectUseOnObjectActionTemplatePerformer.cs" />
-    <Compile Include="Actions\ActionPerformers\Base\IOneObjectActionTemplatePerformer.cs" />
-    <Compile Include="Actions\ActionPerformers\Base\ITwoCharactersActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\MovementActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\NoObjectActionTemplatePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\ObjectResponseActionTemplatePerformer.cs" />

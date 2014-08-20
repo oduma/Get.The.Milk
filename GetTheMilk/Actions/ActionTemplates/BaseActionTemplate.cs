@@ -44,16 +44,17 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         public abstract BaseActionTemplate Clone();
 
-        public abstract bool CanPerform();
+        public virtual bool CanPerform()
+        {
+            return (CurrentPerformer).CanPerform(this);
+        }
 
-        public abstract PerformActionResult Perform();
+        public virtual PerformActionResult Perform()
+        {
+            return (CurrentPerformer).Perform(this);
+        }
 
         #endregion
-
-        [JsonIgnore]
-        public virtual IActionTemplatePerformer CurrentPerformer { get; protected set; }
-
-        public virtual Type PerformerType { get; set; }
 
         internal virtual object[] Translate()
         {
@@ -105,6 +106,8 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         public override int GetHashCode()
         {
+            if (Name == null || string.IsNullOrEmpty(Name.UniqueId))
+                return -1;
             return (Name.UniqueId).GetHashCode();
         }
 
@@ -113,6 +116,49 @@ namespace GetTheMilk.Actions.ActionTemplates
             if (currentPerformer != null)
                 if (PerformerType == null || PerformerType.Name != currentPerformer.GetType().Name)
                     PerformerType = currentPerformer.GetType();
+        }
+
+        public bool TryConvertTo<T>(out T result) where T:BaseActionTemplate
+        {
+            if(Category!=typeof(T).Name)
+            {
+                result = null;
+                return false;
+            }
+            result = this as T;
+            return true;
+        }
+
+        private Type _performerType;
+        public virtual Type PerformerType
+        {
+            get
+            {
+                return _performerType;
+            }
+            set
+            {
+                _performerType = value;
+                if (_performerType != null)
+                    CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer(value.Name);
+            }
+        }
+
+        IActionTemplatePerformer _currentPerformer;
+
+        [JsonIgnore]
+        public virtual IActionTemplatePerformer CurrentPerformer
+        {
+            get
+            {
+                return _currentPerformer;
+            }
+            protected set
+            {
+                _currentPerformer = value;
+                BuildPerformer(ref _currentPerformer);
+
+            }
         }
 
     }

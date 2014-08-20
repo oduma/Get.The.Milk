@@ -47,7 +47,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                 "{\"Health\":0,\"Experience\":1,\"Walet\":{\"MaxCapacity\":200,\"CurrentCapacity\":20},\"Range\":1,\"ActiveDefenseWeapon\":null,\"ActiveAttackWeapon\":null,\"Name\":{\"Main\":\"Player\",\"Narrator\":\"you\",\"Description\":null},\"CellNumber\":0,\"BlockMovement\":true,\"ObjectTypeId\":\"Player\"}",
                 saveResult.Core);
             Assert.AreEqual(
-                "[{\"DestroyActiveObject\":true,\"DestroyTargetObject\":true,\"ChanceOfSuccess\":100,\"PercentOfHealthFailurePenalty\":0,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.ObjectUseOnObjectActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Open\",\"Present\":\"open\",\"Past\":\"opened\"},\"Category\":\"ObjectUseOnObjectActionTemplate\",\"StartingAction\":true,\"TargetObject\":null,\"TargetCharacter\":null}]",
+                "[{\"DestroyActiveObject\":true,\"DestroyTargetObject\":true,\"ChanceOfSuccess\":100,\"PercentOfHealthFailurePenalty\":0,\"Name\":{\"UniqueId\":\"Open\",\"Present\":\"open\",\"Past\":\"opened\"},\"Category\":\"ObjectUseOnObjectActionTemplate\",\"StartingAction\":true,\"TargetObject\":null,\"TargetCharacter\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.ObjectUseOnObjectActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\"}]",
                 saveResult.ActionTemplates);
             Assert.AreEqual(
                 "{\"Contents\":\"[]\",\"InventoryType\":\"1\",\"MaximumCapacity\":\"20\"}",
@@ -83,7 +83,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                 {
                     Core =
                         "{\"Health\":0,\"Experience\":1,\"Walet\":{\"MaxCapacity\":200,\"CurrentCapacity\":20},\"Range\":1,\"ActiveDefenseWeapon\":null,\"ActiveAttackWeapon\":null,\"Name\":{\"Main\":\"Player\",\"Narrator\":\"you\",\"Description\":null},\"CellNumber\":0,\"BlockMovement\":true,\"ObjectTypeId\":\"Player\"}",
-                    ActionTemplates = "[{\"DestroyActiveObject\":true,\"DestroyTargetObject\":true,\"ChanceOfSuccess\":100,\"PercentOfHealthFailurePenalty\":0,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.ObjectUseOnObjectActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Open\",\"Present\":\"open\",\"Past\":\"opened\"},\"Category\":\"ObjectUseOnObjectActionTemplate\",\"StartingAction\":true,\"TargetObject\":null,\"TargetCharacter\":null}]",
+                    ActionTemplates = "[{\"DestroyActiveObject\":true,\"DestroyTargetObject\":true,\"ChanceOfSuccess\":100,\"PercentOfHealthFailurePenalty\":0,\"Name\":{\"UniqueId\":\"Open\",\"Present\":\"open\",\"Past\":\"opened\"},\"Category\":\"ObjectUseOnObjectActionTemplate\",\"StartingAction\":true,\"TargetObject\":null,\"TargetCharacter\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.ObjectUseOnObjectActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\"}]",
                     PackagedInventory = "{\"Contents\":\"[]\",\"InventoryType\":\"1\",\"MaximumCapacity\":\"20\"}",
                     Interactions = "{}"
                 });

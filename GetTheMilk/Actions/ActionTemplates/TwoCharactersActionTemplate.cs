@@ -15,35 +15,6 @@ namespace GetTheMilk.Actions.ActionTemplates
 
         public string Message { get; set; }
 
-        private Type _performerType;
-        public override Type PerformerType
-        {
-            get
-            {
-                return _performerType;
-            }
-            set
-            {
-                _performerType = value;
-                if(_performerType!=null)
-                    CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer<ITwoCharactersActionTemplatePerformer>(value.Name);
-            }
-        }
-
-        ITwoCharactersActionTemplatePerformer _currentPerformer;
-        public override IActionTemplatePerformer CurrentPerformer
-        {
-            get
-            {
-                return _currentPerformer;
-            }
-            protected set
-            {
-                _currentPerformer = (ITwoCharactersActionTemplatePerformer)value;
-                BuildPerformer(ref _currentPerformer);
-
-            }
-        }
         public override BaseActionTemplate Clone()
         {
             return new TwoCharactersActionTemplate { Name = Name, StartingAction = StartingAction,
@@ -52,16 +23,6 @@ namespace GetTheMilk.Actions.ActionTemplates
                                                      ActiveCharacter = ActiveCharacter,
                                                      TargetCharacter=TargetCharacter
             };
-        }
-
-        public override bool CanPerform()
-        {
-            return ((ITwoCharactersActionTemplatePerformer)CurrentPerformer).CanPerform(this);
-        }
-
-        public override PerformActionResult Perform()
-        {
-            return ((ITwoCharactersActionTemplatePerformer)CurrentPerformer).Perform(this);
         }
 
         internal override object[] Translate()

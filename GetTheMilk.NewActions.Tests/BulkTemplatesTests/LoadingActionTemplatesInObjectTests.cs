@@ -38,7 +38,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                     }
                 );
             var saveResult = tool.Save();
-            Assert.AreEqual("{\"Explode\":{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.OneObjectActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Explode\",\"Present\":\"explode\",\"Past\":\"exploded\"},\"Category\":\"OneObjectActionTemplate\",\"StartingAction\":true,\"TargetObject\":null,\"TargetCharacter\":null}}", saveResult.ActionTemplates);
+            Assert.AreEqual("{\"Explode\":{\"Name\":{\"UniqueId\":\"Explode\",\"Present\":\"explode\",\"Past\":\"exploded\"},\"Category\":\"OneObjectActionTemplate\",\"StartingAction\":true,\"TargetObject\":null,\"TargetCharacter\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.OneObjectActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\"}}", saveResult.ActionTemplates);
             Assert.AreEqual("{\"BuyPrice\":0,\"SellPrice\":0,\"ObjectTypeId\":\"Tool\",\"Name\":{\"Main\":\"TestTool\",\"Narrator\":\"test tool\",\"Description\":null},\"CellNumber\":0,\"BlockMovement\":false,\"ObjectCategory\":1}", saveResult.Core);
         }
 
@@ -68,7 +68,7 @@ namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
                 {
                     Core =
                         "{\"BuyPrice\":0,\"SellPrice\":0,\"ObjectTypeId\":\"Tool\",\"Name\":{\"Main\":\"TestTool\",\"Narrator\":\"test tool\",\"Description\":null},\"CellNumber\":0,\"BlockMovement\":false,\"ObjectCategory\":1}",
-                    ActionTemplates = "{\"Explode\":{\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.OneObjectActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"Name\":{\"UniqueId\":\"Explode\",\"Present\":\"explode\",\"Past\":\"exploded\"},\"Category\":\"OneObjectActionTemplate\",\"StartingAction\":true,\"TargetObject\":null,\"TargetCharacter\":null}}"
+                    ActionTemplates = "{\"Explode\":{\"Name\":{\"UniqueId\":\"Explode\",\"Present\":\"explode\",\"Past\":\"exploded\"},\"Category\":\"OneObjectActionTemplate\",\"StartingAction\":true,\"TargetObject\":null,\"TargetCharacter\":null,\"PerformerType\":\"GetTheMilk.Actions.ActionPerformers.Base.OneObjectActionTemplatePerformer, GetTheMilk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\"}}"
                 });
             Assert.IsNotNull(actual);
             Assert.AreEqual(expected.AllActions["Explode"].ToString(), actual.AllActions["Explode"].ToString());

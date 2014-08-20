@@ -6,7 +6,7 @@ namespace GetTheMilk.Actions.ActionPerformers
 {
     public class GiveToActionPerformer:ObjectTransferFromActiveCharacterPerformer
     {
-        public override bool CanPerform(ObjectTransferActionTemplate actionTemplate)
+        public override bool CanPerform(BaseActionTemplate actionTemplate)
         {
             if (!base.CanPerform(actionTemplate))
                 return false;
@@ -19,7 +19,7 @@ namespace GetTheMilk.Actions.ActionPerformers
             return true;
         }
 
-        public override PerformActionResult Perform(ObjectTransferActionTemplate actionTemplate)
+        public override PerformActionResult Perform(BaseActionTemplate actionTemplate)
         {
             if (CanPerform(actionTemplate))
             {
@@ -32,7 +32,7 @@ namespace GetTheMilk.Actions.ActionPerformers
             };
         }
 
-        protected PerformActionResult PerformWithoutCheck(ObjectTransferActionTemplate actionTemplate)
+        protected PerformActionResult PerformWithoutCheck(BaseActionTemplate actionTemplate)
         {
             var addedOk = actionTemplate.TargetCharacter.Inventory.Add(
     actionTemplate.TargetObject);

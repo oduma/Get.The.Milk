@@ -22,29 +22,18 @@ namespace GetTheMilk.Factories
             return Instance;
         }
 
-        //public IEnumerable<string> ListAllRegisterNames<T>() where T:DefaultActionTemplate
-        //{
-        //    return _componentResolver.ResolveAll<IActionTemplatePerformer>().Where(c => c.TemplateActionType == typeof(T)).Select(c => c.Identifier);
-        //}
-
-        public IActionTemplatePerformer CreateActionPerformer<T>(string performerType) where T : IActionTemplatePerformer
+        public IActionTemplatePerformer CreateActionPerformer(string performerType)
         {
-            var all = _componentResolver.ResolveAll<T>();
+            var all = _componentResolver.ResolveAll<IActionTemplatePerformer>();
 
             return all.First(o => o.PerformerType == performerType);
         }
 
 
-        public T[] GetAllActionPerformers<T>() where T:IActionTemplatePerformer
+        public IActionTemplatePerformer[] GetAllActionPerformers()
         {
-            var cmps = _componentResolver.ResolveAll<T>();
-            return cmps.ToArray();
+            return _componentResolver.ResolveAll<IActionTemplatePerformer>().ToArray();
         }
 
-        public IEnumerable<Type> ListAllActionPerformerTypes()
-        {
-            var tmp = _componentResolver.ResolveAll().Select(p => p.GetType()).ToList();
-            return _componentResolver.ResolveAll<IActionTemplatePerformer>().Select(p => p.GetType());
-        }
     }
 }

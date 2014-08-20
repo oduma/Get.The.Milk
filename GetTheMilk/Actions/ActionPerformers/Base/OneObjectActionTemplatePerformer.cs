@@ -4,7 +4,7 @@ using GetTheMilk.Characters.BaseCharacters;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {
-    public class OneObjectActionTemplatePerformer:BaseActionResponsePerformer<OneObjectActionTemplate>,IOneObjectActionTemplatePerformer
+    public class OneObjectActionTemplatePerformer:BaseActionResponsePerformer,IActionTemplatePerformer
     {
 
         public virtual string PerformerType
@@ -12,7 +12,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
             get { return GetType().Name; }
         }
 
-        public virtual bool CanPerform(OneObjectActionTemplate actionTemplate)
+        public virtual bool CanPerform(BaseActionTemplate actionTemplate)
         {
             if (actionTemplate.ActiveCharacter == null || actionTemplate.TargetObject == null)
                 return false;
@@ -21,7 +21,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 
         }
 
-        public virtual PerformActionResult Perform(OneObjectActionTemplate actionTemplate)
+        public virtual PerformActionResult Perform(BaseActionTemplate actionTemplate)
         {
             if (!CanPerform(actionTemplate))
                 return new PerformActionResult { ResultType = ActionResultType.NotOk, ForAction = actionTemplate };
@@ -33,6 +33,15 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                            ExtraData = GetAvailableReactions(actionTemplate)
                        };
 
+        }
+
+
+        public event System.EventHandler<FeedbackEventArgs> FeedbackFromSubAction;
+
+
+        public string Category
+        {
+            get { return CategorysCatalog.OneObjectCategory; }
         }
     }
 }
