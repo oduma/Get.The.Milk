@@ -53,24 +53,13 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 AllExistingCharacters=new ObservableCollection<Character>();
             foreach (var obj in CurrentCharacterViewModel.CharacterInventory)
                 CurrentCharacterViewModel.Value.Inventory.Add(obj);
-            RePopulateInteractions(GenericInteractionRulesKeys.AnyCharacter,
-                                   CurrentCharacterViewModel.CharacterSpecificInteractions);
-            RePopulateInteractions(GenericInteractionRulesKeys.AnyCharacterResponses,
-                                   CurrentCharacterViewModel.PlayerInteractions);
             CurrentCharacterViewModel.Value.Inventory.LinkObjectsToInventory();
             if (AllExistingCharacters.Any(c => c.Name.Main == CurrentCharacterViewModel.Value.Name.Main))
                 AllExistingCharacters.Remove(
                     AllExistingCharacters.First(c => c.Name.Main == CurrentCharacterViewModel.Value.Name.Main));
+            CurrentCharacterViewModel.RefreshInteractions();
             AllExistingCharacters.Add(CurrentCharacterViewModel.Value);
             DisplayNewCharacterEditor();
-        }
-
-
-        private void RePopulateInteractions(string interactionType,ObservableCollection<Interaction> newInteractions)
-        {
-            if (CurrentCharacterViewModel.Value.Interactions.ContainsKey(interactionType))
-                CurrentCharacterViewModel.Value.Interactions.Remove(interactionType);
-            CurrentCharacterViewModel.Value.Interactions.Add(interactionType, newInteractions.ToArray());
         }
 
         private void DisplayNewCharacterEditor()
