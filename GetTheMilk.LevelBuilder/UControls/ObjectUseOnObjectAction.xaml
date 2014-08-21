@@ -16,11 +16,11 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <CheckBox Content="Destroy Active Object" Grid.Row="0" Grid.Column="0" IsChecked="{Binding Path=Value.DestroyActiveObject}"/>
-        <CheckBox Content="Destroy Target Object" Grid.Row="1" Grid.Column="0" IsChecked="{Binding Path=Value.DestroyTargetObject}"/>
+        <CheckBox Content="Destroy Active Object" Grid.Row="0" Grid.Column="0" IsChecked="{Binding Path=DestroyActiveObject}"/>
+        <CheckBox Content="Destroy Target Object" Grid.Row="1" Grid.Column="0" IsChecked="{Binding Path=DestroyTargetObject}"/>
         <Label Content="Chance of Success:" Grid.Row="2" Grid.Column="0"/>
-        <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Path=AllChancesOfSuccess}" SelectedItem="{Binding Path=Value.ChanceOfSuccess}"/>
+        <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Path=AllChancesOfSuccess}" SelectedItem="{Binding Path=ChanceOfSuccess}"/>
         <Label Content="Percent of Health failure:" Grid.Row="3" Grid.Column="0"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=Value.PercentOfHealthFailure}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=PercentOfHealthFailure}"/>
     </Grid>
 </UserControl>

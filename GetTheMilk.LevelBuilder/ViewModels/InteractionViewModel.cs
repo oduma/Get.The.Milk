@@ -8,6 +8,7 @@ using GetTheMilk.Factories;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Actions.ActionTemplates;
 using System.Collections.Generic;
+using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
@@ -105,6 +106,12 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                     RaisePropertyChanged("AllAvailableActionCategories");
                 }
             }
+        }
+
+        internal void UpdateValue()
+        {
+            Value.Action = CurrentActionViewModel.Value;
+            Value.Reaction = CurrentReactionViewModel.Value;
         }
     }
 }

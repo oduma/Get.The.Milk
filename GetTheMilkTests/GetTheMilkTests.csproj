@@ -57,8 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FactoriesTests\ObjectActionsFactoryTests.cs" />
-    <Compile Include="FactoriesTests\TemplatedActionPerformersTests.cs" />
     <Compile Include="IntegrationTests\AutoPlayLevel1Generated.cs" />
     <Compile Include="IntegrationTests\LevelCompletionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

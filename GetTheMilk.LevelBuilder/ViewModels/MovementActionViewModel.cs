@@ -8,25 +8,35 @@ using System.Threading.Tasks;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
-    public class MovementActionViewModel:ViewModelBase
+    public class MovementActionViewModel:ActionDetailViewModelBase
     {
-        private MovementActionTemplate _value;
+        private int _targetCell;
 
-        public MovementActionTemplate Value
+        public int TargetCell
         {
-            get { return _value; }
+            get
+            {
+                return _targetCell;
+            }
             set
             {
-                if(value!=_value)
+                if (value != _targetCell)
                 {
-                    _value = value;
-                    RaisePropertyChanged("Value");
+                    _targetCell = value;
+                    RaisePropertyChanged("TargetCell");
                 }
             }
         }
+
+
         public MovementActionViewModel(MovementActionTemplate value)
         {
-            Value = value;
+            TargetCell = value.TargetCell;
+        }
+
+        public override void ApplyDetailsToValue(ref BaseActionTemplate inValue)
+        {
+            ((MovementActionTemplate)inValue).TargetCell = TargetCell;
         }
     }
 }

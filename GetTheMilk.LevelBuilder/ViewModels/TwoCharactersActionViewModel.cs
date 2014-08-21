@@ -8,27 +8,36 @@ using System.Threading.Tasks;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
-    public class TwoCharactersActionViewModel:ViewModelBase
+    public class TwoCharactersActionViewModel:ActionDetailViewModelBase
     {
-        private TwoCharactersActionTemplate _value;
+        private string _message;
 
-        public TwoCharactersActionTemplate Value
+        public string Message
         {
-            get { return _value; }
+            get
+            {
+                return _message;
+            }
             set
             {
-                if(value!=_value)
+                if (value != _message)
                 {
-                    _value = value;
-                    RaisePropertyChanged("Value");
+                    _message = value;
+                    RaisePropertyChanged("Message");
                 }
             }
         }
 
+
         public TwoCharactersActionViewModel(TwoCharactersActionTemplate value)
         {
-            Value = value;
+            Message = value.Message;
         }
 
+
+        public override void ApplyDetailsToValue(ref BaseActionTemplate inValue)
+        {
+            ((TwoCharactersActionTemplate)inValue).Message = Message;
+        }
     }
 }

@@ -9,22 +9,80 @@ using System.Threading.Tasks;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
-    public class ObjectUseOnObjectActionViewModel:ViewModelBase
+    public class ObjectUseOnObjectActionViewModel:ActionDetailViewModelBase
     {
-        private ObjectUseOnObjectActionTemplate _value;
+        private bool _destroyActiveObject;
 
-        public ObjectUseOnObjectActionTemplate Value
+        public bool DestroyActiveObject
         {
-            get { return _value; }
+            get
+            {
+                return _destroyActiveObject;
+            }
             set
             {
-                if(value!=_value)
+                if (value != _destroyActiveObject)
                 {
-                    _value = value;
-                    RaisePropertyChanged("Value");
+                    _destroyActiveObject = value;
+                    RaisePropertyChanged("DestroyActiveObject");
                 }
             }
         }
+
+        private bool _destroyTargetObject;
+
+        public bool DestroyTargetObject
+        {
+            get
+            {
+                return _destroyTargetObject;
+            }
+            set
+            {
+                if (value != _destroyTargetObject)
+                {
+                    _destroyTargetObject = value;
+                    RaisePropertyChanged("DestroyTargetObject");
+                }
+            }
+        }
+
+        private ChanceOfSuccess _chanceOfSuccess;
+
+        public ChanceOfSuccess ChanceOfSuccess
+        {
+            get
+            {
+                return _chanceOfSuccess;
+            }
+            set
+            {
+                if (value != _chanceOfSuccess)
+                {
+                    _chanceOfSuccess = value;
+                    RaisePropertyChanged("ChanceOfSuccess");
+                }
+            }
+        }
+
+        private int _percentageOfHealthFailure;
+
+        public int PercentOfHealthFailure
+        {
+            get
+            {
+                return _percentageOfHealthFailure;
+            }
+            set
+            {
+                if (value != _percentageOfHealthFailure)
+                {
+                    _percentageOfHealthFailure = value;
+                    RaisePropertyChanged("PercentOfHealthFailure");
+                }
+            }
+        }
+
 
         IEnumerable<ChanceOfSuccess> AllChancesOfSuccess;
         public ObjectUseOnObjectActionViewModel(ObjectUseOnObjectActionTemplate value)
@@ -36,9 +94,20 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 ChanceOfSuccess.Small, 
                 ChanceOfSuccess.VerySmall, 
                 ChanceOfSuccess.None };
-            Value = value;
+            DestroyActiveObject = value.DestroyActiveObject;
+            DestroyTargetObject = value.DestroyTargetObject;
+            ChanceOfSuccess = value.ChanceOfSuccess;
+            PercentOfHealthFailure = value.PercentOfHealthFailurePenalty;
 
         }
 
+
+        public override void ApplyDetailsToValue(ref BaseActionTemplate inValue)
+        {
+            ((ObjectUseOnObjectActionTemplate)inValue).ChanceOfSuccess = ChanceOfSuccess;
+            ((ObjectUseOnObjectActionTemplate)inValue).DestroyActiveObject = DestroyActiveObject;
+            ((ObjectUseOnObjectActionTemplate)inValue).DestroyTargetObject = DestroyTargetObject;
+            ((ObjectUseOnObjectActionTemplate)inValue).PercentOfHealthFailurePenalty = PercentOfHealthFailure;
+        }
     }
 }

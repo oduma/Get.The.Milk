@@ -112,6 +112,7 @@
       <DependentUpon>WeaponObject.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\CellsGridHelper.cs" />
+    <Compile Include="ViewModels\ActionDetailViewModelBase.cs" />
     <Compile Include="ViewModels\ActionManagerViewModel.cs" />
     <Compile Include="ViewModels\ActionPropertyViewModel.cs" />
     <Compile Include="ViewModels\ActionViewModel.cs" />

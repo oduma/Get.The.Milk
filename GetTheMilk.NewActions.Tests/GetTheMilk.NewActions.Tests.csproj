@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionCreatorsTests.cs" />
     <Compile Include="IntegrationTests\AutoPlayTestLevel1.cs" />
     <Compile Include="SaveAndLoadTests\GameSaveLoadTests.cs" />
     <Compile Include="SaveAndLoadTests\SaveLoadLevelTests.cs" />

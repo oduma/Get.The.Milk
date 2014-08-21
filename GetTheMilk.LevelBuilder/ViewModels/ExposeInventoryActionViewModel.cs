@@ -8,28 +8,58 @@ using System.Threading.Tasks;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
-    public class ExposeInventoryActionViewModel:ViewModelBase
+    public class ExposeInventoryActionViewModel:ActionDetailViewModelBase
     {
-        private ExposeInventoryActionTemplate _value;
+        public IEnumerable<ExposeInventoryFinishingAction> AllFinishingActions;
 
-        public ExposeInventoryActionTemplate Value
+        private bool _selfInventory;
+
+        public bool SelfInventory
         {
-            get { return _value; }
+            get
+            {
+                return _selfInventory;
+            }
             set
             {
-                if(value!=_value)
+                if (value != _selfInventory)
                 {
-                    _value = value;
-                    RaisePropertyChanged("Value");
+                    _selfInventory = value;
+                    RaisePropertyChanged("SelfInventory");
                 }
             }
         }
 
-        public IEnumerable<ExposeInventoryFinishingAction> AllFinishingActions;
+        private ExposeInventoryFinishingAction _finishingAction;
+
+        public ExposeInventoryFinishingAction FinishingAction
+        {
+            get
+            {
+                return _finishingAction;
+            }
+            set
+            {
+                if (value != _finishingAction)
+                {
+                    _finishingAction = value;
+                    RaisePropertyChanged("FinishingAction");
+                }
+            }
+        }
+
+
         public ExposeInventoryActionViewModel(ExposeInventoryActionTemplate value)
         {
             AllFinishingActions = new ExposeInventoryFinishingAction[] { ExposeInventoryFinishingAction.Attack, ExposeInventoryFinishingAction.CloseInventory };
-            Value = value;
+            FinishingAction = value.FinishingAction;
+            SelfInventory = value.SelfInventory;
+        }
+
+        public override void ApplyDetailsToValue(ref BaseActionTemplate inValue)
+        {
+            ((ExposeInventoryActionTemplate)inValue).SelfInventory = SelfInventory;
+            ((ExposeInventoryActionTemplate)inValue).FinishingAction = FinishingAction;
         }
     }
 }

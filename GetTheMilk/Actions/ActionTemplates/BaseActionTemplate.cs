@@ -153,7 +153,7 @@ namespace GetTheMilk.Actions.ActionTemplates
             {
                 return _currentPerformer;
             }
-            protected set
+            set
             {
                 _currentPerformer = value;
                 BuildPerformer(ref _currentPerformer);

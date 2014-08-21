@@ -15,9 +15,9 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 {
     public class ActionViewModel:ViewModelBase
     {
-        private ViewModelBase _currentActionDetailsViewModel;
+        private ActionDetailViewModelBase _currentActionDetailsViewModel;
 
-        public ViewModelBase CurrentActionDetailsViewModel
+        public ActionDetailViewModelBase CurrentActionDetailsViewModel
         {
             get { return _currentActionDetailsViewModel; }
             set
@@ -30,6 +30,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
 
         }
+
         private string _uniqueId;
 
         public string UniqueId
@@ -65,6 +66,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 }
             }
         }
+
         private string _present;
 
         public string Present
@@ -101,31 +103,61 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
+        private string _performerType;
+
+        public string PerformerType
+        {
+            get
+            {
+                return _performerType;
+            }
+            set
+            {
+                if (value != _performerType)
+                {
+                    _performerType = value;
+                    RaisePropertyChanged("PerformerType");
+                }
+            }
+        }
+
         private BaseActionTemplate _value;
 
         public BaseActionTemplate Value 
         { 
             get 
-            { 
-                return _value; 
+            {
+                if (string.IsNullOrEmpty(UniqueId))
+                {
+                    return null;
+                }
+                _value.Name.UniqueId = UniqueId;
+                _value.Name.Past = Past;
+                _value.Name.Present = Present;
+                _value.StartingAction = StartingAction;
+                _value.CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer(PerformerType);
+                if(CurrentActionDetailsViewModel!=null)
+                    CurrentActionDetailsViewModel.ApplyDetailsToValue(ref _value);
+                return _value;
             }
             set 
             {
-                if(value!=_value)
+                _value = value;
+                if (_value.Name != null)
                 {
-                    _value = value;
-                    if (_value.Name != null)
-                    {
-                        UniqueId = _value.Name.UniqueId;
-                    }
-                    RaisePropertyChanged("Value");
-                    DisplayDetails(value);
+                    UniqueId = _value.Name.UniqueId;
+                    Past = _value.Name.Past;
+                    Present = _value.Name.Present;
                 }
+                StartingAction = _value.StartingAction;
+                if(_value.PerformerType!=null)
+                    PerformerType = _value.PerformerType.Name;
+                DisplayDetails(value);
             }
         }
 
-        private ObservableCollection<Type> _allPerformerTypes;
-        public ObservableCollection<Type> AllPerformerTypes
+        private ObservableCollection<string> _allPerformerTypes;
+        public ObservableCollection<string> AllPerformerTypes
         {
             set
             {
@@ -146,20 +178,20 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             if (value.Name == null)
                 value.Name = new Verb();
             if (value.Category == CategorysCatalog.ExposeInventoryCategory)
-                CurrentActionDetailsViewModel = new ExposeInventoryActionViewModel(Value as ExposeInventoryActionTemplate);
+                CurrentActionDetailsViewModel = new ExposeInventoryActionViewModel(value as ExposeInventoryActionTemplate);
             else if (value.Category == CategorysCatalog.MovementCategory)
-                CurrentActionDetailsViewModel = new MovementActionViewModel(Value as MovementActionTemplate);
+                CurrentActionDetailsViewModel = new MovementActionViewModel(value as MovementActionTemplate);
             else if (value.Category == CategorysCatalog.ObjectUseOnObjectCategory)
-                CurrentActionDetailsViewModel = new ObjectUseOnObjectActionViewModel(Value as ObjectUseOnObjectActionTemplate);
+                CurrentActionDetailsViewModel = new ObjectUseOnObjectActionViewModel(value as ObjectUseOnObjectActionTemplate);
             else if (value.Category == CategorysCatalog.TwoCharactersCategory)
-                CurrentActionDetailsViewModel = new TwoCharactersActionViewModel(Value as TwoCharactersActionTemplate);
-            if (Value != null && Value.Category != null)
+                CurrentActionDetailsViewModel = new TwoCharactersActionViewModel(value as TwoCharactersActionTemplate);
+            if (value != null && value.Category != null)
             {
                 var tempPerf = TemplatedActionPerformersFactory.GetFactory()
                     .GetAllActionPerformers()
-                    .Where(p => p.Category == Value.Category && p is BaseActionResponsePerformer).Select(p => p.GetType());
+                    .Where(p => p.Category == value.Category && p is BaseActionResponsePerformer).Select(p => p.GetType().Name);
                 if (AllPerformerTypes == null)
-                    AllPerformerTypes = new ObservableCollection<Type>();
+                    AllPerformerTypes = new ObservableCollection<string>();
                 foreach (var perf in tempPerf)
                     AllPerformerTypes.Add(perf);
             }
@@ -168,6 +200,5 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
                
         }
-
     }
 }
