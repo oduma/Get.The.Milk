@@ -25,7 +25,10 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         private NonCharacterObject _value;
         public override NonCharacterObject Value
         {
-            get { return _value; }
+            get 
+            { 
+                return _value; 
+            }
             set
             {
                 if (value != _value)

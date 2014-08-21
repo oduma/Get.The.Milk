@@ -69,7 +69,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 if (AllExistingObjects.Any(c => c.Name.Main == newObjectViewModel.Value.Name.Main))
                     AllExistingObjects.Remove(
                         AllExistingObjects.First(c => c.Name.Main == newObjectViewModel.Value.Name.Main));
-
+                newObjectViewModel.RefreshInteractions();
                 AllExistingObjects.Add(newObjectViewModel.Value);
             }
             DisplayNewObjectEditor(CurrentObjectViewModel.Value.ObjectCategory);
@@ -101,7 +101,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             if (AllExistingObjects.Any(c => c.Name.Main == CurrentObjectViewModel.Value.Name.Main))
                 AllExistingObjects.Remove(
                     AllExistingObjects.First(c => c.Name.Main == CurrentObjectViewModel.Value.Name.Main));
-
+            CurrentObjectViewModel.RefreshInteractions();
             AllExistingObjects.Add(CurrentObjectViewModel.Value);
             DisplayNewObjectEditor(CurrentObjectViewModel.Value.ObjectCategory);
         }

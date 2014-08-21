@@ -17,23 +17,23 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         public InteractionsViewModel(IActionEnabled value,
             ObservableCollection<Interaction> allAvailableInteractions)
         {
-                        if(value.Interactions==null)
-                value.Interactions= new SortedList<string, Interaction[]>();
-                        AllAvailableInteractions = allAvailableInteractions;
-                        if(AnyCharacterInteractions==null)
+            if(value.Interactions==null)
+            value.Interactions= new SortedList<string, Interaction[]>();
+                    AllAvailableInteractions = allAvailableInteractions;
+
+            if(AnyCharacterInteractions==null)
                 AnyCharacterInteractions= new ObservableCollection<Interaction>();
-                        if(value.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacter))
-            {
+
+            if(value.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacter))
                 foreach( var car in value.Interactions[GenericInteractionRulesKeys.AnyCharacter])
                     AnyCharacterInteractions.Add(car);
-            }
+
             if (AnyCharacterResponseInteractions == null)
                 AnyCharacterResponseInteractions = new ObservableCollection<Interaction>();
+
             if(value.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses))
-            {
                 foreach (var car in value.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses])
                     AnyCharacterResponseInteractions.Add(car);
-            }
 
             MoveToAnyCharacterInteractions=new RelayCommand(MoveToAnyCharacterInteractionsCommand);
             RemoveFromAnyCharacterInteractions=new RelayCommand(RemoveFromAnyCharacterInteractionsCommand);
@@ -86,19 +86,19 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private void RemoveFromAnyCharacterInteractionsCommand()
         {
-            AllAvailableInteractions.Add(SelectedCharacterInteraction);
-            AnyCharacterInteractions.Remove(SelectedCharacterInteraction);
+            AllAvailableInteractions.Add(SelectedAnyCharacterInteraction);
+            AnyCharacterInteractions.Remove(SelectedAnyCharacterInteraction);
         }
 
-        public Interaction SelectedCharacterInteraction
+        public Interaction SelectedAnyCharacterInteraction
         {
-            get { return _selectedCharacterInteraction; }
+            get { return _selectedAnyCharacterInteraction; }
             set
             {
-                if(value!=_selectedCharacterInteraction)
+                if(value!=_selectedAnyCharacterInteraction)
                 {
-                    _selectedCharacterInteraction = value;
-                    RaisePropertyChanged("SelectedCharacterInteraction");
+                    _selectedAnyCharacterInteraction = value;
+                    RaisePropertyChanged("SelectedAnyCharacterInteraction");
                 }
             }
         }
@@ -124,7 +124,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private ObservableCollection<Interaction> _allAvailableInteractions;
         private Interaction _selectedAvailableInteraction;
-        private Interaction _selectedCharacterInteraction;
+        private Interaction _selectedAnyCharacterInteraction;
         private Interaction _selectedAnyCharacterResponseInteraction;
         private ObservableCollection<Interaction> _anyCharacterInteractions;
         private ObservableCollection<Interaction> _anyCharacterResponseInteractions;

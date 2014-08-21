@@ -189,7 +189,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             {
                 var tempPerf = TemplatedActionPerformersFactory.GetFactory()
                     .GetAllActionPerformers()
-                    .Where(p => p.Category == value.Category && p is BaseActionResponsePerformer).Select(p => p.GetType().Name);
+                    .Where(p => p.Category == value.Category).Select(p => p.GetType().Name);
                 if (AllPerformerTypes == null)
                     AllPerformerTypes = new ObservableCollection<string>();
                 foreach (var perf in tempPerf)

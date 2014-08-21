@@ -19,6 +19,8 @@ namespace GetTheMilk.Actions.Interactions
 
         private string GetActionName(BaseActionTemplate action)
         {
+            if (action==null || action.CurrentPerformer == null)
+                return "no action";
             if(action.CurrentPerformer.GetType()==typeof(CommunicateActionPerformer))
                     return ((TwoCharactersActionTemplate)action).Message;
             if(action.CurrentPerformer.GetType()==typeof(AttackActionPerformer))

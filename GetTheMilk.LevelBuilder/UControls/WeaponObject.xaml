@@ -9,7 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type ViewModels:InteractionsViewModel}">
-            <UControls:ObjectInteractions />
+            <UControls:Interactions />
         </DataTemplate>
     </UserControl.Resources>
 

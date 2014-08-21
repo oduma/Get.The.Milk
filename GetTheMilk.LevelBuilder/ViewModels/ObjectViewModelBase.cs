@@ -1,10 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.BaseCommon;
+using System.Collections.Generic;
+using GetTheMilk.Actions.Interactions;
+using GetTheMilk.Utils;
+using System.Linq;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
-    public abstract class ObjectViewModelBase<T>:ViewModelBase
+    public abstract class ObjectViewModelBase<T>:ViewModelBase where T:IActionEnabled
     {
         public abstract T Value { get; set; }
 
@@ -37,5 +41,24 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         }
 
         public abstract ObjectViewModelBase<T> Clone();
+
+        internal void RefreshInteractions()
+        {
+            if(Value.Interactions==null)
+                Value.Interactions=new SortedList<string,Interaction[]>();
+            if (Value.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacter))
+                Value.Interactions.Remove(GenericInteractionRulesKeys.AnyCharacter);
+            if (Value.Interactions.ContainsKey(GenericInteractionRulesKeys.AnyCharacterResponses))
+                Value.Interactions.Remove(GenericInteractionRulesKeys.AnyCharacterResponses);
+            if(CurrentInteractionsViewModel.AnyCharacterInteractions!=null 
+                && CurrentInteractionsViewModel.AnyCharacterInteractions.Any())
+                Value.Interactions.Add(GenericInteractionRulesKeys.AnyCharacter, 
+                    CurrentInteractionsViewModel.AnyCharacterInteractions.ToArray());
+            if(CurrentInteractionsViewModel.AnyCharacterResponseInteractions!=null 
+                && CurrentInteractionsViewModel.AnyCharacterResponseInteractions.Any())
+                Value.Interactions.Add(GenericInteractionRulesKeys.AnyCharacterResponses, 
+                    CurrentInteractionsViewModel.AnyCharacterResponseInteractions.ToArray());
+
+        }
     }
 }
