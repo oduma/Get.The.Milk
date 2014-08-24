@@ -1,28 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using GetTheMilk.Actions;
-using GetTheMilk.Actions.ActionPerformers;
-using GetTheMilk.Actions.ActionPerformers.Base;
+﻿using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters;
-using GetTheMilk.Factories;
-using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace GetTheMilk.NewActions.Tests.IntegrationTests
 {
     [TestFixture]
-    public class AutoPlayTestLevel1
+    public class AutoPlayBuiltLevel
     {
         [Test]
-        public void PlayTestLevel1_PlayerLoses()
+        public void PlayTestLevel3_PlayerLoses()
         {
             PerformActionResult actionResult;
             PerformActionResult movementResult;
-            var level = TestHelper.GetToTheFight(out movementResult);
+            var level = TestHelper.GetToTheFight(out movementResult,3);
 
             //the player attacks the fighter character
 
@@ -76,11 +73,11 @@ namespace GetTheMilk.NewActions.Tests.IntegrationTests
         }
 
         [Test]
-        public void PlayTestLevel1_PlayerQuits()
+        public void PlayTestLevel3_PlayerQuits()
         {
             PerformActionResult actionResult;
             PerformActionResult movementResult;
-            var level = TestHelper.GetToTheFight(out movementResult);
+            var level = TestHelper.GetToTheFight(out movementResult,3);
 
             var startAttack =
                 ((MovementActionTemplateExtraData)movementResult.ExtraData).AvailableActionTemplates.FirstOrDefault(
@@ -128,16 +125,16 @@ namespace GetTheMilk.NewActions.Tests.IntegrationTests
             actionResult = level.Player.PerformAction(((List<BaseActionTemplate>)actionResult.ExtraData)[1]);
             Assert.AreEqual(ActionResultType.Ok, actionResult.ResultType);
             Assert.AreEqual(38, level.Player.Experience);
-            Assert.AreEqual(12, level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFoe").Experience);
+            Assert.AreEqual(14, level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFoe").Experience);
             Assert.AreEqual(1, level.Player.Inventory.Count);
         }
 
         [Test]
-        public void PlayTestLevel1_PlayerWins()
+        public void PlayTestLevel3_PlayerWins()
         {
             PerformActionResult actionResult;
             PerformActionResult movementResult;
-            var level = TestHelper.GetToTheFight(out movementResult);
+            var level = TestHelper.GetToTheFight(out movementResult,3);
 
             var startAttack =
                 ((MovementActionTemplateExtraData)movementResult.ExtraData).AvailableActionTemplates.FirstOrDefault(
@@ -167,7 +164,7 @@ namespace GetTheMilk.NewActions.Tests.IntegrationTests
                 ((InventoryExtraData)actionResult.ExtraData).Contents[0].PossibleUsses.First(p => p.Name.UniqueId == "SelectDefenseWeapon"));
             Assert.AreEqual(ActionResultType.Ok, inventoryActionResult.ResultType);
             Assert.IsNotNull(level.Player.ActiveDefenseWeapon);
-            
+
             //give the character a health boost
             ((InventoryExtraData)actionResult.ExtraData).FinishingAction.TargetCharacter.Health = 5;
 
@@ -185,7 +182,7 @@ namespace GetTheMilk.NewActions.Tests.IntegrationTests
                 actionResult = level.Player.PerformAction(((List<BaseActionTemplate>)actionResult.ExtraData)[0]);
                 Assert.AreEqual(ActionResultType.Ok, actionResult.ResultType);
             }
-            
+
             actionResult = level.Player.PerformAction(((List<BaseActionTemplate>)actionResult.ExtraData)[0]);
             Assert.AreEqual(ActionResultType.Ok, actionResult.ResultType);
             Assert.AreEqual(1, level.Characters.Count);

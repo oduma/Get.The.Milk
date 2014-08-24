@@ -17,7 +17,7 @@ using GetTheMilk.Utils;
 using NUnit.Framework;
 using Newtonsoft.Json;
 
-namespace GetTheMilkTests.SaveLoadTests
+namespace GetTheMilk.NewActions.Tests.SaveLoadTests
 {
     [TestFixture]
     public class LoadABuiltLevel
@@ -31,7 +31,7 @@ namespace GetTheMilkTests.SaveLoadTests
             Assert.AreEqual("Test Level1", actual.Name.Main);
             Assert.AreEqual("The light side", actual.Name.Narrator);
             Assert.AreEqual(0, actual.StartingCell);
-            Assert.AreEqual("Some Story", actual.Story);
+            Assert.AreEqual("Some story", actual.Story);
             Assert.AreEqual(9, actual.CurrentMap.Cells.Length);
             Assert.IsNotNull(actual.Inventory);
             Assert.AreEqual(InventoryType.LevelInventory, actual.Inventory.InventoryType);

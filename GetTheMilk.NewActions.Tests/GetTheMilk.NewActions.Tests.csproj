@@ -47,8 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionCreatorsTests.cs" />
+    <Compile Include="IntegrationTests\AutoPlayBuiltLevel.cs" />
     <Compile Include="IntegrationTests\AutoPlayTestLevel1.cs" />
     <Compile Include="SaveAndLoadTests\GameSaveLoadTests.cs" />
+    <Compile Include="SaveAndLoadTests\LoadABuiltLevel.cs" />
     <Compile Include="SaveAndLoadTests\SaveLoadLevelTests.cs" />
     <Compile Include="SaveAndLoadTests\SerializeDeserializeTests.cs" />
     <Compile Include="SingleActionPerformedTests\ObjectPerformObjectResponseActionTests.cs" />
@@ -94,6 +96,9 @@
     </None>
     <None Include="GameData\GL0.gdu">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="GameData\GL3.gdu">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="log4net.config" />
     <None Include="packages.config" />
