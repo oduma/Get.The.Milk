@@ -11,21 +11,7 @@ namespace GetTheMilk.Actions.Interactions
 
         public override string ToString()
         {
-            string actionName = GetActionName(Action);
-            string reactionName = GetActionName(Reaction);
-
-            return actionName + " - " + reactionName;
-        }
-
-        private string GetActionName(BaseActionTemplate action)
-        {
-            if (action==null || action.CurrentPerformer == null)
-                return "no action";
-            if(action.CurrentPerformer.GetType()==typeof(CommunicateActionPerformer))
-                    return ((TwoCharactersActionTemplate)action).Message;
-            if(action.CurrentPerformer.GetType()==typeof(AttackActionPerformer))
-                    return action.Name.Present + " " + action.TargetCharacter.Name.Main;
-            return action.Name.Present;
+            return ((Action==null)?"no action" : Action.ToString()) + " - " + ((Reaction==null)?"no action" : Reaction.ToString());
         }
     }
 }

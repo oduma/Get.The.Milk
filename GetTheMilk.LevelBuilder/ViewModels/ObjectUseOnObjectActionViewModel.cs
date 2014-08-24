@@ -84,7 +84,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         }
 
 
-        IEnumerable<ChanceOfSuccess> AllChancesOfSuccess;
+        public IEnumerable<ChanceOfSuccess> AllChancesOfSuccess { get; set; }
+
         public ObjectUseOnObjectActionViewModel(ObjectUseOnObjectActionTemplate value)
         {
             AllChancesOfSuccess = new ChanceOfSuccess[] { ChanceOfSuccess.Full, 

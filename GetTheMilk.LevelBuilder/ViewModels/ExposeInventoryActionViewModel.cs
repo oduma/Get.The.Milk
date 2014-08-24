@@ -10,7 +10,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 {
     public class ExposeInventoryActionViewModel:ActionDetailViewModelBase
     {
-        public IEnumerable<ExposeInventoryFinishingAction> AllFinishingActions;
+        public IEnumerable<ExposeInventoryFinishingAction> AllFinishingActions{get;set;}
 
         private bool _selfInventory;
 

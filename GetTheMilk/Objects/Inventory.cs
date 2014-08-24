@@ -62,6 +62,7 @@ namespace GetTheMilk.Objects
             if (Contains(o))
             {
                 base.Remove(o);
+                o.StorageContainer = null;
             }
         }
 
