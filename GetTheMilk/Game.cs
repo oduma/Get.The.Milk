@@ -41,7 +41,7 @@ namespace GetTheMilk
         {
         }
 
-        public static Game CreateGameInstance() 
+        public static Game GetGameInstance() 
         {
             if (Instance.Player == null)
             {
@@ -60,6 +60,17 @@ namespace GetTheMilk
             return Instance;
         }
 
+        public static Game CreateNewGameInstance()
+        {
+                Instance.Player = new Player();
+                var factory = ObjectActionsFactory.GetFactory();
+
+                var objAction = factory.CreateObjectAction("Player");
+                Instance.Player.AllowsTemplateAction = objAction.AllowsTemplateAction;
+                Instance.Player.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
+                Instance.CurrentLevel = Level.Create(0);
+            return Instance;
+        }
 
         public bool ProceedToNextLevel()
         {

@@ -49,6 +49,7 @@
     <Compile Include="ActionCreatorsTests.cs" />
     <Compile Include="IntegrationTests\AutoPlayBuiltLevel.cs" />
     <Compile Include="IntegrationTests\AutoPlayTestLevel1.cs" />
+    <Compile Include="IntegrationTests\LevelCompletionTests.cs" />
     <Compile Include="SaveAndLoadTests\GameSaveLoadTests.cs" />
     <Compile Include="SaveAndLoadTests\LoadABuiltLevel.cs" />
     <Compile Include="SaveAndLoadTests\SaveLoadLevelTests.cs" />
@@ -96,6 +97,9 @@
     </None>
     <None Include="GameData\GL0.gdu">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="GameData\GL1.gdu">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="GameData\GL3.gdu">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

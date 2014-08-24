@@ -6,7 +6,7 @@ using GetTheMilk.BaseCommon;
 using GetTheMilk.Navigation;
 using NUnit.Framework;
 
-namespace GetTheMilkTests.IntegrationTests
+namespace GetTheMilk.NewActions.Tests.IntegrationTests
 {
     [TestFixture]
     public class LevelCompletionTests
@@ -14,16 +14,16 @@ namespace GetTheMilkTests.IntegrationTests
         [Test]
         public void SomeLevelComplete()
         {
-            Game game = Game.CreateGameInstance();
+            Game game = Game.GetGameInstance();
 
+            //take the foe out for quick completion
             game.CurrentLevel.Characters.Remove(game.CurrentLevel.Characters[1]);
 
-            var teleport = new MovementActionTemplate
-                               {
-                                   ActiveCharacter = game.Player,
-                                   CurrentMap = game.CurrentLevel.CurrentMap,
-                                   TargetCell = 8
-                               };
+
+            var teleport = game.Player.CreateNewInstanceOfAction<MovementActionTemplate>("Teleport");
+            teleport.TargetCell = 8;
+            teleport.CurrentMap = game.CurrentLevel.CurrentMap;
+            
             var result = game.Player.PerformAction(teleport);
             Assert.IsNotNull(result);
 
@@ -39,26 +39,24 @@ namespace GetTheMilkTests.IntegrationTests
         [Test]
         public void FinalLevelComplete()
         {
-            Game game = Game.CreateGameInstance();
+            Game game = Game.GetGameInstance();
 
+            //take the foe out for quick completion
             game.CurrentLevel.Characters.Remove(game.CurrentLevel.Characters[1]);
 
-            var teleport = new MovementActionTemplate
-            {
-                ActiveCharacter = game.Player,
-                CurrentMap = game.CurrentLevel.CurrentMap,
-                TargetCell = 8
-            };
+
+            var teleport = game.Player.CreateNewInstanceOfAction<MovementActionTemplate>("Teleport");
+            teleport.TargetCell = 8;
+            teleport.CurrentMap = game.CurrentLevel.CurrentMap;
+
             game.Player.PerformAction(teleport);
+            
             game.ProceedToNextLevel();
 
-            var walk = new MovementActionTemplate
-            {
-                Name = new Verb { PerformerId = "Walk" },
-                ActiveCharacter = game.Player,
-                CurrentMap = game.CurrentLevel.CurrentMap,
-                Direction = Direction.South
-            };
+            var walk = game.Player.CreateNewInstanceOfAction<MovementActionTemplate>("Walk");
+            walk.CurrentMap = game.CurrentLevel.CurrentMap;
+            walk.Direction = Direction.South;
+
             Assert.AreEqual(ActionResultType.LevelCompleted,game.Player.PerformAction(walk).ResultType);
             Assert.False(game.ProceedToNextLevel());
             Assert.IsNull(game.CurrentLevel);

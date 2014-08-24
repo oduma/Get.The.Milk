@@ -77,7 +77,7 @@ namespace GetTheMilk.UI.ViewModels
         private void SaveGame()
         {
             var fileName = string.Format("{0}.{1}",Guid.NewGuid().ToString(),"gsu");
-            var game=Game.CreateGameInstance();
+            var game=Game.GetGameInstance();
             game.Save(fileName);
         }
 

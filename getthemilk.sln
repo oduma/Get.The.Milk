@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetTheMilk", "GetTheMilk\GetTheMilk.csproj", "{0F1B4894-F8A9-41F9-861E-3F3F14D87D8F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{5A5CF566-DCE3-4BA9-90AA-2546766606DC}"
@@ -17,8 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{5A5CF566-DCE
 		Lib\Sciendo.Common.dll = Lib\Sciendo.Common.dll
 		Lib\Sciendo.Common.pdb = Lib\Sciendo.Common.pdb
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetTheMilkTests", "GetTheMilkTests\GetTheMilkTests.csproj", "{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetTheMilk.UI.Console", "GetTheMilk.UI.Console\GetTheMilk.UI.Console.csproj", "{4D003248-6811-4FF6-925B-204625E71314}"
 EndProject
@@ -48,16 +48,6 @@ Global
 		{0F1B4894-F8A9-41F9-861E-3F3F14D87D8F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0F1B4894-F8A9-41F9-861E-3F3F14D87D8F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0F1B4894-F8A9-41F9-861E-3F3F14D87D8F}.Release|x86.ActiveCfg = Release|Any CPU
-		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{2B62DB98-8AA2-49D4-B20B-BC2DB8000F5D}.Release|x86.ActiveCfg = Release|Any CPU
 		{4D003248-6811-4FF6-925B-204625E71314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4D003248-6811-4FF6-925B-204625E71314}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D003248-6811-4FF6-925B-204625E71314}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
