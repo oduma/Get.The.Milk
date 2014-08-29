@@ -17,18 +17,17 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         private Character _character;
         private Level _level;
         private Player _player = new Player();
-        private ObjectActionsFactory _factory = ObjectActionsFactory.GetFactory();
 
         [SetUp]
         public void SetUp()
         {
             _character = new Character { ObjectTypeId = "NPCFriendly" };
 
-            var objAction = _factory.CreateObjectAction("NPCFriendly");
+            var objAction = ObjectActionsFactory.CreateObjectAction("NPCFriendly");
             _character.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _character.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
-            objAction = _factory.CreateObjectAction("Player");
+            objAction = ObjectActionsFactory.CreateObjectAction("Player");
             _player.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _player.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
@@ -55,7 +54,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
             _character.LoadInteractions(targetCharacter,targetCharacter.GetType());
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            var objAction = _factory.CreateObjectAction("Tool");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
             {
                 Name = new Noun { Main = "test tool", Narrator = "test tool" },
@@ -75,7 +74,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             var targetCharacter = _level.Characters.FirstOrDefault(c => c.ObjectTypeId == "NPCFriendly");
             _character.LoadInteractions(targetCharacter, targetCharacter.GetType());
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            var objAction = _factory.CreateObjectAction("Tool");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
             {
                 Name = new Noun { Main = "test tool", Narrator = "test tool" },
@@ -98,7 +97,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                                             {MaximumCapacity = 0, InventoryType = InventoryType.CharacterInventory};
             _character.LoadInteractions(targetCharacter, targetCharacter.GetType());
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            var objAction = _factory.CreateObjectAction("Tool");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
             {
                 Name = new Noun { Main = "test tool", Narrator = "test tool" },
@@ -120,7 +119,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             targetCharacter.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             _character.LoadInteractions(targetCharacter, targetCharacter.GetType());
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            var objAction = _factory.CreateObjectAction("Tool");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
             {
                 Name = new Noun { Main = "test tool", Narrator = "test tool" },
@@ -141,7 +140,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             targetCharacter.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             _character.LoadInteractions(targetCharacter, targetCharacter.GetType());
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            var objAction = _factory.CreateObjectAction("Tool");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
             {
                 Name = new Noun { Main = "test tool", Narrator = "test tool" },
@@ -165,7 +164,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             _character.LoadInteractions(targetCharacter, targetCharacter.GetType());
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             _character.Walet = new Walet {MaxCapacity = 2000, CurrentCapacity = 0};
-            var objAction = _factory.CreateObjectAction("Tool");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
             {
                 Name = new Noun { Main = "test tool", Narrator = "test tool" },
@@ -190,7 +189,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
             _character.LoadInteractions(targetCharacter, targetCharacter.GetType());
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             _character.Walet = new Walet { MaxCapacity = 2000, CurrentCapacity = 100 };
-            var objAction = _factory.CreateObjectAction("Tool");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
             {
                 Name = new Noun { Main = "test tool", Narrator = "test tool" },

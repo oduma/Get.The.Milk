@@ -57,7 +57,7 @@ namespace GetTheMilk.UI.ViewModels
             }
         }
 
-        public Game Game { get; set; }
+        public RpgGameCore Game { get; set; }
 
         public GameAdvanceViewModel()
         {

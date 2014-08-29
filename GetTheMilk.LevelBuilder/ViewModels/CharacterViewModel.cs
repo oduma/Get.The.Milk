@@ -25,7 +25,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             Value = selectedCharacter;
             CurrentInteractionsViewModel = new InteractionsViewModel(Value, allAvailableInteractions);
             AllObjectsAvailable = allObjectsAvailable;
-            var characterTypes = ObjectActionsFactory.GetFactory().ListAllRegisterNames(ObjectCategory.Character);
+            var characterTypes = ObjectActionsFactory.ListAllRegisterNames(ObjectCategory.Character);
             if (AllObjectTypes == null)
                 AllObjectTypes = new ObservableCollection<string>();
             foreach (var objectType in characterTypes)

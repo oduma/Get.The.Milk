@@ -19,11 +19,10 @@ namespace GetTheMilk.Utils
             try
             {
                 var item = JObject.Load(reader);
-                var factory = ObjectActionsFactory.GetFactory();
                 if (item["ObjectCategory"].Value<int>() == 0)
                 {
                     var obj = item.ToObject<NonCharacterObject>();
-                    var objAction = factory.CreateObjectAction(item["ObjectTypeId"].Value<string>());
+                    var objAction = ObjectActionsFactory.CreateObjectAction(item["ObjectTypeId"].Value<string>());
                     obj.AllowsTemplateAction = objAction.AllowsTemplateAction;
                     obj.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
                     return obj;
@@ -31,7 +30,7 @@ namespace GetTheMilk.Utils
                 if (item["ObjectCategory"].Value<int>() == 1)
                 {
                     var obj = item.ToObject<Tool>();
-                    var objAction = factory.CreateObjectAction(item["ObjectTypeId"].Value<string>());
+                    var objAction = ObjectActionsFactory.CreateObjectAction(item["ObjectTypeId"].Value<string>());
                     obj.AllowsTemplateAction = objAction.AllowsTemplateAction;
                     obj.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
                     return obj;
@@ -39,7 +38,7 @@ namespace GetTheMilk.Utils
                 if (item["ObjectCategory"].Value<int>() == 2)
                 {
                     var obj = item.ToObject<Weapon>();
-                    var objAction = factory.CreateObjectAction(item["ObjectTypeId"].Value<string>());
+                    var objAction = ObjectActionsFactory.CreateObjectAction(item["ObjectTypeId"].Value<string>());
                     obj.AllowsTemplateAction = objAction.AllowsTemplateAction;
                     obj.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
                     return obj;

@@ -17,12 +17,11 @@ namespace GetTheMilk.Utils
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
                 var item = JObject.Load(reader);
-                var factory = ObjectActionsFactory.GetFactory();
                 var objectTypeId = item["ObjectTypeId"].Value<string>();
             if (objectTypeId == "Player")
             {
                 var obj = item.ToObject<Player>();
-                var objAction = factory.CreateObjectAction(objectTypeId);
+                var objAction = ObjectActionsFactory.CreateObjectAction(objectTypeId);
                 obj.AllowsTemplateAction = objAction.AllowsTemplateAction;
                 obj.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
                 return obj;
@@ -30,7 +29,7 @@ namespace GetTheMilk.Utils
             else
             {
                 var obj = item.ToObject<Character>();
-                var objAction = factory.CreateObjectAction(objectTypeId);
+                var objAction = ObjectActionsFactory.CreateObjectAction(objectTypeId);
                 obj.AllowsTemplateAction = objAction.AllowsTemplateAction;
                 obj.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
                 return obj;                

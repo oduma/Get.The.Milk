@@ -1,33 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.BaseCommon;
-using Sciendo.Common.IOC;
+using Sciendo.IOC;
 
 namespace GetTheMilk.Factories
 {
-    public class ObjectActionsFactory
+    public static class ObjectActionsFactory
     {
-        private readonly ComponentResolver _componentResolver;
-
-        private ObjectActionsFactory()
+        public static IEnumerable<string> ListAllRegisterNames(ObjectCategory objectCategory)
         {
-            _componentResolver = new ComponentResolver();
-            _componentResolver.RegisterAll(new ObjectActionsInstaller());
+            return Container.GetInstance().ResolveAll<IActionAllowed>().Where(c=>c.ObjectCategory==objectCategory).Select(c => c.ObjectTypeId);
         }
-
-        private static readonly ObjectActionsFactory Instance = new ObjectActionsFactory();
-        public static ObjectActionsFactory GetFactory()
+        public static IActionAllowed CreateObjectAction(string name)
         {
-            return Instance;
-        }
-
-        public IEnumerable<string> ListAllRegisterNames(ObjectCategory objectCategory)
-        {
-            return _componentResolver.ResolveAll<IActionAllowed>().Where(c=>c.ObjectCategory==objectCategory).Select(c => c.ObjectTypeId);
-        }
-        public IActionAllowed CreateObjectAction(string name)
-        {
-            return _componentResolver.ResolveAll<IActionAllowed>().First(o => o.ObjectTypeId == name);
+            return Container.GetInstance().ResolveAll<IActionAllowed>().First(o => o.ObjectTypeId == name);
         }
 
     }

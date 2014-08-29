@@ -15,7 +15,7 @@ using System.Linq;
 namespace GetTheMilk.NewActions.Tests.ChainedActionTests
 {
     [TestFixture]
-    public class CharactersInteractingWithObjects
+    public class CharactersInteractingWithObjects : BaseTestClass
     {
         private Character _character;
 
@@ -24,9 +24,8 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         public void SetUp()
         {
             _character = new Character { ObjectTypeId = "NPCFriendly", Name = new Noun { Main = "chr", Narrator = "chr" } };
-            var factory = ObjectActionsFactory.GetFactory();
 
-            var objAction = factory.CreateObjectAction("NPCFriendly");
+            var objAction = ObjectActionsFactory.CreateObjectAction("NPCFriendly");
             _character.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _character.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 

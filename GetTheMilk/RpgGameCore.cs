@@ -11,7 +11,7 @@ using GetTheMilk.Factories;
 
 namespace GetTheMilk
 {
-    public class Game
+    public class RpgGameCore
     {
 
         [JsonIgnore]
@@ -21,9 +21,9 @@ namespace GetTheMilk
         public Player Player { get; set; }
 
 
-        private static readonly Game Instance = new Game();
+        private static readonly RpgGameCore Instance = new RpgGameCore();
 
-        public static Game Load(string fullPath)
+        public static RpgGameCore Load(string fullPath)
         {
             var gameSettings = GameSettings.GetInstance();
             using (TextReader textReader = new StreamReader(gameSettings.CurrentReadStrategy(fullPath)))
@@ -37,18 +37,17 @@ namespace GetTheMilk
             return Instance;
         }
 
-        private Game()
+        private RpgGameCore()
         {
         }
 
-        public static Game GetGameInstance() 
+        public static RpgGameCore GetGameInstance() 
         {
             if (Instance.Player == null)
             {
                 Instance.Player = new Player();
-                var factory = ObjectActionsFactory.GetFactory();
 
-                var objAction = factory.CreateObjectAction("Player");
+                var objAction = ObjectActionsFactory.CreateObjectAction("Player");
                 Instance.Player.AllowsTemplateAction = objAction.AllowsTemplateAction;
                 Instance.Player.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
@@ -60,12 +59,11 @@ namespace GetTheMilk
             return Instance;
         }
 
-        public static Game CreateNewGameInstance()
+        public static RpgGameCore CreateNewGameInstance()
         {
                 Instance.Player = new Player();
-                var factory = ObjectActionsFactory.GetFactory();
 
-                var objAction = factory.CreateObjectAction("Player");
+                var objAction = ObjectActionsFactory.CreateObjectAction("Player");
                 Instance.Player.AllowsTemplateAction = objAction.AllowsTemplateAction;
                 Instance.Player.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
                 Instance.CurrentLevel = Level.Create(0);

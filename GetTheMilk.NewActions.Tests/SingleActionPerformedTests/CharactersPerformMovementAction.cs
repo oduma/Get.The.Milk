@@ -26,9 +26,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                                      new Inventory
                                          {MaximumCapacity = 200, InventoryType = InventoryType.CharacterInventory}
                              };
-            var factory = ObjectActionsFactory.GetFactory();
-
-            var objAction = factory.CreateObjectAction("NPCFriendly");
+            var objAction = ObjectActionsFactory.CreateObjectAction("NPCFriendly");
             _character.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _character.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 

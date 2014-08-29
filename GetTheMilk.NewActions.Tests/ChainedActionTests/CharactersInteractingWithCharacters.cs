@@ -17,7 +17,7 @@ using System.Linq;
 namespace GetTheMilk.NewActions.Tests.ChainedActionTests
 {
     [TestFixture]
-    public class CharactersInteractingWithCharacters
+    public class CharactersInteractingWithCharacters : BaseTestClass
     {
         private Character _activeCharacter;
 

@@ -13,7 +13,7 @@ namespace GetTheMilk.UI.ViewModels
 {
     public class GamePlayViewModel:GameBaseViewModel
     {
-        private Game _game;
+        private RpgGameCore _game;
 
         private int _levelNo;
 
@@ -327,7 +327,7 @@ namespace GetTheMilk.UI.ViewModels
 
         }
 
-        public GamePlayViewModel(Game game)
+        public GamePlayViewModel(RpgGameCore game)
         {
             _game=game;
             ActionPanelViewModel = new ActionPanelViewModel(_game.Player);

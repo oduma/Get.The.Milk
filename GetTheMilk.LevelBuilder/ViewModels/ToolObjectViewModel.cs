@@ -14,7 +14,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 tool.Name=new Noun();
             Value = tool;
             CurrentInteractionsViewModel = new InteractionsViewModel(Value,allAvailableInteractions);
-            var objectTypes = ObjectActionsFactory.GetFactory().ListAllRegisterNames(ObjectCategory.Tool);
+            var objectTypes = ObjectActionsFactory.ListAllRegisterNames(ObjectCategory.Tool);
             if(AllObjectTypes==null)
                 AllObjectTypes= new ObservableCollection<string>();
             foreach (var objectType in objectTypes)

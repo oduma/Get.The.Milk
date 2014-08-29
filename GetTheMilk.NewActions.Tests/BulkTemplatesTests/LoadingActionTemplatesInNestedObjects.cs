@@ -14,7 +14,7 @@ using NUnit.Framework;
 namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
 {
     [TestFixture]
-    public class LoadingActionTemplatesInNestedObjects
+    public class LoadingActionTemplatesInNestedObjects : BaseTestClass
     {
         [Test]
         public void SaveAModifiedObjectInACharacterInventory()

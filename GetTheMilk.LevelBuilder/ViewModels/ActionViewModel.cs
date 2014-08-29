@@ -135,7 +135,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 _value.Name.Past = Past;
                 _value.Name.Present = Present;
                 _value.StartingAction = StartingAction;
-                _value.CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer(PerformerType);
+                _value.CurrentPerformer = TemplatedActionPerformersFactory.CreateActionPerformer(PerformerType);
                 if(CurrentActionDetailsViewModel!=null)
                     CurrentActionDetailsViewModel.ApplyDetailsToValue(ref _value);
                 return _value;
@@ -187,8 +187,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 CurrentActionDetailsViewModel = new TwoCharactersActionViewModel(value as TwoCharactersActionTemplate);
             if (value != null && value.Category != null)
             {
-                var tempPerf = TemplatedActionPerformersFactory.GetFactory()
-                    .GetAllActionPerformers()
+                var tempPerf = TemplatedActionPerformersFactory.GetAllActionPerformers()
                     .Where(p => p.Category == value.Category).Select(p => p.GetType().Name);
                 if (AllPerformerTypes == null)
                     AllPerformerTypes = new ObservableCollection<string>();

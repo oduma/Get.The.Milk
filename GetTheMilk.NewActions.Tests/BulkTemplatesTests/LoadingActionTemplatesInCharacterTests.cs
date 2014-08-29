@@ -9,7 +9,7 @@ using GetTheMilk.Actions.ActionPerformers.Base;
 namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
 {
     [TestFixture]
-    public class LoadingActionTemplatesInCharacterTests
+    public class LoadingActionTemplatesInCharacterTests:BaseTestClass
     {
         [Test]
         public void LoadCharactersDefaultActionTemplates()

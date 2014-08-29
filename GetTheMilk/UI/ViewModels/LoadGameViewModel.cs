@@ -20,7 +20,7 @@ namespace GetTheMilk.UI.ViewModels
 
         private void LoadGame()
         {
-            var game = Game.Load(SelectedFileName);
+            var game = RpgGameCore.Load(SelectedFileName);
             if (GameStartRequest != null)
             {
                 GameStartRequest(this, new GameStartRequestEventArgs(game));

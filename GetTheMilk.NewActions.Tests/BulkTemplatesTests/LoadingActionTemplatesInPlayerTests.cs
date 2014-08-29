@@ -13,7 +13,7 @@ using NUnit.Framework;
 namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
 {
     [TestFixture]
-    public class LoadingActionTemplatesInPlayerTests
+    public class LoadingActionTemplatesInPlayerTests : BaseTestClass
     {
         [Test]
         public void LoadPlayersDefaultActionTemplates()

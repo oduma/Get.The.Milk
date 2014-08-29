@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.Core.Internal;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Actions.Interactions;
@@ -175,9 +174,8 @@ namespace GetTheMilk.Characters.BaseCharacters
                     Interactions.Remove(mainNameResponses);
                 Interactions.Add(mainNameResponses,objectInRange.Interactions[
                                                           GenericInteractionRulesKeys.AnyCharacterResponses]);
-                Interactions[mainNameResponses].ForEach(ar =>
-                {
-                    ar.Action.TargetCharacter = this;
+                foreach(var ar in Interactions[mainNameResponses])
+                {ar.Action.TargetCharacter = this;
                     if (typeOfObject == typeof(Character))
                         ar.Action.ActiveCharacter = (Character)objectInRange;
                     else
@@ -190,7 +188,7 @@ namespace GetTheMilk.Characters.BaseCharacters
                         else
                             ar.Reaction.TargetObject = (NonCharacterObject)objectInRange;                        
                     }
-                });
+                };
             }
             if (!Interactions.ContainsKey(mainName)
                 && objectInRange.Interactions != null
@@ -198,7 +196,7 @@ namespace GetTheMilk.Characters.BaseCharacters
             {
                 Interactions.Add(mainName,objectInRange.Interactions[
                                                           GenericInteractionRulesKeys.AnyCharacter]);
-                Interactions[mainName].ForEach(ar =>
+                foreach(var ar in Interactions[mainName])
                 {
                     ar.Action.ActiveCharacter = this;
                     if (typeOfObject == typeof(Character))
@@ -211,10 +209,10 @@ namespace GetTheMilk.Characters.BaseCharacters
                         if (typeOfObject == typeof(Character))
                             ar.Reaction.ActiveCharacter = (Character)objectInRange;
                         else
-                            ar.Reaction.ActiveObject = (NonCharacterObject)objectInRange; 
+                            ar.Reaction.ActiveObject = (NonCharacterObject)objectInRange;
 
                     }
-                });
+                }
             }
         }
     }

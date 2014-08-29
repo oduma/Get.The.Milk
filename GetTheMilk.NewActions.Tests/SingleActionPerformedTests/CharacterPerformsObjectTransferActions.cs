@@ -25,17 +25,16 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                                            };
         private Level _level;
         private Player _player = new Player();
-        private ObjectActionsFactory _factory = ObjectActionsFactory.GetFactory();
 
         [SetUp]
         public void SetUp()
         {
 
-            var objAction = _factory.CreateObjectAction("NPCFriendly");
+            var objAction = ObjectActionsFactory.CreateObjectAction("NPCFriendly");
             _character.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _character.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
-            objAction = _factory.CreateObjectAction("Player");
+            objAction = ObjectActionsFactory.CreateObjectAction("Player");
             _player.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _player.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
@@ -88,7 +87,7 @@ a => a.Name.UniqueId == "Discard");
             targetCharacter.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             _character.LoadInteractions(targetCharacter, targetCharacter.GetType());
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            var objAction = _factory.CreateObjectAction("Tool");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
             {
                 Name = new Noun { Main = "test tool", Narrator = "test tool" },
@@ -123,7 +122,7 @@ a => a.Name.UniqueId == "Discard");
                 }
             });
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
-            var objAction = _factory.CreateObjectAction("Tool");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
             {
                 Name = new Noun { Main = "test tool", Narrator = "test tool" },
@@ -150,7 +149,7 @@ a => a.Name.UniqueId == "Discard");
             _character.LoadInteractions(targetCharacter, targetCharacter.GetType());
             _character.Inventory = new Inventory { MaximumCapacity = 2, InventoryType = InventoryType.CharacterInventory };
             _character.Walet = new Walet { MaxCapacity = 2000, CurrentCapacity = 100 };
-            var objAction = _factory.CreateObjectAction("Tool");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
             {
                 Name = new Noun { Main = "test tool", Narrator = "test tool" },
@@ -190,7 +189,7 @@ a => a.Name.UniqueId == "Discard");
                     Present = "buy"
                 }
             });
-            var objAction = _factory.CreateObjectAction("Tool");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Tool");
             targetCharacter.Inventory.Add(new Tool
             {
                 Name = new Noun { Main = "test tool", Narrator = "test tool" },

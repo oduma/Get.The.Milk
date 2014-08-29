@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
 {
     [TestFixture]
-    public class LoadingInteractionRulesInObjects
+    public class LoadingInteractionRulesInObjects : BaseTestClass
     {
         [Test]
         public void SaveAnObjectWithModifiedInteractions()

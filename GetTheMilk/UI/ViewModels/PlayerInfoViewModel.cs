@@ -81,7 +81,7 @@ namespace GetTheMilk.UI.ViewModels
         }
         private readonly Player _player;
 
-        public PlayerInfoViewModel(Game game)
+        public PlayerInfoViewModel(RpgGameCore game)
         {
             _player = game.Player;
             PlayerName = _player.Name.Main;

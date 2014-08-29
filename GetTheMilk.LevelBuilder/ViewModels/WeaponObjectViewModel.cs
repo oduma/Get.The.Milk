@@ -18,7 +18,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 weapon.WeaponTypes=new WeaponType[0];
             Value = weapon;
             CurrentInteractionsViewModel = new InteractionsViewModel(Value,allAvailableInteractions);
-            var objectTypes = ObjectActionsFactory.GetFactory().ListAllRegisterNames(ObjectCategory.Weapon);
+            var objectTypes = ObjectActionsFactory.ListAllRegisterNames(ObjectCategory.Weapon);
             if(AllObjectTypes==null)
                 AllObjectTypes= new ObservableCollection<string>();
             foreach (var objectType in objectTypes)

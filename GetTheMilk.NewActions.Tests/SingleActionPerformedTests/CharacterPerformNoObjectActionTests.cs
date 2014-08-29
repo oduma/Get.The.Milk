@@ -17,13 +17,12 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
     public class CharacterPerformNoObjectActionTests
     {
         private Character _character = new Character { ObjectTypeId = "NPCFriendly" };
-        private ObjectActionsFactory _factory = ObjectActionsFactory.GetFactory();
 
         [SetUp]
         public void SetUp()
         {
 
-            var objAction = _factory.CreateObjectAction("NPCFriendly");
+            var objAction = ObjectActionsFactory.CreateObjectAction("NPCFriendly");
             _character.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _character.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
         }

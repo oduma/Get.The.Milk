@@ -14,7 +14,7 @@ namespace GetTheMilk.NewActions.Tests.IntegrationTests
         [Test]
         public void SomeLevelComplete()
         {
-            Game game = Game.GetGameInstance();
+            RpgGameCore game = RpgGameCore.GetGameInstance();
 
             //take the foe out for quick completion
             game.CurrentLevel.Characters.Remove(game.CurrentLevel.Characters[1]);
@@ -39,7 +39,7 @@ namespace GetTheMilk.NewActions.Tests.IntegrationTests
         [Test]
         public void FinalLevelComplete()
         {
-            Game game = Game.GetGameInstance();
+            RpgGameCore game = RpgGameCore.GetGameInstance();
 
             //take the foe out for quick completion
             game.CurrentLevel.Characters.Remove(game.CurrentLevel.Characters[1]);

@@ -4,9 +4,9 @@ namespace GetTheMilk.UI.ViewModels.BaseViewModels
 {
     public class GameStartRequestEventArgs:EventArgs
     {
-        public Game Game { get; private set; }
+        public RpgGameCore Game { get; private set; }
 
-        public GameStartRequestEventArgs(Game game)
+        public GameStartRequestEventArgs(RpgGameCore game)
         {
             Game = game;
         }

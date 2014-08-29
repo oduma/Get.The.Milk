@@ -22,17 +22,16 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         private Player _player = new Player();
         private Character _character = new Character { ObjectTypeId = "NPCFriendly" };
         private Level _level;
-        private ObjectActionsFactory _factory = ObjectActionsFactory.GetFactory();
 
         [SetUp]
         public void SetUp()
         {
 
-            var objAction = _factory.CreateObjectAction("Player");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Player");
             _player.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _player.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
-            objAction = _factory.CreateObjectAction("NPCFriendly");
+            objAction = ObjectActionsFactory.CreateObjectAction("NPCFriendly");
             _character.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _character.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
@@ -73,7 +72,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                                             Name= new Verb{UniqueId="ExposeSelfInventory",Past="exposed inventory",Present="expose inventory"}
                                         });
             _character.Inventory = new Inventory {MaximumCapacity = 10,InventoryType=InventoryType.CharacterInventory};
-            var objAction = _factory.CreateObjectAction("Tool");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Tool");
             _character.Inventory.Add(new Tool
                                          {
                                              Name = new Noun {Main = "test tool", Narrator = "test tool"},

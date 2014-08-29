@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace GetTheMilk.Navigation
 {
-    public class Cell
+    public partial class Cell
     {
         [JsonIgnore]
         public IEnumerable<NonCharacterObject> AllObjects

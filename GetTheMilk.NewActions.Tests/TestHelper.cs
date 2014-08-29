@@ -165,10 +165,9 @@ namespace GetTheMilk.NewActions.Tests
 
         public static Level GenerateALevel()
         {
-            var factory = ObjectActionsFactory.GetFactory();
 
-            var objAction = factory.CreateObjectAction("NPCFriendly");
-            var objEAction = factory.CreateObjectAction("NPCFoe");
+            var objAction = ObjectActionsFactory.CreateObjectAction("NPCFriendly");
+            var objEAction = ObjectActionsFactory.CreateObjectAction("NPCFoe");
 
             var levelCharacters = new CharacterCollection();
 
@@ -737,9 +736,8 @@ namespace GetTheMilk.NewActions.Tests
 
             //create a new player
             var player = new Player();
-            var factory = ObjectActionsFactory.GetFactory();
 
-            var objAction = factory.CreateObjectAction("Player");
+            var objAction = ObjectActionsFactory.CreateObjectAction("Player");
             player.AllowsTemplateAction = objAction.AllowsTemplateAction;
             player.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
             player.Health = 10;

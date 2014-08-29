@@ -21,7 +21,7 @@ namespace GetTheMilk.UI.ViewModels
 
         private void StartNewGame()
         {
-            var game = Game.GetGameInstance();
+            var game = RpgGameCore.GetGameInstance();
             game.Player.SetPlayerName(Name);
             game.Player.Walet.CurrentCapacity = Money;
             game.Player.Experience = Experience;

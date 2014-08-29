@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionCreatorsTests.cs" />
+    <Compile Include="BaseTestClass.cs" />
     <Compile Include="IntegrationTests\AutoPlayBuiltLevel.cs" />
     <Compile Include="IntegrationTests\AutoPlayTestLevel1.cs" />
     <Compile Include="IntegrationTests\LevelCompletionTests.cs" />
@@ -92,18 +93,19 @@
     <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GameData\GDT.gdu">
+    <None Include="App.config" />
+    <Content Include="GameData\GDT.gdu">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="GameData\GL0.gdu">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="GameData\GL1.gdu">
+    </Content>
+    <Content Include="GameData\GL0.gdu">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="GameData\GL3.gdu">
+    </Content>
+    <Content Include="GameData\GL1.gdu">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="GameData\GL3.gdu">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="log4net.config" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -116,12 +118,18 @@
       <Project>{0F1B4894-F8A9-41F9-861E-3F3F14D87D8F}</Project>
       <Name>GetTheMilk</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sciendo.IOC\Sciendo.IOC.csproj">
+      <Project>{a88b9c50-7737-4c4c-abe0-9aa2f4c35f2c}</Project>
+      <Name>Sciendo.IOC</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GameData\readme.txt" />
+    <Content Include="GameData\readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -14,7 +14,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
     {
         private Character _activeCharacter;
         private Character _targetCharacter;
-        private ObjectActionsFactory _factory = ObjectActionsFactory.GetFactory();
 
         [SetUp]
         public void SetUp()
@@ -22,7 +21,7 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
 
         _activeCharacter = new Character { ObjectTypeId = "NPCFriendly" };
         _targetCharacter = new Character { ObjectTypeId = "NPCFriendly" };
-            var objAction = _factory.CreateObjectAction("NPCFriendly");
+        var objAction = ObjectActionsFactory.CreateObjectAction("NPCFriendly");
             _activeCharacter.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _activeCharacter.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 

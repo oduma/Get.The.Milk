@@ -44,7 +44,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 {
                     _selectedActionCategory = value;
                     RaisePropertyChanged("SelectedActionCategory");
-                    Value.Action = ActionsFactory.GetFactory().CreateAction(_selectedActionCategory);
+                    Value.Action = ActionsFactory.CreateAction(_selectedActionCategory);
                     CurrentActionViewModel.Value = Value.Action;
                 }
             }
@@ -61,7 +61,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 {
                     _selectedReactionCategory = value;
                     RaisePropertyChanged("SelectedReactionCategory");
-                    Value.Reaction = ActionsFactory.GetFactory().CreateAction(_selectedReactionCategory);
+                    Value.Reaction = ActionsFactory.CreateAction(_selectedReactionCategory);
                     CurrentReactionViewModel.Value = Value.Reaction;
 
                 }

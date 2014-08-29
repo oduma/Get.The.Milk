@@ -12,6 +12,7 @@ using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Utils.IO;
 using Newtonsoft.Json;
 using GetTheMilk.Actions.ActionTemplates;
+using GetTheMilk.Factories;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {
@@ -45,6 +46,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         public MainViewModel()
         {
+            BootstrapRegister bootsrapRegister = new BootstrapRegister();
+            bootsrapRegister.RegisterAllComponents();
 
             CreateANewLevel(SizeOfLevel.VerySmall);
 

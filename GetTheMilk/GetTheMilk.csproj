@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GetTheMilk</RootNamespace>
     <AssemblyName>GetTheMilk</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,12 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\Lib\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor">
-      <HintPath>..\Lib\Castle.Windsor.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>..\Lib\log4net.dll</HintPath>
     </Reference>
@@ -44,15 +39,10 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Sciendo.Common">
-      <HintPath>..\Lib\Sciendo.Common.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -132,12 +122,10 @@
     <Compile Include="Characters\Player.cs" />
     <Compile Include="Characters\PlayerActions.cs" />
     <Compile Include="Factories\ActionsFactory.cs" />
-    <Compile Include="Factories\ActionsInstaller.cs" />
+    <Compile Include="Factories\BootstrapRegister.cs" />
     <Compile Include="Factories\ObjectActionsFactory.cs" />
-    <Compile Include="Factories\ObjectsActionAllowedInstaller.cs" />
     <Compile Include="Factories\TemplatedActionPerformersFactory.cs" />
-    <Compile Include="Factories\TemplatedActionPerformersInstaller.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="RpgGameCore.cs" />
     <Compile Include="GamePackaages.cs" />
     <Compile Include="GamePreferences.cs" />
     <Compile Include="Levels\SizeOfLevel.cs" />
@@ -194,20 +182,26 @@
     <Compile Include="Utils\ActionTemplateJsonConverter.cs" />
     <Compile Include="Utils\CalculationStrategies.cs" />
     <Compile Include="Utils\CharacterJsonConverter.cs" />
+    <Compile Include="Utils\Configuration\GetTheMilkConfiguration.cs" />
     <Compile Include="Utils\ContentActionsKeys.cs" />
     <Compile Include="Utils\GenericInteractionRulesKeys.cs" />
     <Compile Include="Utils\IO\ReadWriteStrategies.cs" />
     <Compile Include="Utils\NonCharacterObjectJsonConvert.cs" />
-    <Compile Include="Utils\PerformerLoggingInterceptor.cs" />
     <Compile Include="Utils\Randomizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\" />
-    <Folder Include="Generators\" />
     <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sciendo.IOC\Sciendo.IOC.csproj">
+      <Project>{a88b9c50-7737-4c4c-abe0-9aa2f4c35f2c}</Project>
+      <Name>Sciendo.IOC</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

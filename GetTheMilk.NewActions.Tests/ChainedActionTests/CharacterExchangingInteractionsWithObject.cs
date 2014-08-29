@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace GetTheMilk.NewActions.Tests.ChainedActionTests
 {
     [TestFixture]
-    public class CharacterExchangingInteractionsWithObject
+    public class CharacterExchangingInteractionsWithObject : BaseTestClass
     {
         private Character _character;
 

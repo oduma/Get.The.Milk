@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
 {
     [TestFixture]
-    public class LoadingActionTemplatesInObjectTests
+    public class LoadingActionTemplatesInObjectTests : BaseTestClass
     {
         [Test]
         public void LoadObjectsDefaultActionTemplates()

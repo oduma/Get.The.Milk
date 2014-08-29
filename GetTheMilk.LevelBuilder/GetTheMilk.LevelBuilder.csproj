@@ -265,6 +265,10 @@
       <Project>{0f1b4894-f8a9-41f9-861e-3f3f14d87d8f}</Project>
       <Name>GetTheMilk</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sciendo.IOC\Sciendo.IOC.csproj">
+      <Project>{a88b9c50-7737-4c4c-abe0-9aa2f4c35f2c}</Project>
+      <Name>Sciendo.IOC</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -140,7 +140,7 @@ namespace GetTheMilk.Actions.ActionTemplates
             {
                 _performerType = value;
                 if (_performerType != null)
-                    CurrentPerformer = TemplatedActionPerformersFactory.GetFactory().CreateActionPerformer(value.Name);
+                    CurrentPerformer = TemplatedActionPerformersFactory.CreateActionPerformer(value.Name);
             }
         }
 

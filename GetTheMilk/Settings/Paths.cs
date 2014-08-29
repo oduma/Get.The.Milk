@@ -1,20 +1,23 @@
-﻿using System;
+﻿using GetTheMilk.Utils.Configuration;
+using System;
+using System.Configuration;
 using System.IO;
 
 namespace GetTheMilk.Settings
 {
     public class Paths
     {
-        public string ActionResultsTemplates
+        private GetTheMilkConfiguration _configSection;
+        protected GetTheMilkConfiguration ConfigSection
         {
-            get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"UI\Data\"); }
+            get { return _configSection = (_configSection) ?? ConfigurationManager.GetSection("GameSettings") as GetTheMilkConfiguration; }
         }
 
         public string SaveDefaultPath
         {
             get
             {
-                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Saved");
+                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigSection.SaveDirectory);
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
                 return path;
@@ -23,7 +26,7 @@ namespace GetTheMilk.Settings
 
         public string GameData
         {
-            get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"GameData"); }
+            get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigSection.GameDataDirectory); }
         }
 
         public string GameDescriptionFileName
@@ -34,11 +37,6 @@ namespace GetTheMilk.Settings
         public string TemplatesFileName
         {
             get { return "GDT.gdu"; }
-        }
-
-        public string NewGameDataFile
-        {
-            get { return "GD.gdu"; }
         }
 
         public string LevelsFileNameTemplate

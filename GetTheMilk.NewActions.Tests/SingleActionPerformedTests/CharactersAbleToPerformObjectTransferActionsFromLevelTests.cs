@@ -22,13 +22,11 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         {
             _character = new Character { ObjectTypeId = "NPCFriendly" };
 
-            var factory = ObjectActionsFactory.GetFactory();
-
-            var objAction = factory.CreateObjectAction("NPCFriendly");
+            var objAction = ObjectActionsFactory.CreateObjectAction("NPCFriendly");
             _character.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _character.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
-            
-            objAction = factory.CreateObjectAction("Player");
+
+            objAction = ObjectActionsFactory.CreateObjectAction("Player");
             _player.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _player.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 

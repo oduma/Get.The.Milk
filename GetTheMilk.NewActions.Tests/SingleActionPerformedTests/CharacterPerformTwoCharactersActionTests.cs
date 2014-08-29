@@ -22,8 +22,6 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
         private Character _targetCharacter;
         private Character _targetFoeCharacter;
 
-        private ObjectActionsFactory _factory = ObjectActionsFactory.GetFactory();
-
         [SetUp]
         public void SetUp()
         {
@@ -43,14 +41,14 @@ namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
                     new Noun { Main = "Target For Character", Narrator = "target foe character" }
             };
 
-            var objAction = _factory.CreateObjectAction("NPCFriendly");
+            var objAction = ObjectActionsFactory.CreateObjectAction("NPCFriendly");
             _activeCharacter.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _activeCharacter.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
             _targetCharacter.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _targetCharacter.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;
 
-            objAction = _factory.CreateObjectAction("NPCFoe");
+            objAction = ObjectActionsFactory.CreateObjectAction("NPCFoe");
 
             _targetFoeCharacter.AllowsTemplateAction = objAction.AllowsTemplateAction;
             _targetFoeCharacter.AllowsIndirectTemplateAction = objAction.AllowsIndirectTemplateAction;

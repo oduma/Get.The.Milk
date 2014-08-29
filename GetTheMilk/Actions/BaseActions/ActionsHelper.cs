@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Castle.Core.Internal;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects;
@@ -16,14 +15,16 @@ namespace GetTheMilk.Actions.BaseActions
                     .Select(w => (Weapon)w).ToArray();
             if (weaponType == WeaponType.Attack)
             {
-                weapons.ForEach(w => { w.IsCurrentAttack = false; });
+                foreach(var w in weapons)
+                    w.IsCurrentAttack = false;
                 character.ActiveAttackWeapon = weapon;
                 if (character.ActiveAttackWeapon != null)
                     character.ActiveAttackWeapon.IsCurrentAttack = true;
             }
             if (weaponType == WeaponType.Deffense)
             {
-                weapons.ForEach(w => { w.IsCurrentDefense = false; });
+                foreach(var w in weapons)
+                    w.IsCurrentDefense = false;
                 character.ActiveDefenseWeapon = weapon;
                 if (character.ActiveDefenseWeapon != null)
                     character.ActiveDefenseWeapon.IsCurrentDefense = true;
