@@ -33,6 +33,8 @@ namespace Get.The.Milk.Grui
         public TitleScreen TitleScreen;
         public StartMenuScreen StartMenuScreen;
         public GamePlayScreen GamePlayScreen;
+        public CharacterGeneratorScreen CharacterGeneratorScreen;
+
 
         #endregion
 
@@ -69,6 +71,7 @@ namespace Get.The.Milk.Grui
             TitleScreen = new TitleScreen(this, stateManager);
             StartMenuScreen = new StartMenuScreen(this, stateManager);
             GamePlayScreen = new GamePlayScreen(this, stateManager);
+            CharacterGeneratorScreen = new CharacterGeneratorScreen(this, stateManager);
 
             stateManager.ChangeState(TitleScreen);
         }

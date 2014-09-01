@@ -126,7 +126,7 @@ namespace Get.The.Milk.Grui.GameScreens
             if (sender == startGame)
             {
                 GameRef.LoadNewRpgEngine();
-                StateManager.PushState(GameRef.GamePlayScreen);
+                StateManager.PushState(GameRef.CharacterGeneratorScreen);
             }
 
             if (sender == loadGame)
