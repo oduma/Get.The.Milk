@@ -26,5 +26,16 @@ namespace GetTheMilk.Navigation
                 cell.LinkToParent(this);
             }
         }
+
+        public int Size 
+        { 
+            get 
+            {
+                if (Parent != null)
+                    return (int)Parent.SizeOfLevel;
+
+                return (int)SizeOfLevel.VerySmall;
+            }
+        }
     }
 }

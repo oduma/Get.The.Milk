@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GetTheMilk.Navigation;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Get.The.Milk.X.Library.TileEngine
         #region Field Region
 
         List<Tileset> tilesets;
-        List<MapLayer> mapLayers;
+        private Map _map;
 
         #endregion
 
@@ -21,19 +22,18 @@ namespace Get.The.Milk.X.Library.TileEngine
 
         #region Constructor Region
 
-        public TileMap(List<Tileset> tilesets, List<MapLayer> layers)
+        public TileMap(List<Tileset> tilesets, Map map)
         {
             this.tilesets = tilesets;
-            this.mapLayers = layers;
+            _map = map;
         }
 
-        public TileMap(Tileset tileset, MapLayer layer)
+        public TileMap(Tileset tileset, Map map)
         {
             tilesets = new List<Tileset>();
             tilesets.Add(tileset);
 
-            mapLayers = new List<MapLayer>();
-            mapLayers.Add(layer);
+            _map = map;
         }
 
         #endregion
@@ -43,26 +43,23 @@ namespace Get.The.Milk.X.Library.TileEngine
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle destination = new Rectangle(0, 0, Engine.TileWidth, Engine.TileHeight);
-            Tile tile;
+            Cell cell;
 
-            foreach (MapLayer layer in mapLayers)
+            for (int y = 0; y < _map.Size; y++)
             {
-                for (int y = 0; y < layer.Height; y++)
+                destination.Y = y * Engine.TileHeight;
+
+                for (int x = 0; x < _map.Size; x++)
                 {
-                    destination.Y = y * Engine.TileHeight;
+                    cell = _map.Cells[y * _map.Size + x];
 
-                    for (int x = 0; x < layer.Width; x++)
-                    {
-                        tile = layer.GetTile(x, y);
+                    destination.X = x * Engine.TileWidth;
 
-                        destination.X = x * Engine.TileWidth;
-
-                        spriteBatch.Draw(
-                            tilesets[tile.Tileset].Texture,
-                            destination,
-                            tilesets[tile.Tileset].SourceRectangles[tile.TileIndex],
-                            Color.White);
-                    }
+                    spriteBatch.Draw(
+                        tilesets[cell.Tileset].Texture,
+                        destination,
+                        tilesets[cell.Tileset].SourceRectangles[cell.TileIndex],
+                        Color.White);
                 }
             }
         }
