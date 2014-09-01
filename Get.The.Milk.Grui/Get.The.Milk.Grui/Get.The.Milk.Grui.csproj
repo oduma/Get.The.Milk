@@ -97,6 +97,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Get.The.Milk.L1.ObjectActions\Get.The.Milk.L1.ObjectActions.csproj">
+      <Project>{3f76d762-4647-4ab3-943d-37e61ce086ec}</Project>
+      <Name>Get.The.Milk.L1.ObjectActions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Get.The.Milk.X.Library\Get.The.Milk.X.Library.csproj">
       <Project>{b7d61791-d6a8-4975-8c8b-f31952822ab2}</Project>
       <Name>Get.The.Milk.X.Library</Name>
@@ -104,6 +108,10 @@
     <ProjectReference Include="..\..\GetTheMilk\GetTheMilk.csproj">
       <Project>{0f1b4894-f8a9-41f9-861e-3f3f14d87d8f}</Project>
       <Name>GetTheMilk</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sciendo.IOC\Sciendo.IOC.csproj">
+      <Project>{a88b9c50-7737-4c4c-abe0-9aa2f4c35f2c}</Project>
+      <Name>Sciendo.IOC</Name>
     </ProjectReference>
     <ProjectReference Include="..\Get.The.Milk.GruiContent\Get.The.Milk.GruiContent.contentproj">
       <Name>Get.The.Milk.GruiContent</Name>

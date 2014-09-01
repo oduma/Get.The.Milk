@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Get.The.Milk.X.Library;
 using Get.The.Milk.Grui.GameScreens;
+using GetTheMilk.Factories;
 
 namespace Get.The.Milk.Grui
 {
@@ -46,6 +47,7 @@ namespace Get.The.Milk.Grui
 
         public GetTheMilkGameUI()
         {
+
             graphics = new GraphicsDeviceManager(this);
 
             graphics.PreferredBackBufferWidth = screenWidth;
@@ -102,6 +104,7 @@ namespace Get.The.Milk.Grui
 
         internal void LoadNewRpgEngine()
         {
+            new BootstrapRegister().RegisterAllComponents();
             GetTheMilk.RpgGameCore gameCore = GetTheMilk.RpgGameCore.CreateNewGameInstance();
         }
     }
