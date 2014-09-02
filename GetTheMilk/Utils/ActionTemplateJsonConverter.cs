@@ -1,5 +1,4 @@
 ﻿using System;
-using GetTheMilk.Actions;
 using GetTheMilk.Actions.ActionTemplates;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

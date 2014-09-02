@@ -6,7 +6,6 @@ using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Common;
 using GetTheMilk.Utils;
-using GetTheMilk.Utils.IO;
 using Newtonsoft.Json;
 
 namespace GetTheMilk.GameLevels

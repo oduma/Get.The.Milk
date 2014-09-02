@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace GetTheMilk.Utils.IO
+namespace GetTheMilk.Utils
 {
     public static class ReadWriteStrategies
     {

@@ -176,12 +176,12 @@
     <Compile Include="Utils\ActionTemplateJsonConverter.cs" />
     <Compile Include="Utils\CalculationStrategies.cs" />
     <Compile Include="Utils\CharacterJsonConverter.cs" />
-    <Compile Include="Utils\Configuration\GetTheMilkConfiguration.cs" />
     <Compile Include="Utils\ContentActionsKeys.cs" />
     <Compile Include="Utils\GenericInteractionRulesKeys.cs" />
-    <Compile Include="Utils\IO\ReadWriteStrategies.cs" />
+    <Compile Include="Utils\GetTheMilkConfiguration.cs" />
     <Compile Include="Utils\NonCharacterObjectJsonConvert.cs" />
     <Compile Include="Utils\Randomizer.cs" />
+    <Compile Include="Utils\ReadWriteStrategies.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

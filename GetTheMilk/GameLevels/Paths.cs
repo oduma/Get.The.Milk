@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
-using GetTheMilk.Utils.Configuration;
+using GetTheMilk.Utils;
 
 namespace GetTheMilk.GameLevels
 {

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 
-namespace GetTheMilk.Utils.Configuration
+namespace GetTheMilk.Utils
 {
     public class GetTheMilkConfiguration : ConfigurationSection
     {

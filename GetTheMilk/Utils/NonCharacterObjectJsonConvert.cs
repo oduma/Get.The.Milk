@@ -45,7 +45,10 @@ namespace GetTheMilk.Utils
                 }
 
             }
-            catch{}
+            catch
+            {
+                return null;
+            }
             return null;
         }
 
