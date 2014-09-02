@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Characters.Base;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 using Newtonsoft.Json;
 
 namespace GetTheMilk.GameLevels
 {
-    public partial class Cell
+    public class Cell
     {
         [JsonIgnore]
         public IEnumerable<NonCharacterObject> AllObjects

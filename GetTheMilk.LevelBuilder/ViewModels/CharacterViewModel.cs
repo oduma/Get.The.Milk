@@ -5,7 +5,7 @@ using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.Factories;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Utils;
 

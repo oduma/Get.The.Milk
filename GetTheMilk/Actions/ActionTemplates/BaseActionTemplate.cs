@@ -4,7 +4,7 @@ using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.GameLevels;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 using Newtonsoft.Json;
 using GetTheMilk.Factories;
 

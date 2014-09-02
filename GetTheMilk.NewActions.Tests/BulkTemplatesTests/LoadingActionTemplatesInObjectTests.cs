@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Common;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 using NUnit.Framework;
 
 namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests

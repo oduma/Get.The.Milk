@@ -1,7 +1,7 @@
 ﻿using GetTheMilk.Common;
 using Newtonsoft.Json;
 
-namespace GetTheMilk.Objects.BaseObjects
+namespace GetTheMilk.Objects.Base
 {
     public interface INonCharacterObject:IPositionable
     {

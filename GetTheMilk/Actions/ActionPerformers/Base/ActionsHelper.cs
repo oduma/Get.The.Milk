@@ -2,7 +2,7 @@
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.Objects;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {

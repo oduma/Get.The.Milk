@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.GameLevels;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.LevelBuilder.ViewModels

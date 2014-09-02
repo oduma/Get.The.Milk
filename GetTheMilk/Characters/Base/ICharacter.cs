@@ -1,7 +1,7 @@
 using System;
 using GetTheMilk.Common;
 using GetTheMilk.Objects;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 using Newtonsoft.Json;
 
 namespace GetTheMilk.Characters.Base

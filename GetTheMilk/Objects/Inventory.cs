@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 using Newtonsoft.Json;
 
 namespace GetTheMilk.Objects

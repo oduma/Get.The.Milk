@@ -2,7 +2,7 @@
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.GameLevels;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 
 namespace GetTheMilk.Actions.ActionPerformers
 {

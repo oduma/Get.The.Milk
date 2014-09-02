@@ -7,7 +7,6 @@ using GetTheMilk.Actions;
 using GetTheMilk.Characters;
 using GetTheMilk.GameLevels;
 using GetTheMilk.Objects;
-using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Utils;
 using NUnit.Framework;
 using Newtonsoft.Json;

@@ -2,7 +2,7 @@
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 using GetTheMilk.Utils;
 using NUnit.Framework;
 using System;

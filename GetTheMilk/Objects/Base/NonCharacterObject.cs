@@ -1,12 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Common;
 using GetTheMilk.Utils;
 using Newtonsoft.Json;
 
-namespace GetTheMilk.Objects.BaseObjects
+namespace GetTheMilk.Objects.Base
 {
     public class NonCharacterObject : BaseActionEnabledObject,INonCharacterObject
     {

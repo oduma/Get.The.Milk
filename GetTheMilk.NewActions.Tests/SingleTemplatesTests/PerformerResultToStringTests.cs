@@ -5,7 +5,7 @@ using GetTheMilk.Characters;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.GameLevels;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

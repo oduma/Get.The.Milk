@@ -1,6 +1,6 @@
 using System;
 using GetTheMilk.Factories;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

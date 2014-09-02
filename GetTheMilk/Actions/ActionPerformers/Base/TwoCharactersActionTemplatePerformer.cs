@@ -3,7 +3,7 @@ using System.Linq;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {

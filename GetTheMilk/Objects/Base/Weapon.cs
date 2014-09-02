@@ -1,6 +1,6 @@
 using GetTheMilk.Common;
 
-namespace GetTheMilk.Objects.BaseObjects
+namespace GetTheMilk.Objects.Base
 {
     public class Weapon : Tool
     {
