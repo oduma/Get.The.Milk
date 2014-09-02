@@ -10,7 +10,7 @@ namespace Get.The.Milk.Grui
         /// </summary>
         static void Main(string[] args)
         {
-            using (GetTheMilkGameUI game = new GetTheMilkGameUI())
+            using (var game = new GetTheMilkGameUI())
             {
                 game.Run();
             }
