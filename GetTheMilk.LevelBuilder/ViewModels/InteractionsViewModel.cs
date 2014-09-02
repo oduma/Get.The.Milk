@@ -1,5 +1,5 @@
 ﻿using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
+using GetTheMilk.Common;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Utils;
 using System;

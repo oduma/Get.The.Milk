@@ -3,9 +3,9 @@ using GetTheMilk.Actions;
 using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Common;
 using GetTheMilk.Utils;
 using NUnit.Framework;
 

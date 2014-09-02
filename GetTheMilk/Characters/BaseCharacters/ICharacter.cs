@@ -1,4 +1,4 @@
-using GetTheMilk.BaseCommon;
+using GetTheMilk.Common;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using Newtonsoft.Json;

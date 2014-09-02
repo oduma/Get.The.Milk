@@ -1,6 +1,6 @@
 ﻿using GetTheMilk.Actions;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
+using GetTheMilk.Common;
 using GetTheMilk.Factories;
 using NUnit.Framework;
 using System;

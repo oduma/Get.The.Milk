@@ -1,5 +1,5 @@
-﻿using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
+﻿using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Common;
 using GetTheMilk.Levels;
 
 namespace GetTheMilk

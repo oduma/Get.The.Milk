@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using GetTheMilk.Actions;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Common;
 using GetTheMilk.Levels;
 using GetTheMilk.Settings;
 using GetTheMilk.Utils;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
+using GetTheMilk.Common;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using System.Collections.ObjectModel;

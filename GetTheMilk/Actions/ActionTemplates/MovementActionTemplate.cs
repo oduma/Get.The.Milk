@@ -1,5 +1,5 @@
 using GetTheMilk.Actions.ActionPerformers;
-using GetTheMilk.BaseCommon;
+using GetTheMilk.Common;
 using GetTheMilk.Navigation;
 
 namespace GetTheMilk.Actions.ActionTemplates

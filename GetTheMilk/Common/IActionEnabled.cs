@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using Newtonsoft.Json;
 
-namespace GetTheMilk.BaseCommon
+namespace GetTheMilk.Common
 {
     public interface IActionEnabled
     {

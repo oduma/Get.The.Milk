@@ -2,8 +2,8 @@
 using System.Linq;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Common;
 using GetTheMilk.Levels;
 using GetTheMilk.Objects;
 using GetTheMilk.Settings;

@@ -1,4 +1,4 @@
-﻿using GetTheMilk.BaseCommon;
+﻿using GetTheMilk.Common;
 using Newtonsoft.Json;
 
 namespace GetTheMilk.Objects.BaseObjects

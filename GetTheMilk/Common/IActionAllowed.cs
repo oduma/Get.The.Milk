@@ -1,7 +1,6 @@
-using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 
-namespace GetTheMilk.BaseCommon
+namespace GetTheMilk.Common
 {
     public interface IActionAllowed
     {

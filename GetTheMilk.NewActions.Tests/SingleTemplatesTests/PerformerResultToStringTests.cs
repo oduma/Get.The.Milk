@@ -1,9 +1,9 @@
 ﻿using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Common;
 using GetTheMilk.Objects.BaseObjects;
 using NUnit.Framework;
 using System;
@@ -28,7 +28,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
         public void NotOkWithCompleteNotEmptyNoObjectActionTemplate()
         {
             PerformActionResult actual = new PerformActionResult { ResultType = ActionResultType.NotOk, ForAction = new NoObjectActionTemplate {
-                Name = new BaseCommon.Verb { UniqueId = "Laugh", Past = "laughed", Present = "laugh" }, ActiveCharacter = new Player() } };
+                Name = new Verb { UniqueId = "Laugh", Past = "laughed", Present = "laugh" }, ActiveCharacter = new Player() } };
             Assert.AreEqual("you tried to laugh but couldn't.", actual.ToString());
         }
         [Test]
@@ -45,7 +45,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 ResultType = ActionResultType.Ok,
                 ForAction = new NoObjectActionTemplate
                 {
-                    Name = new BaseCommon.Verb { UniqueId = "Laugh", Past = "laughed", Present = "laugh" },
+                    Name = new Verb { UniqueId = "Laugh", Past = "laughed", Present = "laugh" },
                     ActiveCharacter = new Player()
                 }
             };
@@ -68,7 +68,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 ResultType = ActionResultType.NotOk,
                 ForAction = new OneObjectActionTemplate
                 {
-                    Name = new BaseCommon.Verb { UniqueId = "Kick", Past = "kicked", Present = "kick" },
+                    Name = new Verb { UniqueId = "Kick", Past = "kicked", Present = "kick" },
                     ActiveCharacter = new Player()
                 }
             };
@@ -82,7 +82,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 ResultType = ActionResultType.NotOk,
                 ForAction = new OneObjectActionTemplate
                 {
-                    Name = new BaseCommon.Verb { UniqueId = "Kick", Past = "kicked", Present = "kick" },
+                    Name = new Verb { UniqueId = "Kick", Past = "kicked", Present = "kick" },
                     ActiveCharacter = new Player(),
                     TargetObject = new NonCharacterObject { Name = new Noun { Main="Tyre", Narrator="the tyre"} }
                 }
@@ -103,7 +103,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 ResultType = ActionResultType.Ok,
                 ForAction = new OneObjectActionTemplate
                 {
-                    Name = new BaseCommon.Verb { UniqueId = "Kick", Past = "kicked", Present = "kick" },
+                    Name = new Verb { UniqueId = "Kick", Past = "kicked", Present = "kick" },
                     ActiveCharacter = new Player()
                 }
             };
@@ -117,7 +117,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 ResultType = ActionResultType.Ok,
                 ForAction = new OneObjectActionTemplate
                 {
-                    Name = new BaseCommon.Verb { UniqueId = "Kick", Past = "kicked", Present = "kick" },
+                    Name = new Verb { UniqueId = "Kick", Past = "kicked", Present = "kick" },
                     ActiveCharacter = new Player(),
                     TargetObject = new NonCharacterObject { Name = new Noun { Main = "Tyre", Narrator = "the tyre" } }
                 }
@@ -141,7 +141,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 ResultType = ActionResultType.NotOk,
                 ForAction = new ObjectUseOnObjectActionTemplate
                 {
-                    Name = new BaseCommon.Verb { UniqueId = "Hammer", Past = "hammered", Present = "hammer" },
+                    Name = new Verb { UniqueId = "Hammer", Past = "hammered", Present = "hammer" },
                     ActiveCharacter = new Player()
                 }
             };
@@ -155,7 +155,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 ResultType = ActionResultType.NotOk,
                 ForAction = new ObjectUseOnObjectActionTemplate
                 {
-                    Name = new BaseCommon.Verb { UniqueId = "Hammer", Past = "hammered", Present = "hammer" },
+                    Name = new Verb { UniqueId = "Hammer", Past = "hammered", Present = "hammer" },
                     ActiveCharacter = new Player(),
                     TargetObject = new NonCharacterObject { Name = new Noun { Main = "Nail", Narrator = "the nail" } },
                     ActiveObject = new Tool { Name = new Noun { Main="BigHammer",Narrator="the Big Hammer"} }
@@ -177,7 +177,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 ResultType = ActionResultType.Ok,
                 ForAction = new ObjectUseOnObjectActionTemplate
                 {
-                    Name = new BaseCommon.Verb { UniqueId = "Hammer", Past = "hammered", Present = "hammer" },
+                    Name = new Verb { UniqueId = "Hammer", Past = "hammered", Present = "hammer" },
                     ActiveCharacter = new Player()
                 }
             };
@@ -191,7 +191,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 ResultType = ActionResultType.Ok,
                 ForAction = new ObjectUseOnObjectActionTemplate
                 {
-                    Name = new BaseCommon.Verb { UniqueId = "Hammer", Past = "hammered", Present = "hammer" },
+                    Name = new Verb { UniqueId = "Hammer", Past = "hammered", Present = "hammer" },
                     ActiveCharacter = new Player(),
                     TargetObject = new NonCharacterObject { Name = new Noun { Main = "Nail", Narrator = "the nail" } },
                     ActiveObject = new Tool { Name = new Noun { Main = "BigHammer", Narrator = "the Big Hammer" } }
@@ -747,7 +747,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 ResultType = ActionResultType.NotOk,
                 ForAction = new ObjectResponseActionTemplate
                 {
-                    Name = new BaseCommon.Verb { UniqueId = "Crack", Past = "cracked", Present = "crack" },
+                    Name = new Verb { UniqueId = "Crack", Past = "cracked", Present = "crack" },
                     ActiveObject = new NonCharacterObject { Name = new Noun { Main="Dawn", Narrator="the dawn"} }
                 }
             };
@@ -767,7 +767,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 ResultType = ActionResultType.Ok,
                 ForAction = new ObjectResponseActionTemplate
                 {
-                    Name = new BaseCommon.Verb { UniqueId = "Crack", Past = "cracked", Present = "crack" },
+                    Name = new Verb { UniqueId = "Crack", Past = "cracked", Present = "crack" },
                     ActiveObject = new NonCharacterObject { Name = new Noun { Main="Dawn", Narrator="the dawn"} }
                 }
             };

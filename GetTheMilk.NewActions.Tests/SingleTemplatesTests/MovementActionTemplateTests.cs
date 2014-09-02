@@ -1,6 +1,6 @@
 using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
+using GetTheMilk.Common;
 using NUnit.Framework;
 using Newtonsoft.Json;
 

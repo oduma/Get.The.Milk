@@ -6,7 +6,6 @@ using GetTheMilk.Factories;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Actions.ActionTemplates;
 using System.Collections.Generic;
-using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {

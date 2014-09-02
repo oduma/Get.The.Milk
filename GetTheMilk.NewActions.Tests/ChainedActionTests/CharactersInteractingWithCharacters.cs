@@ -1,9 +1,9 @@
 using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Common;
 using GetTheMilk.Factories;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
@@ -51,7 +51,7 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         {
             _interactionCharacter = new Character
             {
-                Name = new BaseCommon.Noun { Main = "reactor", Narrator = "reactor" },
+                Name = new Noun { Main = "reactor", Narrator = "reactor" },
                 ObjectTypeId = "NPCFriendly",
                 AllowsIndirectTemplateAction = TestHelper.AllowsIndirectEverything,
                 AllowsTemplateAction = TestHelper.AllowsEverything
@@ -75,23 +75,23 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         {
             return new Interaction[] { new Interaction 
             { 
-                Action = new TwoCharactersActionTemplate { Name= new BaseCommon.Verb{UniqueId="Interaction1-Action",Past="Interaction1-Action",Present="Interaction1-Action"},PerformerType=typeof(CommunicateActionPerformer)}, 
-                Reaction = new ObjectResponseActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction1-Reaction",Past="Interaction1-Reaction",Present="Interaction1-Reaction"},PerformerType=typeof(ObjectResponseActionTemplatePerformer)} 
+                Action = new TwoCharactersActionTemplate { Name= new Verb{UniqueId="Interaction1-Action",Past="Interaction1-Action",Present="Interaction1-Action"},PerformerType=typeof(CommunicateActionPerformer)}, 
+                Reaction = new ObjectResponseActionTemplate { Name=new Verb{UniqueId="Interaction1-Reaction",Past="Interaction1-Reaction",Present="Interaction1-Reaction"},PerformerType=typeof(ObjectResponseActionTemplatePerformer)} 
             },
             new Interaction 
             { 
-                Action = new TwoCharactersActionTemplate { Name= new BaseCommon.Verb{UniqueId="Interaction2-Action",Past="Interaction2-Action",Present="Interaction2-Action"},Message="sell me something",PerformerType=typeof(CommunicateActionPerformer)}, 
-                Reaction = new ExposeInventoryActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction2-Reaction",Past="Interaction2-Reaction",Present="Interaction2-Reaction"},PerformerType=typeof(ExposeInventoryActionTemplatePerformer)} 
+                Action = new TwoCharactersActionTemplate { Name= new Verb{UniqueId="Interaction2-Action",Past="Interaction2-Action",Present="Interaction2-Action"},Message="sell me something",PerformerType=typeof(CommunicateActionPerformer)}, 
+                Reaction = new ExposeInventoryActionTemplate { Name=new Verb{UniqueId="Interaction2-Reaction",Past="Interaction2-Reaction",Present="Interaction2-Reaction"},PerformerType=typeof(ExposeInventoryActionTemplatePerformer)} 
             },
             new Interaction 
             { 
-                Action = new TwoCharactersActionTemplate { Name= new BaseCommon.Verb{UniqueId="Interaction3-Action",Past="Interaction3-Action",Present="Interaction3-Action"},Message="Hello",PerformerType=typeof(CommunicateActionPerformer)}, 
-                Reaction = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction3-Reaction",Past="Interaction3-Reaction",Present="Interaction3-Reaction"},Message="Hi", PerformerType=typeof(CommunicateActionPerformer)} 
+                Action = new TwoCharactersActionTemplate { Name= new Verb{UniqueId="Interaction3-Action",Past="Interaction3-Action",Present="Interaction3-Action"},Message="Hello",PerformerType=typeof(CommunicateActionPerformer)}, 
+                Reaction = new TwoCharactersActionTemplate { Name=new Verb{UniqueId="Interaction3-Reaction",Past="Interaction3-Reaction",Present="Interaction3-Reaction"},Message="Hi", PerformerType=typeof(CommunicateActionPerformer)} 
             },
             new Interaction 
             { 
-                Action = new TwoCharactersActionTemplate { Name= new BaseCommon.Verb{UniqueId="Interaction4-Action",Past="Interaction4-Action",Present="Interaction4-Action"},PerformerType=typeof(InitiateHostilitiesActionPerformer)}, 
-                Reaction = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction4-Reaction",Past="Interaction4-Reaction",Present="Interaction4-Reaction"},PerformerType=typeof(InitiateHostilitiesActionPerformer)} 
+                Action = new TwoCharactersActionTemplate { Name= new Verb{UniqueId="Interaction4-Action",Past="Interaction4-Action",Present="Interaction4-Action"},PerformerType=typeof(InitiateHostilitiesActionPerformer)}, 
+                Reaction = new TwoCharactersActionTemplate { Name=new Verb{UniqueId="Interaction4-Reaction",Past="Interaction4-Reaction",Present="Interaction4-Reaction"},PerformerType=typeof(InitiateHostilitiesActionPerformer)} 
             }
             };
         }
@@ -100,13 +100,13 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         {
             return new Interaction[] { new Interaction 
             { 
-                Action = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction3-Reaction",Past="Interaction3-Reaction",Present="Interaction3-Reaction"},Message="Hi", PerformerType=typeof(CommunicateActionPerformer)} , 
-                Reaction = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction3-ReReaction1",Past="Interaction3-ReReaction1",Present="Interaction3-ReReaction1"},Message="I'm good!", PerformerType=typeof(CommunicateActionPerformer)} 
+                Action = new TwoCharactersActionTemplate { Name=new Verb{UniqueId="Interaction3-Reaction",Past="Interaction3-Reaction",Present="Interaction3-Reaction"},Message="Hi", PerformerType=typeof(CommunicateActionPerformer)} , 
+                Reaction = new TwoCharactersActionTemplate { Name=new Verb{UniqueId="Interaction3-ReReaction1",Past="Interaction3-ReReaction1",Present="Interaction3-ReReaction1"},Message="I'm good!", PerformerType=typeof(CommunicateActionPerformer)} 
             },
             new Interaction 
             { 
-                Action = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction3-Reaction",Past="Interaction3-Reaction",Present="Interaction3-Reaction"},Message="Hi", PerformerType=typeof(CommunicateActionPerformer)} , 
-                Reaction = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction3-ReReaction2",Past="Interaction3-ReReaction2",Present="Interaction3-ReReaction2"},Message="I'm bad!", PerformerType=typeof(CommunicateActionPerformer)} 
+                Action = new TwoCharactersActionTemplate { Name=new Verb{UniqueId="Interaction3-Reaction",Past="Interaction3-Reaction",Present="Interaction3-Reaction"},Message="Hi", PerformerType=typeof(CommunicateActionPerformer)} , 
+                Reaction = new TwoCharactersActionTemplate { Name=new Verb{UniqueId="Interaction3-ReReaction2",Past="Interaction3-ReReaction2",Present="Interaction3-ReReaction2"},Message="I'm bad!", PerformerType=typeof(CommunicateActionPerformer)} 
             }
             };
         }
@@ -116,7 +116,7 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         {
             _interactionCharacter = new Character
             {
-                Name = new BaseCommon.Noun { Main = "reactor", Narrator = "reactor" },
+                Name = new Noun { Main = "reactor", Narrator = "reactor" },
                 ObjectTypeId = "NPCFriendly",
                 AllowsIndirectTemplateAction = TestHelper.AllowsIndirectEverything,
                 AllowsTemplateAction = TestHelper.AllowsEverything
@@ -141,7 +141,7 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         {
             _interactionCharacter = new Character
             {
-                Name = new BaseCommon.Noun { Main = "reactor", Narrator = "reactor" },
+                Name = new Noun { Main = "reactor", Narrator = "reactor" },
                 ObjectTypeId = "NPCFriendly",
                 AllowsIndirectTemplateAction = TestHelper.AllowsIndirectEverything,
                 AllowsTemplateAction = TestHelper.AllowsEverything
@@ -169,7 +169,7 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         {
             _interactionCharacter = new Character
             {
-                Name = new BaseCommon.Noun { Main = "reactor", Narrator = "reactor" },
+                Name = new Noun { Main = "reactor", Narrator = "reactor" },
                 ObjectTypeId = "NPCFriendly",
                 AllowsIndirectTemplateAction = TestHelper.AllowsIndirectEverything,
                 AllowsTemplateAction = TestHelper.AllowsEverything

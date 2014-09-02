@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
+using GetTheMilk.Common;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
 using GetTheMilk.Settings;

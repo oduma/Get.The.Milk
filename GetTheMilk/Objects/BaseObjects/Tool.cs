@@ -1,4 +1,4 @@
-using GetTheMilk.BaseCommon;
+using GetTheMilk.Common;
 
 namespace GetTheMilk.Objects.BaseObjects
 {

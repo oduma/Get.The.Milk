@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Common;
 using GetTheMilk.Factories;
 using GetTheMilk.Levels;
 using GetTheMilk.Objects;

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Common;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Settings;
 using System.Linq;
 using GetTheMilk.Navigation;
-using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Actions.ActionTemplates
 {

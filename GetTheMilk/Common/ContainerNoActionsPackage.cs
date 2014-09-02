@@ -1,4 +1,4 @@
-namespace GetTheMilk.BaseCommon
+namespace GetTheMilk.Common
 {
     public class ContainerNoActionsPackage
     {

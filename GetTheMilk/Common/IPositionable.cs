@@ -1,8 +1,7 @@
 using System;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.ActionPerformers.Base;
 
-namespace GetTheMilk.BaseCommon
+namespace GetTheMilk.Common
 {
     public interface IPositionable:IInventoryOwner
     {
