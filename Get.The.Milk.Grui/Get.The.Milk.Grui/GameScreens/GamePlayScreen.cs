@@ -44,19 +44,19 @@ namespace Get.The.Milk.Grui.GameScreens
             Texture2D tilesetTexture = Game.Content.Load<Texture2D>(@"Tilesets\tileset1");
             tileset = new Tileset(tilesetTexture, 8, 8, 32, 32);
 
-            MapLayer layer = new MapLayer(3, 3);
+            //MapLayer layer = new MapLayer(3, 3);
 
-            for (int y = 0; y < layer.Height; y++)
-            {
-                for (int x = 0; x < layer.Width; x++)
-                {
-                    Tile tile = new Tile(0, 0);
+            //for (int y = 0; y < layer.Height; y++)
+            //{
+            //    for (int x = 0; x < layer.Width; x++)
+            //    {
+            //        Tile tile = new Tile(0, 0);
 
-                    layer.SetTile(x, y, tile);
-                }
-            }
+            //        layer.SetTile(x, y, tile);
+            //    }
+            //}
 
-            map = new TileMap(tileset, layer);
+            //map = new TileMap(tileset, layer);
 
             base.LoadContent();
         }

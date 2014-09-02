@@ -1,10 +1,7 @@
-﻿using GetTheMilk.Navigation;
+﻿using GetTheMilk.GameLevels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Get.The.Milk.X.Library.TileEngine
 {

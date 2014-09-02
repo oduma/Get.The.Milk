@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GetTheMilk.GameLevels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -108,7 +109,7 @@ namespace Get.The.Milk.Grui
         internal void LoadNewRpgEngine()
         {
             new BootstrapRegister().RegisterAllComponents();
-            GetTheMilk.RpgGameCore gameCore = GetTheMilk.RpgGameCore.CreateNewGameInstance();
+            RpgGameCore gameCore = RpgGameCore.CreateNewGameInstance();
         }
     }
 }
