@@ -42,10 +42,10 @@ namespace Get.The.Milk.X.Library.Controls
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (hasFocus)
-                spriteBatch.DrawString(SpriteFont, Text, Position, selectedColor);
+            if (HasFocus)
+                spriteBatch.DrawString(SpriteFont, Value.ToString(), Position, selectedColor);
             else
-                spriteBatch.DrawString(SpriteFont, Text, Position, Color);
+                spriteBatch.DrawString(SpriteFont, Value.ToString(), Position, Color);
         }
 
         public override void HandleInput(PlayerIndex playerIndex)

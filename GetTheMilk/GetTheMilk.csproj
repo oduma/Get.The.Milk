@@ -178,6 +178,8 @@
     <Compile Include="UI\ViewModels\PlayerInfoViewModel.cs" />
     <Compile Include="UI\ViewModels\PlayerSetupViewModel.cs" />
     <Compile Include="UI\ViewModels\DirectionShortcut.cs" />
+    <Compile Include="UI\ViewModels\StartMenuViewModel.cs" />
+    <Compile Include="UI\ViewModels\TitleViewModel.cs" />
     <Compile Include="UI\ViewModels\TwoCharactersViewModel.cs" />
     <Compile Include="Utils\ActionTemplateJsonConverter.cs" />
     <Compile Include="Utils\CalculationStrategies.cs" />
@@ -191,7 +193,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\" />

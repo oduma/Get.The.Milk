@@ -8,29 +8,22 @@ namespace GetTheMilk.UI.ViewModels
     public class PlayerSetupViewModel:GameBaseViewModel
     {
         private int _maximumAvailableBonusPoints;
-
-        public RelayCommand SaveAndStart { get; private set; }
-
+        
         public PlayerSetupViewModel()
         {
             Description = "Player setup:";
             MaximumAvailableBonusPoints = GameSettings.GetInstance().MaximumAvailableBonusPoints;
             Money = MaximumAvailableBonusPoints/2;
-            SaveAndStart= new RelayCommand(StartNewGame);
         }
 
-        private void StartNewGame()
+        public GamePlayViewModel StartNewGame()
         {
             var game = RpgGameCore.GetGameInstance();
             game.Player.SetPlayerName(Name);
             game.Player.Walet.CurrentCapacity = Money;
             game.Player.Experience = Experience;
             game.Player.Health = GameSettings.GetInstance().FullDefaultHealth;
-            if (GameStartRequest != null)
-            {
-                GameStartRequest(this,new GameStartRequestEventArgs(game));
-            }
-
+            return new GamePlayViewModel(game);
         }
 
         public int Experience
@@ -114,6 +107,7 @@ namespace GetTheMilk.UI.ViewModels
         }
 
         public override event EventHandler<GameStartRequestEventArgs> GameStartRequest;
+
         public override event EventHandler<GameAdvanceRequestEventArgs> GameAdvanceRequest;
     }
 }

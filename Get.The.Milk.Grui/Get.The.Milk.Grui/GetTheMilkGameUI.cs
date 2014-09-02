@@ -11,6 +11,8 @@ using Microsoft.Xna.Framework.Media;
 using Get.The.Milk.X.Library;
 using Get.The.Milk.Grui.GameScreens;
 using GetTheMilk.Factories;
+using GetTheMilk.UI.ViewModels;
+using TomShane.Neoforce.Controls;
 
 namespace Get.The.Milk.Grui
 {
@@ -47,9 +49,11 @@ namespace Get.The.Milk.Grui
 
         #endregion
 
+        private Manager _manager;
+
         public GetTheMilkGameUI()
         {
-
+            IsMouseVisible = true;
             graphics = new GraphicsDeviceManager(this);
 
             graphics.PreferredBackBufferWidth = screenWidth;
@@ -61,24 +65,47 @@ namespace Get.The.Milk.Grui
                 screenWidth,
                 screenHeight);
 
-            Content.RootDirectory = "Content";
+            //Content.RootDirectory = "Content";
 
-            Components.Add(new InputHandler(this));
+            //Components.Add(new InputHandler(this));
 
-            stateManager = new GameStateManager(this);
-            Components.Add(stateManager);
+            //stateManager = new GameStateManager(this);
+            //Components.Add(stateManager);
 
-            TitleScreen = new TitleScreen(this, stateManager);
-            StartMenuScreen = new StartMenuScreen(this, stateManager);
-            GamePlayScreen = new GamePlayScreen(this, stateManager);
-            CharacterGeneratorScreen = new CharacterGeneratorScreen(this, stateManager);
+            //TitleScreen = new TitleScreen(this, stateManager,new TitleViewModel());
+            //StartMenuScreen = new StartMenuScreen(this, stateManager,new StartMenuViewModel());
+            //GamePlayScreen = new GamePlayScreen(this, stateManager);
+            //CharacterGeneratorScreen = new CharacterGeneratorScreen(this, stateManager);
 
-            stateManager.ChangeState(TitleScreen);
+            //stateManager.ChangeState(TitleScreen);
         }
 
         protected override void Initialize()
         {
             base.Initialize();
+
+            _manager = new Manager(this, graphics);
+
+            _manager.SkinDirectory = @"Content\Skins\";
+            _manager.SetSkin("Default");
+            _manager.Initialize();
+            // Create and setup Window control.
+            var window = new Window(_manager);
+            window.Init();
+            window.Text = "Getting Started";
+            window.Width = 100;
+            window.Height = 124;
+            window.Center();
+            window.Visible = true;
+            window.BorderVisible = false;
+            window.MaximumHeight = 100;
+            window.MinimumHeight = 100;
+            window.MaximumWidth = 100;
+            window.MinimumWidth = 100;
+            window.Alpha = 128;
+
+            _manager.Add(window);
+
         }
 
         protected override void LoadContent()

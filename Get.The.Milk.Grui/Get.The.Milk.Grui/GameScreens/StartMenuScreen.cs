@@ -1,5 +1,6 @@
 ﻿using Get.The.Milk.X.Library;
 using Get.The.Milk.X.Library.Controls;
+using GetTheMilk.UI.ViewModels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,6 +23,7 @@ namespace Get.The.Milk.Grui.GameScreens
         LinkLabel exitGame;
         LinkLabel saveGame;
         float maxItemWidth = 0f;
+        private StartMenuViewModel _viewModel;
 
         #endregion
 
@@ -30,9 +32,10 @@ namespace Get.The.Milk.Grui.GameScreens
 
         #region Constructor Region
 
-        public StartMenuScreen(Game game, GameStateManager manager)
+        public StartMenuScreen(Game game, GameStateManager manager,StartMenuViewModel viewModel)
             : base(game, manager)
         {
+            _viewModel = viewModel;
         }
 
         #endregion
@@ -66,33 +69,13 @@ namespace Get.The.Milk.Grui.GameScreens
                     arrowTexture.Height));
             ControlManager.Add(arrowImage);
 
-            startGame = new LinkLabel();
-            startGame.Text = "New Game";
-            startGame.Size = startGame.SpriteFont.MeasureString(startGame.Text);
-            startGame.Selected += new EventHandler(menuItem_Selected);
+            ControlManager.Add(new LinkLabel{Value = _viewModel.StartNew});
 
-            ControlManager.Add(startGame);
+            ControlManager.Add(new LinkLabel { Value = _viewModel.Load});
 
-            loadGame = new LinkLabel();
-            loadGame.Text = "Load Game";
-            loadGame.Size = loadGame.SpriteFont.MeasureString(loadGame.Text);
-            loadGame.Selected += menuItem_Selected;
+            ControlManager.Add(new LinkLabel { Value = _viewModel.Save});
 
-            ControlManager.Add(loadGame);
-            
-            saveGame = new LinkLabel();
-            saveGame.Text = "Save Game";
-            saveGame.Size = saveGame.SpriteFont.MeasureString(saveGame.Text);
-            saveGame.Selected += menuItem_Selected;
-
-            ControlManager.Add(saveGame);
-
-            exitGame = new LinkLabel();
-            exitGame.Text = "Exit Game";
-            exitGame.Size = exitGame.SpriteFont.MeasureString(exitGame.Text);
-            exitGame.Selected += menuItem_Selected;
-
-            ControlManager.Add(exitGame);
+            ControlManager.Add(new LinkLabel { Value = _viewModel.Exit});
 
             ControlManager.NextControl();
 
@@ -108,6 +91,8 @@ namespace Get.The.Milk.Grui.GameScreens
 
                     c.Position = position;
                     position.Y += c.Size.Y + 5f;
+                    c.Selected+=menuItem_Selected;
+                    c.Size = c.SpriteFont.MeasureString(c.Value.ToString());
                 }
             }
 
@@ -125,7 +110,7 @@ namespace Get.The.Milk.Grui.GameScreens
         {
             if (sender == startGame)
             {
-                GameRef.LoadNewRpgEngine();
+                GameRef.CharacterGeneratorScreen.ViewModel = new PlayerSetupViewModel();
                 StateManager.PushState(GameRef.CharacterGeneratorScreen);
             }
 

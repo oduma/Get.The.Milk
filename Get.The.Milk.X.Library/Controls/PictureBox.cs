@@ -67,7 +67,7 @@ namespace Get.The.Milk.X.Library.Controls
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, destRect, sourceRect, color);
+            spriteBatch.Draw(image, destRect, sourceRect, Color);
         }
 
         public override void HandleInput(PlayerIndex playerIndex)

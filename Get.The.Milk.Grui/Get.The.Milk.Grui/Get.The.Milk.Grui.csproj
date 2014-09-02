@@ -33,6 +33,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>75462be0</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -76,10 +77,18 @@
       <HintPath>..\..\Lib\Sciendo.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Net" />
+    <Reference Include="TomShane.Neoforce.Controls">
+      <HintPath>..\..\Lib\TomShane.Neoforce.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="TomShane.Neoforce.Importers">
+      <HintPath>..\..\Lib\TomShane.Neoforce.Importers.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameScreens\BaseGameState.cs" />

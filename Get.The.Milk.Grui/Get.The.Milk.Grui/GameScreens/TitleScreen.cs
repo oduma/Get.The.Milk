@@ -1,5 +1,6 @@
 ﻿using Get.The.Milk.X.Library;
 using Get.The.Milk.X.Library.Controls;
+using GetTheMilk.UI.ViewModels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,14 +16,16 @@ namespace Get.The.Milk.Grui.GameScreens
         #region Field region
 
         Texture2D backgroundImage;
+        private TitleViewModel _viewModel;
 
         #endregion
 
         #region Constructor region
 
-        public TitleScreen(Game game, GameStateManager manager)
+        public TitleScreen(Game game, GameStateManager manager,TitleViewModel viewModel)
             : base(game, manager)
         {
+            _viewModel = viewModel;
         }
 
         #endregion
@@ -31,22 +34,15 @@ namespace Get.The.Milk.Grui.GameScreens
 
         protected override void LoadContent()
         {
+
             ContentManager Content = GameRef.Content;
             backgroundImage = Content.Load<Texture2D>(@"Backgrounds\titlescreen");
 
             base.LoadContent();
-            Label titleLabel = new Label { Position = new Vector2(350, 100), Text = "Get the milk", Color = Color.Black };
-            LinkLabel startLabel;
 
-            startLabel = new LinkLabel();
-            startLabel.Position = new Vector2(350, 400);
-            startLabel.Text = "Press ENTER to begin";
-            startLabel.Color = Color.White;
-            startLabel.TabStop = true;
-            startLabel.HasFocus = true;
+            ControlManager.Add(new Label { Position = new Vector2(350, 100), Value = _viewModel.Title, Color = Color.Black });
+            LinkLabel startLabel = new LinkLabel { Position = new Vector2(350, 400), Value = _viewModel.ContinueText, Color = Color.White, TabStop = true, HasFocus = true };
             startLabel.Selected += new EventHandler(startLabel_Selected);
-
-            ControlManager.Add(titleLabel);
             ControlManager.Add(startLabel);
         }
 

@@ -1,5 +1,6 @@
 ﻿using Get.The.Milk.X.Library;
 using Get.The.Milk.X.Library.Controls;
+using GetTheMilk.UI.ViewModels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -82,8 +83,8 @@ namespace Get.The.Milk.Grui.GameScreens
 
             Label label1 = new Label();
 
-            label1.Text = "Who will search for the Eyes of the Dragon?";
-            label1.Size = label1.SpriteFont.MeasureString(label1.Text);
+            label1.Value = "Who will search for the Eyes of the Dragon?";
+            label1.Size = label1.SpriteFont.MeasureString(label1.Value.ToString());
             label1.Position = new Vector2(400, 150);
 
             ControlManager.Add(label1);
@@ -101,7 +102,7 @@ namespace Get.The.Milk.Grui.GameScreens
             ControlManager.Add(experienceSelector);
 
             LinkLabel linkLabel1 = new LinkLabel();
-            linkLabel1.Text = "Accept this character.";
+            linkLabel1.Value = "Accept this character.";
             linkLabel1.Position = new Vector2(label1.Position.X, 300);
             linkLabel1.Selected += new EventHandler(linkLabel1_Selected);
 
@@ -119,5 +120,7 @@ namespace Get.The.Milk.Grui.GameScreens
         }
 
         #endregion
+
+        public PlayerSetupViewModel ViewModel { get; set; }
     }
 }

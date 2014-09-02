@@ -13,7 +13,7 @@ namespace Get.The.Milk.X.Library.Controls
 
         public Label()
         {
-            tabStop = false;
+            TabStop = false;
         }
 
         #endregion
@@ -26,7 +26,7 @@ namespace Get.The.Milk.X.Library.Controls
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(SpriteFont, Text, Position, Color);
+            spriteBatch.DrawString(SpriteFont, Value.ToString(), Position, Color);
         }
 
         public override void HandleInput(PlayerIndex playerIndex)

@@ -52,8 +52,6 @@ namespace GetTheMilk.UI.ViewModels
             CurrentGameViewModel.GameStartRequest += CurrentGameViewModelGameStartRequest;
         }
 
-
-
         void CurrentGameViewModelGameStartRequest(object source, GameStartRequestEventArgs eventArgs)
         {
             CurrentGameViewModel = new GamePlayViewModel(eventArgs.Game);
@@ -61,7 +59,6 @@ namespace GetTheMilk.UI.ViewModels
 
         public MainViewModel()
         {
-            Title = GameSettings.GetInstance().DefaultGameName;
             ExitCommand = new RelayCommand(Exit);
             CurrentGameViewModel=new GameViewModel();
             NewCommand=new RelayCommand(LoadPlayerSetup);
@@ -91,6 +88,5 @@ namespace GetTheMilk.UI.ViewModels
         {
             ;
         }
-        public string Title { get; set; }
     }
 }

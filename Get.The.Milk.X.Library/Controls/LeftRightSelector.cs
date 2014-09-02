@@ -99,7 +99,7 @@ namespace Get.The.Milk.X.Library.Controls
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 drawTo = position;
+            Vector2 drawTo = Position;
 
             if (selectedItem != 0)
                 spriteBatch.Draw(leftTexture, drawTo, Color.White);
@@ -108,15 +108,15 @@ namespace Get.The.Milk.X.Library.Controls
 
             drawTo.X += leftTexture.Width + 5f;
 
-            float itemWidth = spriteFont.MeasureString(items[selectedItem]).X;
+            float itemWidth = SpriteFont.MeasureString(items[selectedItem]).X;
             float offset = (maxItemWidth - itemWidth) / 2;
 
             drawTo.X += offset;
 
-            if (hasFocus)
-                spriteBatch.DrawString(spriteFont, items[selectedItem], drawTo, selectedColor);
+            if (HasFocus)
+                spriteBatch.DrawString(SpriteFont, items[selectedItem], drawTo, selectedColor);
             else
-                spriteBatch.DrawString(spriteFont, items[selectedItem], drawTo, Color);
+                spriteBatch.DrawString(SpriteFont, items[selectedItem], drawTo, Color);
 
             drawTo.X += -1 * offset + maxItemWidth + 5f;
 
