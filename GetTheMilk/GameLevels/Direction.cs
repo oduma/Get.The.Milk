@@ -1,4 +1,4 @@
-namespace GetTheMilk.Navigation
+namespace GetTheMilk.GameLevels
 {
     public enum Direction
     {

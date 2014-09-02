@@ -1,7 +1,6 @@
 using System.IO;
 using GetTheMilk.Characters;
 using GetTheMilk.Common;
-using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
 using GetTheMilk.Utils;
 using Newtonsoft.Json;

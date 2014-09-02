@@ -4,7 +4,6 @@ using GetTheMilk.Common;
 using GetTheMilk.GameLevels;
 using GetTheMilk.Objects.BaseObjects;
 using System.Linq;
-using GetTheMilk.Navigation;
 
 namespace GetTheMilk.Actions.ActionTemplates
 {

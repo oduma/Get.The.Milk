@@ -4,7 +4,7 @@ using GetTheMilk.Characters.Base;
 using GetTheMilk.Objects.BaseObjects;
 using Newtonsoft.Json;
 
-namespace GetTheMilk.Navigation
+namespace GetTheMilk.GameLevels
 {
     public partial class Cell
     {

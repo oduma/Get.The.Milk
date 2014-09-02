@@ -6,7 +6,6 @@ using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.GameLevels;
 using NUnit.Framework;
 using Newtonsoft.Json;
-using GetTheMilk.Navigation;
 
 namespace GetTheMilk.NewActions.Tests.SaveLoadTests
 {

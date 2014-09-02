@@ -1,4 +1,4 @@
-﻿using GetTheMilk.Navigation;
+﻿using GetTheMilk.GameLevels;
 
 namespace GetTheMilk.UI.ViewModels
 {

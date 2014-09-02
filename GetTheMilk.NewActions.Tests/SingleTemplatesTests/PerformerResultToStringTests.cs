@@ -4,6 +4,7 @@ using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
+using GetTheMilk.GameLevels;
 using GetTheMilk.Objects.BaseObjects;
 using NUnit.Framework;
 using System;
@@ -344,7 +345,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 {
                     Name = new Verb { UniqueId = "EnterLevel", Past = "entered level", Present = "enter level" },
                     ActiveCharacter = new Player(),
-                    Direction = Navigation.Direction.None,
+                    Direction = Direction.None,
                     PerformerType = typeof(TeleportActionPerformer)
                 }
             };
@@ -359,7 +360,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 ResultType = ActionResultType.OriginNotOnTheMap,
                 ForAction = new MovementActionTemplate { 
                     Name = new Verb { UniqueId="EnterLevel",Past="entered level", Present="enter level"},
-                    ActiveCharacter= new Player(),Direction=Navigation.Direction.None,
+                    ActiveCharacter= new Player(),Direction=Direction.None,
                 PerformerType=typeof(TeleportActionPerformer)}
             };
             Assert.AreEqual("you tried to enter level but couldn't. (OriginNotOnTheMap)", actual.ToString());
@@ -375,7 +376,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 {
                     Name = new Verb { UniqueId = "EnterLevel", Past = "entered level", Present = "enter level" },
                     ActiveCharacter = new Player(),
-                    Direction = Navigation.Direction.None,
+                    Direction = Direction.None,
                     PerformerType = typeof(TeleportActionPerformer)
                 }
             };
@@ -391,7 +392,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 {
                     Name = new Verb { UniqueId = "EnterLevel", Past = "entered level", Present = "enter level" },
                     ActiveCharacter = new Player(),
-                    Direction = Navigation.Direction.None,
+                    Direction = Direction.None,
                     PerformerType = typeof(TeleportActionPerformer)
                 }
             };
@@ -408,7 +409,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 {
                     Name = new Verb { UniqueId = "Run", Past = "ran", Present = "run" },
                     ActiveCharacter = new Player(),
-                    Direction = Navigation.Direction.East,
+                    Direction = Direction.East,
                     DefaultDistance = 3,
                     PerformerType = typeof(RunActionPerformer)
                 },
@@ -444,7 +445,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 {
                     Name = new Verb { UniqueId = "Run", Past = "ran", Present = "run" },
                     ActiveCharacter = new Player(),
-                    Direction = Navigation.Direction.East,
+                    Direction = Direction.East,
                     DefaultDistance = 3,
                     PerformerType = typeof(RunActionPerformer)
                 },
@@ -479,7 +480,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 {
                     Name = new Verb { UniqueId = "Run", Past = "ran", Present = "run" },
                     ActiveCharacter = new Player(),
-                    Direction = Navigation.Direction.East,
+                    Direction = Direction.East,
                     DefaultDistance = 3,
                     PerformerType = typeof(RunActionPerformer)
                 },
@@ -532,7 +533,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             PerformActionResult actual = new PerformActionResult 
             { 
                 ResultType = ActionResultType.Ok,
-                ForAction = new MovementActionTemplate { Name = new Verb { UniqueId="EnterLevel", Past="entered level", Present="enter level"},PerformerType=typeof(TeleportActionPerformer), Direction=Navigation.Direction.None } 
+                ForAction = new MovementActionTemplate { Name = new Verb { UniqueId="EnterLevel", Past="entered level", Present="enter level"},PerformerType=typeof(TeleportActionPerformer), Direction=Direction.None } 
             };
             Assert.AreEqual("No Active Character Assigned entered level.", actual.ToString());
         }
@@ -547,7 +548,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 {
                     Name = new Verb { UniqueId = "Run", Past = "ran", Present = "run" },
                     PerformerType = typeof(RunActionPerformer),
-                    Direction = Navigation.Direction.East,
+                    Direction = Direction.East,
                     ActiveCharacter = new Player()
                 }
             };

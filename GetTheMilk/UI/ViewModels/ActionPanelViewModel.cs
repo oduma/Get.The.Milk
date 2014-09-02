@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Navigation;
+using GetTheMilk.GameLevels;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Characters;
 

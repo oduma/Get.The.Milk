@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using GetTheMilk.Characters;
+using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.Factories;
 using Newtonsoft.Json;
@@ -25,7 +26,7 @@ namespace GetTheMilk.GameLevels
             {
 
                 var gamePackages = JsonConvert.DeserializeObject<GamePackages>(textReader.ReadToEnd());
-                Instance.Player = Player.Load<Player>(gamePackages.PlayerPackages);
+                Instance.Player = Character.Load<Player>(gamePackages.PlayerPackages);
                 Instance.CurrentLevel = Level.Create(gamePackages.LevelPackages);
                 Instance.CurrentLevel.Player = Instance.Player;
             }

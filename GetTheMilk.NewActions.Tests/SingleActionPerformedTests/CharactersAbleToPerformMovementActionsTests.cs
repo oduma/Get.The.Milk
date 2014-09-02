@@ -3,7 +3,7 @@ using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Factories;
-using GetTheMilk.Navigation;
+using GetTheMilk.GameLevels;
 using NUnit.Framework;
 
 namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests
