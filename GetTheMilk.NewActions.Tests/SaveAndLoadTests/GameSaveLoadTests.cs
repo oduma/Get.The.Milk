@@ -3,12 +3,9 @@ using System.IO;
 using GetTheMilk;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Settings;
+using GetTheMilk.GameLevels;
 using NUnit.Framework;
 using Newtonsoft.Json;
-using GetTheMilk.Navigation;
 
 namespace GetTheMilk.NewActions.Tests.SaveLoadTests
 {

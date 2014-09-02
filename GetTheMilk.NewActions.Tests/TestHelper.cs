@@ -2,16 +2,13 @@
 using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Actions.Interactions;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
-using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Characters.Base;
+using GetTheMilk.Common;
 using GetTheMilk.Factories;
-using GetTheMilk.Levels;
-using GetTheMilk.Navigation;
+using GetTheMilk.GameLevels;
 using GetTheMilk.Objects;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 using GetTheMilk.Utils;
 using NUnit.Framework;
 using System.Linq;
@@ -727,7 +724,7 @@ namespace GetTheMilk.NewActions.Tests
 
         public static Level GetToTheFight(out PerformActionResult movementResult, int levelNumber = 0)
         {
-            var level = GetTheMilk.Levels.Level.Create(levelNumber);
+            var level = Level.Create(levelNumber);
 
             Assert.IsNotNull(level);
             Assert.AreEqual(0, level.Number);

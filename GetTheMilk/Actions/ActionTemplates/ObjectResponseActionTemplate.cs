@@ -1,12 +1,4 @@
-﻿using GetTheMilk.Actions.ActionPerformers.Base;
-using GetTheMilk.Factories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GetTheMilk.Actions.ActionTemplates
+﻿namespace GetTheMilk.Actions.ActionTemplates
 {
     public class ObjectResponseActionTemplate:BaseActionTemplate
     {

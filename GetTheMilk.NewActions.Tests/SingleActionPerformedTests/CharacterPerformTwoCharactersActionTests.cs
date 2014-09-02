@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Characters.Base;
+using GetTheMilk.Common;
 using GetTheMilk.Factories;
-using GetTheMilk.Settings;
+using GetTheMilk.GameLevels;
 using NUnit.Framework;
 
 namespace GetTheMilk.NewActions.Tests.SingleActionPerformedTests

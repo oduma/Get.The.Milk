@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using GetTheMilk.BaseCommon;
+using GetTheMilk.Actions.ActionTemplates;
+using GetTheMilk.Common;
 using GetTheMilk.Factories;
 using GetTheMilk.Objects;
-using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.Actions.Interactions;
+using GetTheMilk.Objects.Base;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {

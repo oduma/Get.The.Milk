@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Levels;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
+using Get.The.Milk.UI.BaseViewModels;
+using GetTheMilk.Common;
+using GetTheMilk.GameLevels;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {

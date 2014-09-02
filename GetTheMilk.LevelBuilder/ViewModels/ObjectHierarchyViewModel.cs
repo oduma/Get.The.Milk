@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
+using Get.The.Milk.UI.BaseViewModels;
+using GetTheMilk.Common;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {

@@ -1,8 +1,7 @@
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Common;
 using NUnit.Framework;
 using Newtonsoft.Json;
 using GetTheMilk.Actions.ActionPerformers;

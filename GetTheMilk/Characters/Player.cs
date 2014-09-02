@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Levels;
+using GetTheMilk.Characters.Base;
+using GetTheMilk.Common;
+using GetTheMilk.GameLevels;
 using GetTheMilk.Objects;
-using GetTheMilk.Settings;
-using GetTheMilk.Utils;
-using System;
 
 namespace GetTheMilk.Characters
 {

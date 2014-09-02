@@ -2,9 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Actions.ActionPerformers.Base;
+using GetTheMilk.Common;
 using Sciendo.IOC;
 using System.IO;
 using System.Reflection;
@@ -15,12 +14,8 @@ namespace GetTheMilk.Factories
     {
         public Container RegisterAllComponents()
         {
-            AssemblyScanner assemblyScanner = new AssemblyScanner();
-            List<Assembly> assemblies = new List<Assembly>();
-            foreach(var fileName in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory,@"Get.The.Milk.L*.dll"))
-            {
-                assemblies.Add(Assembly.LoadFrom(fileName));
-            }
+            var assemblyScanner = new AssemblyScanner();
+            var assemblies = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, @"Get.The.Milk.L*.dll").Select(fileName => Assembly.LoadFrom(fileName)).ToList();
             assemblies.Add(Assembly.GetExecutingAssembly());
             Container.GetInstance()
                 .Add(assemblyScanner.From(assemblies.ToArray()).BasedOn<BaseActionTemplate>().With(LifeStyle.Singleton).ToArray());

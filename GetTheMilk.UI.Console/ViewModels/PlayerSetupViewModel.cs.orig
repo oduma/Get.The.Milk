@@ -1,0 +1,117 @@
+using GetTheMilk.GameLevels;
+
+namespace GetTheMilk.UI.Console.ViewModels
+{
+    public class PlayerSetupViewModel:GameBaseViewModel
+    {
+        private int _maximumAvailableBonusPoints;
+        
+        public PlayerSetupViewModel()
+        {
+            Description = "Player setup:";
+            MaximumAvailableBonusPoints = GameSettings.GetInstance().MaximumAvailableBonusPoints;
+            Money = MaximumAvailableBonusPoints/2;
+        }
+
+        public GamePlayViewModel StartNewGame()
+        {
+            var game = RpgGameCore.GetGameInstance();
+            game.Player.SetPlayerName(Name);
+            game.Player.Walet.CurrentCapacity = Money;
+            game.Player.Experience = Experience;
+            game.Player.Health = GameSettings.GetInstance().FullDefaultHealth;
+<<<<<<< HEAD:GetTheMilk/UI/ViewModels/PlayerSetupViewModel.cs
+            return new GamePlayViewModel(game);
+=======
+            FireStartRequestEvent(this,new GameStartRequestEventArgs(game));
+>>>>>>> origin/v.0.0.1:GetTheMilk.UI.Console/ViewModels/PlayerSetupViewModel.cs
+        }
+
+        public int Experience
+        {
+            get { return _experience; }
+            set
+            {
+                if (value != _experience)
+                {
+                    _experience = value;
+                    Money = MaximumAvailableBonusPoints - _experience;
+                    RaisePropertyChanged("Experience");
+                }
+            }
+        }
+
+        public int Money
+        {
+            get { return _money; }
+            set
+            {
+                if (value != _money)
+                {
+                    _money = value;
+                    Experience = MaximumAvailableBonusPoints - _money;
+                    RaisePropertyChanged("Money");
+                }
+            }
+        }
+
+        public int MaximumAvailableBonusPoints
+        {
+            get { return _maximumAvailableBonusPoints; }
+            set
+            {
+                if (value != _maximumAvailableBonusPoints)
+                {
+                    _maximumAvailableBonusPoints = value;
+                    RaisePropertyChanged("MaximumAvailableBonusPoints");
+                }
+            }
+        }
+
+        private string _description;
+
+        public string Description
+        {
+            get
+            {
+                return this._description;
+            }
+
+            set
+            {
+                if (value != _description)
+                {
+                    _description = value;
+                    RaisePropertyChanged("Description");
+                }
+            }
+        }
+        private string _name;
+        private int _money;
+        private int _experience;
+
+        public string Name
+        {
+            get
+            {
+                return this._name;
+            }
+
+            set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    RaisePropertyChanged("Name");
+                }
+            }
+        }
+<<<<<<< HEAD:GetTheMilk/UI/ViewModels/PlayerSetupViewModel.cs
+
+        public override event EventHandler<GameStartRequestEventArgs> GameStartRequest;
+
+        public override event EventHandler<GameAdvanceRequestEventArgs> GameAdvanceRequest;
+=======
+>>>>>>> origin/v.0.0.1:GetTheMilk.UI.Console/ViewModels/PlayerSetupViewModel.cs
+    }
+}

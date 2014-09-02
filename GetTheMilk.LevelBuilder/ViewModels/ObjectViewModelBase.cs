@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
-using GetTheMilk.BaseCommon;
+using Get.The.Milk.UI.BaseViewModels;
+using GetTheMilk.Actions.ActionTemplates;
+using GetTheMilk.Common;
 using System.Collections.Generic;
-using GetTheMilk.Actions.Interactions;
 using GetTheMilk.Utils;
 using System.Linq;
 

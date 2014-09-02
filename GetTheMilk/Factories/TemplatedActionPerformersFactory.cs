@@ -1,7 +1,5 @@
 ﻿using System.Linq;
 using GetTheMilk.Actions.ActionPerformers.Base;
-using System.Collections.Generic;
-using System;
 using Sciendo.IOC;
 
 namespace GetTheMilk.Factories

@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Actions.ActionPerformers.Base;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.Settings;
+using GetTheMilk.Characters.Base;
+using GetTheMilk.Common;
+using GetTheMilk.GameLevels;
+using GetTheMilk.Objects.Base;
 using Newtonsoft.Json;
 using GetTheMilk.Factories;
 

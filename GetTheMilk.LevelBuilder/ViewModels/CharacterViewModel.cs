@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using GetTheMilk.Actions.Interactions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
+using Get.The.Milk.UI.BaseViewModels;
+using GetTheMilk.Actions.ActionTemplates;
+using GetTheMilk.Characters.Base;
+using GetTheMilk.Common;
 using GetTheMilk.Factories;
-using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
+using GetTheMilk.Objects.Base;
 using GetTheMilk.Utils;
 
 namespace GetTheMilk.LevelBuilder.ViewModels

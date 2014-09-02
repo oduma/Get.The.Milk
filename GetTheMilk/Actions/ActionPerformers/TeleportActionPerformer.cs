@@ -1,9 +1,8 @@
 ﻿using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Navigation;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Characters.Base;
+using GetTheMilk.GameLevels;
+using GetTheMilk.Objects.Base;
 
 namespace GetTheMilk.Actions.ActionPerformers
 {

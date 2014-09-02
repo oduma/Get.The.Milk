@@ -1,10 +1,5 @@
 ﻿using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {

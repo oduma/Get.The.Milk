@@ -1,15 +1,10 @@
 using GetTheMilk.Actions.ActionPerformers;
-using GetTheMilk.Actions.ActionPerformers.Base;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Factories;
-using GetTheMilk.Levels;
-using GetTheMilk.Navigation;
-using System;
+using GetTheMilk.Common;
+using GetTheMilk.GameLevels;
 
 namespace GetTheMilk.Actions.ActionTemplates
 {
-    public class MovementActionTemplate : BaseActionTemplate
+    public sealed class MovementActionTemplate : BaseActionTemplate
     {
         public MovementActionTemplate()
         {

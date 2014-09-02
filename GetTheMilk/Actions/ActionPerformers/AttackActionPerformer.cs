@@ -1,14 +1,6 @@
 ﻿using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Levels;
-using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace GetTheMilk.Actions.ActionPerformers
 {

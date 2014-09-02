@@ -1,11 +1,19 @@
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Settings;
 using System.Linq;
-using System.Threading;
+using GetTheMilk.GameLevels;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {
+    public enum ActionResultType
+    {
+        Ok,
+        NotOk,
+        OutOfTheMap,
+        Blocked,
+        OriginNotOnTheMap,
+        LevelCompleted
+    }
+
     public class PerformActionResult
     {
         public ActionResultType ResultType { get; set; }

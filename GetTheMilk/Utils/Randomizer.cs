@@ -6,7 +6,7 @@ namespace GetTheMilk.Utils
     {
         public static int GetRandom(int min, int max)
         {
-            Random randomSelector = new Random();
+            var randomSelector = new Random();
             return randomSelector.Next(min, max);
         }
     }

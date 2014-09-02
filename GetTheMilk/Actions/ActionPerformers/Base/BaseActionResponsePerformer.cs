@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Characters.Base;
+using GetTheMilk.Common;
 using GetTheMilk.Utils;
-using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {
@@ -78,10 +77,10 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 Union(active.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].Where(
                 a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction)).ToList();
             }
-            else if (active.Interactions.ContainsKey(targetName))
+            if (active.Interactions.ContainsKey(targetName))
             {
                 return active.Interactions[targetName].Where(
-                a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).ToList();
+                    a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).ToList();
             }
             return active.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].Where(
                 a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).ToList();

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GetTheMilk.GameLevels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -19,18 +20,15 @@ namespace Get.The.Milk.Grui
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class GetTheMilkGameUI : Microsoft.Xna.Framework.Game
+    public class GetTheMilkGameUI : Game
     {
         #region XNA Field Region
 
-        GraphicsDeviceManager graphics;
         public SpriteBatch SpriteBatch;
 
         #endregion
 
         #region Game State Region
-
-        GameStateManager stateManager;
 
         public TitleScreen TitleScreen;
         public StartMenuScreen StartMenuScreen;
@@ -42,8 +40,8 @@ namespace Get.The.Milk.Grui
 
         #region Screen Field Region
 
-        const int screenWidth = 1068;
-        const int screenHeight = 600;
+        const int ScreenWidth = 1068;
+        const int ScreenHeight = 600;
 
         public readonly Rectangle ScreenRectangle;
 
@@ -54,16 +52,11 @@ namespace Get.The.Milk.Grui
         public GetTheMilkGameUI()
         {
             IsMouseVisible = true;
-            graphics = new GraphicsDeviceManager(this);
-
-            graphics.PreferredBackBufferWidth = screenWidth;
-            graphics.PreferredBackBufferHeight = screenHeight;
-
             ScreenRectangle = new Rectangle(
                 0,
                 0,
-                screenWidth,
-                screenHeight);
+                ScreenWidth,
+                ScreenHeight);
 
             //Content.RootDirectory = "Content";
 
@@ -80,9 +73,17 @@ namespace Get.The.Milk.Grui
             //stateManager.ChangeState(TitleScreen);
         }
 
+        public GraphicsDeviceManager Graphics { get; set; }
+
         protected override void Initialize()
         {
             base.Initialize();
+
+            Graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = ScreenWidth,
+                PreferredBackBufferHeight = ScreenHeight
+            };
 
             _manager = new Manager(this, graphics);
 
@@ -135,7 +136,7 @@ namespace Get.The.Milk.Grui
         internal void LoadNewRpgEngine()
         {
             new BootstrapRegister().RegisterAllComponents();
-            GetTheMilk.RpgGameCore gameCore = GetTheMilk.RpgGameCore.CreateNewGameInstance();
+            RpgGameCore gameCore = RpgGameCore.CreateNewGameInstance();
         }
     }
 }

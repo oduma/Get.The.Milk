@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
-using GetTheMilk.Actions.Interactions;
+using Get.The.Milk.UI.BaseViewModels;
+using GetTheMilk.Actions.ActionTemplates;
+using GetTheMilk.Common;
+using GetTheMilk.Objects.Base;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {

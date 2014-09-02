@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.Interactions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Common;
+using GetTheMilk.Objects.Base;
 using GetTheMilk.Utils;
 using NUnit.Framework;
 

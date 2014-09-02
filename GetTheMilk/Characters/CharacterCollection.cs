@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Characters.Base;
+using GetTheMilk.Common;
 using GetTheMilk.Objects;
 using Newtonsoft.Json;
 
@@ -56,10 +56,12 @@ namespace GetTheMilk.Characters
         public static CharacterCollection Load(CollectionPackage packages)
         {
 
-            var result = new CharacterCollection();
-            result.InventoryType = JsonConvert.DeserializeObject<InventoryType>(packages.InventoryType);
-            result.MaximumCapacity = JsonConvert.DeserializeObject<int>(packages.MaximumCapacity);
-            List<ContainerWithActionsPackage> objs = JsonConvert.DeserializeObject<List<ContainerWithActionsPackage>>(packages.Contents);
+            var result = new CharacterCollection
+            {
+                InventoryType = JsonConvert.DeserializeObject<InventoryType>(packages.InventoryType),
+                MaximumCapacity = JsonConvert.DeserializeObject<int>(packages.MaximumCapacity)
+            };
+            var objs = JsonConvert.DeserializeObject<List<ContainerWithActionsPackage>>(packages.Contents);
             foreach (var obj in objs)
             {
                 result.Add(Character.Load<Character>(obj));

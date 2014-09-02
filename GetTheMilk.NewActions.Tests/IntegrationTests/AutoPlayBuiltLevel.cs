@@ -1,7 +1,6 @@
 ﻿using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Navigation;
+using GetTheMilk.GameLevels;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

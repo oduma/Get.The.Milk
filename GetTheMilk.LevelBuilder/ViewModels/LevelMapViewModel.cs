@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Levels;
-using GetTheMilk.Navigation;
-using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
+using Get.The.Milk.UI.BaseViewModels;
+using GetTheMilk.Characters.Base;
+using GetTheMilk.GameLevels;
+using GetTheMilk.Objects.Base;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {

@@ -1,8 +1,7 @@
 ﻿using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.Interactions;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Characters.Base;
+using GetTheMilk.Common;
 using GetTheMilk.Utils;
 using NUnit.Framework;
 using System;
@@ -27,12 +26,12 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
             _character = new Character
             {
                 ObjectTypeId = "NPCFriendly",
-                Name = new BaseCommon.Noun { Main = "Joe", Narrator = "Joe the plumber" }
+                Name = new Noun { Main = "Joe", Narrator = "Joe the plumber" }
             };
             _interactionCharacter = new Character
             {
                 ObjectTypeId = "NPCFriendly",
-                Name = new BaseCommon.Noun { Main = "reactor", Narrator = "Joe the plumber" }
+                Name = new Noun { Main = "reactor", Narrator = "Joe the plumber" }
             };
         }
 
@@ -113,13 +112,13 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         {
             return new Interaction[] { new Interaction 
             { 
-                Action = new TwoCharactersActionTemplate { Name= new BaseCommon.Verb{UniqueId="Interaction1-Action",Past="Interaction1-Action",Present="Interaction1-Action"},PerformerType=typeof(CommunicateActionPerformer)}, 
-                Reaction = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction1-Reaction",Past="Interaction1-Reaction",Present="Interaction1-Reaction"},PerformerType=typeof(CommunicateActionPerformer)} 
+                Action = new TwoCharactersActionTemplate { Name= new Verb{UniqueId="Interaction1-Action",Past="Interaction1-Action",Present="Interaction1-Action"},PerformerType=typeof(CommunicateActionPerformer)}, 
+                Reaction = new TwoCharactersActionTemplate { Name=new Verb{UniqueId="Interaction1-Reaction",Past="Interaction1-Reaction",Present="Interaction1-Reaction"},PerformerType=typeof(CommunicateActionPerformer)} 
             },
             new Interaction 
             { 
-                Action = new TwoCharactersActionTemplate { Name= new BaseCommon.Verb{UniqueId="Interaction2-Action",Past="Interaction2-Action",Present="Interaction2-Action"},PerformerType=typeof(CommunicateActionPerformer)}, 
-                Reaction = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction2-Reaction",Past="Interaction2-Reaction",Present="Interaction2-Reaction"},PerformerType=typeof(CommunicateActionPerformer)} 
+                Action = new TwoCharactersActionTemplate { Name= new Verb{UniqueId="Interaction2-Action",Past="Interaction2-Action",Present="Interaction2-Action"},PerformerType=typeof(CommunicateActionPerformer)}, 
+                Reaction = new TwoCharactersActionTemplate { Name=new Verb{UniqueId="Interaction2-Reaction",Past="Interaction2-Reaction",Present="Interaction2-Reaction"},PerformerType=typeof(CommunicateActionPerformer)} 
             }
             };
         }
@@ -128,13 +127,13 @@ namespace GetTheMilk.NewActions.Tests.ChainedActionTests
         {
             return new Interaction[] { new Interaction 
             { 
-                Action = new TwoCharactersActionTemplate { Name= new BaseCommon.Verb{UniqueId="Interaction1-Reaction",Past="Interaction1-Reaction",Present="Interaction1-Reaction"},PerformerType=typeof(CommunicateActionPerformer)}, 
-                Reaction = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction1-ReReaction1",Past="Interaction1-ReReaction1",Present="Interaction1-ReReaction1"},PerformerType=typeof(CommunicateActionPerformer)} 
+                Action = new TwoCharactersActionTemplate { Name= new Verb{UniqueId="Interaction1-Reaction",Past="Interaction1-Reaction",Present="Interaction1-Reaction"},PerformerType=typeof(CommunicateActionPerformer)}, 
+                Reaction = new TwoCharactersActionTemplate { Name=new Verb{UniqueId="Interaction1-ReReaction1",Past="Interaction1-ReReaction1",Present="Interaction1-ReReaction1"},PerformerType=typeof(CommunicateActionPerformer)} 
             },
             new Interaction 
             { 
-                Action = new TwoCharactersActionTemplate { Name= new BaseCommon.Verb{UniqueId="Interaction1-Reaction",Past="Interaction1-Reaction",Present="Interaction1-Reaction"},PerformerType=typeof(CommunicateActionPerformer)}, 
-                Reaction = new TwoCharactersActionTemplate { Name=new BaseCommon.Verb{UniqueId="Interaction1-ReReaction2",Past="Interaction1-ReReaction2",Present="Interaction1-ReReaction2"},PerformerType=typeof(CommunicateActionPerformer)} 
+                Action = new TwoCharactersActionTemplate { Name= new Verb{UniqueId="Interaction1-Reaction",Past="Interaction1-Reaction",Present="Interaction1-Reaction"},PerformerType=typeof(CommunicateActionPerformer)}, 
+                Reaction = new TwoCharactersActionTemplate { Name=new Verb{UniqueId="Interaction1-ReReaction2",Past="Interaction1-ReReaction2",Present="Interaction1-ReReaction2"},PerformerType=typeof(CommunicateActionPerformer)} 
             }
             };
         }

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using GetTheMilk.Levels;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
+using Get.The.Milk.UI.BaseViewModels;
+using GetTheMilk.GameLevels;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {

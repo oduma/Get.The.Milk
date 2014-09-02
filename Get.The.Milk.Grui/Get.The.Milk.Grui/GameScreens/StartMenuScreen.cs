@@ -127,7 +127,7 @@ namespace Get.The.Milk.Grui.GameScreens
 
         public override void Update(GameTime gameTime)
         {
-            ControlManager.Update(gameTime, playerIndexInControl);
+            ControlManager.Update(gameTime, PlayerIndexInControl);
 
             base.Update(gameTime);
         }

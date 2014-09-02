@@ -2,27 +2,27 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:UCViews="clr-namespace:GetTheMilk.UI.Console.UControls"
-        xmlns:vm="clr-namespace:GetTheMilk.UI.ViewModels;assembly=GetTheMilk"
-        xmlns:Behaviors="clr-namespace:GetTheMilk.UI.Console.Behaviors" 
+        xmlns:Behaviors="clr-namespace:GetTheMilk.UI.Console.Behaviors"
+        xmlns:viewModels="clr-namespace:GetTheMilk.UI.Console.ViewModels"
         Title="{Binding Path=Title}" Height="680" Width="840"
         Behaviors:FocusBehavior.FocusFirst="true">
     <Window.DataContext>
-        <vm:MainViewModel/>
+        <viewModels:MainViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <DataTemplate DataType="{x:Type vm:GameViewModel}">
+        <DataTemplate DataType="{x:Type viewModels:GameViewModel}">
             <UCViews:GameView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:PlayerSetupViewModel}">
+        <DataTemplate DataType="{x:Type viewModels:PlayerSetupViewModel}">
             <UCViews:PlayerSetupView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:GamePlayViewModel}">
+        <DataTemplate DataType="{x:Type viewModels:GamePlayViewModel}">
             <UCViews:LevelView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:LoadGameViewModel}">
+        <DataTemplate DataType="{x:Type viewModels:LoadGameViewModel}">
             <UCViews:LoadGameView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:GameAdvanceViewModel}">
+        <DataTemplate DataType="{x:Type viewModels:GameAdvanceViewModel}">
             <UCViews:GameAdvance/>
         </DataTemplate>
     </Window.Resources>

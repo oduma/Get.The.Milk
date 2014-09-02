@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Sciendo.IOC
 {
@@ -24,7 +21,7 @@ namespace Sciendo.IOC
         {
           
            if ((_instance == null)
-                    || (_instance != null && this.LifeStyle == LifeStyle.Transient))
+                    || (_instance != null && LifeStyle == LifeStyle.Transient))
                _instance = Activator.CreateInstance(Implementation);
             return _instance;
 

@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Characters.Base;
+using GetTheMilk.Objects.Base;
 using GetTheMilk.Utils;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base

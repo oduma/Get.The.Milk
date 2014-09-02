@@ -23,9 +23,9 @@ namespace Sciendo.IOC.Tests
             var ms = _container.RegisteredTypes.FirstOrDefault(t => t.Name == "mysample");
             if (ms!=null)
                 _container.RegisteredTypes.Remove(ms);
-            var ss = _container.RegisteredTypes.FirstOrDefault(t=>t.Name=="Sciendo.IOC.Tests.Samples.ISample");
-            if (ss!=null)
-                _container.RegisteredTypes.Remove(ss);
+            var ss = _container.RegisteredTypes.Where(t=>t.Name=="Sciendo.IOC.Tests.Samples.ISample").ToList();
+            foreach(var s in ss)
+                _container.RegisteredTypes.Remove(s);
         }
         [Test]
         public void CreateAContainer()
@@ -64,7 +64,7 @@ namespace Sciendo.IOC.Tests
             AssemblyScanner assemblyScanner= new AssemblyScanner();
             _container.Add(assemblyScanner.From(Assembly.GetExecutingAssembly()).BasedOn<ISample>().With(LifeStyle.Transient).ToArray());
             Assert.IsNotNull(_container.RegisteredTypes);
-            Assert.AreEqual(2, _container.RegisteredTypes.Count);
+            Assert.AreEqual(4, _container.RegisteredTypes.Count);
             Assert.AreEqual(2, _container.RegisteredTypes.Count(t => t.Service ==typeof(ISample)));
             Assert.AreEqual(1, _container.RegisteredTypes.Count(t => t.Implementation ==typeof(Sample)));
             Assert.AreEqual(1, _container.RegisteredTypes.Count(t => t.Implementation ==typeof(Sample2)));

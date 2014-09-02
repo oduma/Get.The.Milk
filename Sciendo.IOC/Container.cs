@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Sciendo.IOC
 {
@@ -15,7 +14,7 @@ namespace Sciendo.IOC
             set;
         }
 
-        private static readonly Container _instance= new Container(); 
+        private static readonly Container Instance= new Container(); 
 
         private Container()
         {
@@ -27,7 +26,7 @@ namespace Sciendo.IOC
 
         public static Container GetInstance()
         {
-            return _instance;
+            return Instance;
         }
         public void Add(params RegisteredType[] registeredTypes)
         {
@@ -43,7 +42,7 @@ namespace Sciendo.IOC
             }
         }
 
-        private string GetKey(Type serviceType, string name)
+        private static string GetKey(Type serviceType, string name)
         {
             var key = serviceType.FullName;
             if (!string.IsNullOrEmpty(name))

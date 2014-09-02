@@ -1,14 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetTheMilk", "GetTheMilk\GetTheMilk.csproj", "{0F1B4894-F8A9-41F9-861E-3F3F14D87D8F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{5A5CF566-DCE3-4BA9-90AA-2546766606DC}"
 	ProjectSection(SolutionItems) = preProject
-		Lib\log4net.dll = Lib\log4net.dll
-		Lib\log4net.xml = Lib\log4net.xml
 		Lib\Newtonsoft.Json.dll = Lib\Newtonsoft.Json.dll
 		Lib\TomShane.Neoforce.Controls.dll = Lib\TomShane.Neoforce.Controls.dll
 		Lib\TomShane.Neoforce.Importers.dll = Lib\TomShane.Neoforce.Importers.dll
@@ -33,6 +31,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.IOC.Tests", "Sciendo.IOC.Tests\Sciendo.IOC.Tests.csproj", "{E61A03DB-4CA1-4C81-8713-02943B382ECD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.IOC.Tests.SampleLib", "Sciendo.IOC.Tests.SampleLib\Sciendo.IOC.Tests.SampleLib.csproj", "{9870E4C4-C2A2-43A6-BC56-70B928F9F5BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get.The.Milk.UI", "Get.The.Milk.UI\Get.The.Milk.UI.csproj", "{7E92ADDA-6A9E-4E79-827F-474E029DA636}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -150,6 +150,16 @@ Global
 		{9870E4C4-C2A2-43A6-BC56-70B928F9F5BB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9870E4C4-C2A2-43A6-BC56-70B928F9F5BB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9870E4C4-C2A2-43A6-BC56-70B928F9F5BB}.Release|x86.ActiveCfg = Release|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

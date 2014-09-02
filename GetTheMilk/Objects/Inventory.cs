@@ -1,12 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Characters.Base;
+using GetTheMilk.Common;
+using GetTheMilk.Objects.Base;
 using Newtonsoft.Json;
 
 namespace GetTheMilk.Objects
 {
+    public enum InventoryType
+    {
+        None,
+        CharacterInventory,
+        LevelInventory
+    }
+
     public class Inventory:List<NonCharacterObject>
     {
         public int MaximumCapacity { get; set; }
@@ -79,10 +86,12 @@ namespace GetTheMilk.Objects
         public static Inventory Load(CollectionPackage packages)
         {
 
-            var result = new Inventory();
-            result.InventoryType = JsonConvert.DeserializeObject<InventoryType>(packages.InventoryType);
-            result.MaximumCapacity = JsonConvert.DeserializeObject<int>(packages.MaximumCapacity);
-            List<BasePackage> objs = JsonConvert.DeserializeObject<List<BasePackage>>(packages.Contents);
+            var result = new Inventory
+            {
+                InventoryType = JsonConvert.DeserializeObject<InventoryType>(packages.InventoryType),
+                MaximumCapacity = JsonConvert.DeserializeObject<int>(packages.MaximumCapacity)
+            };
+            var objs = JsonConvert.DeserializeObject<List<BasePackage>>(packages.Contents);
             foreach (var obj in objs)
             {
                 result.Add(NonCharacterObject.Load<NonCharacterObject>(obj));

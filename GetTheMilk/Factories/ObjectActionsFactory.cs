@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using GetTheMilk.BaseCommon;
+using GetTheMilk.Common;
 using Sciendo.IOC;
 
 namespace GetTheMilk.Factories

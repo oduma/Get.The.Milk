@@ -1,9 +1,8 @@
 ﻿using GetTheMilk;
 using GetTheMilk.Actions;
+using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.BaseCommon;
-using GetTheMilk.Navigation;
+using GetTheMilk.GameLevels;
 using NUnit.Framework;
 
 namespace GetTheMilk.NewActions.Tests.IntegrationTests

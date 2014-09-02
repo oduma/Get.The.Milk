@@ -1,6 +1,6 @@
 ﻿using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Navigation;
+using GetTheMilk.GameLevels;
 
 namespace GetTheMilk.Actions.ActionPerformers
 {

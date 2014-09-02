@@ -3,12 +3,12 @@ using System.Linq;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
-using GetTheMilk.Characters.BaseCharacters;
-using GetTheMilk.Levels;
+using GetTheMilk.Characters.Base;
+using GetTheMilk.Common;
+using GetTheMilk.GameLevels;
 using GetTheMilk.Objects;
-using GetTheMilk.Objects.BaseObjects;
+using GetTheMilk.Objects.Base;
 using NUnit.Framework;
 
 namespace GetTheMilk.NewActions.Tests.BulkTemplatesTests
