@@ -123,7 +123,7 @@
     <Compile Include="Factories\ObjectActionsFactory.cs" />
     <Compile Include="Factories\TemplatedActionPerformersFactory.cs" />
     <Compile Include="RpgGameCore.cs" />
-    <Compile Include="GamePackaages.cs" />
+    <Compile Include="GamePackages.cs" />
     <Compile Include="GamePreferences.cs" />
     <Compile Include="Levels\SizeOfLevel.cs" />
     <Compile Include="Levels\Level.cs" />

@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.Utils;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {
@@ -99,10 +97,10 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 
             ((MovementActionTemplateExtraData)movementResult.ExtraData).AvailableActionTemplates= new List<BaseActionTemplate>();
             ((MovementActionTemplateExtraData) movementResult.ExtraData).AvailableActionTemplates.AddRange(
-                (GetActionsOnObjects(actionTemplate,objects))??new BaseActionTemplate[0]);
+                (GetActionsOnObjects(actionTemplate,objects)));
 
             ((MovementActionTemplateExtraData) movementResult.ExtraData).AvailableActionTemplates.AddRange(
-                (GetActionsOnCharacters(actionTemplate,((MovementActionTemplateExtraData) movementResult.ExtraData).CharactersInRange))??new TwoCharactersActionTemplate[0]);
+                (GetActionsOnCharacters(actionTemplate,((MovementActionTemplateExtraData) movementResult.ExtraData).CharactersInRange)));
 
 
             return movementResult;
@@ -188,9 +186,11 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 ? new Character[0]
                 : actionTemplate.CurrentMap.Cells[nextCellId].AllCharacters.Where(o => o.BlockMovement);
 
-            if (objectsBlocking.Any() || charactersBlocking.Any())
+            var nonCharacterObjects = objectsBlocking as NonCharacterObject[] ?? objectsBlocking.ToArray();
+            var characters = charactersBlocking as Character[] ?? charactersBlocking.ToArray();
+            if (nonCharacterObjects.Any() || characters.Any())
                 return MoveActiveCharacter(actionTemplate, currentCell.Number,
-                    ActionResultType.Blocked, objectsBlocking, charactersBlocking);
+                    ActionResultType.Blocked, nonCharacterObjects, characters);
             if (currentCell.Parent.Parent.ObjectiveCell == currentCell.Number)
                 return MoveActiveCharacter(actionTemplate, currentCell.Number,
                     ActionResultType.LevelCompleted, new NonCharacterObject[0], new Character[0]);

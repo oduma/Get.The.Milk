@@ -77,10 +77,10 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 Union(active.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].Where(
                 a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction)).ToList();
             }
-            else if (active.Interactions.ContainsKey(targetName))
+            if (active.Interactions.ContainsKey(targetName))
             {
                 return active.Interactions[targetName].Where(
-                a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).ToList();
+                    a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).ToList();
             }
             return active.Interactions[GenericInteractionRulesKeys.AnyCharacterResponses].Where(
                 a => a.Action.Equals(actionTemplate) && a.Reaction != null).Select(a => a.Reaction).ToList();

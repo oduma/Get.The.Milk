@@ -1,7 +1,6 @@
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Settings;
 using System.Linq;
-using System.Threading;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {
