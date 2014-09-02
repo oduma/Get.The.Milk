@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.IOC.Tests", "Sciend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.IOC.Tests.SampleLib", "Sciendo.IOC.Tests.SampleLib\Sciendo.IOC.Tests.SampleLib.csproj", "{9870E4C4-C2A2-43A6-BC56-70B928F9F5BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Get.The.Milk.UI", "Get.The.Milk.UI\Get.The.Milk.UI.csproj", "{7E92ADDA-6A9E-4E79-827F-474E029DA636}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -146,6 +148,16 @@ Global
 		{9870E4C4-C2A2-43A6-BC56-70B928F9F5BB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9870E4C4-C2A2-43A6-BC56-70B928F9F5BB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9870E4C4-C2A2-43A6-BC56-70B928F9F5BB}.Release|x86.ActiveCfg = Release|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7E92ADDA-6A9E-4E79-827F-474E029DA636}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

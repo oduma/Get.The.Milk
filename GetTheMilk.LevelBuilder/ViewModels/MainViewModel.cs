@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using Get.The.Milk.UI.BaseViewModels;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.GameLevels;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.Base;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Utils;
 using Newtonsoft.Json;
 using GetTheMilk.Actions.ActionTemplates;

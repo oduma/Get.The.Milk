@@ -1,14 +1,11 @@
-using System;
-using GetTheMilk.Actions;
+using System.Windows;
 using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.GameLevels;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
-using System.Windows;
 
-namespace GetTheMilk.UI.ViewModels
+namespace GetTheMilk.UI.Console.ViewModels
 {
     public class GamePlayViewModel:GameBaseViewModel
     {

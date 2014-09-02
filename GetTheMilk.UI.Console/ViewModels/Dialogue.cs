@@ -1,4 +1,4 @@
-﻿namespace GetTheMilk.UI.ViewModels
+﻿namespace GetTheMilk.UI.Console.ViewModels
 {
     public class Dialogue
     {

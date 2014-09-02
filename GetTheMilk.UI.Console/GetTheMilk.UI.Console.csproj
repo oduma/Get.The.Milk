@@ -93,6 +93,23 @@
     <Compile Include="UControls\TwoCharacters.xaml.cs">
       <DependentUpon>TwoCharacters.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ActionExecutionRequestEventArgs.cs" />
+    <Compile Include="ViewModels\ActionPanelViewModel.cs" />
+    <Compile Include="ViewModels\ActionWithTargetModel.cs" />
+    <Compile Include="ViewModels\CardinalStar.cs" />
+    <Compile Include="ViewModels\Dialogue.cs" />
+    <Compile Include="ViewModels\DirectionShortcut.cs" />
+    <Compile Include="ViewModels\GameAdvanceViewModel.cs" />
+    <Compile Include="ViewModels\GamePlayViewModel.cs" />
+    <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="ViewModels\InventoryObjectModel.cs" />
+    <Compile Include="ViewModels\InventoryViewModel.cs" />
+    <Compile Include="ViewModels\LoadGameViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\PlayerInfoViewModel.cs" />
+    <Compile Include="ViewModels\PlayerSetupViewModel.cs" />
+    <Compile Include="ViewModels\PlayerStatsUpdateRequestEventArgs.cs" />
+    <Compile Include="ViewModels\TwoCharactersViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainView.xaml.cs">

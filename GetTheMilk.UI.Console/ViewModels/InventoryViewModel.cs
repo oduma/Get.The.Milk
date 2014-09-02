@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using GetTheMilk.Actions;
+using System.Collections.ObjectModel;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Common;
 using GetTheMilk.Objects.Base;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
-using System.Collections.ObjectModel;
-using System.Linq;
 
-namespace GetTheMilk.UI.ViewModels
+namespace GetTheMilk.UI.Console.ViewModels
 {
     public class InventoryViewModel:ViewModelBase
     {

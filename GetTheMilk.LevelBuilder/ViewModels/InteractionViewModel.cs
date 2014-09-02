@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Get.The.Milk.UI.BaseViewModels;
 using GetTheMilk.Actions;
 using GetTheMilk.Factories;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Actions.ActionTemplates;
 using System.Collections.Generic;
 

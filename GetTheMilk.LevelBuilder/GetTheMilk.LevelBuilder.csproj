@@ -261,6 +261,10 @@
       <Project>{3f76d762-4647-4ab3-943d-37e61ce086ec}</Project>
       <Name>Get.The.Milk.L1.ObjectActions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Get.The.Milk.UI\Get.The.Milk.UI.csproj">
+      <Project>{7E92ADDA-6A9E-4E79-827F-474E029DA636}</Project>
+      <Name>Get.The.Milk.UI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GetTheMilk\GetTheMilk.csproj">
       <Project>{0f1b4894-f8a9-41f9-861e-3f3f14d87d8f}</Project>
       <Name>GetTheMilk</Name>

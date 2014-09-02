@@ -1,8 +1,7 @@
 ﻿using System;
-using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
 
-namespace GetTheMilk.UI.ViewModels
+namespace GetTheMilk.UI.Console.ViewModels
 {
     public class PlayerStatsUpdateRequestEventArgs:EventArgs
     {

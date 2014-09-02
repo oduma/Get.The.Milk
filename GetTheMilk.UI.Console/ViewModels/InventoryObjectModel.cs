@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using GetTheMilk.Actions;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
 
-namespace GetTheMilk.UI.ViewModels
+namespace GetTheMilk.UI.Console.ViewModels
 {
     public class InventoryObjectModel:ViewModelBase
     {

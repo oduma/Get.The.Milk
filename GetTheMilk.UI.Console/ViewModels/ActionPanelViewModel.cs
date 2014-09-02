@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.GameLevels;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Characters;
+using GetTheMilk.GameLevels;
 
-namespace GetTheMilk.UI.ViewModels
+namespace GetTheMilk.UI.Console.ViewModels
 {
     public class ActionPanelViewModel:ViewModelBase
     {

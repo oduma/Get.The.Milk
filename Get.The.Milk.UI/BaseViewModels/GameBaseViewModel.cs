@@ -1,6 +1,6 @@
 using System;
 
-namespace GetTheMilk.UI.ViewModels.BaseViewModels
+namespace Get.The.Milk.UI.BaseViewModels
 {
     public abstract class GameBaseViewModel:ViewModelBase, IGameBaseViewModel
     {

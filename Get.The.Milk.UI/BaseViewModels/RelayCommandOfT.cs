@@ -1,22 +1,22 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace GetTheMilk.UI.ViewModels.BaseViewModels
+namespace Get.The.Milk.UI.BaseViewModels
 {
 
-    public class RelayCommand : ICommand
+    public class RelayCommand<T> : ICommand
     {
-        private readonly Action execute;
-        private readonly Func<bool> canExecute;
+        private readonly Action<T> execute;
+        private readonly Predicate<T> canExecute;
 
-        public RelayCommand(Action execute)
+        public RelayCommand(Action<T> execute)
             : this(execute, null)
         {
         }
 
         /// <exception cref="ArgumentNullException"><paramref name="execute" /> is <c>null</c>.</exception>
-        public RelayCommand(Action execute, Func<bool> canExecute)
+        public RelayCommand(Action<T> execute, Predicate<T> canExecute)
         {
             if (execute == null)
             {
@@ -36,12 +36,12 @@ namespace GetTheMilk.UI.ViewModels.BaseViewModels
         [DebuggerStepThrough]
         public bool CanExecute(object parameter)
         {
-            return canExecute == null ? true : canExecute();
+            return canExecute == null ? true : canExecute((T)parameter);
         }
 
         public void Execute(object parameter)
         {
-            execute();
+            execute((T)parameter);
         }
     }
 }

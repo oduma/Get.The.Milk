@@ -1,8 +1,7 @@
 ﻿using GetTheMilk.Characters;
 using GetTheMilk.GameLevels;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
 
-namespace GetTheMilk.UI.ViewModels
+namespace GetTheMilk.UI.Console.ViewModels
 {
     public class PlayerInfoViewModel:ViewModelBase
     {

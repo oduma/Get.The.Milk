@@ -4,13 +4,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using Get.The.Milk.UI.BaseViewModels;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.GameLevels;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.Base;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {

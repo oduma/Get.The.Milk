@@ -1,6 +1,6 @@
-﻿using GetTheMilk.Actions;
+﻿using Get.The.Milk.UI.BaseViewModels;
+using GetTheMilk.Actions;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

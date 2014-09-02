@@ -1,7 +1,7 @@
 ﻿using System;
 using GetTheMilk.GameLevels;
 
-namespace GetTheMilk.UI.ViewModels.BaseViewModels
+namespace Get.The.Milk.UI.BaseViewModels
 {
     public class GameAdvanceRequestEventArgs:EventArgs
     {

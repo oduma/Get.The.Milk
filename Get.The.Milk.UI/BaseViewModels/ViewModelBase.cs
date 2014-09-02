@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
 
-namespace GetTheMilk.UI.ViewModels.BaseViewModels
+namespace Get.The.Milk.UI.BaseViewModels
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

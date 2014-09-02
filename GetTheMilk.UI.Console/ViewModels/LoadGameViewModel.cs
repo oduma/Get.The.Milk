@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using GetTheMilk.GameLevels;
-using GetTheMilk.UI.ViewModels.BaseViewModels;
 
-namespace GetTheMilk.UI.ViewModels
+namespace GetTheMilk.UI.Console.ViewModels
 {
     public class LoadGameViewModel:GameBaseViewModel
     {

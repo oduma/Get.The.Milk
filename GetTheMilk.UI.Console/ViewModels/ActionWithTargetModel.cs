@@ -1,6 +1,6 @@
 ﻿using GetTheMilk.Actions.ActionTemplates;
 
-namespace GetTheMilk.UI.ViewModels
+namespace GetTheMilk.UI.Console.ViewModels
 {
     public class ActionWithTargetModel
     {
