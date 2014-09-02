@@ -4,8 +4,26 @@ namespace GetTheMilk.UI.ViewModels.BaseViewModels
 {
     public abstract class GameBaseViewModel:ViewModelBase, IGameBaseViewModel
     {
-        public abstract event EventHandler<GameStartRequestEventArgs> GameStartRequest;
+        public event EventHandler<GameStartRequestEventArgs> GameStartRequest;
 
-        public abstract event EventHandler<GameAdvanceRequestEventArgs> GameAdvanceRequest;
+        public event EventHandler<GameAdvanceRequestEventArgs> GameAdvanceRequest;
+
+        public void FireStartRequestEvent(object sender, GameStartRequestEventArgs args)
+        {
+            if (GameStartRequest != null)
+            {
+                GameStartRequest(sender, args);
+            }
+
+        }
+
+
+        public void FireAdvanceRequestEvent(object sender, GameAdvanceRequestEventArgs args)
+        {
+            if (GameAdvanceRequest != null)
+            {
+                GameAdvanceRequest(sender, args);
+            }
+        }
     }
 }

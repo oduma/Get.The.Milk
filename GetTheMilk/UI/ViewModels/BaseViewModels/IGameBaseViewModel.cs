@@ -7,5 +7,11 @@ namespace GetTheMilk.UI.ViewModels.BaseViewModels
     {
         event EventHandler<GameStartRequestEventArgs> GameStartRequest;
 
+        void FireStartRequestEvent(object sender, GameStartRequestEventArgs args);
+
+        event EventHandler<GameAdvanceRequestEventArgs> GameAdvanceRequest;
+
+        void FireAdvanceRequestEvent(object sender, GameAdvanceRequestEventArgs args);
+
     }
 }

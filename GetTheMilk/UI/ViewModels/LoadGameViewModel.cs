@@ -8,8 +8,6 @@ namespace GetTheMilk.UI.ViewModels
 {
     public class LoadGameViewModel:GameBaseViewModel
     {
-        public override event EventHandler<GameStartRequestEventArgs> GameStartRequest;
-        public override event EventHandler<GameAdvanceRequestEventArgs> GameAdvanceRequest;
         public RelayCommand Load { get; private set; }
 
         public LoadGameViewModel()
@@ -21,10 +19,7 @@ namespace GetTheMilk.UI.ViewModels
         private void LoadGame()
         {
             var game = RpgGameCore.Load(SelectedFileName);
-            if (GameStartRequest != null)
-            {
-                GameStartRequest(this, new GameStartRequestEventArgs(game));
-            }
+            FireStartRequestEvent(this, new GameStartRequestEventArgs(game));
         }
 
         private ObservableCollection<string> _savedGames;

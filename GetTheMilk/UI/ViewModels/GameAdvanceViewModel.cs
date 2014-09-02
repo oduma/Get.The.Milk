@@ -66,11 +66,7 @@ namespace GetTheMilk.UI.ViewModels
 
         private void PerformActionCommand()
         {
-            if(GameStartRequest!=null)
-                GameStartRequest(this, new GameStartRequestEventArgs(Game));
+            FireStartRequestEvent(this, new GameStartRequestEventArgs(Game));
         }
-
-        public override event EventHandler<GameStartRequestEventArgs> GameStartRequest;
-        public override event EventHandler<GameAdvanceRequestEventArgs> GameAdvanceRequest;
     }
 }
