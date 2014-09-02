@@ -185,7 +185,7 @@ namespace GetTheMilk.Characters.Base
                         else
                             ar.Reaction.TargetObject = (NonCharacterObject)objectInRange;                        
                     }
-                };
+                }
             }
             if (!Interactions.ContainsKey(mainName)
                 && objectInRange.Interactions != null

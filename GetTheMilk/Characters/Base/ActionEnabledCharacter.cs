@@ -17,7 +17,7 @@ namespace GetTheMilk.Characters.Base
 
         public SortedList<string, IEnumerable<BaseActionTemplate>> ActionsForExposedContents { get; set; }
 
-        public ActionEnabledCharacter():base()
+        public ActionEnabledCharacter()
         {
             ActionsForExposedContents = (ActionsForExposedContents) ??
                                         new SortedList<string, IEnumerable<BaseActionTemplate>>
