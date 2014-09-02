@@ -51,7 +51,6 @@
     <Compile Include="Actions\ActionPerformers\AcceptQuitActionPerformer.cs" />
     <Compile Include="Actions\ActionPerformers\AllowPassActionPerformer.cs" />
     <Compile Include="Actions\ActionPerformers\AttackActionPerformer.cs" />
-    <Compile Include="Actions\ActionPerformers\Base\ActionResultType.cs" />
     <Compile Include="Actions\ActionPerformers\Base\ActionsHelper.cs" />
     <Compile Include="Actions\ActionPerformers\Base\BaseActionResponsePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\BaseHealthAffectingActionPerformer.cs" />
@@ -130,7 +129,6 @@
     <Compile Include="GameLevels\Map.cs" />
     <Compile Include="GameLevels\Paths.cs" />
     <Compile Include="GameLevels\RpgGameCore.cs" />
-    <Compile Include="GameLevels\SizeOfLevel.cs" />
     <Compile Include="GameLevels\Level.cs" />
     <Compile Include="Objects\Base\BaseActionEnabledObject.cs" />
     <Compile Include="Objects\Base\INonCharacterObject.cs" />
@@ -140,11 +138,9 @@
     <Compile Include="Objects\Base\Weapon.cs" />
     <Compile Include="Objects\DecorActions.cs" />
     <Compile Include="Objects\Inventory.cs" />
-    <Compile Include="Objects\InventoryType.cs" />
     <Compile Include="Objects\KeyActions.cs" />
     <Compile Include="Objects\ToolActions.cs" />
     <Compile Include="Objects\WeaponActions.cs" />
-    <Compile Include="Objects\WeaponType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\ActionResultMessage.cs" />
     <Compile Include="Common\Message.cs" />

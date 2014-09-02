@@ -7,6 +7,13 @@ using Newtonsoft.Json;
 
 namespace GetTheMilk.Objects
 {
+    public enum InventoryType
+    {
+        None,
+        CharacterInventory,
+        LevelInventory
+    }
+
     public class Inventory:List<NonCharacterObject>
     {
         public int MaximumCapacity { get; set; }

@@ -2,6 +2,12 @@ using GetTheMilk.Common;
 
 namespace GetTheMilk.Objects.Base
 {
+    public enum WeaponType
+    {
+        Attack,
+        Deffense,
+    }
+
     public class Weapon : Tool
     {
         public int Durability { get; set; }
