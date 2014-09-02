@@ -1,4 +1,4 @@
-﻿namespace GetTheMilk
+﻿namespace GetTheMilk.GameLevels
 {
     public class GamePreferences
     {

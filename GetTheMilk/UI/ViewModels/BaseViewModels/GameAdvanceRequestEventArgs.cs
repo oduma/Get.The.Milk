@@ -1,4 +1,6 @@
 ﻿using System;
+using GetTheMilk.GameLevels;
+
 namespace GetTheMilk.UI.ViewModels.BaseViewModels
 {
     public class GameAdvanceRequestEventArgs:EventArgs

@@ -9,7 +9,7 @@ using GetTheMilk.Utils;
 using GetTheMilk.Utils.IO;
 using Newtonsoft.Json;
 
-namespace GetTheMilk.Settings
+namespace GetTheMilk.GameLevels
 {
     public class GameSettings
     {

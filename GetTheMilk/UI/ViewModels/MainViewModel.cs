@@ -1,6 +1,6 @@
 using System;
 using System.Windows;
-using GetTheMilk.Settings;
+using GetTheMilk.GameLevels;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 
 namespace GetTheMilk.UI.ViewModels

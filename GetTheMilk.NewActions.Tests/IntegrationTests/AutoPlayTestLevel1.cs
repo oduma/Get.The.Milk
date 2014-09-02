@@ -6,7 +6,6 @@ using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters;
 using GetTheMilk.Factories;
-using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using NUnit.Framework;
 

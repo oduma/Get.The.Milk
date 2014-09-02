@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Common;
+using GetTheMilk.GameLevels;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.Settings;
 using GetTheMilk.Utils;
 using Newtonsoft.Json;
 

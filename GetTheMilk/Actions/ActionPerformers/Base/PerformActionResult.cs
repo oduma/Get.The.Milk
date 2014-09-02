@@ -1,6 +1,6 @@
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Settings;
 using System.Linq;
+using GetTheMilk.GameLevels;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base
 {

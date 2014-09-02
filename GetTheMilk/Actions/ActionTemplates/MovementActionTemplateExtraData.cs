@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
+using GetTheMilk.GameLevels;
 using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.Settings;
 using System.Linq;
 using GetTheMilk.Navigation;
 

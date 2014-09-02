@@ -1,5 +1,5 @@
 using System.Linq;
-using GetTheMilk.Levels;
+using GetTheMilk.GameLevels;
 using Newtonsoft.Json;
 
 namespace GetTheMilk.Navigation

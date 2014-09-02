@@ -1,7 +1,6 @@
 ﻿using GetTheMilk.Common;
-using GetTheMilk.Levels;
 
-namespace GetTheMilk
+namespace GetTheMilk.GameLevels
 {
     public class GamePackages
     {

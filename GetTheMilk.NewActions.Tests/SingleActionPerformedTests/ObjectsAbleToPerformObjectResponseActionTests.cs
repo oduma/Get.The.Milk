@@ -3,7 +3,6 @@ using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.Factories;
-using GetTheMilk.Levels;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using NUnit.Framework;

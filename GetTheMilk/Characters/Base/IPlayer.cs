@@ -1,5 +1,5 @@
 using GetTheMilk.Actions.ActionPerformers.Base;
-using GetTheMilk.Levels;
+using GetTheMilk.GameLevels;
 
 namespace GetTheMilk.Characters.Base
 {

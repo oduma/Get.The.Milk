@@ -2,6 +2,7 @@
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
+using GetTheMilk.GameLevels;
 using GetTheMilk.Navigation;
 using NUnit.Framework;
 

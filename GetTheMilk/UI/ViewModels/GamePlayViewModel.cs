@@ -4,7 +4,7 @@ using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters.Base;
-using GetTheMilk.Settings;
+using GetTheMilk.GameLevels;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using System.Windows;
 

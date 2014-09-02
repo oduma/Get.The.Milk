@@ -122,11 +122,13 @@
     <Compile Include="Factories\BootstrapRegister.cs" />
     <Compile Include="Factories\ObjectActionsFactory.cs" />
     <Compile Include="Factories\TemplatedActionPerformersFactory.cs" />
-    <Compile Include="RpgGameCore.cs" />
-    <Compile Include="GamePackages.cs" />
-    <Compile Include="GamePreferences.cs" />
-    <Compile Include="Levels\SizeOfLevel.cs" />
-    <Compile Include="Levels\Level.cs" />
+    <Compile Include="GameLevels\GamePackages.cs" />
+    <Compile Include="GameLevels\GamePreferences.cs" />
+    <Compile Include="GameLevels\GameSettings.cs" />
+    <Compile Include="GameLevels\Paths.cs" />
+    <Compile Include="GameLevels\RpgGameCore.cs" />
+    <Compile Include="GameLevels\SizeOfLevel.cs" />
+    <Compile Include="GameLevels\Level.cs" />
     <Compile Include="Navigation\Cell.cs" />
     <Compile Include="Navigation\Direction.cs" />
     <Compile Include="Navigation\Map.cs" />
@@ -144,8 +146,6 @@
     <Compile Include="Objects\WeaponActions.cs" />
     <Compile Include="Objects\WeaponType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\GameSettings.cs" />
-    <Compile Include="Settings\Paths.cs" />
     <Compile Include="Common\ActionResultMessage.cs" />
     <Compile Include="Common\Message.cs" />
     <Compile Include="UI\ViewModels\ActionExecutionRequestEventArgs.cs" />
@@ -182,9 +182,6 @@
     <Compile Include="Utils\IO\ReadWriteStrategies.cs" />
     <Compile Include="Utils\NonCharacterObjectJsonConvert.cs" />
     <Compile Include="Utils\Randomizer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

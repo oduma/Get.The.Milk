@@ -4,12 +4,12 @@ using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
+using GetTheMilk.GameLevels;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Utils;
 using NUnit.Framework;
 using Newtonsoft.Json;
-using GetTheMilk.Levels;
 using GetTheMilk.Actions.ActionPerformers;
 
 namespace GetTheMilk.NewActions.Tests.SaveLoadTests

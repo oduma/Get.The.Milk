@@ -1,9 +1,9 @@
-﻿using GetTheMilk.Utils.Configuration;
-using System;
+﻿using System;
 using System.Configuration;
 using System.IO;
+using GetTheMilk.Utils.Configuration;
 
-namespace GetTheMilk.Settings
+namespace GetTheMilk.GameLevels
 {
     public class Paths
     {

@@ -1,4 +1,4 @@
-namespace GetTheMilk.Levels
+namespace GetTheMilk.GameLevels
 {
     public enum SizeOfLevel
     {

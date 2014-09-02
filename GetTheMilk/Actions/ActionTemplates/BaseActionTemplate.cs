@@ -3,8 +3,8 @@ using System.Linq;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
+using GetTheMilk.GameLevels;
 using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.Settings;
 using Newtonsoft.Json;
 using GetTheMilk.Factories;
 

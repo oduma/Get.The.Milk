@@ -1,15 +1,12 @@
-using System.Collections.Generic;
 using System.IO;
-using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters;
 using GetTheMilk.Common;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
-using GetTheMilk.Settings;
 using GetTheMilk.Utils;
 using Newtonsoft.Json;
 
-namespace GetTheMilk.Levels
+namespace GetTheMilk.GameLevels
 {
     public class Level:IInventoryOwner
     {

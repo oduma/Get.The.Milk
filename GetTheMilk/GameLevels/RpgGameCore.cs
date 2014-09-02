@@ -1,14 +1,10 @@
 ﻿using System.IO;
-using GetTheMilk.Actions;
 using GetTheMilk.Characters;
 using GetTheMilk.Common;
-using GetTheMilk.Levels;
-using GetTheMilk.Settings;
-using GetTheMilk.Utils;
-using Newtonsoft.Json;
 using GetTheMilk.Factories;
+using Newtonsoft.Json;
 
-namespace GetTheMilk
+namespace GetTheMilk.GameLevels
 {
     public class RpgGameCore
     {

@@ -6,7 +6,7 @@ using GetTheMilk.Characters;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.Factories;
-using GetTheMilk.Levels;
+using GetTheMilk.GameLevels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
@@ -725,7 +725,7 @@ namespace GetTheMilk.NewActions.Tests
 
         public static Level GetToTheFight(out PerformActionResult movementResult, int levelNumber = 0)
         {
-            var level = GetTheMilk.Levels.Level.Create(levelNumber);
+            var level = Level.Create(levelNumber);
 
             Assert.IsNotNull(level);
             Assert.AreEqual(0, level.Number);

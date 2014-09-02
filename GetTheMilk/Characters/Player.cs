@@ -3,9 +3,8 @@ using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
-using GetTheMilk.Levels;
+using GetTheMilk.GameLevels;
 using GetTheMilk.Objects;
-using GetTheMilk.Settings;
 
 namespace GetTheMilk.Characters
 {
