@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Sciendo.IOC
 {
-    public static class ExtentionMethods
+    public static class ExtensionMethods
     {
         public static IEnumerable<RegisteredType> With(this IEnumerable<RegisteredType> inTypes, LifeStyle lifeStyle)
         {
