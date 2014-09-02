@@ -1,14 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetTheMilk", "GetTheMilk\GetTheMilk.csproj", "{0F1B4894-F8A9-41F9-861E-3F3F14D87D8F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{5A5CF566-DCE3-4BA9-90AA-2546766606DC}"
 	ProjectSection(SolutionItems) = preProject
-		Lib\log4net.dll = Lib\log4net.dll
-		Lib\log4net.xml = Lib\log4net.xml
 		Lib\Newtonsoft.Json.dll = Lib\Newtonsoft.Json.dll
 	EndProjectSection
 EndProject
