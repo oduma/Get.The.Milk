@@ -1,13 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 
 namespace Get.The.Milk.X.Library
@@ -15,7 +8,7 @@ namespace Get.The.Milk.X.Library
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
-    public class GameStateManager : Microsoft.Xna.Framework.GameComponent
+    public class GameStateManager : GameComponent
     {
         #region Event Region
 
@@ -25,15 +18,15 @@ namespace Get.The.Milk.X.Library
 
         #region Fields and Properties Region
 
-        Stack<GameState> gameStates = new Stack<GameState>();
+        readonly Stack<GameState> _gameStates = new Stack<GameState>();
 
-        const int startDrawOrder = 5000;
-        const int drawOrderInc = 100;
-        int drawOrder;
+        const int StartDrawOrder = 5000;
+        const int DrawOrderInc = 100;
+        int _drawOrder;
 
         public GameState CurrentState
         {
-            get { return gameStates.Peek(); }
+            get { return _gameStates.Peek(); }
         }
 
         #endregion
@@ -43,21 +36,7 @@ namespace Get.The.Milk.X.Library
         public GameStateManager(Game game)
             : base(game)
         {
-            drawOrder = startDrawOrder;
-        }
-
-        #endregion
-
-        #region XNA Method Region
-
-        public override void Initialize()
-        {
-            base.Initialize();
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
+            _drawOrder = StartDrawOrder;
         }
 
         #endregion
@@ -66,10 +45,10 @@ namespace Get.The.Milk.X.Library
 
         public void PopState()
         {
-            if (gameStates.Count > 0)
+            if (_gameStates.Count > 0)
             {
                 RemoveState();
-                drawOrder -= drawOrderInc;
+                _drawOrder -= DrawOrderInc;
 
                 if (OnStateChange != null)
                     OnStateChange(this, null);
@@ -78,17 +57,17 @@ namespace Get.The.Milk.X.Library
 
         private void RemoveState()
         {
-            GameState State = gameStates.Peek();
+            GameState state = _gameStates.Peek();
 
-            OnStateChange -= State.StateChange;
-            Game.Components.Remove(State);
-            gameStates.Pop();
+            OnStateChange -= state.StateChange;
+            Game.Components.Remove(state);
+            _gameStates.Pop();
         }
 
         public void PushState(GameState newState)
         {
-            drawOrder += drawOrderInc;
-            newState.DrawOrder = drawOrder;
+            _drawOrder += DrawOrderInc;
+            newState.DrawOrder = _drawOrder;
 
             AddState(newState);
 
@@ -98,7 +77,7 @@ namespace Get.The.Milk.X.Library
 
         private void AddState(GameState newState)
         {
-            gameStates.Push(newState);
+            _gameStates.Push(newState);
 
             Game.Components.Add(newState);
 
@@ -107,11 +86,11 @@ namespace Get.The.Milk.X.Library
 
         public void ChangeState(GameState newState)
         {
-            while (gameStates.Count > 0)
+            while (_gameStates.Count > 0)
                 RemoveState();
 
-            newState.DrawOrder = startDrawOrder;
-            drawOrder = startDrawOrder;
+            newState.DrawOrder = StartDrawOrder;
+            _drawOrder = StartDrawOrder;
 
             AddState(newState);
 

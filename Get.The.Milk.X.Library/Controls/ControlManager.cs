@@ -12,12 +12,7 @@ namespace Get.The.Milk.X.Library.Controls
 
         int selectedControl = 0;
 
-        static SpriteFont spriteFont;
-
-        public static SpriteFont SpriteFont
-        {
-            get { return spriteFont; }
-        }
+        public static SpriteFont SpriteFont { get; private set; }
 
         #endregion
 
@@ -32,19 +27,19 @@ namespace Get.The.Milk.X.Library.Controls
         public ControlManager(SpriteFont spriteFont)
             : base()
         {
-            ControlManager.spriteFont = spriteFont;
+            SpriteFont = spriteFont;
         }
 
         public ControlManager(SpriteFont spriteFont, int capacity)
             : base(capacity)
         {
-            ControlManager.spriteFont = spriteFont;
+            SpriteFont = spriteFont;
         }
 
         public ControlManager(SpriteFont spriteFont, IEnumerable<Control> collection) :
             base(collection)
         {
-            ControlManager.spriteFont = spriteFont;
+            SpriteFont = spriteFont;
         }
 
         #endregion

@@ -1,13 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 
 namespace Get.The.Milk.X.Library
@@ -15,23 +8,13 @@ namespace Get.The.Milk.X.Library
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
-    public abstract partial class GameState : Microsoft.Xna.Framework.DrawableGameComponent
+    public abstract partial class GameState : DrawableGameComponent
     {
         #region Fields and Properties
 
-        List<GameComponent> childComponents;
+        public List<GameComponent> Components { get; private set; }
 
-        public List<GameComponent> Components
-        {
-            get { return childComponents; }
-        }
-
-        GameState tag;
-
-        public GameState Tag
-        {
-            get { return tag; }
-        }
+        public GameState Tag { get; private set; }
 
         protected GameStateManager StateManager;
 
@@ -39,27 +22,22 @@ namespace Get.The.Milk.X.Library
 
         #region Constructor Region
 
-        public GameState(Game game, GameStateManager manager)
+        protected GameState(Game game, GameStateManager manager)
             : base(game)
         {
             StateManager = manager;
 
-            childComponents = new List<GameComponent>();
-            tag = this;
+            Components = new List<GameComponent>();
+            Tag = this;
         }
 
         #endregion
 
         #region XNA Drawable Game Component Methods
 
-        public override void Initialize()
-        {
-            base.Initialize();
-        }
-
         public override void Update(GameTime gameTime)
         {
-            foreach (GameComponent component in childComponents)
+            foreach (GameComponent component in Components)
             {
                 if (component.Enabled)
                     component.Update(gameTime);
@@ -70,13 +48,11 @@ namespace Get.The.Milk.X.Library
 
         public override void Draw(GameTime gameTime)
         {
-            DrawableGameComponent drawComponent;
-
-            foreach (GameComponent component in childComponents)
+            foreach (GameComponent component in Components)
             {
                 if (component is DrawableGameComponent)
                 {
-                    drawComponent = component as DrawableGameComponent;
+                    var drawComponent = component as DrawableGameComponent;
 
                     if (drawComponent.Visible)
                         drawComponent.Draw(gameTime);
@@ -102,7 +78,7 @@ namespace Get.The.Milk.X.Library
         {
             Visible = true;
             Enabled = true;
-            foreach (GameComponent component in childComponents)
+            foreach (GameComponent component in Components)
             {
                 component.Enabled = true;
                 if (component is DrawableGameComponent)
@@ -114,7 +90,7 @@ namespace Get.The.Milk.X.Library
         {
             Visible = false;
             Enabled = false;
-            foreach (GameComponent component in childComponents)
+            foreach (GameComponent component in Components)
             {
                 component.Enabled = false;
                 if (component is DrawableGameComponent)

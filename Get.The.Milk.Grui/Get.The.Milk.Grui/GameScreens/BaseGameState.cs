@@ -3,10 +3,6 @@ using Get.The.Milk.X.Library.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Get.The.Milk.Grui.GameScreens
 {
@@ -18,21 +14,18 @@ namespace Get.The.Milk.Grui.GameScreens
 
         protected ControlManager ControlManager;
 
-        protected PlayerIndex playerIndexInControl;
+        protected PlayerIndex PlayerIndexInControl;
 
-        #endregion
-
-        #region Properties region
         #endregion
 
         #region Constructor Region
 
-        public BaseGameState(Game game, GameStateManager manager)
+        protected BaseGameState(Game game, GameStateManager manager)
             : base(game, manager)
         {
             GameRef = (GetTheMilkGameUI)game;
 
-            playerIndexInControl = PlayerIndex.One;
+            PlayerIndexInControl = PlayerIndex.One;
         }
 
         #endregion
@@ -41,24 +34,12 @@ namespace Get.The.Milk.Grui.GameScreens
 
         protected override void LoadContent()
         {
-            ContentManager Content = Game.Content;
+            ContentManager content = Game.Content;
 
-            SpriteFont menuFont = Content.Load<SpriteFont>(@"Fonts\ControlFont");
+            var menuFont = content.Load<SpriteFont>(@"Fonts\ControlFont");
             ControlManager = new ControlManager(menuFont);
-
             base.LoadContent();
         }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-        }
-
-        public override void Draw(GameTime gameTime)
-        {
-            base.Draw(gameTime);
-        }
-
         #endregion
     }
 }
