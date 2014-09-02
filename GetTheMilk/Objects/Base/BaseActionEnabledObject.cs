@@ -58,7 +58,7 @@ namespace GetTheMilk.Objects.Base
                     foreach (var interactionChar in Interactions[interactionKey].Where(a=>a.Reaction!=null).Select(a => a.Reaction))
                         if(!result.ContainsKey(interactionChar.Name.UniqueId))
                             result.Add(interactionChar.Name.UniqueId,interactionChar);
-            foreach(var interactionKey in Interactions.Keys.Except(new string[]
+            foreach(var interactionKey in Interactions.Keys.Except(new[]
                                                                        {
                                                                            GenericInteractionRulesKeys.AnyCharacter
                                                                        }))
