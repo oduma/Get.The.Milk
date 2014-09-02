@@ -1,5 +1,4 @@
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Settings;
 using System.Linq;
 using System.Threading;

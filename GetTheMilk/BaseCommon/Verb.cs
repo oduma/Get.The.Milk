@@ -1,5 +1,4 @@
-﻿using GetTheMilk.Actions.BaseActions;
-namespace GetTheMilk.BaseCommon
+﻿namespace GetTheMilk.BaseCommon
 {
     public class Verb
     {

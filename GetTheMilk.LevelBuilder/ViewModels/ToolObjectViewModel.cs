@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Factories;
 using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.Actions.Interactions;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {

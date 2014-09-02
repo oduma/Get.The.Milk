@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows;
-using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Actions.ActionTemplates;
 using System.Collections.Generic;

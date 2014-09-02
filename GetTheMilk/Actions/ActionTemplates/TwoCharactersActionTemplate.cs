@@ -1,6 +1,5 @@
 using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
-using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Factories;
 using System;
 

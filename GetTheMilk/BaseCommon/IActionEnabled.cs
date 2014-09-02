@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.Interactions;
 using Newtonsoft.Json;
 
 namespace GetTheMilk.BaseCommon

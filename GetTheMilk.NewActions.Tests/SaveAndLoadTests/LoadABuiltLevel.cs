@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Actions.Interactions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;

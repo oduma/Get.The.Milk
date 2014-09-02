@@ -3,7 +3,6 @@ using GetTheMilk.Actions;
 using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Settings;
 using GetTheMilk.UI.ViewModels.BaseViewModels;

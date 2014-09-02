@@ -1,4 +1,4 @@
-﻿namespace GetTheMilk.Actions
+﻿namespace GetTheMilk.Actions.ActionTemplates
 {
     public static class CategorysCatalog
     {

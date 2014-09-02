@@ -3,7 +3,6 @@ using System.IO;
 using GetTheMilk;
 using GetTheMilk.Actions;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Settings;
 using NUnit.Framework;

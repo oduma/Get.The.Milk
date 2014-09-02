@@ -1,6 +1,6 @@
 using GetTheMilk.Objects.BaseObjects;
 
-namespace GetTheMilk.Actions.BaseActions
+namespace GetTheMilk.Characters.BaseCharacters
 {
     public class Hit
     {

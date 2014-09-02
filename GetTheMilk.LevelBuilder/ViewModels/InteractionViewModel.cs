@@ -2,8 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using GetTheMilk.Actions;
-using GetTheMilk.Actions.BaseActions;
-using GetTheMilk.Actions.Interactions;
 using GetTheMilk.Factories;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Actions.ActionTemplates;

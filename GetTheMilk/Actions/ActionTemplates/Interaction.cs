@@ -1,7 +1,4 @@
-﻿using GetTheMilk.Actions.ActionPerformers;
-using GetTheMilk.Actions.ActionTemplates;
-
-namespace GetTheMilk.Actions.Interactions
+﻿namespace GetTheMilk.Actions.ActionTemplates
 {
     public class Interaction
     {

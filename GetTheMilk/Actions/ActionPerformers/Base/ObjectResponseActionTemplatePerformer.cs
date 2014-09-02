@@ -1,5 +1,4 @@
 ﻿using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

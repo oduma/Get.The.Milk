@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.Interactions;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.BaseCharacters;
@@ -273,7 +272,7 @@ namespace GetTheMilk.NewActions.Tests.SaveLoadTests
                                                                        Action =
                                                                            new ObjectUseOnObjectActionTemplate
                                                                                {Name = new Verb {UniqueId = "Open", Past="opened",Present="open"}, 
-                                                                                   ChanceOfSuccess=Actions.BaseActions.ChanceOfSuccess.Full,
+                                                                                   ChanceOfSuccess=ChanceOfSuccess.Full,
                                                                                    PercentOfHealthFailurePenalty=0,
                                                                                    StartingAction=true,
                                                                                    DestroyActiveObject=true,

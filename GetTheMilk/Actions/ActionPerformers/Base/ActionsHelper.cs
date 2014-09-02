@@ -4,7 +4,7 @@ using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 
-namespace GetTheMilk.Actions.BaseActions
+namespace GetTheMilk.Actions.ActionPerformers.Base
 {
     public static class ActionsHelper
     {

@@ -1,4 +1,4 @@
-﻿namespace GetTheMilk.Actions.BaseActions
+﻿namespace GetTheMilk.Actions.ActionTemplates
 {
     public enum ChanceOfSuccess
     {

@@ -1,4 +1,4 @@
-﻿using GetTheMilk.Actions.Interactions;
+﻿using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.BaseCommon;
 using GetTheMilk.UI.ViewModels.BaseViewModels;
 using GetTheMilk.Utils;

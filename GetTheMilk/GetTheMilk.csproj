@@ -51,6 +51,8 @@
     <Compile Include="Actions\ActionPerformers\AcceptQuitActionPerformer.cs" />
     <Compile Include="Actions\ActionPerformers\AllowPassActionPerformer.cs" />
     <Compile Include="Actions\ActionPerformers\AttackActionPerformer.cs" />
+    <Compile Include="Actions\ActionPerformers\Base\ActionResultType.cs" />
+    <Compile Include="Actions\ActionPerformers\Base\ActionsHelper.cs" />
     <Compile Include="Actions\ActionPerformers\Base\BaseActionResponsePerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\BaseHealthAffectingActionPerformer.cs" />
     <Compile Include="Actions\ActionPerformers\Base\ExposeInventoryActionTemplatePerformer.cs" />
@@ -79,7 +81,10 @@
     <Compile Include="Actions\ActionPerformers\WalkActionPerformer.cs" />
     <Compile Include="Actions\ActionTemplates\BaseActionTemplate.cs" />
     <Compile Include="Actions\ActionTemplates\BaseActionTemplatesEqualityComparer.cs" />
+    <Compile Include="Actions\ActionTemplates\CategorysCatalog.cs" />
+    <Compile Include="Actions\ActionTemplates\ChanceOfSuccess.cs" />
     <Compile Include="Actions\ActionTemplates\ExposeInventoryActionTemplate.cs" />
+    <Compile Include="Actions\ActionTemplates\Interaction.cs" />
     <Compile Include="Actions\ActionTemplates\InventoryExtraData.cs" />
     <Compile Include="Actions\ActionTemplates\MovementActionTemplateExtraData.cs" />
     <Compile Include="Actions\ActionTemplates\MovementActionTemplate.cs" />
@@ -90,12 +95,6 @@
     <Compile Include="Actions\ActionTemplates\ObjectWithPossibleActionTemplates.cs" />
     <Compile Include="Actions\ActionTemplates\OneObjectActionTemplate.cs" />
     <Compile Include="Actions\ActionTemplates\TwoCharactersActionTemplate.cs" />
-    <Compile Include="Actions\BaseActions\ActionResultType.cs" />
-    <Compile Include="Actions\BaseActions\ActionsHelper.cs" />
-    <Compile Include="Actions\BaseActions\ChanceOfSuccess.cs" />
-    <Compile Include="Actions\BaseActions\Hit.cs" />
-    <Compile Include="Actions\CategorysCatalog.cs" />
-    <Compile Include="Actions\Interactions\Interaction.cs" />
     <Compile Include="BaseCommon\CollectionPackage.cs" />
     <Compile Include="BaseCommon\ContainerNoActionsPackage.cs" />
     <Compile Include="BaseCommon\ContainerWithActionsPackage.cs" />
@@ -110,6 +109,7 @@
     <Compile Include="BaseCommon\Verb.cs" />
     <Compile Include="Characters\BaseCharacters\ActionEnabledCharacter.cs" />
     <Compile Include="Characters\BaseCharacters\Character.cs" />
+    <Compile Include="Characters\BaseCharacters\Hit.cs" />
     <Compile Include="Characters\BaseCharacters\ICharacter.cs" />
     <Compile Include="Characters\BaseCharacters\IPlayer.cs" />
     <Compile Include="Characters\BaseCharacters\Walet.cs" />

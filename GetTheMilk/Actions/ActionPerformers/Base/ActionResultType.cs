@@ -1,4 +1,4 @@
-namespace GetTheMilk.Actions.BaseActions
+namespace GetTheMilk.Actions.ActionPerformers.Base
 {
     public enum ActionResultType
     {

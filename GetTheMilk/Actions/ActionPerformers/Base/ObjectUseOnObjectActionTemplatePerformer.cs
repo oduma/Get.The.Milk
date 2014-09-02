@@ -1,5 +1,4 @@
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.BaseActions;
 using GetTheMilk.Utils;
 
 namespace GetTheMilk.Actions.ActionPerformers.Base

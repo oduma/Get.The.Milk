@@ -1,6 +1,5 @@
 ﻿using GetTheMilk.Actions.ActionPerformers;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Actions.Interactions;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Utils;
