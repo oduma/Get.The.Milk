@@ -1,8 +1,4 @@
-﻿using GetTheMilk.Actions.ActionPerformers.Base;
-using GetTheMilk.Factories;
-using System;
-
-namespace GetTheMilk.Actions.ActionTemplates
+﻿namespace GetTheMilk.Actions.ActionTemplates
 {
     public class OneObjectActionTemplate:BaseActionTemplate
     {

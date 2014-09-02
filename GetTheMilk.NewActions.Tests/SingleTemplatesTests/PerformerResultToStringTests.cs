@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
 {
     [TestFixture]
-    public class PerformerResultToStringTests
+    public class PerformerResultToStringTests:BaseTestClass
     {
         #region NoObjectActionTemplates
         [Test]

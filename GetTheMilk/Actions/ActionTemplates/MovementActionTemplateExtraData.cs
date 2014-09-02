@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Objects.BaseObjects;

@@ -1,8 +1,5 @@
 ﻿using GetTheMilk.Actions.ActionPerformers;
-using GetTheMilk.Actions.ActionPerformers.Base;
-using GetTheMilk.Factories;
 using GetTheMilk.Objects.BaseObjects;
-using System;
 
 namespace GetTheMilk.Actions.ActionTemplates
 {
@@ -33,12 +30,12 @@ namespace GetTheMilk.Actions.ActionTemplates
             result[6] = ((TargetObject!=null && TargetObject is ITransactionalObject)
                 &&(PerformerType!=null 
                     && PerformerType==typeof(BuyActionPerformer)))
-                            ? "("+ ((ITransactionalObject)TargetObject).BuyPrice.ToString() +")"
+                            ? "("+ ((ITransactionalObject)TargetObject).BuyPrice +")"
                             : string.Empty;
             result[7] = ((TargetObject != null && TargetObject is ITransactionalObject)
                 && (PerformerType != null
                     && PerformerType == typeof(SellActionPerformer)))
-                            ? "(" + ((ITransactionalObject)TargetObject).SellPrice.ToString() + ")"
+                            ? "(" + ((ITransactionalObject)TargetObject).SellPrice + ")"
                             : string.Empty;
 
             return result;

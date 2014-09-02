@@ -14,7 +14,7 @@ namespace GetTheMilk.Actions.ActionPerformers
             return true;
         }
 
-        public override Base.PerformActionResult Perform(BaseActionTemplate actionTemplate)
+        public override PerformActionResult Perform(BaseActionTemplate actionTemplate)
         {
             if (CanPerform(actionTemplate))
             {

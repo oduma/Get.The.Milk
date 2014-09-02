@@ -1,8 +1,4 @@
-using System;
 using GetTheMilk.Actions.ActionPerformers.Base;
-using GetTheMilk.Objects.BaseObjects;
-using GetTheMilk.Factories;
-using GetTheMilk.BaseCommon;
 
 namespace GetTheMilk.Actions.ActionTemplates
 {
@@ -12,7 +8,7 @@ namespace GetTheMilk.Actions.ActionTemplates
         Attack
     }
 
-    public class ExposeInventoryActionTemplate:BaseActionTemplate
+    public sealed class ExposeInventoryActionTemplate:BaseActionTemplate
     {
         public ExposeInventoryActionTemplate()
         {
@@ -41,8 +37,8 @@ namespace GetTheMilk.Actions.ActionTemplates
         internal override object[] Translate()
         {
             var result = base.Translate();
-            result[0] = (FinishingAction!=null && FinishingAction.ToString() == "Attack") ? "prepared for Battle" : "exposed Inventory";
-            result[1] = (FinishingAction!=null && FinishingAction.ToString()=="Attack") ? "prepare for Battle" : "expose Inventory";
+            result[0] = (FinishingAction.ToString() == "Attack") ? "prepared for Battle" : "exposed Inventory";
+            result[1] = (FinishingAction.ToString()=="Attack") ? "prepare for Battle" : "expose Inventory";
             if(!SelfInventory)
             {
                 result[3] = (TargetCharacter == null || TargetCharacter.Name == null) ? " to No Target Character Assigned" : " to " + TargetCharacter.Name.Narrator;
