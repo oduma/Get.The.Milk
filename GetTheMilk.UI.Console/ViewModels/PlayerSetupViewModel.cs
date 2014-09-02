@@ -5,15 +5,18 @@ namespace GetTheMilk.UI.Console.ViewModels
     public class PlayerSetupViewModel:GameBaseViewModel
     {
         private int _maximumAvailableBonusPoints;
-        
+
+        public RelayCommand SaveAndStart { get; private set; }
+
         public PlayerSetupViewModel()
         {
             Description = "Player setup:";
             MaximumAvailableBonusPoints = GameSettings.GetInstance().MaximumAvailableBonusPoints;
             Money = MaximumAvailableBonusPoints/2;
+            SaveAndStart= new RelayCommand(StartNewGame);
         }
 
-        public GamePlayViewModel StartNewGame()
+        private void StartNewGame()
         {
             var game = RpgGameCore.GetGameInstance();
             game.Player.SetPlayerName(Name);
@@ -102,6 +105,5 @@ namespace GetTheMilk.UI.Console.ViewModels
                 }
             }
         }
-
     }
 }

@@ -20,11 +20,7 @@ namespace GetTheMilk.UI.Console.ViewModels
             game.Player.Walet.CurrentCapacity = Money;
             game.Player.Experience = Experience;
             game.Player.Health = GameSettings.GetInstance().FullDefaultHealth;
-<<<<<<< HEAD:GetTheMilk/UI/ViewModels/PlayerSetupViewModel.cs
-            return new GamePlayViewModel(game);
-=======
             FireStartRequestEvent(this,new GameStartRequestEventArgs(game));
->>>>>>> origin/v.0.0.1:GetTheMilk.UI.Console/ViewModels/PlayerSetupViewModel.cs
         }
 
         public int Experience
@@ -106,12 +102,6 @@ namespace GetTheMilk.UI.Console.ViewModels
                 }
             }
         }
-<<<<<<< HEAD:GetTheMilk/UI/ViewModels/PlayerSetupViewModel.cs
 
-        public override event EventHandler<GameStartRequestEventArgs> GameStartRequest;
-
-        public override event EventHandler<GameAdvanceRequestEventArgs> GameAdvanceRequest;
-=======
->>>>>>> origin/v.0.0.1:GetTheMilk.UI.Console/ViewModels/PlayerSetupViewModel.cs
     }
 }

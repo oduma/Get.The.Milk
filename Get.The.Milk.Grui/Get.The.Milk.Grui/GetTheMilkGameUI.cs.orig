@@ -51,15 +51,7 @@ namespace Get.The.Milk.Grui
 
         public GetTheMilkGameUI()
         {
-<<<<<<< HEAD
             IsMouseVisible = true;
-            graphics = new GraphicsDeviceManager(this);
-
-            graphics.PreferredBackBufferWidth = screenWidth;
-            graphics.PreferredBackBufferHeight = screenHeight;
-
-=======
->>>>>>> origin/v.0.0.1
             ScreenRectangle = new Rectangle(
                 0,
                 0,
@@ -70,13 +62,8 @@ namespace Get.The.Milk.Grui
 
             //Components.Add(new InputHandler(this));
 
-<<<<<<< HEAD
             //stateManager = new GameStateManager(this);
             //Components.Add(stateManager);
-=======
-            var stateManager = new GameStateManager(this);
-            Components.Add(stateManager);
->>>>>>> origin/v.0.0.1
 
             //TitleScreen = new TitleScreen(this, stateManager,new TitleViewModel());
             //StartMenuScreen = new StartMenuScreen(this, stateManager,new StartMenuViewModel());
@@ -92,7 +79,12 @@ namespace Get.The.Milk.Grui
         {
             base.Initialize();
 
-<<<<<<< HEAD
+            Graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = ScreenWidth,
+                PreferredBackBufferHeight = ScreenHeight
+            };
+
             _manager = new Manager(this, graphics);
 
             _manager.SkinDirectory = @"Content\Skins\";
@@ -114,13 +106,6 @@ namespace Get.The.Milk.Grui
             window.Alpha = 128;
 
             _manager.Add(window);
-=======
-            Graphics = new GraphicsDeviceManager(this)
-            {
-                PreferredBackBufferWidth = ScreenWidth,
-                PreferredBackBufferHeight = ScreenHeight
-            };
->>>>>>> origin/v.0.0.1
 
         }
 
