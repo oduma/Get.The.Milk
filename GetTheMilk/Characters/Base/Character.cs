@@ -8,9 +8,8 @@ using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Settings;
 using GetTheMilk.Utils;
 using Newtonsoft.Json;
-using GetTheMilk.Actions.ActionPerformers.Base;
 
-namespace GetTheMilk.Characters.BaseCharacters
+namespace GetTheMilk.Characters.Base
 {
     public class Character : ActionEnabledCharacter,ICharacter
     {

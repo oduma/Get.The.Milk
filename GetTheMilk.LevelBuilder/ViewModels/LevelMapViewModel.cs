@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Characters.Base;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects.BaseObjects;

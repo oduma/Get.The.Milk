@@ -1,6 +1,6 @@
 using System.Linq;
 using GetTheMilk.Actions.ActionTemplates;
-using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.Utils;
 using NUnit.Framework;

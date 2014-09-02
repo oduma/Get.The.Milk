@@ -2,6 +2,7 @@
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters;
+using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.Objects.BaseObjects;
 using NUnit.Framework;
@@ -277,7 +278,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             {
                 PerformerType = typeof(AttackActionPerformer),
                 Name = new Verb { UniqueId = "Attack", Past = "attacked", Present = "attack" },
-                TargetCharacter = new Characters.BaseCharacters.Character { Name = new Noun { Main="Joe",Narrator="Joe"} }
+                TargetCharacter = new Character { Name = new Noun { Main="Joe",Narrator="Joe"} }
             };
 
             Assert.AreEqual("attack Joe", defaultActionTemplate.ToString());
@@ -294,7 +295,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
                 PerformerType = typeof(CommunicateActionPerformer),
                 Name = new Verb { UniqueId = "Communicate", Past = "said", Present = "say" },
                 Message = "hello",
-                TargetCharacter = new Characters.BaseCharacters.Character { Name = new Noun { Main = "Joe", Narrator = "Joe" } }
+                TargetCharacter = new Character { Name = new Noun { Main = "Joe", Narrator = "Joe" } }
             };
 
             Assert.AreEqual("say hello to Joe", defaultActionTemplate.ToString());
@@ -309,7 +310,7 @@ namespace GetTheMilk.NewActions.Tests.SingleTemplatesTests
             {
                 PerformerType = typeof(AttackActionPerformer),
                 Name = new Verb { UniqueId = "Attack", Past = "attacked", Present = "attack" },
-                TargetCharacter = new Characters.BaseCharacters.Character { Name = new Noun { Main = "Joe", Narrator = "Joe" } },
+                TargetCharacter = new Character { Name = new Noun { Main = "Joe", Narrator = "Joe" } },
                 ActiveCharacter = new Player { ActiveAttackWeapon = new Weapon { Name = new Noun { Main="FinnsSword",Narrator="Finn's Sword"} } }
             };
 

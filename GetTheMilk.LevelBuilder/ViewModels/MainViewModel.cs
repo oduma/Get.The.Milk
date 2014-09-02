@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using GetTheMilk.Characters;
-using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.Levels;
 using GetTheMilk.Objects;

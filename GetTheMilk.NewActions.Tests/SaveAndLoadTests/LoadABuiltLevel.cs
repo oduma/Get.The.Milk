@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using GetTheMilk.Actions;
 using GetTheMilk.Characters;
-using GetTheMilk.Characters.BaseCharacters;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;

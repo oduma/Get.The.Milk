@@ -1,10 +1,10 @@
+using System;
 using GetTheMilk.Common;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;
 using Newtonsoft.Json;
-using System;
 
-namespace GetTheMilk.Characters.BaseCharacters
+namespace GetTheMilk.Characters.Base
 {
     public interface ICharacter : IPositionable
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters;
-using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.Levels;
 using GetTheMilk.Navigation;

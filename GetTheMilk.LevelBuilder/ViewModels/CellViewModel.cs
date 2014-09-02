@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using GetTheMilk.Characters;
-using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.Navigation;
 using GetTheMilk.Objects;

@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.BaseObjects;

@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace GetTheMilk.Characters.BaseCharacters
+namespace GetTheMilk.Characters.Base
 {
     public class Walet
     {

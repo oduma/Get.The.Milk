@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using GetTheMilk.Actions.ActionPerformers.Base;
-using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Settings;

@@ -8,7 +8,6 @@ using GetTheMilk.Objects;
 using GetTheMilk.Settings;
 using GetTheMilk.Utils;
 using Newtonsoft.Json;
-using GetTheMilk.Characters.BaseCharacters;
 
 namespace GetTheMilk.Levels
 {

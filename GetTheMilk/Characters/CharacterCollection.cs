@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using GetTheMilk.Characters.BaseCharacters;
+using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.Objects;
 using Newtonsoft.Json;

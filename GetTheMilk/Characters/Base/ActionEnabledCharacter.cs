@@ -1,17 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using GetTheMilk.Actions;
-using GetTheMilk.Actions.ActionPerformers;
-using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Common;
-using GetTheMilk.Factories;
 using GetTheMilk.Objects.BaseObjects;
 using GetTheMilk.Settings;
 using GetTheMilk.Utils;
 
-namespace GetTheMilk.Characters.BaseCharacters
+namespace GetTheMilk.Characters.Base
 {
     public class ActionEnabledCharacter:BaseActionEnabledObject,IActionEnabledCharacter
     {

@@ -1,7 +1,7 @@
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Levels;
 
-namespace GetTheMilk.Characters.BaseCharacters
+namespace GetTheMilk.Characters.Base
 {
     public interface IPlayer:ICharacter
     {
