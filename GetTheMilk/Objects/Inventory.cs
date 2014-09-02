@@ -86,10 +86,12 @@ namespace GetTheMilk.Objects
         public static Inventory Load(CollectionPackage packages)
         {
 
-            var result = new Inventory();
-            result.InventoryType = JsonConvert.DeserializeObject<InventoryType>(packages.InventoryType);
-            result.MaximumCapacity = JsonConvert.DeserializeObject<int>(packages.MaximumCapacity);
-            List<BasePackage> objs = JsonConvert.DeserializeObject<List<BasePackage>>(packages.Contents);
+            var result = new Inventory
+            {
+                InventoryType = JsonConvert.DeserializeObject<InventoryType>(packages.InventoryType),
+                MaximumCapacity = JsonConvert.DeserializeObject<int>(packages.MaximumCapacity)
+            };
+            var objs = JsonConvert.DeserializeObject<List<BasePackage>>(packages.Contents);
             foreach (var obj in objs)
             {
                 result.Add(NonCharacterObject.Load<NonCharacterObject>(obj));

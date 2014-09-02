@@ -22,7 +22,6 @@ namespace GetTheMilk.UI.ViewModels
         public string DisplayValue
         {
             get { return _displayValue; }
-            private set { _displayValue = value; }
         }
 
     }

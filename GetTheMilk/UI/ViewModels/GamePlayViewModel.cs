@@ -34,12 +34,12 @@ namespace GetTheMilk.UI.ViewModels
             if(actionResult.ResultType==ActionResultType.LevelCompleted)
             {
                 var levelFinishedMessage = _game.CurrentLevel.FinishMessage;
-                    if (_game.ProceedToNextLevel())
-                        FireAdvanceRequestEvent(this,new GameAdvanceRequestEventArgs(_game,levelFinishedMessage,"Go to Next Level"));
-                    else
-                    {
-                        FireAdvanceRequestEvent(this,new GameAdvanceRequestEventArgs(_game,levelFinishedMessage + "\r\n" + GameSettings.GetInstance().GameFinishingMessage,string.Empty));
-                    }
+                FireAdvanceRequestEvent(this,
+                    _game.ProceedToNextLevel()
+                        ? new GameAdvanceRequestEventArgs(_game, levelFinishedMessage, "Go to Next Level")
+                        : new GameAdvanceRequestEventArgs(_game,
+                            levelFinishedMessage + "\r\n" + GameSettings.GetInstance().GameFinishingMessage,
+                            string.Empty));
                 return string.Empty;
             }
             else
@@ -224,10 +224,7 @@ namespace GetTheMilk.UI.ViewModels
 
         void InventoryViewModelActionExecutionRequest(object sender, ActionExecutionRequestEventArgs e)
         {
-                    if (e.GameAction.GetType() == typeof(TwoCharactersActionTemplate))
-                        StoryVisible = Visibility.Hidden;
-                    else
-                        StoryVisible = Visibility.Visible;
+                    StoryVisible = e.GameAction.GetType() == typeof(TwoCharactersActionTemplate) ? Visibility.Hidden : Visibility.Visible;
                     InventoryVisible = Visibility.Hidden;
                     ActionPanelViewModel.InventoryShowHide = "Show Inventory";
                 ActionPanelViewModelActionExecutionRequest(sender, e);

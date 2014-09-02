@@ -47,7 +47,6 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
             if (takeFrom != null)
             {
                 var pileageeInventory = pileagee.Inventory.ToList();
-                PerformActionResult actionResult;
                 foreach (var o in pileageeInventory)
                 {
                     if (pileager.Inventory.MaximumCapacity >= pileager.Inventory.Count)
@@ -62,7 +61,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                         }
 
                         takeFrom.TargetObject = o;
-                        actionResult = pileager.PerformAction(takeFrom);
+                        PerformActionResult actionResult = pileager.PerformAction(takeFrom);
                         if (FeedbackFromSubAction != null)
                             FeedbackFromSubAction(this, new FeedbackEventArgs(actionResult));
                     }

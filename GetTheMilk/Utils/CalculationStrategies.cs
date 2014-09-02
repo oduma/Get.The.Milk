@@ -5,7 +5,6 @@ using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.GameLevels;
-using GetTheMilk.Objects;
 using GetTheMilk.Objects.Base;
 
 namespace GetTheMilk.Utils
@@ -65,7 +64,7 @@ namespace GetTheMilk.Utils
 
         public static Weapon SelectAWeapon(ICharacter character,WeaponType weaponType)
         {
-            if (!character.Inventory.Any(w => w.ObjectCategory == ObjectCategory.Weapon))
+            if (character.Inventory.All(w => w.ObjectCategory != ObjectCategory.Weapon))
                 return null;
             return
                 character.Inventory.Where(w => (w.ObjectCategory == ObjectCategory.Weapon))
@@ -99,7 +98,7 @@ namespace GetTheMilk.Utils
             {
                 if(_allChances==null)
                 {
-                    bool[] vsChances = new bool[100];
+                    var vsChances = new bool[100];
                     vsChances[37] = true;
                     vsChances[42] = true;
                     vsChances[3] = true;
@@ -111,7 +110,7 @@ namespace GetTheMilk.Utils
                     vsChances[49] = true;
                     vsChances[17] = true;
 
-                    bool[] sChances = new bool[100];
+                    var sChances = new bool[100];
                     sChances[32] = true;
                     sChances[51] = true;
                     sChances[7] = true;
@@ -138,7 +137,7 @@ namespace GetTheMilk.Utils
                     sChances[36] = true;
                     sChances[92] = true;
 
-                    bool[] hChances = new bool[100];
+                    var hChances = new bool[100];
 
                     for (int i = 0; i < 100; i++)
                     {
@@ -148,19 +147,19 @@ namespace GetTheMilk.Utils
                         }
                     }
 
-                    bool[] bChances = new bool[100];
+                    var bChances = new bool[100];
                     for (int i = 0; i < 100; i++)
                     {
                         bChances[i] = !sChances[i];
                     }
 
-                    bool[] vbChances = new bool[100];
+                    var vbChances = new bool[100];
                     for (int i = 0; i < 100; i++)
                     {
                         vbChances[i] = !vsChances[i];
                     }
 
-                    bool[] fChances = new bool[100];
+                    var fChances = new bool[100];
                     for (int i = 0; i < 100; i++)
                         fChances[i] = true;
 

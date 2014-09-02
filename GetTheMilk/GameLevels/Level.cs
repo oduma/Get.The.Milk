@@ -81,7 +81,7 @@ namespace GetTheMilk.GameLevels
 
         public static Level Create(ContainerNoActionsPackage levelPackages)
         {
-            Level level = JsonConvert.DeserializeObject<Level>(levelPackages.Core);
+            var level = JsonConvert.DeserializeObject<Level>(levelPackages.Core);
             if(level.CurrentMap!=null)
                 level.CurrentMap.LinkToParentLevel(level);
             level.Inventory = (levelPackages.InventoryCore!=null)?Inventory.Load(JsonConvert.DeserializeObject<CollectionPackage>(levelPackages.InventoryCore,

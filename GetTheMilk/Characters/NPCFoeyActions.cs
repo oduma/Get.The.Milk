@@ -19,7 +19,7 @@ namespace GetTheMilk.Characters
 
         public bool AllowsIndirectTemplateAction(BaseActionTemplate a, IPositionable o)
         {
-            if (((a.GetType() == typeof(ExposeInventoryActionTemplate)) && ((ExposeInventoryActionTemplate)a).SelfInventory == false))
+            if (((a is ExposeInventoryActionTemplate) && ((ExposeInventoryActionTemplate)a).SelfInventory == false))
             {
                 return false;
             }

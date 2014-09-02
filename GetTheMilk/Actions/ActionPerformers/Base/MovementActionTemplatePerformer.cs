@@ -114,7 +114,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
                 actionTemplate.ActiveCharacter.LoadInteractions(objectInRange, objectInRange.GetType());
                 foreach (var templateAction in actionTemplate.ActiveCharacter.AllActions
                     .Where(a => !(a.Value.GetType() == typeof(TwoCharactersActionTemplate)
-                        || a.Value.GetType() == typeof(MovementActionTemplate)) && a.Value.StartingAction))
+                        || a.Value is MovementActionTemplate) && a.Value.StartingAction))
                 {
                     if (templateAction.Value.GetType() == typeof(ObjectUseOnObjectActionTemplate))
                         foreach (var activeObject in actionTemplate.ActiveCharacter.Inventory)
