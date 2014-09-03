@@ -4,11 +4,10 @@ using GetTheMilk.UI.ViewModels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using TomShane.Neoforce.Controls;
+using Control = Get.The.Milk.X.Library.Controls.Control;
+using EventArgs = System.EventArgs;
+using EventHandler = System.EventHandler;
 
 namespace Get.The.Milk.Grui.GameScreens
 {
@@ -16,18 +15,14 @@ namespace Get.The.Milk.Grui.GameScreens
     {
         #region Field region
 
-        PictureBox backgroundImage;
-        PictureBox arrowImage;
-        LinkLabel startGame;
-        LinkLabel loadGame;
-        LinkLabel exitGame;
-        LinkLabel saveGame;
-        float maxItemWidth = 0f;
+        Texture2D backgroundImage;
+        Button startGame;
+        Button loadGame;
+        Button exitGame;
+        Button saveGame;
         private StartMenuViewModel _viewModel;
+        private Manager _manager;
 
-        #endregion
-
-        #region Property Region
         #endregion
 
         #region Constructor Region
@@ -49,25 +44,16 @@ namespace Get.The.Milk.Grui.GameScreens
 
         protected override void LoadContent()
         {
+            ContentManager content = GameRef.Content;
+            backgroundImage = content.Load<Texture2D>(@"Backgrounds\titlescreen");
+
             base.LoadContent();
+            
+            _manager = new Manager(GameRef, GameRef.Graphics);
 
-            ContentManager Content = Game.Content;
+            _manager.SkinDirectory = @"Content\Skins\";
+            _manager.SetSkin("Default");
 
-            backgroundImage = new PictureBox(
-                Content.Load<Texture2D>(@"Backgrounds\titlescreen"),
-                GameRef.ScreenRectangle);
-            ControlManager.Add(backgroundImage);
-
-            Texture2D arrowTexture = Content.Load<Texture2D>(@"GUI\leftarrowUp");
-
-            arrowImage = new PictureBox(
-                arrowTexture,
-                new Rectangle(
-                    0,
-                    0,
-                    arrowTexture.Width,
-                    arrowTexture.Height));
-            ControlManager.Add(arrowImage);
 
             ControlManager.Add(new LinkLabel{Value = _viewModel.StartNew});
 
@@ -103,7 +89,6 @@ namespace Get.The.Milk.Grui.GameScreens
         {
             Control control = sender as Control;
             Vector2 position = new Vector2(control.Position.X + maxItemWidth + 10f, control.Position.Y);
-            arrowImage.SetPosition(position);
         }
 
         private void menuItem_Selected(object sender, EventArgs e)

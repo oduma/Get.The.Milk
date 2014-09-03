@@ -19,7 +19,6 @@ namespace Get.The.Milk.Grui.GameScreens
         Texture2D backgroundImage;
         private TitleViewModel _viewModel;
 
-        private Manager _manager;
         private Button _button;
 
         #endregion
@@ -39,26 +38,19 @@ namespace Get.The.Milk.Grui.GameScreens
         protected override void LoadContent()
         {
             GameRef.IsMouseVisible = true;
-            ContentManager Content = GameRef.Content;
-            backgroundImage = Content.Load<Texture2D>(@"Backgrounds\titlescreen");
+            ContentManager content = GameRef.Content;
+            backgroundImage = content.Load<Texture2D>(@"Backgrounds\titlescreen");
 
             base.LoadContent();
 
             ControlManager.Add(new Get.The.Milk.X.Library.Controls.Label { Position = new Vector2(350, 100), Value = _viewModel.Title, Color = Color.Black });
-
-            _manager = new Manager(GameRef, GameRef.Graphics);
-
-            _manager.SkinDirectory = @"Content\Skins\";
-            _manager.SetSkin("Default");
-
         }
 
         public override void Initialize()
         {
             base.Initialize();
-            _manager.Initialize();
 
-            _button = new Button(_manager);
+            _button = new Button(Manager);
             _button.Init();
             _button.Text = _viewModel.ContinueText;
             _button.Width = 172;
@@ -69,7 +61,7 @@ namespace Get.The.Milk.Grui.GameScreens
             _button.Focused = true;
             _button.Click += _button_Click;
 
-            _manager.Add(_button);
+            Manager.Add(_button);
         }
 
         void _button_Click(object sender, TomShane.Neoforce.Controls.EventArgs e)
@@ -81,7 +73,6 @@ namespace Get.The.Milk.Grui.GameScreens
             ControlManager.Update(gameTime, PlayerIndex.One);
 
             base.Update(gameTime);
-            _manager.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
