@@ -47,30 +47,33 @@ namespace Get.The.Milk.Grui
 
         #endregion
 
-        private Manager _manager;
-
         public GetTheMilkGameUI()
         {
-            IsMouseVisible = true;
+            Graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = ScreenWidth,
+                PreferredBackBufferHeight = ScreenHeight
+            };
+
             ScreenRectangle = new Rectangle(
                 0,
                 0,
                 ScreenWidth,
                 ScreenHeight);
 
-            //Content.RootDirectory = "Content";
+            Content.RootDirectory = "Content";
 
-            //Components.Add(new InputHandler(this));
+            Components.Add(new InputHandler(this));
 
-            //stateManager = new GameStateManager(this);
-            //Components.Add(stateManager);
+            var stateManager = new GameStateManager(this);
+            Components.Add(stateManager);
 
-            //TitleScreen = new TitleScreen(this, stateManager,new TitleViewModel());
-            //StartMenuScreen = new StartMenuScreen(this, stateManager,new StartMenuViewModel());
+            TitleScreen = new TitleScreen(this, stateManager,new TitleViewModel());
+            StartMenuScreen = new StartMenuScreen(this, stateManager,new StartMenuViewModel());
             //GamePlayScreen = new GamePlayScreen(this, stateManager);
             //CharacterGeneratorScreen = new CharacterGeneratorScreen(this, stateManager);
 
-            //stateManager.ChangeState(TitleScreen);
+            stateManager.ChangeState(TitleScreen);
         }
 
         public GraphicsDeviceManager Graphics { get; set; }
@@ -78,35 +81,6 @@ namespace Get.The.Milk.Grui
         protected override void Initialize()
         {
             base.Initialize();
-
-            Graphics = new GraphicsDeviceManager(this)
-            {
-                PreferredBackBufferWidth = ScreenWidth,
-                PreferredBackBufferHeight = ScreenHeight
-            };
-
-            _manager = new Manager(this, graphics);
-
-            _manager.SkinDirectory = @"Content\Skins\";
-            _manager.SetSkin("Default");
-            _manager.Initialize();
-            // Create and setup Window control.
-            var window = new Window(_manager);
-            window.Init();
-            window.Text = "Getting Started";
-            window.Width = 100;
-            window.Height = 124;
-            window.Center();
-            window.Visible = true;
-            window.BorderVisible = false;
-            window.MaximumHeight = 100;
-            window.MinimumHeight = 100;
-            window.MaximumWidth = 100;
-            window.MinimumWidth = 100;
-            window.Alpha = 128;
-
-            _manager.Add(window);
-
         }
 
         protected override void LoadContent()
@@ -128,6 +102,7 @@ namespace Get.The.Milk.Grui
 
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             base.Draw(gameTime);

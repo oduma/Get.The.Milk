@@ -120,7 +120,5 @@ namespace Get.The.Milk.Grui.GameScreens
         }
 
         #endregion
-
-        public PlayerSetupViewModel ViewModel { get; set; }
     }
 }

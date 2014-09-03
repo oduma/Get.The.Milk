@@ -110,7 +110,6 @@ namespace Get.The.Milk.Grui.GameScreens
         {
             if (sender == startGame)
             {
-                GameRef.CharacterGeneratorScreen.ViewModel = new PlayerSetupViewModel();
                 StateManager.PushState(GameRef.CharacterGeneratorScreen);
             }
 

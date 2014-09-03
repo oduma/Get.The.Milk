@@ -40,6 +40,16 @@ namespace Get.The.Milk.Grui.GameScreens
             ControlManager = new ControlManager(menuFont);
             base.LoadContent();
         }
+
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
         #endregion
     }
 }

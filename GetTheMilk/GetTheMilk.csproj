@@ -137,8 +137,6 @@
     <Compile Include="Objects\ToolActions.cs" />
     <Compile Include="Objects\WeaponActions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Common\ActionResultMessage.cs" />
-    <Compile Include="Common\Message.cs" />
     <Compile Include="UI\ViewModels\StartMenuViewModel.cs" />
     <Compile Include="UI\ViewModels\TitleViewModel.cs" />
     <Compile Include="Common\ActionResultMessage.cs" />
