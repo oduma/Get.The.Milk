@@ -91,6 +91,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\PlayerComponent.cs" />
     <Compile Include="GameScreens\BaseGameState.cs" />
     <Compile Include="GameScreens\CharacterGeneratorScreen.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />

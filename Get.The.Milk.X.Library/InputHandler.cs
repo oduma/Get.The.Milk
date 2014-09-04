@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 
 namespace Get.The.Milk.X.Library
@@ -7,16 +8,23 @@ namespace Get.The.Milk.X.Library
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
-    public class InputHandler : GameComponent
+    public class InputHandler : Microsoft.Xna.Framework.GameComponent
     {
-        #region Field Region
+        #region Keyboard Field Region
 
         static KeyboardState keyboardState;
         static KeyboardState lastKeyboardState;
 
         #endregion
 
-        #region Property Region
+        #region Game Pad Field Region
+
+        static GamePadState[] gamePadStates;
+        static GamePadState[] lastGamePadStates;
+
+        #endregion
+
+        #region Keyboard Property Region
 
         public static KeyboardState KeyboardState
         {
@@ -30,12 +38,31 @@ namespace Get.The.Milk.X.Library
 
         #endregion
 
+        #region Game Pad Property Region
+
+        public static GamePadState[] GamePadStates
+        {
+            get { return gamePadStates; }
+        }
+
+        public static GamePadState[] LastGamePadStates
+        {
+            get { return lastGamePadStates; }
+        }
+
+        #endregion
+
         #region Constructor Region
 
         public InputHandler(Game game)
             : base(game)
         {
             keyboardState = Keyboard.GetState();
+
+            gamePadStates = new GamePadState[Enum.GetValues(typeof(PlayerIndex)).Length];
+
+            foreach (PlayerIndex index in Enum.GetValues(typeof(PlayerIndex)))
+                gamePadStates[(int)index] = GamePad.GetState(index);
         }
 
         #endregion
@@ -52,6 +79,10 @@ namespace Get.The.Milk.X.Library
         {
             lastKeyboardState = keyboardState;
             keyboardState = Keyboard.GetState();
+
+            lastGamePadStates = (GamePadState[])gamePadStates.Clone();
+            foreach (PlayerIndex index in Enum.GetValues(typeof(PlayerIndex)))
+                gamePadStates[(int)index] = GamePad.GetState(index);
 
             base.Update(gameTime);
         }
@@ -84,6 +115,27 @@ namespace Get.The.Milk.X.Library
         public static bool KeyDown(Keys key)
         {
             return keyboardState.IsKeyDown(key);
+        }
+
+        #endregion
+
+        #region Game Pad Region
+
+        public static bool ButtonReleased(Buttons button, PlayerIndex index)
+        {
+            return gamePadStates[(int)index].IsButtonUp(button) &&
+                lastGamePadStates[(int)index].IsButtonDown(button);
+        }
+
+        public static bool ButtonPressed(Buttons button, PlayerIndex index)
+        {
+            return gamePadStates[(int)index].IsButtonDown(button) &&
+                lastGamePadStates[(int)index].IsButtonUp(button);
+        }
+
+        public static bool ButtonDown(Buttons button, PlayerIndex index)
+        {
+            return gamePadStates[(int)index].IsButtonDown(button);
         }
 
         #endregion

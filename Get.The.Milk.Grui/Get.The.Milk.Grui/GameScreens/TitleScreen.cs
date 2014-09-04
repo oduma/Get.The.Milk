@@ -38,8 +38,8 @@ namespace Get.The.Milk.Grui.GameScreens
         protected override void LoadContent()
         {
             GameRef.IsMouseVisible = true;
-            ContentManager content = GameRef.Content;
-            backgroundImage = content.Load<Texture2D>(@"Backgrounds\titlescreen");
+
+            backgroundImage = GameRef.Content.Load<Texture2D>(@"Backgrounds\titlescreen");
 
             base.LoadContent();
 
@@ -68,6 +68,7 @@ namespace Get.The.Milk.Grui.GameScreens
         {
             StateManager.PushState(GameRef.StartMenuScreen);
         }
+
         public override void Update(GameTime gameTime)
         {
             ControlManager.Update(gameTime, PlayerIndex.One);
@@ -77,7 +78,7 @@ namespace Get.The.Milk.Grui.GameScreens
 
         public override void Draw(GameTime gameTime)
         {
-            _manager.BeginDraw(gameTime);
+            Manager.BeginDraw(gameTime);
             GameRef.SpriteBatch.Begin();
 
             base.Draw(gameTime);
@@ -90,7 +91,7 @@ namespace Get.The.Milk.Grui.GameScreens
             ControlManager.Draw(GameRef.SpriteBatch);
 
             GameRef.SpriteBatch.End();
-            _manager.EndDraw();
+            Manager.EndDraw();
         }
 
         #endregion

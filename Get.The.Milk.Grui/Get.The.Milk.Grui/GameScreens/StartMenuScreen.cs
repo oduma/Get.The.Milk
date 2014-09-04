@@ -16,12 +16,11 @@ namespace Get.The.Milk.Grui.GameScreens
         #region Field region
 
         Texture2D backgroundImage;
-        Button startGame;
-        Button loadGame;
-        Button exitGame;
-        Button saveGame;
+        Button _startGame;
+        Button _loadGame;
+        Button _exitGame;
+        Button _saveGame;
         private StartMenuViewModel _viewModel;
-        private Manager _manager;
 
         #endregion
 
@@ -40,97 +39,107 @@ namespace Get.The.Milk.Grui.GameScreens
         public override void Initialize()
         {
             base.Initialize();
+
+            _startGame = new Button(Manager);
+            _startGame.Init();
+            _startGame.Text = _viewModel.StartNew;
+            _startGame.Width = 172;
+            _startGame.Height = 24;
+            _startGame.Left = 350;
+            _startGame.Top = 200;
+            _startGame.Anchor = Anchors.Bottom;
+            _startGame.Focused = true;
+            _startGame.Click += _startGame_Click;
+
+            Manager.Add(_startGame);
+
+            _loadGame = new Button(Manager);
+            _loadGame.Init();
+            _loadGame.Text = _viewModel.Load;
+            _loadGame.Width = 172;
+            _loadGame.Height = 24;
+            _loadGame.Left = 350;
+            _loadGame.Top = 230;
+            _loadGame.Anchor = Anchors.Bottom;
+            _loadGame.Focused = true;
+            _loadGame.Click += _loadGame_Click;
+
+            Manager.Add(_loadGame);
+
+            _saveGame = new Button(Manager);
+            _saveGame.Init();
+            _saveGame.Text = _viewModel.Save;
+            _saveGame.Width = 172;
+            _saveGame.Height = 24;
+            _saveGame.Left = 350;
+            _saveGame.Top = 260;
+            _saveGame.Anchor = Anchors.Bottom;
+            _saveGame.Focused = true;
+            _saveGame.Click += _saveGame_Click;
+
+            Manager.Add(_saveGame);
+
+            _exitGame = new Button(Manager);
+            _exitGame.Init();
+            _exitGame.Text = _viewModel.Exit;
+            _exitGame.Width = 172;
+            _exitGame.Height = 24;
+            _exitGame.Left = 350;
+            _exitGame.Top = 290;
+            _exitGame.Anchor = Anchors.Bottom;
+            _exitGame.Focused = true;
+            _exitGame.Click += _exitGame_Click;
+
+            Manager.Add(_exitGame);
+        }
+
+        private void _exitGame_Click(object sender, TomShane.Neoforce.Controls.EventArgs e)
+        {
+            GameRef.Exit();
+        }
+
+        private void _saveGame_Click(object sender, TomShane.Neoforce.Controls.EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void _loadGame_Click(object sender, TomShane.Neoforce.Controls.EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void _startGame_Click(object sender, TomShane.Neoforce.Controls.EventArgs e)
+        {
+            StateManager.PushState(GameRef.CharacterGeneratorScreen);
         }
 
         protected override void LoadContent()
         {
-            ContentManager content = GameRef.Content;
-            backgroundImage = content.Load<Texture2D>(@"Backgrounds\titlescreen");
+            backgroundImage = GameRef.Content.Load<Texture2D>(@"Backgrounds\titlescreen");
 
             base.LoadContent();
-            
-            _manager = new Manager(GameRef, GameRef.Graphics);
-
-            _manager.SkinDirectory = @"Content\Skins\";
-            _manager.SetSkin("Default");
-
-
-            ControlManager.Add(new LinkLabel{Value = _viewModel.StartNew});
-
-            ControlManager.Add(new LinkLabel { Value = _viewModel.Load});
-
-            ControlManager.Add(new LinkLabel { Value = _viewModel.Save});
-
-            ControlManager.Add(new LinkLabel { Value = _viewModel.Exit});
-
-            ControlManager.NextControl();
-
-            ControlManager.FocusChanged += new EventHandler(ControlManager_FocusChanged);
-
-            Vector2 position = new Vector2(350, 200);
-            foreach (Control c in ControlManager)
-            {
-                if (c is LinkLabel)
-                {
-                    if (c.Size.X > maxItemWidth)
-                        maxItemWidth = c.Size.X;
-
-                    c.Position = position;
-                    position.Y += c.Size.Y + 5f;
-                    c.Selected+=menuItem_Selected;
-                    c.Size = c.SpriteFont.MeasureString(c.Value.ToString());
-                }
-            }
-
-            ControlManager_FocusChanged(startGame, null);
-        }
-
-        void ControlManager_FocusChanged(object sender, EventArgs e)
-        {
-            Control control = sender as Control;
-            Vector2 position = new Vector2(control.Position.X + maxItemWidth + 10f, control.Position.Y);
-        }
-
-        private void menuItem_Selected(object sender, EventArgs e)
-        {
-            if (sender == startGame)
-            {
-                StateManager.PushState(GameRef.CharacterGeneratorScreen);
-            }
-
-            if (sender == loadGame)
-            {
-                StateManager.PushState(GameRef.GamePlayScreen);
-            }
-
-            if (sender == exitGame)
-            {
-                GameRef.Exit();
-            }
         }
 
         public override void Update(GameTime gameTime)
         {
-            ControlManager.Update(gameTime, PlayerIndexInControl);
-
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
+            Manager.BeginDraw(gameTime);
             GameRef.SpriteBatch.Begin();
-
             base.Draw(gameTime);
-
-            ControlManager.Draw(GameRef.SpriteBatch);
+            GameRef.SpriteBatch.Draw(
+                backgroundImage,
+                GameRef.ScreenRectangle,
+                Color.White);
 
             GameRef.SpriteBatch.End();
+            Manager.EndDraw();
         }
 
+        
         #endregion
-
-        #region Game State Method Region
-        #endregion
-
     }
 }

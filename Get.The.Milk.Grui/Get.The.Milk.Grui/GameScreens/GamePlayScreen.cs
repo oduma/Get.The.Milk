@@ -1,5 +1,7 @@
-﻿using Get.The.Milk.X.Library;
+﻿using Get.The.Milk.Grui.Components;
+using Get.The.Milk.X.Library;
 using Get.The.Milk.X.Library.TileEngine;
+using GetTheMilk.GameLevels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,6 +11,7 @@ using System.Text;
 
 namespace Get.The.Milk.Grui.GameScreens
 {
+    [System.Runtime.InteropServices.GuidAttribute("21E67048-CC3B-4A37-81BF-4BD356AC431A")]
     public class GamePlayScreen : BaseGameState
     {
         #region Field Region
@@ -17,7 +20,8 @@ namespace Get.The.Milk.Grui.GameScreens
 
         Tileset tileset;
         TileMap map;
-        
+        PlayerComponent playerComponent;
+
         #endregion
 
         #region Property Region
@@ -28,6 +32,7 @@ namespace Get.The.Milk.Grui.GameScreens
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
+            playerComponent = new PlayerComponent(game);
         }
 
         #endregion
@@ -41,23 +46,14 @@ namespace Get.The.Milk.Grui.GameScreens
 
         protected override void LoadContent()
         {
-            Texture2D tilesetTexture = Game.Content.Load<Texture2D>(@"Tilesets\tileset1");
+            var tilesetName = @"Tilesets\" + ((string.IsNullOrEmpty(RpgGameCore.CurrentLevel.CurrentMap.Tileset)) 
+                ? "tileset1" : RpgGameCore.CurrentLevel.CurrentMap.Tileset);
+
+            Texture2D tilesetTexture = Game.Content.Load<Texture2D>(tilesetName);
             tileset = new Tileset(tilesetTexture, 8, 8, 32, 32);
 
-            //MapLayer layer = new MapLayer(3, 3);
-
-            //for (int y = 0; y < layer.Height; y++)
-            //{
-            //    for (int x = 0; x < layer.Width; x++)
-            //    {
-            //        Tile tile = new Tile(0, 0);
-
-            //        layer.SetTile(x, y, tile);
-            //    }
-            //}
-
-            //map = new TileMap(tileset, layer);
-
+            map = new TileMap(tileset, RpgGameCore.CurrentLevel.CurrentMap);
+            GameRef.CurrentLevelTileMap = map;
             base.LoadContent();
         }
 
@@ -77,7 +73,7 @@ namespace Get.The.Milk.Grui.GameScreens
                 null,
                 Matrix.Identity);
 
-            map.Draw(GameRef.SpriteBatch);
+            map.Draw(GameRef.SpriteBatch,playerComponent.Camera);
 
             base.Draw(gameTime);
 
@@ -86,7 +82,7 @@ namespace Get.The.Milk.Grui.GameScreens
 
         #endregion
 
-        #region Abstract Method Region
-        #endregion
+        
+        public RpgGameCore RpgGameCore { get; set; }
     }
 }

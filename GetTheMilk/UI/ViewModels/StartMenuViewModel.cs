@@ -13,6 +13,6 @@ namespace GetTheMilk.UI.ViewModels
 
         public string Save { get { return "Save"; } }
 
-        public object Exit { get { return "Exit"; } }
+        public string Exit { get { return "Exit"; } }
     }
 }

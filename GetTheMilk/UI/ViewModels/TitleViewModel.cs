@@ -10,6 +10,6 @@ namespace GetTheMilk.UI.ViewModels
     {
         public string Title { get { return GameSettings.GetInstance().DefaultGameName; } }
 
-        public string ContinueText { get { return "Enter to continue"; } }
+        public string ContinueText { get { return "Continue"; } }
     }
 }

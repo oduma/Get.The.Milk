@@ -17,6 +17,8 @@ namespace GetTheMilk.GameLevels
 
         }
 
+        public string Tileset { get; set; }
+
         public void LinkToParentLevel(Level level)
         {
             Parent = level;

@@ -9,26 +9,31 @@ namespace Get.The.Milk.X.Library.TileEngine
     {
         #region Field Region
 
-        List<Tileset> tilesets;
+        Tileset _tileset;
         private Map _map;
 
         #endregion
 
         #region Property Region
+
+        public int WidthInPixels
+        {
+            get { return (int)_map.Parent.SizeOfLevel * Engine.TileWidth; }
+        }
+
+        public int HeightInPixels
+        {
+            get { return (int)_map.Parent.SizeOfLevel * Engine.TileHeight; }
+        }
+
+
         #endregion
 
         #region Constructor Region
 
-        public TileMap(List<Tileset> tilesets, Map map)
-        {
-            this.tilesets = tilesets;
-            _map = map;
-        }
-
         public TileMap(Tileset tileset, Map map)
         {
-            tilesets = new List<Tileset>();
-            tilesets.Add(tileset);
+            _tileset = tileset;
 
             _map = map;
         }
@@ -37,30 +42,32 @@ namespace Get.The.Milk.X.Library.TileEngine
 
         #region Method Region
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Camera camera)
         {
             Rectangle destination = new Rectangle(0, 0, Engine.TileWidth, Engine.TileHeight);
             Cell cell;
 
             for (int y = 0; y < _map.Size; y++)
             {
-                destination.Y = y * Engine.TileHeight;
+                destination.Y = y * Engine.TileHeight - (int)camera.Position.Y;
 
                 for (int x = 0; x < _map.Size; x++)
                 {
                     cell = _map.Cells[y * _map.Size + x];
+                    
+                    if (cell.TileIndex == -1)
+                        continue;
 
-                    destination.X = x * Engine.TileWidth;
+                    destination.X = x * Engine.TileWidth - (int)camera.Position.X;
 
                     spriteBatch.Draw(
-                        tilesets[cell.Tileset].Texture,
+                        _tileset.Texture,
                         destination,
-                        tilesets[cell.Tileset].SourceRectangles[cell.TileIndex],
+                        _tileset.SourceRectangles[cell.TileIndex],
                         Color.White);
                 }
             }
         }
-
         #endregion
     }
 }

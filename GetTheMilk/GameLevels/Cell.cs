@@ -40,8 +40,6 @@ namespace GetTheMilk.GameLevels
 
         public int Floor { get; set; }
 
-        public int Tileset { get; set; }
-
         public int TileIndex { get; set; }
 
         public int GetNeighbourCellNumber(Direction direction)

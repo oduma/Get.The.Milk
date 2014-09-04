@@ -14,6 +14,7 @@ using Get.The.Milk.Grui.GameScreens;
 using GetTheMilk.Factories;
 using GetTheMilk.UI.ViewModels;
 using TomShane.Neoforce.Controls;
+using GetTheMilk.Characters;
 
 namespace Get.The.Milk.Grui
 {
@@ -55,6 +56,7 @@ namespace Get.The.Milk.Grui
                 PreferredBackBufferHeight = ScreenHeight
             };
 
+            
             ScreenRectangle = new Rectangle(
                 0,
                 0,
@@ -68,10 +70,12 @@ namespace Get.The.Milk.Grui
             var stateManager = new GameStateManager(this);
             Components.Add(stateManager);
 
+            new BootstrapRegister().RegisterAllComponents();
+
             TitleScreen = new TitleScreen(this, stateManager,new TitleViewModel());
             StartMenuScreen = new StartMenuScreen(this, stateManager,new StartMenuViewModel());
-            //GamePlayScreen = new GamePlayScreen(this, stateManager);
-            //CharacterGeneratorScreen = new CharacterGeneratorScreen(this, stateManager);
+            GamePlayScreen = new GamePlayScreen(this, stateManager);
+            CharacterGeneratorScreen = new CharacterGeneratorScreen(this, stateManager, new Player());
 
             stateManager.ChangeState(TitleScreen);
         }
@@ -86,6 +90,7 @@ namespace Get.The.Milk.Grui
         protected override void LoadContent()
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
+            
         }
 
         protected override void UnloadContent()
@@ -108,10 +113,6 @@ namespace Get.The.Milk.Grui
             base.Draw(gameTime);
         }
 
-        internal void LoadNewRpgEngine()
-        {
-            new BootstrapRegister().RegisterAllComponents();
-            RpgGameCore gameCore = RpgGameCore.CreateNewGameInstance();
-        }
+        public X.Library.TileEngine.TileMap CurrentLevelTileMap { get; set; }
     }
 }
