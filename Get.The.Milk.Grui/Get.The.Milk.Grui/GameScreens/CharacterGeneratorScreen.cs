@@ -158,7 +158,7 @@ namespace Get.The.Milk.Grui.GameScreens
             gameCore.Player = _player;
             gameCore.Player.EnterLevel(gameCore.CurrentLevel);
             GameRef.GamePlayScreen.RpgGameCore = gameCore;
-
+           
             StateManager.PopState();
             StateManager.PushState(GameRef.GamePlayScreen);
 

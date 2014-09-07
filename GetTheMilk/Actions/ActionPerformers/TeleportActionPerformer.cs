@@ -22,7 +22,7 @@ namespace GetTheMilk.Actions.ActionPerformers
                                ActionResultType.Ok, new NonCharacterObject[0], new Character[0]);
             if (movementResult.ResultType == ActionResultType.LevelCompleted)
                 return movementResult;
-            return null;
+            return movementResult;
         }
 
         public override bool CanPerform(BaseActionTemplate act)

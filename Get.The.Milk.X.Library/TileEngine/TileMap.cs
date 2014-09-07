@@ -10,7 +10,6 @@ namespace Get.The.Milk.X.Library.TileEngine
         #region Field Region
 
         Tileset _tileset;
-        private Map _map;
 
         #endregion
 
@@ -18,13 +17,14 @@ namespace Get.The.Milk.X.Library.TileEngine
 
         public int WidthInPixels
         {
-            get { return (int)_map.Parent.SizeOfLevel * Engine.TileWidth; }
+            get { return (int)Map.Parent.SizeOfLevel * Engine.TileWidth; }
         }
 
         public int HeightInPixels
         {
-            get { return (int)_map.Parent.SizeOfLevel * Engine.TileHeight; }
+            get { return (int)Map.Parent.SizeOfLevel * Engine.TileHeight; }
         }
+        public  Map Map{get;set;}
 
 
         #endregion
@@ -35,7 +35,7 @@ namespace Get.The.Milk.X.Library.TileEngine
         {
             _tileset = tileset;
 
-            _map = map;
+            Map = map;
         }
 
         #endregion
@@ -47,13 +47,13 @@ namespace Get.The.Milk.X.Library.TileEngine
             Rectangle destination = new Rectangle(0, 0, Engine.TileWidth, Engine.TileHeight);
             Cell cell;
 
-            for (int y = 0; y < _map.Size; y++)
+            for (int y = 0; y < Map.Size; y++)
             {
                 destination.Y = y * Engine.TileHeight - (int)camera.Position.Y;
 
-                for (int x = 0; x < _map.Size; x++)
+                for (int x = 0; x < Map.Size; x++)
                 {
-                    cell = _map.Cells[y * _map.Size + x];
+                    cell = Map.Cells[y * Map.Size + x];
                     
                     if (cell.TileIndex == -1)
                         continue;
@@ -69,5 +69,10 @@ namespace Get.The.Milk.X.Library.TileEngine
             }
         }
         #endregion
+
+        public Vector2 GetPosition(int cellNumber)
+        {
+            return new Vector2((float)(cellNumber % (int)Map.Parent.SizeOfLevel), (float)(cellNumber / (int)Map.Parent.SizeOfLevel));
+        }
     }
 }

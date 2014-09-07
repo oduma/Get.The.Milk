@@ -175,7 +175,7 @@ namespace GetTheMilk.Actions.ActionPerformers.Base
 
         protected PerformActionResult MoveOneStep(int nextCellId, Cell currentCell, MovementActionTemplate actionTemplate)
         {
-            if (nextCellId == -1)
+            if (nextCellId <= -1 || nextCellId>=actionTemplate.CurrentMap.Size*actionTemplate.CurrentMap.Size)
                 return MoveActiveCharacter(actionTemplate, currentCell.Number,
                     ActionResultType.OutOfTheMap, new NonCharacterObject[0], new Character[0]);
             var objectsBlocking = (actionTemplate.CurrentMap.Cells[nextCellId].AllObjects == null)

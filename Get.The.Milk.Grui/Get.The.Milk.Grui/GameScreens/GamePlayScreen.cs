@@ -1,9 +1,11 @@
 ﻿using Get.The.Milk.Grui.Components;
 using Get.The.Milk.X.Library;
+using Get.The.Milk.X.Library.Sprites;
 using Get.The.Milk.X.Library.TileEngine;
 using GetTheMilk.GameLevels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,8 @@ namespace Get.The.Milk.Grui.GameScreens
 
         Tileset tileset;
         TileMap map;
-        PlayerComponent playerComponent;
+        private PlayerComponent _playerComponent;
+
 
         #endregion
 
@@ -32,7 +35,6 @@ namespace Get.The.Milk.Grui.GameScreens
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
-            playerComponent = new PlayerComponent(game);
         }
 
         #endregion
@@ -46,6 +48,9 @@ namespace Get.The.Milk.Grui.GameScreens
 
         protected override void LoadContent()
         {
+            _playerComponent.LoadContent(GameRef);
+
+
             var tilesetName = @"Tilesets\" + ((string.IsNullOrEmpty(RpgGameCore.CurrentLevel.CurrentMap.Tileset)) 
                 ? "tileset1" : RpgGameCore.CurrentLevel.CurrentMap.Tileset);
 
@@ -54,11 +59,13 @@ namespace Get.The.Milk.Grui.GameScreens
 
             map = new TileMap(tileset, RpgGameCore.CurrentLevel.CurrentMap);
             GameRef.CurrentLevelTileMap = map;
+            _playerComponent.Camera = new Camera(GameRef.ScreenRectangle, map);
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
+            _playerComponent.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -73,8 +80,8 @@ namespace Get.The.Milk.Grui.GameScreens
                 null,
                 Matrix.Identity);
 
-            map.Draw(GameRef.SpriteBatch,playerComponent.Camera);
-
+            map.Draw(GameRef.SpriteBatch,_playerComponent.Camera);
+            _playerComponent.Draw(gameTime, GameRef.SpriteBatch);
             base.Draw(gameTime);
 
             GameRef.SpriteBatch.End();
@@ -82,7 +89,18 @@ namespace Get.The.Milk.Grui.GameScreens
 
         #endregion
 
-        
-        public RpgGameCore RpgGameCore { get; set; }
+        private RpgGameCore _rpgGameCore;
+        public RpgGameCore RpgGameCore 
+        { 
+            get 
+            { 
+                return _rpgGameCore; 
+            } 
+            set 
+            { 
+                _rpgGameCore = value;
+                _playerComponent = new PlayerComponent(GameRef,_rpgGameCore);
+            }
+        }
     }
 }
