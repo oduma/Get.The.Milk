@@ -112,6 +112,7 @@
       <DependentUpon>WeaponObject.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\CellsGridHelper.cs" />
+    <Compile Include="Utils\Tile.cs" />
     <Compile Include="ViewModels\ActionDetailViewModelBase.cs" />
     <Compile Include="ViewModels\ActionManagerViewModel.cs" />
     <Compile Include="ViewModels\ActionPropertyViewModel.cs" />
@@ -274,7 +275,11 @@
       <Name>Sciendo.IOC</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="ImageLibrary\tileset1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

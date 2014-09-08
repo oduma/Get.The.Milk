@@ -4,11 +4,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Get.The.Milk.UI.BaseViewModels;
 using GetTheMilk.Characters;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Common;
 using GetTheMilk.GameLevels;
+using GetTheMilk.LevelBuilder.Utils;
 using GetTheMilk.Objects;
 using GetTheMilk.Objects.Base;
 
@@ -25,6 +27,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
         public RelayCommand<CellViewModel> ClearUp { get; set; }
         public RelayCommand<CellViewModel> ClearDown { get; set; }
 
+        public RelayCommand<Tile> PlaceATile { get; set; }
+
         public RelayCommand<NonCharacterObject> PlaceAnObject { get; set; }
 
         public RelayCommand<Character> PlaceACharacter { get; set; }
@@ -35,10 +39,17 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         public CellViewModel()
         {
+            PlaceATile=new RelayCommand<Tile>(PlaceATileCommand);
             PlaceAnObject=new RelayCommand<NonCharacterObject>(PlaceAnObjectCommand);
             PlaceACharacter=new RelayCommand<Character>(PlaceACharacterCommand);
             UnPlaceAnObject= new RelayCommand(UnPlaceAnObjectCommand,CanUnPlaceAnObject);
             UnPlaceACharacter=new RelayCommand(UnPlaceACharacterCommand,CanUnPlaceACharacter);
+        }
+
+        private void PlaceATileCommand(Tile obj)
+        {
+            Value.TileIndex = obj.Index;
+            MarkTheOccupancy(null,null);
         }
 
         private bool CanUnPlaceACharacter()
@@ -88,7 +99,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private void MarkTheOccupancy(NonCharacterObject nonCharacterObject,Character character)
         {
-            OcupancyMarker = GetColorForCell(nonCharacterObject,character);
+            OcupancyMarker = GetColorForCell(nonCharacterObject,character, Value,AllAvailableTiles);
 
             OccupantName = GetOccupantName(nonCharacterObject, character);
         }
@@ -104,7 +115,10 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             return string.Empty;
         }
 
-        public static Brush GetColorForCell(NonCharacterObject nonCharacterObject,Character character)
+        public static Brush GetColorForCell(NonCharacterObject nonCharacterObject,
+            Character character,
+            Cell cell,
+            IEnumerable<Tile> allAvailableTiles)
         {
             object color=null;
             if (nonCharacterObject != null)
@@ -144,8 +158,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
             else
             {
-                var convColor = (Color) ColorConverter.ConvertFromString("Green");
-                return new SolidColorBrush(convColor);
+                return new ImageBrush(allAvailableTiles.First(t=>t.Index==cell.TileIndex).Image);
             }
         }
 
@@ -268,6 +281,7 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
+        public IEnumerable<Tile> AllAvailableTiles { get; set; }  
         public ObservableCollection<NonCharacterObject> AllObjectsAvailable { get; set; }
 
         public ObservableCollection<Character> AllCharactersAvailable { get; set; }

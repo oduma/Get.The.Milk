@@ -1,9 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Get.The.Milk.UI.BaseViewModels;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.GameLevels;
+using GetTheMilk.LevelBuilder.Utils;
 using GetTheMilk.Objects.Base;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
@@ -23,9 +29,15 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             _level = level;
             _allObjectsAvailable = allObjectsAvailable;
             _allCharactersAvailable = allCharactersAvailable;
+            if(_tilesets==null)
+                _tilesets= new ObservableCollection<string>();
+            var tilesets = Directory.GetFiles(@"ImageLibrary", "*.png").Select(f => Path.GetFileName(f).Replace(".png",""));
+            foreach(var tileset in tilesets)
+                _tilesets.Add(tileset);
             SizeOfMap = level.SizeOfLevel;
             if (_level.CurrentMap == null)
                 _level.CurrentMap=GenerateNewEmptyMap();
+            SelectedTileset = _tilesets[0];
             var floors = _level.CurrentMap.Cells.Select(c => c.Floor).Distinct().ToList();
             Floors=new ObservableCollection<int>();
             foreach(var floor in floors)
@@ -54,14 +66,15 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                                 ObjectiveCellMarking = (_level.ObjectiveCell == c.Number) ? "x" : "",
                                 AllObjectsAvailable=_allObjectsAvailable,
                                 AllCharactersAvailable =_allCharactersAvailable,
-                                OcupancyMarker = CellViewModel.GetColorForCell(c.AllObjects.FirstOrDefault(), c.AllCharacters.FirstOrDefault()),
+                                OcupancyMarker = CellViewModel.GetColorForCell(c.AllObjects.FirstOrDefault(), c.AllCharacters.FirstOrDefault(),c,_allAvailableTiles),
                                 OccupantName = CellViewModel.GetOccupantName(c.AllObjects.FirstOrDefault(), c.AllCharacters.FirstOrDefault()),
                                 LinkToUpperText = "Link to Upper Floor",
                                 LinkToLowerText = "Link to Lower Floor",
                                 LinkToUpperMarking=(c.TopCell==-1)?"":"^",
                                 LinkToUpperCell=((c.TopCell==-1)?"":c.TopCell.ToString()),
                                 LinkToLowerMarking=(c.BottomCell==-1)?"":"V",
-                                LinkToLowerCell = ((c.BottomCell == -1) ? "" : c.BottomCell.ToString())
+                                LinkToLowerCell = ((c.BottomCell == -1) ? "" : c.BottomCell.ToString()),
+                                AllAvailableTiles = _allAvailableTiles
                             }),
                     SizeOfMap,SelectedFloor);
         }
@@ -142,6 +155,18 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             _level.CurrentMap.LinkToParentLevel(_level);
         }
 
+        public ObservableCollection<string> Tilesets
+        {
+            get { return _tilesets; }
+            set
+            {
+                if (value != _tilesets)
+                {
+                    _tilesets = value;
+                    RaisePropertyChanged("Tilesets");
+                }
+            }
+        }
         public ObservableCollection<int> Floors
         {
             get { return _floors; }
@@ -256,6 +281,43 @@ namespace GetTheMilk.LevelBuilder.ViewModels
 
         private int _selectedFloor;
         private ObservableCollection<int> _floors;
+        private ObservableCollection<string> _tilesets;
+        private IEnumerable<Tile> _allAvailableTiles;
+
+        public string SelectedTileset
+        {
+            get { return _level.CurrentMap.Tileset; }
+            set
+            {
+                if (_level.CurrentMap.Tileset != value)
+                {
+                    _level.CurrentMap.Tileset = value;
+                    _allAvailableTiles = GetAllAvailableTilesFromTileSet(value);
+                    RaisePropertyChanged("SelectedTileset");
+                }
+            }
+        }
+
+        private IEnumerable<Tile> GetAllAvailableTilesFromTileSet(string tileset)
+        {
+            BitmapSource bmpSource = new BitmapImage(new Uri(@"file://" + AppDomain.CurrentDomain.BaseDirectory + "/ImageLibrary/" + tileset + ".png"));
+
+            var sourceRectangles = new Int32Rect[64];
+
+            int tile = 0;
+
+            for (int y = 0; y < 8; y++)
+                for (int x = 0; x < 8; x++)
+                {
+                    sourceRectangles[tile] = new Int32Rect(
+                    x * 32,
+                    y * 32,
+                    32,
+                    32);
+                    yield return new Tile {Index = tile, Image = new CroppedBitmap(bmpSource, sourceRectangles[tile])};
+                    tile++;
+                }
+        }
 
         public int SelectedFloor
         {
@@ -283,14 +345,15 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                                         ClearDown = new RelayCommand<CellViewModel>(ClearDownCommand, CanClearDown),
                                         AllObjectsAvailable = _allObjectsAvailable,
                                         AllCharactersAvailable=_allCharactersAvailable,
-                                        OcupancyMarker = CellViewModel.GetColorForCell(c.AllObjects.FirstOrDefault(),c.AllCharacters.FirstOrDefault()),
+                                        OcupancyMarker = CellViewModel.GetColorForCell(c.AllObjects.FirstOrDefault(),c.AllCharacters.FirstOrDefault(),c,_allAvailableTiles),
                                         OccupantName = CellViewModel.GetOccupantName(c.AllObjects.FirstOrDefault(), c.AllCharacters.FirstOrDefault()),
                                         LinkToUpperText = "Link to Upper Floor",
                                         LinkToLowerText = "Link to Lower Floor",
                                         LinkToUpperMarking = (c.TopCell == -1) ? "" : "^",
                                         LinkToUpperCell = ((c.TopCell == -1) ? "" : c.TopCell.ToString()),
                                         LinkToLowerMarking = (c.BottomCell == -1) ? "" : "V",
-                                        LinkToLowerCell = ((c.BottomCell == -1) ? "" : c.BottomCell.ToString())
+                                        LinkToLowerCell = ((c.BottomCell == -1) ? "" : c.BottomCell.ToString()),
+                                        AllAvailableTiles = _allAvailableTiles
                                     }),
                             SizeOfMap, SelectedFloor) ;
                     }
