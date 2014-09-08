@@ -15,5 +15,9 @@ namespace GetTheMilk.Common
 
         Func<BaseActionTemplate, IPositionable, bool> AllowsIndirectTemplateAction { get; set; }
 
+
+        string SpriteName { get; set; }
+
+
     }
 }

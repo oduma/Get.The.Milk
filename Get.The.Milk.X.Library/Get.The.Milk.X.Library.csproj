@@ -62,8 +62,11 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Characters\XCharacter.cs" />
     <Compile Include="Sprites\AnimatedSprite.cs" />
     <Compile Include="Sprites\Animation.cs" />
+    <Compile Include="Sprites\BaseSprite.cs" />
+    <Compile Include="Objects\XObject.cs" />
     <Compile Include="TileEngine\Camera.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\ControlManager.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="TileEngine\ExtensionMethods.cs" />
     <Compile Include="TileEngine\TileMap.cs" />
     <Compile Include="TileEngine\Tileset.cs" />
+    <Compile Include="World\XLevel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GetTheMilk\GetTheMilk.csproj">

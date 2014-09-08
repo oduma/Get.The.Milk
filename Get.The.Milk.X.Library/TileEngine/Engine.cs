@@ -41,11 +41,14 @@ namespace Get.The.Milk.X.Library.TileEngine
 
         #region Methods
 
-        public static Point VectorToCell(Vector2 position)
+        public static Point VectorToPoint(Vector2 position)
         {
             return new Point((int)position.X / tileWidth, (int)position.Y / tileHeight);
         }
-
+        public static Point CellToPoint(int cellNumber,int mapSize)
+        {
+            return new Point((int)cellNumber % mapSize, (int)cellNumber / mapSize);
+        }
         #endregion
     }
 }

@@ -34,7 +34,7 @@ namespace Get.The.Milk.X.Library.TileEngine
                     pos.Y -= height;
                     break;
             }
-            var point = Engine.VectorToCell(pos);
+            var point = Engine.VectorToPoint(pos);
             return point.Y * mapSize + point.X;
         }
     }

@@ -212,5 +212,7 @@ namespace GetTheMilk.Characters.Base
                 }
             }
         }
+
+        public string SpriteName { get; set; }
     }
 }

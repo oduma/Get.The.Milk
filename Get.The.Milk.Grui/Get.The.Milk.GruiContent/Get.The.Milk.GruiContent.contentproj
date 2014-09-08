@@ -78,43 +78,48 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlayerSprites\femalefighter.png">
+    <Compile Include="CharacterSprites\femalefighter.png">
       <Name>femalefighter</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="PlayerSprites\femalepriest.png">
+    <Compile Include="CharacterSprites\femalepriest.png">
       <Name>femalepriest</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="PlayerSprites\femalerogue.png">
+    <Compile Include="CharacterSprites\femalerogue.png">
       <Name>femalerogue</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="PlayerSprites\femalewizard.png">
+    <Compile Include="CharacterSprites\femalewizard.png">
       <Name>femalewizard</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="PlayerSprites\malefighter.png">
+    <Compile Include="CharacterSprites\malefighter.png">
       <Name>malefighter</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="PlayerSprites\malepriest.png">
+    <Compile Include="CharacterSprites\malepriest.png">
       <Name>malepriest</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="PlayerSprites\malerogue.png">
+    <Compile Include="CharacterSprites\malerogue.png">
       <Name>malerogue</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="PlayerSprites\malewizard.png">
+    <Compile Include="CharacterSprites\malewizard.png">
       <Name>malewizard</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ObjectSprites\containers.png">
+      <Name>containers</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

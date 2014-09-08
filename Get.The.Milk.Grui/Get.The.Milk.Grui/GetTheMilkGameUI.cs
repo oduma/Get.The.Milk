@@ -15,6 +15,7 @@ using GetTheMilk.Factories;
 using GetTheMilk.UI.ViewModels;
 using TomShane.Neoforce.Controls;
 using GetTheMilk.Characters;
+using Get.The.Milk.X.Library.TileEngine;
 
 namespace Get.The.Milk.Grui
 {
@@ -113,6 +114,6 @@ namespace Get.The.Milk.Grui
             base.Draw(gameTime);
         }
 
-        public X.Library.TileEngine.TileMap CurrentLevelTileMap { get; set; }
+        public TileMap CurrentLevelTileMap { get; set; }
     }
 }

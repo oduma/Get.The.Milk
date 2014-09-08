@@ -148,7 +148,7 @@ namespace Get.The.Milk.Grui.Components
 
         internal void LoadContent(Game gameRef)
         {
-            Texture2D spriteSheet = gameRef.Content.Load<Texture2D>(@"PlayerSprites\malefighter");
+            Texture2D spriteSheet = gameRef.Content.Load<Texture2D>(@"CharacterSprites\malefighter");
             Dictionary<AnimationKey, Animation> animations = new Dictionary<AnimationKey, Animation>();
 
             Animation animation = new Animation(3, 32, 32, 0, 0);

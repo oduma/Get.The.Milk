@@ -54,5 +54,12 @@ namespace GetTheMilk.Objects.Base
                                                                                                     ());
             return obj;
         }
+
+
+        public string SpriteName
+        {
+            get;
+            set;
+        }
     }
 }

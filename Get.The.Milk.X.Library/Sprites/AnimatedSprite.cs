@@ -12,64 +12,57 @@ namespace Get.The.Milk.X.Library.Sprites
     {
         #region Field Region
 
-        Dictionary<AnimationKey, Animation> animations;
-        AnimationKey currentAnimation;
-        bool isAnimating;
-
-        Texture2D texture;
-        Vector2 position;
-        Vector2 velocity;
-        float speed = 2.0f;
-
+        Dictionary<AnimationKey, Animation> _animations;
+        float _speed = 2.0f;
+        Vector2 _velocity;
         #endregion
 
         #region Property Region
 
+        public Texture2D Texture { get; set; }
+
         public AnimationKey CurrentAnimation
         {
-            get { return currentAnimation; }
-            set { currentAnimation = value; }
+            get;
+            set;
         }
 
         public bool IsAnimating
         {
-            get { return isAnimating; }
-            set { isAnimating = value; }
+            get;
+            set;
         }
 
         public int Width
         {
-            get { return animations[currentAnimation].FrameWidth; }
+            get { return _animations[CurrentAnimation].FrameWidth; }
         }
 
         public int Height
         {
-            get { return animations[currentAnimation].FrameHeight; }
+            get { return _animations[CurrentAnimation].FrameHeight; }
         }
 
         public float Speed
         {
-            get { return speed; }
-            set { speed = MathHelper.Clamp(speed, 1.0f, 16.0f); }
+            get { return _speed; }
+            set { _speed = MathHelper.Clamp(_speed, 1.0f, 16.0f); }
         }
 
         public Vector2 Position
         {
-            get { return position; }
-            set
-            {
-                position = value;
-            }
+            get;
+            set;
         }
 
         public Vector2 Velocity
         {
-            get { return velocity; }
+            get { return _velocity; }
             set
             {
-                velocity = value;
-                if (velocity != Vector2.Zero)
-                    velocity.Normalize();
+                _velocity = value;
+                if (_velocity != Vector2.Zero)
+                    _velocity.Normalize();
             }
         }
 
@@ -79,11 +72,11 @@ namespace Get.The.Milk.X.Library.Sprites
 
         public AnimatedSprite(Texture2D sprite, Dictionary<AnimationKey, Animation> animation)
         {
-            texture = sprite;
-            animations = new Dictionary<AnimationKey, Animation>();
+            Texture = sprite;
+            _animations = new Dictionary<AnimationKey, Animation>();
 
             foreach (AnimationKey key in animation.Keys)
-                animations.Add(key, (Animation)animation[key].Clone());
+                _animations.Add(key, (Animation)animation[key].Clone());
 
         }
 
@@ -93,23 +86,26 @@ namespace Get.The.Milk.X.Library.Sprites
 
         public void Update(GameTime gameTime)
         {
-            if (isAnimating)
-                animations[currentAnimation].Update(gameTime);
+            if (IsAnimating)
+                _animations[CurrentAnimation].Update(gameTime);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
         {
             spriteBatch.Draw(
-                texture,
-                position - camera.Position,
-                animations[currentAnimation].CurrentFrameRect,
+                Texture,
+                Position - camera.Position,
+                _animations[CurrentAnimation].CurrentFrameRect,
                 Color.White);
         }
 
-        public void LockToMap(TileMap tileMap)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            position.X = MathHelper.Clamp(position.X, 0, tileMap.WidthInPixels - Width);
-            position.Y = MathHelper.Clamp(position.Y, 0, tileMap.HeightInPixels - Height);
+            spriteBatch.Draw(
+                Texture,
+                Position,
+                _animations[CurrentAnimation].CurrentFrameRect,
+                Color.White);
         }
 
         #endregion
