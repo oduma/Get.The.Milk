@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
 using Get.The.Milk.UI.BaseViewModels;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Common;
@@ -22,6 +24,20 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 {
                     _allObjectTypes = value;
                     RaisePropertyChanged("AllObjectTypes");
+                }
+            }
+        }
+
+        private ObservableCollection<string> _allAvailableSprites;
+        public ObservableCollection<string> AllAvailableSprites
+        {
+            get { return _allAvailableSprites; }
+            set
+            {
+                if (value != _allAvailableSprites)
+                {
+                    _allAvailableSprites = value;
+                    RaisePropertyChanged("AllAvailableSprites");
                 }
             }
         }
@@ -59,6 +75,17 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                 Value.Interactions.Add(GenericInteractionRulesKeys.AnyCharacterResponses, 
                     CurrentInteractionsViewModel.AnyCharacterResponseInteractions.ToArray());
 
+        }
+
+        protected ObjectViewModelBase()
+        {
+            _allAvailableSprites= new ObservableCollection<string>();
+            foreach (
+                var sprite in
+                    Directory.GetFiles(@"ImageLibrary", "*.png").Select(f => Path.GetFileName(f).Replace(".png", "")))
+            {
+                _allAvailableSprites.Add(sprite);
+            }
         }
     }
 }
