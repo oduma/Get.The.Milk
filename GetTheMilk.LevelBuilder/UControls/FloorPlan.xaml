@@ -22,14 +22,28 @@
         </ItemsControl.ItemContainerStyle>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                    <Border Height="50" 
-                           Width="50" 
-                           Background="{Binding Path=OcupancyMarker}" 
+                    <Border Height="32" 
+                           Width="32" 
+                           Background="{Binding Path=OcupancyMarker}"
                            Margin="2,2,2,2"
                            Name="border"
                            >
                         <Border.ContextMenu>
                             <ContextMenu Name="contextmenu">
+                                <MenuItem Header="Change the Tile" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.AllAvailableTiles}">
+                                    <MenuItem.ItemTemplate>
+                                        <DataTemplate>
+                                            <MenuItem 
+                                                Header="{Binding Path=Index}" 
+                                                Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl,AncestorLevel=2},Path=DataContext.PlaceATile}" 
+                                                CommandParameter="{Binding .}">
+                                                <MenuItem.Icon>
+                                                    <Image Source="{Binding Path=Image}"></Image>
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                        </DataTemplate>
+                                    </MenuItem.ItemTemplate>
+                                </MenuItem> 
                                 <MenuItem Header="Mark As Objective" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.MarkAsObjective}" CommandParameter="{Binding .}"/>
                                 <MenuItem Header="Mark as Start" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.MarkAsStart}" CommandParameter="{Binding .}"/>
                                 <MenuItem Header="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.LinkToUpperText}" Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ItemsControl},Path=DataContext.LinkToUpperFloor}" CommandParameter="{Binding .}"/>
