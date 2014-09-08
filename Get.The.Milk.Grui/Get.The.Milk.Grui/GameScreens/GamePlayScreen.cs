@@ -46,8 +46,8 @@ namespace Get.The.Milk.Grui.GameScreens
 
         protected override void LoadContent()
         {
-            _playerComponent.LoadContent(GameRef);
             _xLevel.LoadContent();
+            _playerComponent.LoadContent(GameRef);
             
             GameRef.CurrentLevelTileMap = _xLevel.Map;
             _playerComponent.Camera = new Camera(GameRef.ScreenRectangle, _xLevel.Map);
@@ -72,8 +72,8 @@ namespace Get.The.Milk.Grui.GameScreens
                 null,
                 Matrix.Identity);
 
-            _playerComponent.Draw(gameTime, GameRef.SpriteBatch);
             _xLevel.Draw(gameTime, GameRef.SpriteBatch, _playerComponent.Camera);
+            _playerComponent.Draw(gameTime, GameRef.SpriteBatch);
             base.Draw(gameTime);
 
             GameRef.SpriteBatch.End();

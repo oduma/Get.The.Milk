@@ -1,5 +1,7 @@
 ﻿using Get.The.Milk.X.Library.Sprites;
+using Get.The.Milk.X.Library.TileEngine;
 using GetTheMilk.Characters.Base;
+using GetTheMilk.GameLevels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -72,7 +74,7 @@ namespace Get.The.Milk.X.Library.Characters
             animation = new Animation(3, 32, 32, 0, 96);
             animations.Add(AnimationKey.Up, animation);
 
-            Sprite = new AnimatedSprite(spriteSheet, animations);
+            Sprite = new AnimatedSprite(spriteSheet, animations, Engine.CellToPoint(Character.CellNumber, (int)((Level)Character.StorageContainer.Owner).SizeOfLevel));
 
         }
         #endregion

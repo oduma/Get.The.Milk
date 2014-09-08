@@ -24,6 +24,7 @@ namespace Get.The.Milk.X.Library.TileEngine
         {
             get { return (int)Map.Parent.SizeOfLevel * Engine.TileHeight; }
         }
+
         public  Map Map{get;set;}
 
 

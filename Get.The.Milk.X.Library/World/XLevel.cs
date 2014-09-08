@@ -14,6 +14,7 @@ namespace Get.The.Milk.X.Library.World
     public class XLevel
     {
         private Game _game;
+        Engine engine = new Engine(32, 32);
         #region Property Region
 
         public TileMap Map

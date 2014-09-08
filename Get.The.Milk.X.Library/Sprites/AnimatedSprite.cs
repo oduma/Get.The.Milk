@@ -80,6 +80,14 @@ namespace Get.The.Milk.X.Library.Sprites
 
         }
 
+        public AnimatedSprite(Texture2D sprite,Dictionary<AnimationKey,Animation> animation, Point tile)
+            : this(sprite, animation)
+        {
+            this.Position = new Vector2(
+                tile.X * Engine.TileWidth,
+                tile.Y * Engine.TileHeight);
+        }
+
         #endregion
 
         #region Method Region
