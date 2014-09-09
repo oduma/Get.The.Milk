@@ -4,7 +4,6 @@ using Get.The.Milk.UI.BaseViewModels;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters.Base;
 using GetTheMilk.Objects.Base;
-using GetTheMilk.Utils;
 
 namespace GetTheMilk.LevelBuilder.ViewModels
 {

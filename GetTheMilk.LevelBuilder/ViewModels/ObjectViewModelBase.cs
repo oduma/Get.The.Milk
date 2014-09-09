@@ -42,6 +42,19 @@ namespace GetTheMilk.LevelBuilder.ViewModels
             }
         }
 
+        public string SpriteName
+        {
+            get { return Value.SpriteName; }
+            set
+            {
+                if (value != Value.SpriteName)
+                {
+                    Value.SpriteName = value;
+                    RaisePropertyChanged("SpriteName");
+                }
+            }
+        }
+
         private InteractionsViewModel _currentInteractionsViewModel;
         public InteractionsViewModel CurrentInteractionsViewModel
         {

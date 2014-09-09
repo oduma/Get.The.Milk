@@ -55,7 +55,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                             Description=Value.Name.Description
                         },
                     ObjectTypeId = Value.ObjectTypeId,
-                    Interactions=Value.Interactions
+                    Interactions=Value.Interactions,
+                    SpriteName=Value.SpriteName
                 },CurrentInteractionsViewModel.AllAvailableInteractions);
         }
     }

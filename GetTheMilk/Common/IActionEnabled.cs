@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace GetTheMilk.Common
 {
-    public interface IActionEnabled
+    public interface IActionEnabled:IVisible
     {
 
         PerformActionResult PerformAction(BaseActionTemplate actionTemplate);
