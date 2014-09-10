@@ -10,44 +10,51 @@ namespace Get.The.Milk.X.Library
     /// </summary>
     public class InputHandler : Microsoft.Xna.Framework.GameComponent
     {
-        #region Keyboard Field Region
-
-        static KeyboardState keyboardState;
-        static KeyboardState lastKeyboardState;
-
-        #endregion
-
-        #region Game Pad Field Region
-
-        static GamePadState[] gamePadStates;
-        static GamePadState[] lastGamePadStates;
-
-        #endregion
-
         #region Keyboard Property Region
 
         public static KeyboardState KeyboardState
         {
-            get { return keyboardState; }
+            get;
+            private set;
         }
 
         public static KeyboardState LastKeyboardState
         {
-            get { return lastKeyboardState; }
+            get;
+            private set;
         }
 
         #endregion
+
+        #region Mouse Property Region
+
+        public static MouseState MouseState
+        {
+            get;
+            private set;
+        }
+
+        public static MouseState LastMouseState
+        {
+            get;
+            private set;
+        }
+
+        #endregion
+
 
         #region Game Pad Property Region
 
         public static GamePadState[] GamePadStates
         {
-            get { return gamePadStates; }
+            get;
+            private set;
         }
 
         public static GamePadState[] LastGamePadStates
         {
-            get { return lastGamePadStates; }
+            get;
+            private set;
         }
 
         #endregion
@@ -57,12 +64,13 @@ namespace Get.The.Milk.X.Library
         public InputHandler(Game game)
             : base(game)
         {
-            keyboardState = Keyboard.GetState();
+            KeyboardState = Keyboard.GetState();
 
-            gamePadStates = new GamePadState[Enum.GetValues(typeof(PlayerIndex)).Length];
+            GamePadStates = new GamePadState[Enum.GetValues(typeof(PlayerIndex)).Length];
 
             foreach (PlayerIndex index in Enum.GetValues(typeof(PlayerIndex)))
-                gamePadStates[(int)index] = GamePad.GetState(index);
+                GamePadStates[(int)index] = GamePad.GetState(index);
+            MouseState = Mouse.GetState();
         }
 
         #endregion
@@ -77,13 +85,14 @@ namespace Get.The.Milk.X.Library
 
         public override void Update(GameTime gameTime)
         {
-            lastKeyboardState = keyboardState;
-            keyboardState = Keyboard.GetState();
+            LastKeyboardState = KeyboardState;
+            KeyboardState = Keyboard.GetState();
 
-            lastGamePadStates = (GamePadState[])gamePadStates.Clone();
+            LastGamePadStates = (GamePadState[])GamePadStates.Clone();
             foreach (PlayerIndex index in Enum.GetValues(typeof(PlayerIndex)))
-                gamePadStates[(int)index] = GamePad.GetState(index);
-
+                GamePadStates[(int)index] = GamePad.GetState(index);
+            LastMouseState = MouseState;
+            MouseState = Mouse.GetState();
             base.Update(gameTime);
         }
 
@@ -93,7 +102,8 @@ namespace Get.The.Milk.X.Library
 
         public static void Flush()
         {
-            lastKeyboardState = keyboardState;
+            LastKeyboardState = KeyboardState;
+            LastMouseState = MouseState;
         }
 
         #endregion
@@ -102,40 +112,48 @@ namespace Get.The.Milk.X.Library
 
         public static bool KeyReleased(Keys key)
         {
-            return keyboardState.IsKeyUp(key) &&
-                lastKeyboardState.IsKeyDown(key);
+            return KeyboardState.IsKeyUp(key) &&
+                LastKeyboardState.IsKeyDown(key);
         }
 
         public static bool KeyPressed(Keys key)
         {
-            return keyboardState.IsKeyDown(key) &&
-                lastKeyboardState.IsKeyUp(key);
+            return KeyboardState.IsKeyDown(key) &&
+                LastKeyboardState.IsKeyUp(key);
         }
 
         public static bool KeyDown(Keys key)
         {
-            return keyboardState.IsKeyDown(key);
+            return KeyboardState.IsKeyDown(key);
         }
 
         #endregion
 
+        #region Mouse Region
+
+        public static bool MouseClick()
+        {
+            return MouseState.LeftButton==ButtonState.Pressed;
+        }
+
+        #endregion
         #region Game Pad Region
 
         public static bool ButtonReleased(Buttons button, PlayerIndex index)
         {
-            return gamePadStates[(int)index].IsButtonUp(button) &&
-                lastGamePadStates[(int)index].IsButtonDown(button);
+            return GamePadStates[(int)index].IsButtonUp(button) &&
+                LastGamePadStates[(int)index].IsButtonDown(button);
         }
 
         public static bool ButtonPressed(Buttons button, PlayerIndex index)
         {
-            return gamePadStates[(int)index].IsButtonDown(button) &&
-                lastGamePadStates[(int)index].IsButtonUp(button);
+            return GamePadStates[(int)index].IsButtonDown(button) &&
+                LastGamePadStates[(int)index].IsButtonUp(button);
         }
 
         public static bool ButtonDown(Buttons button, PlayerIndex index)
         {
-            return gamePadStates[(int)index].IsButtonDown(button);
+            return GamePadStates[(int)index].IsButtonDown(button);
         }
 
         #endregion

@@ -75,5 +75,13 @@ namespace Get.The.Milk.X.Library.TileEngine
         {
             return new Vector2((float)(cellNumber % (int)Map.Parent.SizeOfLevel), (float)(cellNumber / (int)Map.Parent.SizeOfLevel));
         }
+
+        internal int GetCellFromPoint(Point point)
+        {
+            var row = point.Y / Engine.TileHeight;
+            var col = point.X / Engine.TileWidth;
+
+            return row * Map.Size + col;
+        }
     }
 }

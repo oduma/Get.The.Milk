@@ -90,6 +90,7 @@ namespace Get.The.Milk.X.Library.Sprites
 
             this.position = Vector2.Zero;
             this.velocity = Vector2.Zero;
+            
         }
 
         public BaseSprite(Texture2D image, Rectangle? sourceRectangle, Point tile)

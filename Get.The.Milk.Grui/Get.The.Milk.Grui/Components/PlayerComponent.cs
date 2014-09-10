@@ -1,6 +1,7 @@
 ﻿using Get.The.Milk.X.Library;
 using Get.The.Milk.X.Library.Sprites;
 using Get.The.Milk.X.Library.TileEngine;
+using Get.The.Milk.X.Library.World;
 using GetTheMilk.Actions.ActionPerformers.Base;
 using GetTheMilk.Actions.ActionTemplates;
 using GetTheMilk.Characters;
@@ -29,17 +30,19 @@ namespace Get.The.Milk.Grui.Components
         AnimatedSprite _sprite;
         private RpgGameCore _rpgGameCore;
         MovementActionTemplate _teleport;
+        private XLevel _xLevel;
 
         #endregion
 
         #region Constructor Region
 
-        public PlayerComponent(Game game,RpgGameCore rpgGameCore)
+        public PlayerComponent(Game game,RpgGameCore rpgGameCore,XLevel xLevel)
         {
             GameRef = (GetTheMilkGameUI)game;
             Camera = new Camera(GameRef.ScreenRectangle,GameRef.CurrentLevelTileMap);
             _rpgGameCore = rpgGameCore;
             _teleport=_rpgGameCore.Player.CreateNewInstanceOfAction<MovementActionTemplate>("Teleport");
+            _xLevel = xLevel;
 
         }
 
@@ -101,7 +104,9 @@ namespace Get.The.Milk.Grui.Components
                     if (newCellNumber != _rpgGameCore.Player.CellNumber)
                     {
                         _teleport.TargetCell = newCellNumber;
-                        if(_rpgGameCore.Player.PerformAction(_teleport).ResultType==ActionResultType.Ok)
+                        var actionResult=_rpgGameCore.Player.PerformAction(_teleport);
+                        MarkReachable((MovementActionTemplateExtraData)actionResult.ExtraData);
+                        if(actionResult.ResultType==ActionResultType.Ok)
                         {
                             _sprite.Position = targetPosition;
                         }
@@ -118,7 +123,7 @@ namespace Get.The.Milk.Grui.Components
                 _sprite.IsAnimating = false;
             }
             if (InputHandler.KeyReleased(Keys.F) ||
-    InputHandler.ButtonReleased(Buttons.RightStick, PlayerIndex.One))
+                InputHandler.ButtonReleased(Buttons.RightStick, PlayerIndex.One))
             {
                 Camera.ToggleCameraMode();
                 if (Camera.CameraMode == CameraMode.Follow)
@@ -133,8 +138,24 @@ namespace Get.The.Milk.Grui.Components
                     Camera.LockToSprite(_sprite);
                 }
             }
+        }
 
-
+        private void MarkReachable(MovementActionTemplateExtraData extraData)
+        {
+            foreach (var xChar in _xLevel.Characters)
+                xChar.Reachable = false;
+            foreach (var xChar in _xLevel.Characters.Where(x=>extraData.CharactersBlocking.Contains(x.Character) || extraData.CharactersInRange.Contains(x.Character)))
+            {
+                xChar.Reachable = true;
+            }
+            foreach (var xObj in _xLevel.Objects)
+                xObj.Reachable = false;
+            foreach (var xObj in _xLevel.Objects.Where(x => extraData.ObjectsBlocking.Contains(x.Object) 
+                || extraData.ObjectsInCell.Contains(x.Object)
+                || extraData.ObjectsInRange.Contains(x.Object)))
+            {
+                xObj.Reachable = true;
+            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

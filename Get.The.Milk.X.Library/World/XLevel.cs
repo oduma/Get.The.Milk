@@ -1,6 +1,8 @@
 ﻿using Get.The.Milk.X.Library.Characters;
 using Get.The.Milk.X.Library.Objects;
 using Get.The.Milk.X.Library.TileEngine;
+using GetTheMilk.Actions.ActionTemplates;
+using GetTheMilk.Common;
 using GetTheMilk.GameLevels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,8 +15,10 @@ namespace Get.The.Milk.X.Library.World
 {
     public class XLevel
     {
+        public event EventHandler<PointAndClickEventArgs> PointAndClick;
         private Game _game;
         Engine engine = new Engine(32, 32);
+        private Rectangle? _sourceRectangle;
         #region Property Region
 
         public TileMap Map
@@ -41,8 +45,9 @@ namespace Get.The.Milk.X.Library.World
         {
             Level = level;
             _game = game;
+            _sourceRectangle = sourceRectangle;
             Characters = Level.Characters.Select(c => new XCharacter(c, _game)).ToList();
-            Objects = Level.Inventory.Select(o => new XObject(o, _game, sourceRectangle)).ToList();
+            Objects = Level.Inventory.Select(o => new XObject(o, _game, _sourceRectangle)).ToList();
         }
 
         #endregion
@@ -51,11 +56,45 @@ namespace Get.The.Milk.X.Library.World
 
         public void Update(GameTime gameTime)
         {
+            ReEvaluateLevel();
+            if(InputHandler.MouseClick())
+            {
+                var pointAndClickActions = GetPointAndClickActions(InputHandler.MouseState.X, InputHandler.MouseState.Y);
+                if(pointAndClickActions!=null && PointAndClick != null)
+                    PointAndClick(this, new PointAndClickEventArgs(pointAndClickActions,
+                        new Point(InputHandler.MouseState.X, InputHandler.MouseState.Y)));
+            }
             foreach (var character in Characters)
                 character.Update(gameTime);
 
             foreach (var xObj in Objects)
                 xObj.Update(gameTime);
+        }
+
+        private IEnumerable<BaseActionTemplate> GetPointAndClickActions(int x, int y)
+        {
+            if ((x >= 0 && y <= Map.WidthInPixels) && (y >= 0 && y <= Map.HeightInPixels))
+            {
+                var cellNumber = Map.GetCellFromPoint(new Point(x, y));
+                foreach (var xChar in Characters.Where(xc => xc.Reachable && xc.Character.CellNumber == cellNumber))
+                {
+                    if (Level.Player.Interactions.ContainsKey(xChar.Character.Name.Main))
+                        foreach (var act in Level.Player.Interactions[xChar.Character.Name.Main])
+                        {
+                            if (act.Action.StartingAction && Level.Player.CanPerformAction(act.Action))
+                                yield return act.Action;
+                        }
+                }
+                foreach (var xObj in Objects.Where(xo => xo.Reachable && xo.Object.CellNumber == cellNumber))
+                {
+                    if (Level.Player.Interactions.ContainsKey(xObj.Object.Name.Main))
+                        foreach (var act in Level.Player.Interactions[xObj.Object.Name.Main])
+                        {
+                            if (act.Action.StartingAction && Level.Player.CanPerformAction(act.Action))
+                                yield return act.Action;
+                        }
+                }
+            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
@@ -74,6 +113,7 @@ namespace Get.The.Milk.X.Library.World
 
         public void LoadContent()
         {
+
             var tilesetName = @"Tilesets\" + ((string.IsNullOrEmpty(Level.CurrentMap.Tileset))
                 ? "tileset1" : Level.CurrentMap.Tileset);
 
@@ -88,6 +128,37 @@ namespace Get.The.Milk.X.Library.World
             foreach (var xObj in Objects)
                 xObj.LoadContent();
 
+        }
+
+        private void ReEvaluateLevel()
+        {
+            if(Characters.Count!=Level.Characters.Count)
+            {
+                foreach( var xChar in Characters.Where(x=>!Level.Characters.Contains(x.Character)))
+                {
+                    Characters.Remove(xChar);
+                }
+                foreach (var character in Level.Characters.Where(c => !Characters.Any(x=>x.Character==c)))
+                {
+                    var xChar= new XCharacter(character,_game);
+                    xChar.LoadContent();
+                    Characters.Add(xChar);
+                }
+            }
+            if(Objects.Count != Level.Inventory.Count)
+            {
+                var objectsGone=Objects.Where(x=>!Level.Inventory.Contains(x.Object)).ToList();
+                foreach( var xObj in objectsGone)
+                {
+                    Objects.Remove(xObj);
+                }
+                foreach (var obj in Level.Inventory.Where(c => !Objects.Any(x=>x.Object==c)))
+                {
+                    var xObj= new XObject(obj,_game,_sourceRectangle);
+                    xObj.LoadContent();
+                    Objects.Add(xObj);
+                }
+            }
         }
     }
 }

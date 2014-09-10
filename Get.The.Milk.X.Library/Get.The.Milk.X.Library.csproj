@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Characters\XCharacter.cs" />
+    <Compile Include="Controls\ActionLinkLabel.cs" />
+    <Compile Include="Controls\ActionSelectedEventArgs.cs" />
     <Compile Include="Sprites\AnimatedSprite.cs" />
     <Compile Include="Sprites\Animation.cs" />
     <Compile Include="Sprites\BaseSprite.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="TileEngine\ExtensionMethods.cs" />
     <Compile Include="TileEngine\TileMap.cs" />
     <Compile Include="TileEngine\Tileset.cs" />
+    <Compile Include="World\PointAndClickEventArgs.cs" />
     <Compile Include="World\XLevel.cs" />
   </ItemGroup>
   <ItemGroup>

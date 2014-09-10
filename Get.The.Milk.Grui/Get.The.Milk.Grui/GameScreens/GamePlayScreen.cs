@@ -1,5 +1,6 @@
 ﻿using Get.The.Milk.Grui.Components;
 using Get.The.Milk.X.Library;
+using Get.The.Milk.X.Library.Controls;
 using Get.The.Milk.X.Library.Sprites;
 using Get.The.Milk.X.Library.TileEngine;
 using Get.The.Milk.X.Library.World;
@@ -56,6 +57,10 @@ namespace Get.The.Milk.Grui.GameScreens
 
         public override void Update(GameTime gameTime)
         {
+            var displayTime = DateTime.Now.Subtract(_startDisplayActionTime);
+            if (displayTime.Seconds > 2)
+                ControlManager.Clear();
+            ControlManager.Update(gameTime, PlayerIndex.One);
             _playerComponent.Update(gameTime);
             _xLevel.Update(gameTime);
             base.Update(gameTime);
@@ -74,6 +79,8 @@ namespace Get.The.Milk.Grui.GameScreens
 
             _xLevel.Draw(gameTime, GameRef.SpriteBatch, _playerComponent.Camera);
             _playerComponent.Draw(gameTime, GameRef.SpriteBatch);
+            ControlManager.Draw(GameRef.SpriteBatch);
+
             base.Draw(gameTime);
 
             GameRef.SpriteBatch.End();
@@ -82,6 +89,7 @@ namespace Get.The.Milk.Grui.GameScreens
         #endregion
 
         private RpgGameCore _rpgGameCore;
+        private DateTime _startDisplayActionTime;
         public RpgGameCore RpgGameCore 
         { 
             get 
@@ -91,9 +99,30 @@ namespace Get.The.Milk.Grui.GameScreens
             set 
             { 
                 _rpgGameCore = value;
-                _playerComponent = new PlayerComponent(GameRef,_rpgGameCore);
                 _xLevel = new XLevel(GameRef, RpgGameCore.CurrentLevel, GameRef.ScreenRectangle);
+                _xLevel.PointAndClick -= _xLevel_PointAndClick;
+                _xLevel.PointAndClick += _xLevel_PointAndClick;
+                _playerComponent = new PlayerComponent(GameRef, _rpgGameCore,_xLevel);
             }
         }
+
+        void _xLevel_PointAndClick(object sender, PointAndClickEventArgs e)
+        {
+            if (e.Actions.Any())
+                _startDisplayActionTime = DateTime.Now;
+            foreach(var action in e.Actions)
+            {
+                var linkLabel = new Get.The.Milk.X.Library.Controls.ActionLinkLabel { Position = new Vector2(e.ClickSource.X, e.ClickSource.Y), Value = action.ToString(), Color = Color.Black,AssociatedAction=action,Size=ControlManager.SpriteFont.MeasureString(action.ToString()) };
+                linkLabel.OnActionSelected += linkLabel_OnActionSelected;
+                ControlManager.Add(linkLabel);
+            }
+
+        }
+
+        void linkLabel_OnActionSelected(object sender, ActionSelectedEventArgs e)
+        {
+            RpgGameCore.Player.PerformAction(e.Action);
+        }
+
     }
 }

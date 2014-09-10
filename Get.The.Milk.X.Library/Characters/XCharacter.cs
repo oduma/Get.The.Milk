@@ -78,5 +78,7 @@ namespace Get.The.Milk.X.Library.Characters
 
         }
         #endregion
+
+        public bool Reachable { get; set; }
     }
 }

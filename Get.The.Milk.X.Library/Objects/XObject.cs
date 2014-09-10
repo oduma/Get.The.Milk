@@ -54,6 +54,7 @@ namespace Get.The.Milk.X.Library.Objects
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+
             Sprite.Draw(gameTime, spriteBatch);
         }
 
@@ -76,10 +77,13 @@ namespace Get.The.Milk.X.Library.Objects
             animation = new Animation(3, 32, 32, 0, 96);
             animations.Add(AnimationKey.Up, animation);
 
-            Sprite = new BaseSprite(spriteSheet,_sourceRectangle,Engine.CellToPoint(Object.CellNumber,(int)((Level)Object.StorageContainer.Owner).SizeOfLevel));
-
+            Sprite = new BaseSprite(spriteSheet,
+                _sourceRectangle,
+                Engine.CellToPoint(Object.CellNumber,(int)((Level)Object.StorageContainer.Owner).SizeOfLevel));
         }
 
         #endregion
+
+        public bool Reachable { get; set; }
     }
 }
