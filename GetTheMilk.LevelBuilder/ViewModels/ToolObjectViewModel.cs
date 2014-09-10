@@ -53,7 +53,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                         },
                     ObjectTypeId = ((Tool)Value).ObjectTypeId,
                     SellPrice = ((Tool)Value).SellPrice,
-                    Interactions=Value.Interactions
+                    Interactions=Value.Interactions,
+                    SpriteName=Value.SpriteName
                 }, CurrentInteractionsViewModel.AllAvailableInteractions);
         }
     }

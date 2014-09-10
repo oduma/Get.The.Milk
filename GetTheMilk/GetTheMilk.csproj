@@ -98,6 +98,7 @@
     <Compile Include="Common\IInventoryOwner.cs" />
     <Compile Include="Common\IPositionable.cs" />
     <Compile Include="Common\BasePackage.cs" />
+    <Compile Include="Common\IVisible.cs" />
     <Compile Include="Common\Noun.cs" />
     <Compile Include="Common\ObjectCategory.cs" />
     <Compile Include="Common\Verb.cs" />

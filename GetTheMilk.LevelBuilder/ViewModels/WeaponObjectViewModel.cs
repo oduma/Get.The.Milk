@@ -62,7 +62,8 @@ namespace GetTheMilk.LevelBuilder.ViewModels
                                                   ObjectTypeId = ((Weapon) Value).ObjectTypeId,
                                                   SellPrice = ((Weapon) Value).SellPrice,
                                                   WeaponTypes = ((Weapon) Value).WeaponTypes,
-                                                  Interactions=Value.Interactions
+                                                  Interactions=Value.Interactions,
+                                                  SpriteName=Value.SpriteName
                                               }, CurrentInteractionsViewModel.AllAvailableInteractions);
         }
 
