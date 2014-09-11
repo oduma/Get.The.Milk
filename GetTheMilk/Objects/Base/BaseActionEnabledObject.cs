@@ -95,5 +95,11 @@ namespace GetTheMilk.Objects.Base
                 _actions.Add(baseActionTemplate.Name.UniqueId, baseActionTemplate);
 
         }
+
+        public string SpriteName
+        {
+            get;
+            set;
+        }
     }
 }

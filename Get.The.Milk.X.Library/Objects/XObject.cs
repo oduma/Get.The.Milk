@@ -17,7 +17,7 @@ namespace Get.The.Milk.X.Library.Objects
         private Rectangle? _sourceRectangle;
         #region Property Region
 
-        public INonCharacterObject Object
+        public NonCharacterObject Object
         {
             get;
             private set;
@@ -33,7 +33,7 @@ namespace Get.The.Milk.X.Library.Objects
 
         #region Constructor Region
 
-        public XObject(INonCharacterObject o,Game game,Rectangle? sourceRectangle)
+        public XObject(NonCharacterObject o,Game game,Rectangle? sourceRectangle)
         {
             Object = o;
             _game = game;
@@ -85,5 +85,7 @@ namespace Get.The.Milk.X.Library.Objects
         #endregion
 
         public bool Reachable { get; set; }
+
+        public List<GetTheMilk.Actions.ActionTemplates.BaseActionTemplate> AvailableActions { get; set; }
     }
 }

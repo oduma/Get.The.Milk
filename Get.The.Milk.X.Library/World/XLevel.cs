@@ -60,7 +60,7 @@ namespace Get.The.Milk.X.Library.World
             if(InputHandler.MouseClick())
             {
                 var pointAndClickActions = GetPointAndClickActions(InputHandler.MouseState.X, InputHandler.MouseState.Y);
-                if(pointAndClickActions!=null && PointAndClick != null)
+                if(PointAndClick != null)
                     PointAndClick(this, new PointAndClickEventArgs(pointAndClickActions,
                         new Point(InputHandler.MouseState.X, InputHandler.MouseState.Y)));
             }
@@ -71,28 +71,26 @@ namespace Get.The.Milk.X.Library.World
                 xObj.Update(gameTime);
         }
 
-        private IEnumerable<BaseActionTemplate> GetPointAndClickActions(int x, int y)
+        private IEnumerable<object> GetPointAndClickActions(int x, int y)
         {
             if ((x >= 0 && y <= Map.WidthInPixels) && (y >= 0 && y <= Map.HeightInPixels))
             {
                 var cellNumber = Map.GetCellFromPoint(new Point(x, y));
                 foreach (var xChar in Characters.Where(xc => xc.Reachable && xc.Character.CellNumber == cellNumber))
                 {
-                    if (Level.Player.Interactions.ContainsKey(xChar.Character.Name.Main))
-                        foreach (var act in Level.Player.Interactions[xChar.Character.Name.Main])
-                        {
-                            if (act.Action.StartingAction && Level.Player.CanPerformAction(act.Action))
-                                yield return act.Action;
-                        }
+                    if (!xChar.AvailableActions.Any())
+                        yield return xChar.Character.Name.Description;
+                    else
+                    foreach (var act in xChar.AvailableActions)
+                        yield return act;
+                    
                 }
                 foreach (var xObj in Objects.Where(xo => xo.Reachable && xo.Object.CellNumber == cellNumber))
                 {
-                    if (Level.Player.Interactions.ContainsKey(xObj.Object.Name.Main))
-                        foreach (var act in Level.Player.Interactions[xObj.Object.Name.Main])
-                        {
-                            if (act.Action.StartingAction && Level.Player.CanPerformAction(act.Action))
-                                yield return act.Action;
-                        }
+                    if (!xObj.AvailableActions.Any())
+                        yield return xObj.Object.Name.Description;
+                    foreach (var act in xObj.AvailableActions)
+                        yield return act;
                 }
             }
         }

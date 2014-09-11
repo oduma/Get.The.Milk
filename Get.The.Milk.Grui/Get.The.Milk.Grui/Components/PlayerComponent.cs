@@ -1,4 +1,5 @@
-﻿using Get.The.Milk.X.Library;
+﻿using Get.The.Milk.Grui.GameScreens;
+using Get.The.Milk.X.Library;
 using Get.The.Milk.X.Library.Sprites;
 using Get.The.Milk.X.Library.TileEngine;
 using Get.The.Milk.X.Library.World;
@@ -18,7 +19,7 @@ namespace Get.The.Milk.Grui.Components
 {
     public class PlayerComponent
     {
-
+        public event EventHandler<RequestScreenChangeEventArgs> RequestScreenChange;
         #region Property Region
 
         public Camera Camera
@@ -31,6 +32,7 @@ namespace Get.The.Milk.Grui.Components
         private RpgGameCore _rpgGameCore;
         MovementActionTemplate _teleport;
         private XLevel _xLevel;
+        private ExposeInventoryActionTemplate _selfInventory;
 
         #endregion
 
@@ -43,6 +45,7 @@ namespace Get.The.Milk.Grui.Components
             _rpgGameCore = rpgGameCore;
             _teleport=_rpgGameCore.Player.CreateNewInstanceOfAction<MovementActionTemplate>("Teleport");
             _xLevel = xLevel;
+            _selfInventory = _rpgGameCore.Player.CreateNewInstanceOfAction<ExposeInventoryActionTemplate>("ExposeInventory");
 
         }
 
@@ -87,7 +90,17 @@ namespace Get.The.Milk.Grui.Components
                 direction = Direction.East;
                 motion.X = 1;
             }
-
+            if(InputHandler.KeyDown(Keys.I))
+            {
+                motion = Vector2.Zero;
+                var actionResult = _rpgGameCore.Player.PerformAction(_selfInventory);
+                if(actionResult.ResultType==ActionResultType.Ok)
+                {
+                    GameRef.InventoryScreen.InventoryExtraData = (InventoryExtraData)actionResult.ExtraData;
+                    if (RequestScreenChange != null)
+                        RequestScreenChange(this, new RequestScreenChangeEventArgs(GameRef.InventoryScreen));
+                }
+            }
             if (motion != Vector2.Zero)
             {
 
@@ -146,6 +159,7 @@ namespace Get.The.Milk.Grui.Components
                 xChar.Reachable = false;
             foreach (var xChar in _xLevel.Characters.Where(x=>extraData.CharactersBlocking.Contains(x.Character) || extraData.CharactersInRange.Contains(x.Character)))
             {
+                xChar.AvailableActions = extraData.AvailableActionTemplates.Where(a => a.TargetCharacter == xChar.Character).ToList();
                 xChar.Reachable = true;
             }
             foreach (var xObj in _xLevel.Objects)
@@ -154,6 +168,7 @@ namespace Get.The.Milk.Grui.Components
                 || extraData.ObjectsInCell.Contains(x.Object)
                 || extraData.ObjectsInRange.Contains(x.Object)))
             {
+                xObj.AvailableActions = extraData.AvailableActionTemplates.Where(a => a.TargetObject == xObj.Object || a.ActiveObject == xObj.Object).ToList();
                 xObj.Reachable = true;
             }
         }

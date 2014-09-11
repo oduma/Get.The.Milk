@@ -103,18 +103,33 @@ namespace Get.The.Milk.Grui.GameScreens
                 _xLevel.PointAndClick -= _xLevel_PointAndClick;
                 _xLevel.PointAndClick += _xLevel_PointAndClick;
                 _playerComponent = new PlayerComponent(GameRef, _rpgGameCore,_xLevel);
+                _playerComponent.RequestScreenChange += _playerComponent_RequestScreenChange;
             }
+        }
+
+        void _playerComponent_RequestScreenChange(object sender, RequestScreenChangeEventArgs e)
+        {
+            StateManager.PopState();
+            StateManager.PushState(e.TargetScreen);
         }
 
         void _xLevel_PointAndClick(object sender, PointAndClickEventArgs e)
         {
-            if (e.Actions.Any())
+            if (e.Actions.Any() || e.Messages.Any())
                 _startDisplayActionTime = DateTime.Now;
+            var startingPosition = new Vector2(e.ClickSource.X, e.ClickSource.Y);
             foreach(var action in e.Actions)
             {
-                var linkLabel = new Get.The.Milk.X.Library.Controls.ActionLinkLabel { Position = new Vector2(e.ClickSource.X, e.ClickSource.Y), Value = action.ToString(), Color = Color.Black,AssociatedAction=action,Size=ControlManager.SpriteFont.MeasureString(action.ToString()) };
+                var linkLabel = new Get.The.Milk.X.Library.Controls.ActionLinkLabel { Position = startingPosition, Value = action.ToString(), Color = Color.Black,AssociatedAction=action,Size=ControlManager.SpriteFont.MeasureString(action.ToString()) };
                 linkLabel.OnActionSelected += linkLabel_OnActionSelected;
                 ControlManager.Add(linkLabel);
+                startingPosition.Y += linkLabel.Size.Y;
+            }
+            foreach (var message in e.Messages)
+            {
+                var label = new Get.The.Milk.X.Library.Controls.Label { Position = new Vector2(e.ClickSource.X, e.ClickSource.Y), Value = message.ToString(), Color = Color.Black, Size = ControlManager.SpriteFont.MeasureString(message) };
+                ControlManager.Add(label);
+                startingPosition.Y += label.Size.Y;
             }
 
         }

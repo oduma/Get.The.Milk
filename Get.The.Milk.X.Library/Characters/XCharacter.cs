@@ -80,5 +80,7 @@ namespace Get.The.Milk.X.Library.Characters
         #endregion
 
         public bool Reachable { get; set; }
+
+        public List<GetTheMilk.Actions.ActionTemplates.BaseActionTemplate> AvailableActions { get; set; }
     }
 }

@@ -11,11 +11,14 @@ namespace Get.The.Milk.X.Library.World
     {
         public IEnumerable<BaseActionTemplate> Actions { get; private set; }
 
+        public IEnumerable<string> Messages { get; private set; }
+
         public Point ClickSource { get; private set; }
 
-        public PointAndClickEventArgs(IEnumerable<BaseActionTemplate> actions, Point clickSource)
+        public PointAndClickEventArgs(IEnumerable<object>actionsAndMessages, Point clickSource)
         {
-            Actions = actions;
+            Actions = actionsAndMessages.Where(o=>o.GetType()!=typeof(string)).Select(o=>(BaseActionTemplate)o);
+            Messages = actionsAndMessages.Where(o => o.GetType() == typeof(string)).Select(o => (string)o);
             ClickSource = clickSource;
         }
     }
