@@ -12,13 +12,13 @@ namespace Get.The.Milk.X.Library.TileEngine
         public static Vector2 LockToMap(this Vector2 position,TileMap tileMap,int width, int height)
         {
             position.X = MathHelper.Clamp(position.X, 0, tileMap.WidthInPixels - width);
-            position.Y = MathHelper.Clamp(position.Y, 0, tileMap.HeightInPixels - height);
+            position.Y = MathHelper.Clamp(position.Y, tileMap.VerticalIndent, tileMap.HeightInPixels + tileMap.VerticalIndent - height);
             return position;
         }
 
-        public static int ConvertToCellNumber(this Vector2 position, int mapSize, int width, int height,Direction direction)
+        public static int ConvertToCellNumber(this Vector2 position, int mapSize, int width, int height,Direction direction, int verticalIndent)
         {
-            var pos = new Vector2(position.X, position.Y);
+            var pos = new Vector2(position.X, position.Y-verticalIndent);
             switch(direction)
             {
                 case Direction.East:

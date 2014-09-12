@@ -46,6 +46,7 @@ namespace Get.The.Milk.Grui
         const int ScreenHeight = 600;
 
         public readonly Rectangle ScreenRectangle;
+        private const int VerticalIndent=36;
 
         #endregion
 
@@ -75,7 +76,7 @@ namespace Get.The.Milk.Grui
 
             TitleScreen = new TitleScreen(this, stateManager,new TitleViewModel());
             StartMenuScreen = new StartMenuScreen(this, stateManager,new StartMenuViewModel());
-            GamePlayScreen = new GamePlayScreen(this, stateManager);
+            GamePlayScreen = new GamePlayScreen(this, stateManager,VerticalIndent);
             CharacterGeneratorScreen = new CharacterGeneratorScreen(this, stateManager, new Player());
             InventoryScreen = new InventoryScreen(this,stateManager);
 

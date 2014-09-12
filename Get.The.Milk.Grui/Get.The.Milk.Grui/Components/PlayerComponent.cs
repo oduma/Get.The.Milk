@@ -1,5 +1,6 @@
 ﻿using Get.The.Milk.Grui.GameScreens;
 using Get.The.Milk.X.Library;
+using Get.The.Milk.X.Library.Controls;
 using Get.The.Milk.X.Library.Sprites;
 using Get.The.Milk.X.Library.TileEngine;
 using Get.The.Milk.X.Library.World;
@@ -28,7 +29,7 @@ namespace Get.The.Milk.Grui.Components
             set;
         }
 
-        AnimatedSprite _sprite;
+        public AnimatedSprite Sprite{get; private set;}
         private RpgGameCore _rpgGameCore;
         MovementActionTemplate _teleport;
         private XLevel _xLevel;
@@ -56,7 +57,7 @@ namespace Get.The.Milk.Grui.Components
         public void Update(GameTime gameTime)
         {
             Camera.Update(gameTime);
-            _sprite.Update(gameTime);
+            Sprite.Update(gameTime);
             var direction = Direction.None;
 
             Vector2 motion = new Vector2();
@@ -64,14 +65,14 @@ namespace Get.The.Milk.Grui.Components
             if (InputHandler.KeyDown(Keys.W) ||
                 InputHandler.ButtonDown(Buttons.LeftThumbstickUp, PlayerIndex.One))
             {
-                _sprite.CurrentAnimation = AnimationKey.Up;
+                Sprite.CurrentAnimation = AnimationKey.Up;
                 direction = Direction.North;
                 motion.Y = -1;
             }
             else if (InputHandler.KeyDown(Keys.S) ||
                 InputHandler.ButtonDown(Buttons.LeftThumbstickDown, PlayerIndex.One))
             {
-                _sprite.CurrentAnimation = AnimationKey.Down;
+                Sprite.CurrentAnimation = AnimationKey.Down;
                 direction = Direction.South;
                 motion.Y = 1;
             }
@@ -79,14 +80,14 @@ namespace Get.The.Milk.Grui.Components
             if (InputHandler.KeyDown(Keys.A) ||
                 InputHandler.ButtonDown(Buttons.LeftThumbstickLeft, PlayerIndex.One))
             {
-                _sprite.CurrentAnimation = AnimationKey.Left;
+                Sprite.CurrentAnimation = AnimationKey.Left;
                 direction = Direction.West;
                 motion.X = -1;
             }
             else if (InputHandler.KeyDown(Keys.D) ||
                 InputHandler.ButtonDown(Buttons.LeftThumbstickRight, PlayerIndex.One))
             {
-                _sprite.CurrentAnimation = AnimationKey.Right;
+                Sprite.CurrentAnimation = AnimationKey.Right;
                 direction = Direction.East;
                 motion.X = 1;
             }
@@ -104,16 +105,17 @@ namespace Get.The.Milk.Grui.Components
             if (motion != Vector2.Zero)
             {
 
-                    _sprite.IsAnimating = true;
+                    Sprite.IsAnimating = true;
                     motion.Normalize();
 
-                    var targetPosition = _sprite.Position + motion * _teleport.DefaultDistance;
-                    targetPosition = targetPosition.LockToMap(GameRef.CurrentLevelTileMap,_sprite.Width,_sprite.Height);
+                    var targetPosition = Sprite.Position + motion * _teleport.DefaultDistance;
+                    targetPosition = targetPosition.LockToMap(GameRef.CurrentLevelTileMap,Sprite.Width,Sprite.Height);
                     var newCellNumber = targetPosition.ConvertToCellNumber(
                         (int)_rpgGameCore.CurrentLevel.SizeOfLevel,
-                        _sprite.Width,
-                        _sprite.Height,
-                        direction);
+                        Sprite.Width,
+                        Sprite.Height,
+                        direction,
+                        _xLevel.VerticalIndent);
                     if (newCellNumber != _rpgGameCore.Player.CellNumber)
                     {
                         _teleport.TargetCell = newCellNumber;
@@ -121,26 +123,26 @@ namespace Get.The.Milk.Grui.Components
                         MarkReachable((MovementActionTemplateExtraData)actionResult.ExtraData);
                         if(actionResult.ResultType==ActionResultType.Ok)
                         {
-                            _sprite.Position = targetPosition;
+                            Sprite.Position = targetPosition;
                         }
                     }
                     else
                     {
-                        _sprite.Position = targetPosition;
+                        Sprite.Position = targetPosition;
                     }
                     if (Camera.CameraMode == CameraMode.Follow)
-                        Camera.LockToSprite(_sprite);
+                        Camera.LockToSprite(Sprite);
             }
             else
             {
-                _sprite.IsAnimating = false;
+                Sprite.IsAnimating = false;
             }
             if (InputHandler.KeyReleased(Keys.F) ||
                 InputHandler.ButtonReleased(Buttons.RightStick, PlayerIndex.One))
             {
                 Camera.ToggleCameraMode();
                 if (Camera.CameraMode == CameraMode.Follow)
-                    Camera.LockToSprite(_sprite);
+                    Camera.LockToSprite(Sprite);
             }
 
             if (Camera.CameraMode != CameraMode.Follow)
@@ -148,7 +150,7 @@ namespace Get.The.Milk.Grui.Components
                 if (InputHandler.KeyReleased(Keys.C) ||
                     InputHandler.ButtonReleased(Buttons.LeftStick, PlayerIndex.One))
                 {
-                    Camera.LockToSprite(_sprite);
+                    Camera.LockToSprite(Sprite);
                 }
             }
         }
@@ -175,14 +177,14 @@ namespace Get.The.Milk.Grui.Components
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            _sprite.Draw(gameTime, spriteBatch,Camera);
+            Sprite.Draw(gameTime, spriteBatch,Camera);
         }
 
         #endregion
 
         public GetTheMilkGameUI GameRef { get; set; }
 
-        internal void LoadContent(Game gameRef)
+        internal void LoadContent(Game gameRef,ControlManager controlManager)
         {
             Texture2D spriteSheet = gameRef.Content.Load<Texture2D>(@"CharacterSprites\malefighter");
             Dictionary<AnimationKey, Animation> animations = new Dictionary<AnimationKey, Animation>();
@@ -199,7 +201,7 @@ namespace Get.The.Milk.Grui.Components
             animation = new Animation(3, 32, 32, 0, 96);
             animations.Add(AnimationKey.Up, animation);
 
-            _sprite = new AnimatedSprite(spriteSheet, animations);
+            Sprite = new AnimatedSprite(spriteSheet, animations,Engine.CellToPoint(_xLevel.Level.StartingCell,(int)_xLevel.Level.SizeOfLevel),_xLevel.VerticalIndent);
         }
 
     }

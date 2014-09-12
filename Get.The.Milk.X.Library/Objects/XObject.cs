@@ -15,6 +15,7 @@ namespace Get.The.Milk.X.Library.Objects
     {
         private Game _game;
         private Rectangle? _sourceRectangle;
+        private int _verticalIndent;
         #region Property Region
 
         public NonCharacterObject Object
@@ -33,11 +34,12 @@ namespace Get.The.Milk.X.Library.Objects
 
         #region Constructor Region
 
-        public XObject(NonCharacterObject o,Game game,Rectangle? sourceRectangle)
+        public XObject(NonCharacterObject o,Game game,Rectangle? sourceRectangle,int verticalIndent)
         {
             Object = o;
             _game = game;
             _sourceRectangle = sourceRectangle;
+            _verticalIndent = verticalIndent;
         }
 
         #endregion
@@ -79,7 +81,7 @@ namespace Get.The.Milk.X.Library.Objects
 
             Sprite = new BaseSprite(spriteSheet,
                 _sourceRectangle,
-                Engine.CellToPoint(Object.CellNumber,(int)((Level)Object.StorageContainer.Owner).SizeOfLevel));
+                Engine.CellToPoint(Object.CellNumber,(int)((Level)Object.StorageContainer.Owner).SizeOfLevel),_verticalIndent);
         }
 
         #endregion

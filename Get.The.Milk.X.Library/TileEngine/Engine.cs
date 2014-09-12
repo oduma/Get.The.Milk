@@ -10,21 +10,20 @@ namespace Get.The.Milk.X.Library.TileEngine
     {
         #region Field Region
 
-        static int tileWidth;
-        static int tileHeight;
-
         #endregion
 
         #region Property Region
 
         public static int TileWidth
         {
-            get { return tileWidth; }
+            get;
+            private set;
         }
 
         public static int TileHeight
         {
-            get { return tileHeight; }
+            get;
+            private set;
         }
 
         #endregion
@@ -33,8 +32,8 @@ namespace Get.The.Milk.X.Library.TileEngine
 
         public Engine(int tileWidth, int tileHeight)
         {
-            Engine.tileWidth = tileWidth;
-            Engine.tileHeight = tileHeight;
+            Engine.TileWidth = tileWidth;
+            Engine.TileHeight = tileHeight;
         }
 
         #endregion
@@ -43,7 +42,7 @@ namespace Get.The.Milk.X.Library.TileEngine
 
         public static Point VectorToPoint(Vector2 position)
         {
-            return new Point((int)position.X / tileWidth, (int)position.Y / tileHeight);
+            return new Point((int)position.X / TileWidth, (int)position.Y / TileHeight);
         }
         public static Point CellToPoint(int cellNumber,int mapSize)
         {

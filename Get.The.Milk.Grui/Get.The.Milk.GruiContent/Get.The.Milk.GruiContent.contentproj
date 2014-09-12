@@ -68,6 +68,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharacterSprites\health.png">
+      <Name>health</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Content Include="GameData\GDT.gdu">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>GDT</Name>

@@ -14,6 +14,7 @@ namespace Get.The.Milk.X.Library.Characters
     public class XCharacter
     {
         private Game _game;
+        private int _verticalIndent;
         #region Property Region
 
         public Character Character
@@ -32,10 +33,11 @@ namespace Get.The.Milk.X.Library.Characters
 
         #region Constructor Region
 
-        public XCharacter(Character character,Game game)
+        public XCharacter(Character character, Game game, int verticalIndent)
         {
             Character = character;
             _game = game;
+            _verticalIndent = verticalIndent;
         }
 
         #endregion
@@ -74,7 +76,7 @@ namespace Get.The.Milk.X.Library.Characters
             animation = new Animation(3, 32, 32, 0, 96);
             animations.Add(AnimationKey.Up, animation);
 
-            Sprite = new AnimatedSprite(spriteSheet, animations, Engine.CellToPoint(Character.CellNumber, (int)((Level)Character.StorageContainer.Owner).SizeOfLevel));
+            Sprite = new AnimatedSprite(spriteSheet, animations, Engine.CellToPoint(Character.CellNumber, (int)((Level)Character.StorageContainer.Owner).SizeOfLevel),_verticalIndent);
 
         }
         #endregion

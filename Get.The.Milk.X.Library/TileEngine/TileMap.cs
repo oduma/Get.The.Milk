@@ -10,6 +10,7 @@ namespace Get.The.Milk.X.Library.TileEngine
         #region Field Region
 
         Tileset _tileset;
+        public int VerticalIndent { get; private set; }
 
         #endregion
 
@@ -32,9 +33,10 @@ namespace Get.The.Milk.X.Library.TileEngine
 
         #region Constructor Region
 
-        public TileMap(Tileset tileset, Map map)
+        public TileMap(Tileset tileset, Map map, int verticalIndent)
         {
             _tileset = tileset;
+            VerticalIndent = verticalIndent;
 
             Map = map;
         }
@@ -50,7 +52,7 @@ namespace Get.The.Milk.X.Library.TileEngine
 
             for (int y = 0; y < Map.Size; y++)
             {
-                destination.Y = y * Engine.TileHeight - (int)camera.Position.Y;
+                destination.Y = VerticalIndent + y * Engine.TileHeight - (int)camera.Position.Y;
 
                 for (int x = 0; x < Map.Size; x++)
                 {
@@ -73,12 +75,12 @@ namespace Get.The.Milk.X.Library.TileEngine
 
         public Vector2 GetPosition(int cellNumber)
         {
-            return new Vector2((float)(cellNumber % (int)Map.Parent.SizeOfLevel), (float)(cellNumber / (int)Map.Parent.SizeOfLevel));
+            return new Vector2((float)(cellNumber % (int)Map.Parent.SizeOfLevel), VerticalIndent + (float)(cellNumber / (int)Map.Parent.SizeOfLevel));
         }
 
         internal int GetCellFromPoint(Point point)
         {
-            var row = point.Y / Engine.TileHeight;
+            var row = (point.Y - VerticalIndent)/ Engine.TileHeight;
             var col = point.X / Engine.TileWidth;
 
             return row * Map.Size + col;

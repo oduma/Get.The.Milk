@@ -93,12 +93,12 @@ namespace Get.The.Milk.X.Library.Sprites
             
         }
 
-        public BaseSprite(Texture2D image, Rectangle? sourceRectangle, Point tile)
+        public BaseSprite(Texture2D image, Rectangle? sourceRectangle, Point tile,int verticalIndent)
             : this(image, sourceRectangle)
         {
             this.position = new Vector2(
                 tile.X * Engine.TileWidth,
-                tile.Y * Engine.TileHeight);
+                tile.Y * Engine.TileHeight + verticalIndent);
         }
 
         #endregion

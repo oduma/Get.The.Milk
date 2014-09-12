@@ -15,7 +15,6 @@ using System.Text;
 
 namespace Get.The.Milk.Grui.GameScreens
 {
-    [System.Runtime.InteropServices.GuidAttribute("21E67048-CC3B-4A37-81BF-4BD356AC431A")]
     public class GamePlayScreen : BaseGameState
     {
         #region Field Region
@@ -25,15 +24,12 @@ namespace Get.The.Milk.Grui.GameScreens
 
         #endregion
 
-        #region Property Region
-        #endregion
-
         #region Constructor Region
 
-        public GamePlayScreen(Game game, GameStateManager manager)
+        public GamePlayScreen(Game game, GameStateManager manager,int verticalIndent)
             : base(game, manager)
         {
-
+            _verticalIndent = verticalIndent;
         }
 
         #endregion
@@ -47,12 +43,12 @@ namespace Get.The.Milk.Grui.GameScreens
 
         protected override void LoadContent()
         {
+            base.LoadContent();
             _xLevel.LoadContent();
-            _playerComponent.LoadContent(GameRef);
+            _playerComponent.LoadContent(GameRef,ControlManager);
             
             GameRef.CurrentLevelTileMap = _xLevel.Map;
             _playerComponent.Camera = new Camera(GameRef.ScreenRectangle, _xLevel.Map);
-            base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
@@ -90,6 +86,7 @@ namespace Get.The.Milk.Grui.GameScreens
 
         private RpgGameCore _rpgGameCore;
         private DateTime _startDisplayActionTime;
+        private int _verticalIndent;
         public RpgGameCore RpgGameCore 
         { 
             get 
@@ -99,7 +96,7 @@ namespace Get.The.Milk.Grui.GameScreens
             set 
             { 
                 _rpgGameCore = value;
-                _xLevel = new XLevel(GameRef, RpgGameCore.CurrentLevel, GameRef.ScreenRectangle);
+                _xLevel = new XLevel(GameRef, RpgGameCore.CurrentLevel, GameRef.ScreenRectangle,_verticalIndent);
                 _xLevel.PointAndClick -= _xLevel_PointAndClick;
                 _xLevel.PointAndClick += _xLevel_PointAndClick;
                 _playerComponent = new PlayerComponent(GameRef, _rpgGameCore,_xLevel);

@@ -42,8 +42,8 @@ namespace Get.The.Milk.Grui.GameScreens
             var menuFont = content.Load<SpriteFont>(@"Fonts\ControlFont");
             ControlManager = new ControlManager(menuFont);
             base.LoadContent();
-            Manager = new Manager(GameRef, GameRef.Graphics);
 
+            Manager = new Manager(GameRef, GameRef.Graphics);
             Manager.SkinDirectory = @"Content\Skins\";
             Manager.SetSkin("Default");
 

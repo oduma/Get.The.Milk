@@ -1,4 +1,5 @@
-﻿using Get.The.Milk.X.Library;
+﻿using Get.The.Milk.Grui.Components;
+using Get.The.Milk.X.Library;
 using GetTheMilk.Actions.ActionTemplates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -35,6 +36,7 @@ namespace Get.The.Milk.Grui.GameScreens
 
         protected override void LoadContent()
         {
+
             base.LoadContent();
         }
 
@@ -53,9 +55,7 @@ namespace Get.The.Milk.Grui.GameScreens
                 null,
                 null,
                 Matrix.Identity);
-
             base.Draw(gameTime);
-
             GameRef.SpriteBatch.End();
         }
 

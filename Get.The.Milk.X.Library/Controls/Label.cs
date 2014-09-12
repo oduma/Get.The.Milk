@@ -26,7 +26,7 @@ namespace Get.The.Milk.X.Library.Controls
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(SpriteFont, Value.ToString(), Position, Color);
+            spriteBatch.DrawString(SpriteFont, ((Value!=null)?Value.ToString():string.Empty), Position, Color);
         }
 
         public override void HandleInput(PlayerIndex playerIndex)

@@ -19,6 +19,7 @@ namespace Get.The.Milk.X.Library.World
         private Game _game;
         Engine engine = new Engine(32, 32);
         private Rectangle? _sourceRectangle;
+        public int VerticalIndent { get; private set; }
         #region Property Region
 
         public TileMap Map
@@ -41,13 +42,14 @@ namespace Get.The.Milk.X.Library.World
 
         #region Constructor Region
 
-        public XLevel(Game game, Level level, Rectangle? sourceRectangle)
+        public XLevel(Game game, Level level, Rectangle? sourceRectangle, int verticalIndent)
         {
             Level = level;
             _game = game;
             _sourceRectangle = sourceRectangle;
-            Characters = Level.Characters.Select(c => new XCharacter(c, _game)).ToList();
-            Objects = Level.Inventory.Select(o => new XObject(o, _game, _sourceRectangle)).ToList();
+            VerticalIndent = verticalIndent;
+            Characters = Level.Characters.Select(c => new XCharacter(c, _game,VerticalIndent)).ToList();
+            Objects = Level.Inventory.Select(o => new XObject(o, _game, _sourceRectangle,VerticalIndent)).ToList();
         }
 
         #endregion
@@ -118,7 +120,7 @@ namespace Get.The.Milk.X.Library.World
             Texture2D tilesetTexture = _game.Content.Load<Texture2D>(tilesetName);
             var tileset = new Tileset(tilesetTexture, 8, 8, 32, 32);
 
-            Map = new TileMap(tileset, Level.CurrentMap);
+            Map = new TileMap(tileset, Level.CurrentMap,VerticalIndent);
 
             foreach (var character in Characters)
                 character.LoadContent();
@@ -138,7 +140,7 @@ namespace Get.The.Milk.X.Library.World
                 }
                 foreach (var character in Level.Characters.Where(c => !Characters.Any(x=>x.Character==c)))
                 {
-                    var xChar= new XCharacter(character,_game);
+                    var xChar= new XCharacter(character,_game,VerticalIndent);
                     xChar.LoadContent();
                     Characters.Add(xChar);
                 }
@@ -152,7 +154,7 @@ namespace Get.The.Milk.X.Library.World
                 }
                 foreach (var obj in Level.Inventory.Where(c => !Objects.Any(x=>x.Object==c)))
                 {
-                    var xObj= new XObject(obj,_game,_sourceRectangle);
+                    var xObj= new XObject(obj,_game,_sourceRectangle,VerticalIndent);
                     xObj.LoadContent();
                     Objects.Add(xObj);
                 }
